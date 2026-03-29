@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish-artifacts:
+        description: 'Publish artifacts'
+        required: false
+        type: boolean
+        default: false
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci:
+    uses: EvergineTeam/evergine-standards/.github/workflows/binding-common-ci.yml@v2
+    with:
+      generator-project: "YourBindingGen/YourBindingGen/YourBindingGen.csproj"
+      generator-name: "YourBindingGen"
+      binding-project: "YourBindingGen/Evergine.Bindings.YourBinding/Evergine.Bindings.YourBinding.csproj"
+      target-framework: "net8.0"
+      runtime-identifier: ""
+      build-configuration: "Release"
+      nuget-artifacts: ${{ inputs.publish-artifacts || false }}
+      revision: ${{ github.run_number }}
