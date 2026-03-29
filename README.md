@@ -1,6 +1,6 @@
 # JoltPhysics.NET
 
-This repository contains low-level bindings for [JoltPhysics](https://github.com/jrouwe/JoltPhysics) (via [JoltC](https://github.com/jrouwe/JoltPhysicsC)) used in [Evergine](https://evergine.com/).
+This repository contains low-level bindings for [JoltPhysics](https://github.com/jrouwe/JoltPhysics) (via [JoltPhysicsC](https://github.com/EvergineTeam/JoltPhysicsC)) used in [Evergine](https://evergine.com/).
 
 [![CI](https://github.com/EvergineTeam/JoltPhysics.NET/actions/workflows/CI.yml/badge.svg)](https://github.com/EvergineTeam/JoltPhysics.NET/actions/workflows/CI.yml)
 [![CD](https://github.com/EvergineTeam/JoltPhysics.NET/actions/workflows/CD.yml/badge.svg)](https://github.com/EvergineTeam/JoltPhysics.NET/actions/workflows/CD.yml)
@@ -8,15 +8,15 @@ This repository contains low-level bindings for [JoltPhysics](https://github.com
 
 ## Purpose
 
-[JoltPhysics](https://github.com/jrouwe/JoltPhysics) is a high-performance, multi-core friendly rigid body physics engine written in C++. JoltC provides a pure C API layer, and this repository auto-generates .NET P/Invoke bindings from those C headers using [CppAst](https://github.com/xoofx/CppAst.NET).
+[JoltPhysics](https://github.com/jrouwe/JoltPhysics) is a high-performance, multi-core friendly rigid body physics engine written in C++. JoltPhysicsC provides a pure C API layer, and this repository auto-generates .NET P/Invoke bindings from those C headers using [CppAst](https://github.com/xoofx/CppAst.NET).
 
 ## Features
 
-- **Full JoltPhysics C API** — Covers the complete JoltC surface: physics system, body management, shapes, constraints, queries, character controllers, vehicles, skeletons, and ragdolls
-- **Auto-generated bindings** — Generated from JoltC headers using CppAst; easily regenerated when the upstream API evolves
+- **Full JoltPhysics C API** — Covers the complete JoltPhysicsC surface: physics system, body management, shapes, constraints, queries, character controllers, vehicles, skeletons, and ragdolls
+- **Auto-generated bindings** — Generated from JoltPhysicsC headers using CppAst; easily regenerated when the upstream API evolves
 - **Blittable structs** — Math types (Vec3, Quat, Mat44, etc.) and settings structs are blittable, allowing zero-copy interop
 - **Unsafe raw pointers** — Native pointer semantics preserved for maximum performance
-- **Pre-built native libraries** — Ships with JoltC binaries for all supported platforms
+- **Pre-built native libraries** — Ships with JoltPhysicsC binaries for all supported platforms
 
 ## Supported Platforms
 
