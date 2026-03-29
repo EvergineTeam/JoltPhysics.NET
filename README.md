@@ -1,46 +1,49 @@
-# Evergine.Bindings.YourBinding
+# JoltPhysics.NET
 
-Low-level .NET bindings for YourBinding, used in Evergine.
+This repository contains low-level bindings for [JoltPhysics](https://github.com/jrouwe/JoltPhysics) (via [JoltC](https://github.com/jrouwe/JoltPhysicsC)) used in [Evergine](https://evergine.com/).
 
-## Initializing from template
+[![CI](https://github.com/EvergineTeam/JoltPhysics.NET/actions/workflows/CI.yml/badge.svg)](https://github.com/EvergineTeam/JoltPhysics.NET/actions/workflows/CI.yml)
+[![CD](https://github.com/EvergineTeam/JoltPhysics.NET/actions/workflows/CD.yml/badge.svg)](https://github.com/EvergineTeam/JoltPhysics.NET/actions/workflows/CD.yml)
+[![Nuget](https://img.shields.io/nuget/v/Evergine.Bindings.JoltPhysics?logo=nuget)](https://www.nuget.org/packages/Evergine.Bindings.JoltPhysics)
 
-After creating a new repository from this template, run the initialization script to replace the `YourBinding` placeholder with your actual binding name:
+## Purpose
 
-```powershell
-.\Initialize-Binding.ps1 -BindingName "OpenGL"
-```
+[JoltPhysics](https://github.com/jrouwe/JoltPhysics) is a high-performance, multi-core friendly rigid body physics engine written in C++. JoltC provides a pure C API layer, and this repository auto-generates .NET P/Invoke bindings from those C headers using [CppAst](https://github.com/xoofx/CppAst.NET).
 
-The script will:
-- Replace all occurrences of `YourBinding` in file contents, file names, and folder names
-- Move the CI/CD workflows from `.github/workflow-templates/` to `.github/workflows/` so they become active
+## Features
 
-After running it, review the changes and commit.
+- **Full JoltPhysics C API** — Covers the complete JoltC surface: physics system, body management, shapes, constraints, queries, character controllers, vehicles, skeletons, and ragdolls
+- **Auto-generated bindings** — Generated from JoltC headers using CppAst; easily regenerated when the upstream API evolves
+- **Blittable structs** — Math types (Vec3, Quat, Mat44, etc.) and settings structs are blittable, allowing zero-copy interop
+- **Unsafe raw pointers** — Native pointer semantics preserved for maximum performance
+- **Pre-built native libraries** — Ships with JoltC binaries for all supported platforms
 
-## Structure
+## Supported Platforms
 
-```
-YourBindingGen/
-  YourBindingGen/                         # Generator console app (produces C# bindings)
-  Evergine.Bindings.YourBinding/          # Generated .NET bindings NuGet package
-build/scripts/                            # Synced from evergine-standards
-```
+- [x] Windows x64
+- [x] Windows ARM64
+- [x] Linux x64
+- [x] Linux ARM64
+- [x] macOS ARM64
 
 ## Development
 
 ### Generate bindings locally
 
-```powershell
-pwsh ./build/scripts/Generate-Bindings-DotNet.ps1 `
-  -GeneratorProject "YourBindingGen/YourBindingGen/YourBindingGen.csproj" `
-  -GeneratorName "YourBindingGen"
+```bash
+dotnet run --project JoltPhysicsGen/JoltPhysicsGen.csproj
 ```
 
-### Generate NuGet packages
+### Build the binding library
 
-```powershell
-pwsh ./build/scripts/Generate-NuGets-DotNet.ps1 `
-  -Version "1.0.0-local" `
-  -Projects @("YourBindingGen/Evergine.Bindings.YourBinding/Evergine.Bindings.YourBinding.csproj")
+```bash
+dotnet build Evergine.Bindings.JoltPhysics/Evergine.Bindings.JoltPhysics.csproj
+```
+
+### Pack for NuGet
+
+```bash
+dotnet pack Evergine.Bindings.JoltPhysics/Evergine.Bindings.JoltPhysics.csproj -c Release
 ```
 
 ## Workflows
