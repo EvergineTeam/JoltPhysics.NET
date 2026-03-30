@@ -46,6 +46,12 @@ dotnet build Evergine.Bindings.JoltPhysics/Evergine.Bindings.JoltPhysics.csproj
 dotnet pack Evergine.Bindings.JoltPhysics/Evergine.Bindings.JoltPhysics.csproj -c Release
 ```
 
+### Run API smoke tests (Windows)
+
+```bash
+dotnet test Tests/JoltPhysics.APITests/JoltPhysics.APITests.csproj -c Debug -r win-x64
+```
+
 ## Workflows
 
 | Workflow | Trigger | Description |
