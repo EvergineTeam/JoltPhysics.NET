@@ -20,7 +20,7 @@ jobs:
       generator-project: "YourBindingGen/YourBindingGen/YourBindingGen.csproj"
       generator-name: "YourBindingGen"
       binding-project: "YourBindingGen/Evergine.Bindings.YourBinding/Evergine.Bindings.YourBinding.csproj"
-      target-framework: "net8.0"
+      target-framework: "net10.0"
       runtime-identifier: ""
       build-configuration: "Release"
       nuget-artifacts: ${{ inputs.publish-artifacts || false }}
