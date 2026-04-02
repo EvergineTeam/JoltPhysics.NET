@@ -2,9 +2,9 @@ using System;
 using Evergine.Bindings.JoltPhysics;
 using FluentAssertions;
 using Xunit;
-using static JoltPhysics.APITests.NativeTestHelpers;
+using static JoltPhysicsTests.NativeTestHelpers;
 
-namespace JoltPhysics.APITests;
+namespace JoltPhysicsTests;
 
 [Collection("Jolt")]
 public unsafe class BodyInterfaceApiTests
@@ -15,11 +15,11 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltPhysicsNative.JoltC_BodyInterface_SetLinearVelocity(env.BodyInterface, body, Vec3(1f, 2f, 3f));
-		JoltC_Vec3 vel = JoltPhysicsNative.JoltC_BodyInterface_GetLinearVelocity(env.BodyInterface, body);
-		vel.x.Should().BeApproximately(1f, 1e-5f);
-		vel.y.Should().BeApproximately(2f, 1e-5f);
-		vel.z.Should().BeApproximately(3f, 1e-5f);
+		JoltPhysics.BodyInterface_SetLinearVelocity(env.BodyInterface, body, Vec3(1f, 2f, 3f));
+		Vec3 vel = JoltPhysics.BodyInterface_GetLinearVelocity(env.BodyInterface, body);
+		vel.X.Should().BeApproximately(1f, 1e-5f);
+		vel.Y.Should().BeApproximately(2f, 1e-5f);
+		vel.Z.Should().BeApproximately(3f, 1e-5f);
 	}
 
 	[Fact]
@@ -28,9 +28,9 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltPhysicsNative.JoltC_BodyInterface_SetAngularVelocity(env.BodyInterface, body, Vec3(0f, 3.14f, 0f));
-		JoltC_Vec3 angVel = JoltPhysicsNative.JoltC_BodyInterface_GetAngularVelocity(env.BodyInterface, body);
-		angVel.y.Should().BeApproximately(3.14f, 1e-3f);
+		JoltPhysics.BodyInterface_SetAngularVelocity(env.BodyInterface, body, Vec3(0f, 3.14f, 0f));
+		Vec3 angVel = JoltPhysics.BodyInterface_GetAngularVelocity(env.BodyInterface, body);
+		angVel.Y.Should().BeApproximately(3.14f, 1e-3f);
 	}
 
 	[Fact]
@@ -39,11 +39,11 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltPhysicsNative.JoltC_BodyInterface_SetFriction(env.BodyInterface, body, 0.75f);
-		JoltPhysicsNative.JoltC_BodyInterface_GetFriction(env.BodyInterface, body).Should().BeApproximately(0.75f, 1e-5f);
+		JoltPhysics.BodyInterface_SetFriction(env.BodyInterface, body, 0.75f);
+		JoltPhysics.BodyInterface_GetFriction(env.BodyInterface, body).Should().BeApproximately(0.75f, 1e-5f);
 
-		JoltPhysicsNative.JoltC_BodyInterface_SetRestitution(env.BodyInterface, body, 0.9f);
-		JoltPhysicsNative.JoltC_BodyInterface_GetRestitution(env.BodyInterface, body).Should().BeApproximately(0.9f, 1e-5f);
+		JoltPhysics.BodyInterface_SetRestitution(env.BodyInterface, body, 0.9f);
+		JoltPhysics.BodyInterface_GetRestitution(env.BodyInterface, body).Should().BeApproximately(0.9f, 1e-5f);
 	}
 
 	[Fact]
@@ -52,13 +52,13 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltPhysicsNative.JoltC_BodyInterface_IsActive(env.BodyInterface, body).Should().Be(1, "body should start active");
+		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().Be(1, "body should start active");
 
-		JoltPhysicsNative.JoltC_BodyInterface_DeactivateBody(env.BodyInterface, body);
-		JoltPhysicsNative.JoltC_BodyInterface_IsActive(env.BodyInterface, body).Should().Be(0, "body should be deactivated");
+		JoltPhysics.BodyInterface_DeactivateBody(env.BodyInterface, body);
+		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().Be(0, "body should be deactivated");
 
-		JoltPhysicsNative.JoltC_BodyInterface_ActivateBody(env.BodyInterface, body);
-		JoltPhysicsNative.JoltC_BodyInterface_IsActive(env.BodyInterface, body).Should().Be(1, "body should be reactivated");
+		JoltPhysics.BodyInterface_ActivateBody(env.BodyInterface, body);
+		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().Be(1, "body should be reactivated");
 	}
 
 	[Fact]
@@ -67,11 +67,11 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltPhysicsNative.JoltC_BodyInterface_SetPosition(env.BodyInterface, body, RVec3(10f, 20f, 30f), JoltC_Activation.JOLTC_ACTIVATION_ACTIVATE);
-		JoltC_RVec3 pos = JoltPhysicsNative.JoltC_BodyInterface_GetPosition(env.BodyInterface, body);
-		pos.x.Should().BeApproximately(10f, 1e-3f);
-		pos.y.Should().BeApproximately(20f, 1e-3f);
-		pos.z.Should().BeApproximately(30f, 1e-3f);
+		JoltPhysics.BodyInterface_SetPosition(env.BodyInterface, body, RVec3(10f, 20f, 30f), Activation.Activate);
+		RVec3 pos = JoltPhysics.BodyInterface_GetPosition(env.BodyInterface, body);
+		pos.X.Should().BeApproximately(10f, 1e-3f);
+		pos.Y.Should().BeApproximately(20f, 1e-3f);
+		pos.Z.Should().BeApproximately(30f, 1e-3f);
 	}
 
 	[Fact]
@@ -80,13 +80,13 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(1f, 2f, 3f));
 
-		JoltC_RVec3 pos;
-		JoltC_Quat rot;
-		JoltPhysicsNative.JoltC_BodyInterface_GetPositionAndRotation(env.BodyInterface, body, &pos, &rot);
-		pos.x.Should().BeApproximately(1f, 1e-3f);
-		pos.y.Should().BeApproximately(2f, 1e-3f);
-		pos.z.Should().BeApproximately(3f, 1e-3f);
-		rot.w.Should().BeApproximately(1f, 1e-3f, "should be identity rotation");
+		RVec3 pos;
+		Quat rot;
+		JoltPhysics.BodyInterface_GetPositionAndRotation(env.BodyInterface, body, &pos, &rot);
+		pos.X.Should().BeApproximately(1f, 1e-3f);
+		pos.Y.Should().BeApproximately(2f, 1e-3f);
+		pos.Z.Should().BeApproximately(3f, 1e-3f);
+		rot.W.Should().BeApproximately(1f, 1e-3f, "should be identity rotation");
 	}
 
 	[Fact]
@@ -95,15 +95,15 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltC_Quat quat90y = new() { x = 0f, y = 0.7071068f, z = 0f, w = 0.7071068f };
-		JoltPhysicsNative.JoltC_BodyInterface_SetPositionAndRotation(env.BodyInterface, body, RVec3(5f, 10f, 15f), quat90y, JoltC_Activation.JOLTC_ACTIVATION_ACTIVATE);
+		Quat quat90y = new() { X = 0f, Y = 0.7071068f, Z = 0f, W = 0.7071068f };
+		JoltPhysics.BodyInterface_SetPositionAndRotation(env.BodyInterface, body, RVec3(5f, 10f, 15f), quat90y, Activation.Activate);
 
-		JoltC_RVec3 pos;
-		JoltC_Quat rot;
-		JoltPhysicsNative.JoltC_BodyInterface_GetPositionAndRotation(env.BodyInterface, body, &pos, &rot);
-		pos.x.Should().BeApproximately(5f, 1e-3f);
-		pos.y.Should().BeApproximately(10f, 1e-3f);
-		rot.y.Should().BeApproximately(0.7071068f, 1e-3f);
+		RVec3 pos;
+		Quat rot;
+		JoltPhysics.BodyInterface_GetPositionAndRotation(env.BodyInterface, body, &pos, &rot);
+		pos.X.Should().BeApproximately(5f, 1e-3f);
+		pos.Y.Should().BeApproximately(10f, 1e-3f);
+		rot.Y.Should().BeApproximately(0.7071068f, 1e-3f);
 	}
 
 	[Fact]
@@ -113,10 +113,10 @@ public unsafe class BodyInterfaceApiTests
 		uint staticBody = env.CreateStaticBox(Vec3(10f, 1f, 10f), RVec3(0f, 0f, 0f));
 		uint dynamicBody = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltPhysicsNative.JoltC_BodyInterface_GetMotionType(env.BodyInterface, staticBody)
-			.Should().Be(JoltC_MotionType.JOLTC_MOTION_TYPE_STATIC);
-		JoltPhysicsNative.JoltC_BodyInterface_GetMotionType(env.BodyInterface, dynamicBody)
-			.Should().Be(JoltC_MotionType.JOLTC_MOTION_TYPE_DYNAMIC);
+		JoltPhysics.BodyInterface_GetMotionType(env.BodyInterface, staticBody)
+			.Should().Be(MotionType.Static);
+		JoltPhysics.BodyInterface_GetMotionType(env.BodyInterface, dynamicBody)
+			.Should().Be(MotionType.Dynamic);
 	}
 
 	[Fact]
@@ -126,11 +126,11 @@ public unsafe class BodyInterfaceApiTests
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
 		// Zero out velocity first
-		JoltPhysicsNative.JoltC_BodyInterface_SetLinearVelocity(env.BodyInterface, body, Vec3(0f, 0f, 0f));
-		JoltPhysicsNative.JoltC_BodyInterface_AddImpulse(env.BodyInterface, body, Vec3(100f, 0f, 0f));
+		JoltPhysics.BodyInterface_SetLinearVelocity(env.BodyInterface, body, Vec3(0f, 0f, 0f));
+		JoltPhysics.BodyInterface_AddImpulse(env.BodyInterface, body, Vec3(100f, 0f, 0f));
 
-		JoltC_Vec3 vel = JoltPhysicsNative.JoltC_BodyInterface_GetLinearVelocity(env.BodyInterface, body);
-		vel.x.Should().BeGreaterThan(0f, "impulse should have added velocity in x direction");
+		Vec3 vel = JoltPhysics.BodyInterface_GetLinearVelocity(env.BodyInterface, body);
+		vel.X.Should().BeGreaterThan(0f, "impulse should have added velocity in x direction");
 	}
 
 	[Fact]
@@ -139,14 +139,14 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltPhysicsNative.JoltC_BodyInterface_SetLinearVelocity(env.BodyInterface, body, Vec3(0f, 0f, 0f));
-		JoltPhysicsNative.JoltC_BodyInterface_AddForce(env.BodyInterface, body, Vec3(1000f, 0f, 0f));
+		JoltPhysics.BodyInterface_SetLinearVelocity(env.BodyInterface, body, Vec3(0f, 0f, 0f));
+		JoltPhysics.BodyInterface_AddForce(env.BodyInterface, body, Vec3(1000f, 0f, 0f));
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 		env.Step();
 
-		JoltC_Vec3 vel = JoltPhysicsNative.JoltC_BodyInterface_GetLinearVelocity(env.BodyInterface, body);
-		vel.x.Should().BeGreaterThan(0f, "force should produce velocity after stepping");
+		Vec3 vel = JoltPhysics.BodyInterface_GetLinearVelocity(env.BodyInterface, body);
+		vel.X.Should().BeGreaterThan(0f, "force should produce velocity after stepping");
 	}
 
 	[Fact]
@@ -155,29 +155,29 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 
 		// Create a kinematic body
-		IntPtr shape = JoltPhysicsNative.JoltC_BoxShape_Create(Vec3(0.5f, 0.5f, 0.5f), 0.05f);
-		JoltC_BodyCreationSettings settings = default;
-		JoltPhysicsNative.JoltC_BodyCreationSettings_SetDefault(&settings);
-		settings.shape = shape;
-		settings.motionType = JoltC_MotionType.JOLTC_MOTION_TYPE_KINEMATIC;
-		settings.position = RVec3(0f, 5f, 0f);
-		settings.objectLayer = JoltTestEnvironment.LayerMoving;
-		settings.allowDynamicOrKinematic = 1;
+		IntPtr shape = JoltPhysics.BoxShape_Create(Vec3(0.5f, 0.5f, 0.5f), 0.05f);
+		BodyCreationSettings settings = default;
+		JoltPhysics.BodyCreationSettings_SetDefault(&settings);
+		settings .Shape = shape;
+		settings.MotionType = MotionType.Kinematic;
+		settings.Position = RVec3(0f, 5f, 0f);
+		settings.ObjectLayer = JoltTestEnvironment.LayerMoving;
+		settings.AllowDynamicOrKinematic = 1;
 
-		uint body = JoltPhysicsNative.JoltC_BodyInterface_CreateBody(env.BodyInterface, &settings);
-		JoltPhysicsNative.JoltC_BodyInterface_AddBody(env.BodyInterface, body, JoltC_Activation.JOLTC_ACTIVATION_ACTIVATE);
+		uint body = JoltPhysics.BodyInterface_CreateBody(env.BodyInterface, &settings);
+		JoltPhysics.BodyInterface_AddBody(env.BodyInterface, body, Activation.Activate);
 
-		JoltPhysicsNative.JoltC_BodyInterface_MoveKinematic(env.BodyInterface, body, RVec3(10f, 5f, 0f), IdentityQuat(), 1f / 60f);
+		JoltPhysics.BodyInterface_MoveKinematic(env.BodyInterface, body, RVec3(10f, 5f, 0f), IdentityQuat(), 1f / 60f);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 		env.Step();
 
-		JoltC_RVec3 pos = JoltPhysicsNative.JoltC_BodyInterface_GetCenterOfMassPosition(env.BodyInterface, body);
-		pos.x.Should().BeApproximately(10f, 0.5f, "kinematic body should have moved toward target");
+		RVec3 pos = JoltPhysics.BodyInterface_GetCenterOfMassPosition(env.BodyInterface, body);
+		pos.X.Should().BeApproximately(10f, 0.5f, "kinematic body should have moved toward target");
 
 		// Cleanup
-		JoltPhysicsNative.JoltC_BodyInterface_RemoveBody(env.BodyInterface, body);
-		JoltPhysicsNative.JoltC_BodyInterface_DestroyBody(env.BodyInterface, body);
-		JoltPhysicsNative.JoltC_Shape_Destroy(shape);
+		JoltPhysics.BodyInterface_RemoveBody(env.BodyInterface, body);
+		JoltPhysics.BodyInterface_DestroyBody(env.BodyInterface, body);
+		JoltPhysics.Shape_Destroy(shape);
 	}
 }

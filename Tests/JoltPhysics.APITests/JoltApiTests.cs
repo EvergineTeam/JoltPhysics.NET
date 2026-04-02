@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 using Evergine.Bindings.JoltPhysics;
 using FluentAssertions;
 using Xunit;
-using static JoltPhysics.APITests.NativeTestHelpers;
+using static JoltPhysicsTests.NativeTestHelpers;
 
-namespace JoltPhysics.APITests;
+namespace JoltPhysicsTests;
 
 [Collection("Jolt")]
 public unsafe class JoltApiTests
@@ -22,14 +22,14 @@ public unsafe class JoltApiTests
 		uint boxId = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
 		// Read initial position and rotation
-		JoltC_RVec3 initialPos = JoltPhysicsNative.JoltC_BodyInterface_GetCenterOfMassPosition(env.BodyInterface, boxId);
-		JoltC_Quat initialRot = JoltPhysicsNative.JoltC_BodyInterface_GetRotation(env.BodyInterface, boxId);
+		RVec3 initialPos = JoltPhysics.BodyInterface_GetCenterOfMassPosition(env.BodyInterface, boxId);
+		Quat initialRot = JoltPhysics.BodyInterface_GetRotation(env.BodyInterface, boxId);
 
-		initialPos.y.Should().BeApproximately(5f, 0.01f, "box should start at y=5");
-		initialRot.w.Should().BeApproximately(1f, 0.01f, "box should start with identity rotation");
+		initialPos.Y.Should().BeApproximately(5f, 0.01f, "box should start at y=5");
+		initialRot.W.Should().BeApproximately(1f, 0.01f, "box should start with identity rotation");
 
 		// Optimize the broad phase after adding bodies
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 
 		// Step the simulation for ~1 second
 		const int numSteps = 60;
@@ -39,19 +39,19 @@ public unsafe class JoltApiTests
 		}
 
 		// Read updated position and rotation
-		JoltC_RVec3 finalPos = JoltPhysicsNative.JoltC_BodyInterface_GetCenterOfMassPosition(env.BodyInterface, boxId);
-		JoltC_Quat finalRot = JoltPhysicsNative.JoltC_BodyInterface_GetRotation(env.BodyInterface, boxId);
+		RVec3 finalPos = JoltPhysics.BodyInterface_GetCenterOfMassPosition(env.BodyInterface, boxId);
+		Quat finalRot = JoltPhysics.BodyInterface_GetRotation(env.BodyInterface, boxId);
 
 		// After ~1s of gravity the box must have fallen
-		finalPos.y.Should().BeLessThan(initialPos.y, "gravity should move the box downward");
-		finalPos.y.Should().BeGreaterThan(-2f, "the floor should stop the box");
+		finalPos.Y.Should().BeLessThan(initialPos.Y, "gravity should move the box downward");
+		finalPos.Y.Should().BeGreaterThan(-2f, "the floor should stop the box");
 
 		// Rotation quaternion should still be valid (unit length)
-		float rotLen = MathF.Sqrt(finalRot.x * finalRot.x + finalRot.y * finalRot.y + finalRot.z * finalRot.z + finalRot.w * finalRot.w);
+		float rotLen = MathF.Sqrt(finalRot.X * finalRot.X + finalRot.Y * finalRot.Y + finalRot.Z * finalRot.Z + finalRot.W * finalRot.W);
 		rotLen.Should().BeApproximately(1f, 0.01f, "rotation quaternion should be unit length");
 
 		// Verify the physics system tracked the bodies
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumBodies(env.PhysicsSystem).Should().Be(2);
+		JoltPhysics.PhysicsSystem_GetNumBodies(env.PhysicsSystem).Should().Be(2);
 	}
 
 	[Fact]
@@ -59,10 +59,10 @@ public unsafe class JoltApiTests
 	{
 		using var env = new JoltTestEnvironment();
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetMaxBodies(env.PhysicsSystem).Should().BeGreaterThan(0);
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumBodies(env.PhysicsSystem).Should().Be(0);
+		JoltPhysics.PhysicsSystem_GetMaxBodies(env.PhysicsSystem).Should().BeGreaterThan(0);
+		JoltPhysics.PhysicsSystem_GetNumBodies(env.PhysicsSystem).Should().Be(0);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 		env.Step();
 	}
 
@@ -73,34 +73,34 @@ public unsafe class JoltApiTests
 		env.CreateStaticBox(Vec3(50f, 1f, 50f), RVec3(0f, -1f, 0f));
 		uint bodyId = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 2f, 0f));
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 
 		for (int i = 0; i < 90; i++)
 		{
 			env.Step();
 		}
 
-		JoltC_RVec3 position = JoltPhysicsNative.JoltC_BodyInterface_GetCenterOfMassPosition(env.BodyInterface, bodyId);
-		position.y.Should().BeLessThan(1.5f, "gravity should move the body down");
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumBodies(env.PhysicsSystem).Should().Be(2);
+		RVec3 position = JoltPhysics.BodyInterface_GetCenterOfMassPosition(env.BodyInterface, bodyId);
+		position.Y.Should().BeLessThan(1.5f, "gravity should move the body down");
+		JoltPhysics.PhysicsSystem_GetNumBodies(env.PhysicsSystem).Should().Be(2);
 	}
 
 	[Fact]
 	public void Shape_creation_returns_expected_properties()
 	{
-		IntPtr box = JoltPhysicsNative.JoltC_BoxShape_Create(Vec3(1f, 2f, 3f), 0.05f);
+		IntPtr box = JoltPhysics.BoxShape_Create(Vec3(1f, 2f, 3f), 0.05f);
 		try
 		{
-			JoltPhysicsNative.JoltC_Shape_GetType(box).Should().Be(JoltC_ShapeType.JOLTC_SHAPE_TYPE_CONVEX);
-			JoltPhysicsNative.JoltC_Shape_GetSubType(box).Should().Be(JoltC_ShapeSubType.JOLTC_SHAPE_SUB_TYPE_BOX);
-			JoltC_Vec3 halfExtent = JoltPhysicsNative.JoltC_BoxShape_GetHalfExtent(box);
-			halfExtent.x.Should().BeApproximately(1f, 1e-5f);
-			halfExtent.y.Should().BeApproximately(2f, 1e-5f);
-			halfExtent.z.Should().BeApproximately(3f, 1e-5f);
+			JoltPhysics.Shape_GetType(box).Should().Be(ShapeType.Convex);
+			JoltPhysics.Shape_GetSubType(box).Should().Be(ShapeSubType.Box);
+			Vec3 halfExtent = JoltPhysics.BoxShape_GetHalfExtent(box);
+			halfExtent.X.Should().BeApproximately(1f, 1e-5f);
+			halfExtent.Y.Should().BeApproximately(2f, 1e-5f);
+			halfExtent.Z.Should().BeApproximately(3f, 1e-5f);
 		}
 		finally
 		{
-			JoltPhysicsNative.JoltC_Shape_Destroy(box);
+			JoltPhysics.Shape_Destroy(box);
 		}
 	}
 
@@ -108,32 +108,32 @@ public unsafe class JoltApiTests
 	public void Character_virtual_can_create_and_update()
 	{
 		using var env = new JoltTestEnvironment();
-		IntPtr capsule = JoltPhysicsNative.JoltC_CapsuleShape_Create(0.5f, 0.3f);
+		IntPtr capsule = JoltPhysics.CapsuleShape_Create(0.5f, 0.3f);
 		IntPtr character = IntPtr.Zero;
 		try
 		{
-			JoltC_CharacterVirtualSettings settings = default;
-			JoltPhysicsNative.JoltC_CharacterVirtualSettings_SetDefault(&settings);
-			settings.shape = capsule;
-			settings.mass = 50f;
-			settings.maxStrength = 2000f;
+			CharacterVirtualSettings settings = default;
+			JoltPhysics.CharacterVirtualSettings_SetDefault(&settings);
+			settings .Shape = capsule;
+			settings.Mass = 50f;
+			settings.MaxStrength = 2000f;
 
-			character = JoltPhysicsNative.JoltC_CharacterVirtual_Create(&settings, RVec3(0f, 2f, 0f), IdentityQuat(), 0, env.PhysicsSystem);
+			character = JoltPhysics.CharacterVirtual_Create(&settings, RVec3(0f, 2f, 0f), IdentityQuat(), 0, env.PhysicsSystem);
 			character.Should().NotBe(IntPtr.Zero);
 
-			JoltPhysicsNative.JoltC_CharacterVirtual_SetLinearVelocity(character, Vec3(0f, 0f, 0f));
-			JoltPhysicsNative.JoltC_CharacterVirtual_Update(character, 0.016f, Vec3(0f, -9.81f, 0f), env.TempAllocator);
+			JoltPhysics.CharacterVirtual_SetLinearVelocity(character, Vec3(0f, 0f, 0f));
+			JoltPhysics.CharacterVirtual_Update(character, 0.016f, Vec3(0f, -9.81f, 0f), env.TempAllocator);
 
-			JoltC_RVec3 pos = JoltPhysicsNative.JoltC_CharacterVirtual_GetPosition(character);
-			pos.y.Should().BeLessThan(2.1f);
+			RVec3 pos = JoltPhysics.CharacterVirtual_GetPosition(character);
+			pos.Y.Should().BeLessThan(2.1f);
 		}
 		finally
 		{
 			if (character != IntPtr.Zero)
 			{
-				JoltPhysicsNative.JoltC_CharacterVirtual_Destroy(character);
+				JoltPhysics.CharacterVirtual_Destroy(character);
 			}
-			JoltPhysicsNative.JoltC_Shape_Destroy(capsule);
+			JoltPhysics.Shape_Destroy(capsule);
 		}
 	}
 
@@ -147,16 +147,16 @@ public unsafe class JoltApiTests
 		IntPtr constraint = env.CreateFixedConstraint(bodyA, bodyB);
 		constraint.Should().NotBe(IntPtr.Zero);
 
-		uint before = JoltPhysicsNative.JoltC_PhysicsSystem_GetNumConstraints(env.PhysicsSystem);
+		uint before = JoltPhysics.PhysicsSystem_GetNumConstraints(env.PhysicsSystem);
 		before.Should().BeGreaterThan(0u);
 	}
 
 	[Fact]
 	public void Filters_mask_roundtrip()
 	{
-		ushort layer = JoltPhysicsNative.JoltC_ObjectLayerPairFilterMask_GetObjectLayer(1, 2);
-		uint group = JoltPhysicsNative.JoltC_ObjectLayerPairFilterMask_GetGroup(layer);
-		uint mask = JoltPhysicsNative.JoltC_ObjectLayerPairFilterMask_GetMask(layer);
+		ushort layer = JoltPhysics.ObjectLayerPairFilterMask_GetObjectLayer(1, 2);
+		uint group = JoltPhysics.ObjectLayerPairFilterMask_GetGroup(layer);
+		uint mask = JoltPhysics.ObjectLayerPairFilterMask_GetMask(layer);
 
 		layer.Should().NotBe(0);
 		group.Should().Be(1);
@@ -166,24 +166,24 @@ public unsafe class JoltApiTests
 	[Fact]
 	public void Skeleton_allows_joint_addition()
 	{
-		IntPtr skeleton = JoltPhysicsNative.JoltC_Skeleton_Create();
+		IntPtr skeleton = JoltPhysics.Skeleton_Create();
 		try
 		{
 			byte* hip = stackalloc byte[] { (byte)'H', (byte)'i', (byte)'p', 0 };
 			byte* knee = stackalloc byte[] { (byte)'K', (byte)'n', (byte)'e', (byte)'e', 0 };
 
-			uint hipIndex = JoltPhysicsNative.JoltC_Skeleton_AddJoint(skeleton, hip);
-			uint kneeIndex = JoltPhysicsNative.JoltC_Skeleton_AddJoint2(skeleton, knee, (int)hipIndex);
+			uint hipIndex = JoltPhysics.Skeleton_AddJoint(skeleton, hip);
+			uint kneeIndex = JoltPhysics.Skeleton_AddJoint2(skeleton, knee, (int)hipIndex);
 
-			JoltPhysicsNative.JoltC_Skeleton_GetJointCount(skeleton).Should().Be(2);
-			JoltPhysicsNative.JoltC_Skeleton_AreJointsCorrectlyOrdered(skeleton).Should().Be(1);
-			JoltC_SkeletonJoint joint = default;
-			JoltPhysicsNative.JoltC_Skeleton_GetJoint(skeleton, (int)kneeIndex, &joint);
-			joint.parentJointIndex.Should().Be((int)hipIndex);
+			JoltPhysics.Skeleton_GetJointCount(skeleton).Should().Be(2);
+			JoltPhysics.Skeleton_AreJointsCorrectlyOrdered(skeleton).Should().Be(1);
+			SkeletonJoint joint = default;
+			JoltPhysics.Skeleton_GetJoint(skeleton, (int)kneeIndex, &joint);
+			joint.ParentJointIndex.Should().Be((int)hipIndex);
 		}
 		finally
 		{
-			JoltPhysicsNative.JoltC_Skeleton_Destroy(skeleton);
+			JoltPhysics.Skeleton_Destroy(skeleton);
 		}
 	}
 
@@ -191,21 +191,21 @@ public unsafe class JoltApiTests
 	public void Vehicle_wheel_settings_roundtrip()
 	{
 		using var env = new JoltTestEnvironment();
-		IntPtr wheelSettings = JoltPhysicsNative.JoltC_WheelSettings_Create();
+		IntPtr wheelSettings = JoltPhysics.WheelSettings_Create();
 		try
 		{
-			JoltPhysicsNative.JoltC_WheelSettings_SetPosition(wheelSettings, Vec3(0f, 1f, 0f));
-			JoltC_Vec3 pos = JoltPhysicsNative.JoltC_WheelSettings_GetPosition(wheelSettings);
-			pos.y.Should().BeApproximately(1f, 1e-5f);
+			JoltPhysics.WheelSettings_SetPosition(wheelSettings, Vec3(0f, 1f, 0f));
+			Vec3 pos = JoltPhysics.WheelSettings_GetPosition(wheelSettings);
+			pos.Y.Should().BeApproximately(1f, 1e-5f);
 
-			JoltC_VehicleConstraintSettings settings = default;
-			JoltPhysicsNative.JoltC_VehicleConstraintSettings_Init(&settings);
-			settings.maxPitchRollAngle = 0.35f;
-			settings.maxPitchRollAngle.Should().BeApproximately(0.35f, 1e-5f);
+			VehicleConstraintSettings settings = default;
+			JoltPhysics.VehicleConstraintSettings_Init(&settings);
+			settings.MaxPitchRollAngle = 0.35f;
+			settings.MaxPitchRollAngle.Should().BeApproximately(0.35f, 1e-5f);
 		}
 		finally
 		{
-			JoltPhysicsNative.JoltC_WheelSettings_Destroy(wheelSettings);
+			JoltPhysics.WheelSettings_Destroy(wheelSettings);
 		}
 	}
 }

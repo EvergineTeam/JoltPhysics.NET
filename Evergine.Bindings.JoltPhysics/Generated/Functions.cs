@@ -4,4781 +4,4781 @@ using System.Runtime.InteropServices;
 
 namespace Evergine.Bindings.JoltPhysics
 {
-	public static unsafe partial class JoltPhysicsNative
+	public static unsafe partial class JoltPhysics
 	{
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Error handling
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern byte* JoltC_GetLastError();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GetLastError")]
+		public static extern byte* GetLastError();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ClearLastError();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ClearLastError")]
+		public static extern void ClearLastError();
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Init / Shutdown / Trace / Assert
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Init();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Init")]
+		public static extern int Init();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Shutdown();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shutdown")]
+		public static extern void Shutdown();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SetTraceHandler(IntPtr handler);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SetTraceHandler")]
+		public static extern void SetTraceHandler(IntPtr handler);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SetAssertFailureHandler(IntPtr handler);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SetAssertFailureHandler")]
+		public static extern void SetAssertFailureHandler(IntPtr handler);
 
 		/// <summary>
 		/// Helper to fill defaults matching JoltPhysics defaults
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetDefault(JoltC_BodyCreationSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetDefault")]
+		public static extern void BodyCreationSettings_SetDefault(BodyCreationSettings* settings);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Init / Shutdown
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RegisterDefaultAllocator();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RegisterDefaultAllocator")]
+		public static extern void RegisterDefaultAllocator();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CreateFactory();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CreateFactory")]
+		public static extern void CreateFactory();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_DestroyFactory();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DestroyFactory")]
+		public static extern void DestroyFactory();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RegisterTypes();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RegisterTypes")]
+		public static extern void RegisterTypes();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_UnregisterTypes();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_UnregisterTypes")]
+		public static extern void UnregisterTypes();
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Math helpers
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Math_Sin(float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Math_Sin")]
+		public static extern float Math_Sin(float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Math_Cos(float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Math_Cos")]
+		public static extern float Math_Cos(float value);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Vec3
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_AxisX(JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_AxisX")]
+		public static extern void Vec3_AxisX(Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_AxisY(JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_AxisY")]
+		public static extern void Vec3_AxisY(Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_AxisZ(JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_AxisZ")]
+		public static extern void Vec3_AxisZ(Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Vec3_IsClose(JoltC_Vec3* v1, JoltC_Vec3* v2, float maxDistSq);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_IsClose")]
+		public static extern int Vec3_IsClose(Vec3* v1, Vec3* v2, float maxDistSq);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Vec3_IsNearZero(JoltC_Vec3* v, float maxDistSq);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_IsNearZero")]
+		public static extern int Vec3_IsNearZero(Vec3* v, float maxDistSq);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Vec3_IsNormalized(JoltC_Vec3* v, float tolerance);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_IsNormalized")]
+		public static extern int Vec3_IsNormalized(Vec3* v, float tolerance);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Vec3_IsNaN(JoltC_Vec3* v);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_IsNaN")]
+		public static extern int Vec3_IsNaN(Vec3* v);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Negate(JoltC_Vec3* v, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Negate")]
+		public static extern void Vec3_Negate(Vec3* v, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Normalized(JoltC_Vec3* v, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Normalized")]
+		public static extern void Vec3_Normalized(Vec3* v, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Cross(JoltC_Vec3* v1, JoltC_Vec3* v2, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Cross")]
+		public static extern void Vec3_Cross(Vec3* v1, Vec3* v2, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Abs(JoltC_Vec3* v, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Abs")]
+		public static extern void Vec3_Abs(Vec3* v, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Vec3_Length(JoltC_Vec3* v);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Length")]
+		public static extern float Vec3_Length(Vec3* v);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Vec3_LengthSquared(JoltC_Vec3* v);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_LengthSquared")]
+		public static extern float Vec3_LengthSquared(Vec3* v);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_DotProduct(JoltC_Vec3* v1, JoltC_Vec3* v2, float* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_DotProduct")]
+		public static extern void Vec3_DotProduct(Vec3* v1, Vec3* v2, float* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Normalize(JoltC_Vec3* v, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Normalize")]
+		public static extern void Vec3_Normalize(Vec3* v, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Add(JoltC_Vec3* v1, JoltC_Vec3* v2, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Add")]
+		public static extern void Vec3_Add(Vec3* v1, Vec3* v2, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Subtract(JoltC_Vec3* v1, JoltC_Vec3* v2, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Subtract")]
+		public static extern void Vec3_Subtract(Vec3* v1, Vec3* v2, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Multiply(JoltC_Vec3* v1, JoltC_Vec3* v2, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Multiply")]
+		public static extern void Vec3_Multiply(Vec3* v1, Vec3* v2, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_MultiplyScalar(JoltC_Vec3* v, float scalar, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_MultiplyScalar")]
+		public static extern void Vec3_MultiplyScalar(Vec3* v, float scalar, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_Divide(JoltC_Vec3* v1, JoltC_Vec3* v2, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_Divide")]
+		public static extern void Vec3_Divide(Vec3* v1, Vec3* v2, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_DivideScalar(JoltC_Vec3* v, float scalar, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_DivideScalar")]
+		public static extern void Vec3_DivideScalar(Vec3* v, float scalar, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Vec3_MultiplyMatrix(JoltC_Vec3* v, JoltC_Mat44* mat, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Vec3_MultiplyMatrix")]
+		public static extern void Vec3_MultiplyMatrix(Vec3* v, Mat44* mat, Vec3* result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Quat
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_FromTo(JoltC_Vec3* from, JoltC_Vec3* to, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_FromTo")]
+		public static extern void Quat_FromTo(Vec3* from, Vec3* to, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_GetAxisAngle(JoltC_Quat* quat, JoltC_Vec3* outAxis, float* outAngle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_GetAxisAngle")]
+		public static extern void Quat_GetAxisAngle(Quat* quat, Vec3* outAxis, float* outAngle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_GetEulerAngles(JoltC_Quat* quat, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_GetEulerAngles")]
+		public static extern void Quat_GetEulerAngles(Quat* quat, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_RotateAxisX(JoltC_Quat* quat, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_RotateAxisX")]
+		public static extern void Quat_RotateAxisX(Quat* quat, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_RotateAxisY(JoltC_Quat* quat, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_RotateAxisY")]
+		public static extern void Quat_RotateAxisY(Quat* quat, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_RotateAxisZ(JoltC_Quat* quat, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_RotateAxisZ")]
+		public static extern void Quat_RotateAxisZ(Quat* quat, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Inversed(JoltC_Quat* quat, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Inversed")]
+		public static extern void Quat_Inversed(Quat* quat, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Quat_GetRotationAngle(JoltC_Quat* quat, JoltC_Vec3* axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_GetRotationAngle")]
+		public static extern float Quat_GetRotationAngle(Quat* quat, Vec3* axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_FromEulerAngles(JoltC_Vec3* angles, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_FromEulerAngles")]
+		public static extern void Quat_FromEulerAngles(Vec3* angles, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Add(JoltC_Quat* q1, JoltC_Quat* q2, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Add")]
+		public static extern void Quat_Add(Quat* q1, Quat* q2, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Subtract(JoltC_Quat* q1, JoltC_Quat* q2, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Subtract")]
+		public static extern void Quat_Subtract(Quat* q1, Quat* q2, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Multiply(JoltC_Quat* q1, JoltC_Quat* q2, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Multiply")]
+		public static extern void Quat_Multiply(Quat* q1, Quat* q2, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_MultiplyScalar(JoltC_Quat* q, float scalar, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_MultiplyScalar")]
+		public static extern void Quat_MultiplyScalar(Quat* q, float scalar, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_DivideScalar(JoltC_Quat* q, float scalar, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_DivideScalar")]
+		public static extern void Quat_DivideScalar(Quat* q, float scalar, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Dot(JoltC_Quat* q1, JoltC_Quat* q2, float* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Dot")]
+		public static extern void Quat_Dot(Quat* q1, Quat* q2, float* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Conjugated(JoltC_Quat* quat, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Conjugated")]
+		public static extern void Quat_Conjugated(Quat* quat, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_GetTwist(JoltC_Quat* quat, JoltC_Vec3* axis, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_GetTwist")]
+		public static extern void Quat_GetTwist(Quat* quat, Vec3* axis, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_GetSwingTwist(JoltC_Quat* quat, JoltC_Quat* outSwing, JoltC_Quat* outTwist);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_GetSwingTwist")]
+		public static extern void Quat_GetSwingTwist(Quat* quat, Quat* outSwing, Quat* outTwist);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Lerp(JoltC_Quat* from, JoltC_Quat* to, float fraction, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Lerp")]
+		public static extern void Quat_Lerp(Quat* from, Quat* to, float fraction, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Slerp(JoltC_Quat* from, JoltC_Quat* to, float fraction, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Slerp")]
+		public static extern void Quat_Slerp(Quat* from, Quat* to, float fraction, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_Rotate(JoltC_Quat* quat, JoltC_Vec3* vec, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_Rotate")]
+		public static extern void Quat_Rotate(Quat* quat, Vec3* vec, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_InverseRotate(JoltC_Quat* quat, JoltC_Vec3* vec, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_InverseRotate")]
+		public static extern void Quat_InverseRotate(Quat* quat, Vec3* vec, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Quat_GetPerpendicular(JoltC_Quat* quat, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Quat_GetPerpendicular")]
+		public static extern void Quat_GetPerpendicular(Quat* quat, Quat* result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Mat44
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Zero(JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Zero")]
+		public static extern void Mat44_Zero(Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Identity(JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Identity")]
+		public static extern void Mat44_Identity(Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Rotation(JoltC_Mat44* result, JoltC_Quat* rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Rotation")]
+		public static extern void Mat44_Rotation(Mat44* result, Quat* rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Rotation2(JoltC_Mat44* result, JoltC_Vec3* axis, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Rotation2")]
+		public static extern void Mat44_Rotation2(Mat44* result, Vec3* axis, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Translation(JoltC_Mat44* result, JoltC_Vec3* translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Translation")]
+		public static extern void Mat44_Translation(Mat44* result, Vec3* translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_RotationTranslation(JoltC_Mat44* result, JoltC_Quat* rotation, JoltC_Vec3* translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_RotationTranslation")]
+		public static extern void Mat44_RotationTranslation(Mat44* result, Quat* rotation, Vec3* translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_InverseRotationTranslation(JoltC_Mat44* result, JoltC_Quat* rotation, JoltC_Vec3* translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_InverseRotationTranslation")]
+		public static extern void Mat44_InverseRotationTranslation(Mat44* result, Quat* rotation, Vec3* translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Scale(JoltC_Mat44* result, JoltC_Vec3* scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Scale")]
+		public static extern void Mat44_Scale(Mat44* result, Vec3* scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Transposed(JoltC_Mat44* m, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Transposed")]
+		public static extern void Mat44_Transposed(Mat44* m, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Inversed(JoltC_Mat44* m, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Inversed")]
+		public static extern void Mat44_Inversed(Mat44* m, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Add(JoltC_Mat44* m1, JoltC_Mat44* m2, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Add")]
+		public static extern void Mat44_Add(Mat44* m1, Mat44* m2, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Subtract(JoltC_Mat44* m1, JoltC_Mat44* m2, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Subtract")]
+		public static extern void Mat44_Subtract(Mat44* m1, Mat44* m2, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_Multiply(JoltC_Mat44* m1, JoltC_Mat44* m2, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_Multiply")]
+		public static extern void Mat44_Multiply(Mat44* m1, Mat44* m2, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_MultiplyScalar(JoltC_Mat44* m, float scalar, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_MultiplyScalar")]
+		public static extern void Mat44_MultiplyScalar(Mat44* m, float scalar, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_GetAxisX(JoltC_Mat44* m, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_GetAxisX")]
+		public static extern void Mat44_GetAxisX(Mat44* m, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_GetAxisY(JoltC_Mat44* m, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_GetAxisY")]
+		public static extern void Mat44_GetAxisY(Mat44* m, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_GetAxisZ(JoltC_Mat44* m, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_GetAxisZ")]
+		public static extern void Mat44_GetAxisZ(Mat44* m, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_GetTranslation(JoltC_Mat44* m, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_GetTranslation")]
+		public static extern void Mat44_GetTranslation(Mat44* m, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Mat44_GetQuaternion(JoltC_Mat44* m, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat44_GetQuaternion")]
+		public static extern void Mat44_GetQuaternion(Mat44* m, Quat* result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// RMat44 (same storage as Mat44; uses RVec3 for translation)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RMat44_Identity(JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat44_Identity")]
+		public static extern void RMat44_Identity(Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RMat44_Zero(JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat44_Zero")]
+		public static extern void RMat44_Zero(Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RMat44_Rotation(JoltC_Mat44* result, JoltC_Quat* rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat44_Rotation")]
+		public static extern void RMat44_Rotation(Mat44* result, Quat* rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RMat44_RotationTranslation(JoltC_Mat44* result, JoltC_Quat* rotation, JoltC_RVec3* translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat44_RotationTranslation")]
+		public static extern void RMat44_RotationTranslation(Mat44* result, Quat* rotation, RVec3* translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RMat44_Translation(JoltC_Mat44* result, JoltC_RVec3* translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat44_Translation")]
+		public static extern void RMat44_Translation(Mat44* result, RVec3* translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RMat44_Scale(JoltC_Mat44* result, JoltC_Vec3* scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat44_Scale")]
+		public static extern void RMat44_Scale(Mat44* result, Vec3* scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RMat44_Inversed(JoltC_Mat44* m, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat44_Inversed")]
+		public static extern void RMat44_Inversed(Mat44* m, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RMat44_InversedRotationTranslation(JoltC_Mat44* m, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat44_InversedRotationTranslation")]
+		public static extern void RMat44_InversedRotationTranslation(Mat44* m, Mat44* result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Mat4 aliases (shortened names forwarding to Mat44)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Identity();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Identity")]
+		public static extern Mat44 Mat4_Identity();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Zero();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Zero")]
+		public static extern Mat44 Mat4_Zero();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Rotation(JoltC_Quat rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Rotation")]
+		public static extern Mat44 Mat4_Rotation(Quat rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Rotation2(JoltC_Vec3 axis, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Rotation2")]
+		public static extern Mat44 Mat4_Rotation2(Vec3 axis, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_RotationTranslation(JoltC_Quat rotation, JoltC_Vec3 translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_RotationTranslation")]
+		public static extern Mat44 Mat4_RotationTranslation(Quat rotation, Vec3 translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Translation(JoltC_Vec3 translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Translation")]
+		public static extern Mat44 Mat4_Translation(Vec3 translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Scale(JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Scale")]
+		public static extern Mat44 Mat4_Scale(Vec3 scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Inversed(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Inversed")]
+		public static extern Mat44 Mat4_Inversed(Mat44 mat);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_InverseRotationTranslation(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_InverseRotationTranslation")]
+		public static extern Mat44 Mat4_InverseRotationTranslation(Mat44 mat);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Transposed(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Transposed")]
+		public static extern Mat44 Mat4_Transposed(Mat44 mat);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Multiply(JoltC_Mat44 a, JoltC_Mat44 b);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Multiply")]
+		public static extern Mat44 Mat4_Multiply(Mat44 a, Mat44 b);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_MultiplyScalar(JoltC_Mat44 mat, float scalar);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_MultiplyScalar")]
+		public static extern Mat44 Mat4_MultiplyScalar(Mat44 mat, float scalar);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Add(JoltC_Mat44 a, JoltC_Mat44 b);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Add")]
+		public static extern Mat44 Mat4_Add(Mat44 a, Mat44 b);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Mat4_Subtract(JoltC_Mat44 a, JoltC_Mat44 b);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_Subtract")]
+		public static extern Mat44 Mat4_Subtract(Mat44 a, Mat44 b);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Mat4_GetAxisX(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_GetAxisX")]
+		public static extern Vec3 Mat4_GetAxisX(Mat44 mat);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Mat4_GetAxisY(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_GetAxisY")]
+		public static extern Vec3 Mat4_GetAxisY(Mat44 mat);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Mat4_GetAxisZ(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_GetAxisZ")]
+		public static extern Vec3 Mat4_GetAxisZ(Mat44 mat);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Mat4_GetTranslation(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_GetTranslation")]
+		public static extern Vec3 Mat4_GetTranslation(Mat44 mat);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_Mat4_GetQuaternion(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Mat4_GetQuaternion")]
+		public static extern Quat Mat4_GetQuaternion(Mat44 mat);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// RMat4 aliases (shortened names forwarding to RMat44)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_RMat4_Identity();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat4_Identity")]
+		public static extern Mat44 RMat4_Identity();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_RMat4_Zero();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat4_Zero")]
+		public static extern Mat44 RMat4_Zero();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_RMat4_Rotation(JoltC_Quat rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat4_Rotation")]
+		public static extern Mat44 RMat4_Rotation(Quat rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_RMat4_RotationTranslation(JoltC_Quat rotation, JoltC_RVec3 translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat4_RotationTranslation")]
+		public static extern Mat44 RMat4_RotationTranslation(Quat rotation, RVec3 translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_RMat4_Translation(JoltC_RVec3 translation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat4_Translation")]
+		public static extern Mat44 RMat4_Translation(RVec3 translation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_RMat4_Scale(JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat4_Scale")]
+		public static extern Mat44 RMat4_Scale(Vec3 scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_RMat4_Inversed(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat4_Inversed")]
+		public static extern Mat44 RMat4_Inversed(Mat44 mat);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_RMat4_InverseRotationTranslation(JoltC_Mat44 mat);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RMat4_InverseRotationTranslation")]
+		public static extern Mat44 RMat4_InverseRotationTranslation(Mat44 mat);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// RayCast helpers
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RayCast_GetPointOnRay(JoltC_Vec3* origin, JoltC_Vec3* direction, float fraction, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RayCast_GetPointOnRay")]
+		public static extern void RayCast_GetPointOnRay(Vec3* origin, Vec3* direction, float fraction, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RRayCast_GetPointOnRay(JoltC_RVec3* origin, JoltC_Vec3* direction, float fraction, JoltC_RVec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RRayCast_GetPointOnRay")]
+		public static extern void RRayCast_GetPointOnRay(RVec3* origin, Vec3* direction, float fraction, RVec3* result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// MassProperties helpers
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MassProperties_DecomposePrincipalMomentsOfInertia(JoltC_MassProperties* properties, JoltC_Mat44* rotation, JoltC_Vec3* diagonal);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MassProperties_DecomposePrincipalMomentsOfInertia")]
+		public static extern void MassProperties_DecomposePrincipalMomentsOfInertia(MassProperties* properties, Mat44* rotation, Vec3* diagonal);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MassProperties_ScaleToMass(JoltC_MassProperties* properties, float mass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MassProperties_ScaleToMass")]
+		public static extern void MassProperties_ScaleToMass(MassProperties* properties, float mass);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MassProperties_GetEquivalentSolidBoxSize(float mass, JoltC_Vec3* inertiaDiagonal, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MassProperties_GetEquivalentSolidBoxSize")]
+		public static extern void MassProperties_GetEquivalentSolidBoxSize(float mass, Vec3* inertiaDiagonal, Vec3* result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Shape ref-counting
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Shape_AddRef(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_AddRef")]
+		public static extern void Shape_AddRef(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Shape_Release(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_Release")]
+		public static extern void Shape_Release(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Shape queries
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_ShapeType JoltC_Shape_GetType(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetType")]
+		public static extern ShapeType Shape_GetType(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_ShapeSubType JoltC_Shape_GetSubType(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetSubType")]
+		public static extern ShapeSubType Shape_GetSubType(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Shape_GetCenterOfMass(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetCenterOfMass")]
+		public static extern Vec3 Shape_GetCenterOfMass(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_AABox JoltC_Shape_GetLocalBounds(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetLocalBounds")]
+		public static extern AABox Shape_GetLocalBounds(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Shape_GetInnerRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetInnerRadius")]
+		public static extern float Shape_GetInnerRadius(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Shape_GetVolume(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetVolume")]
+		public static extern float Shape_GetVolume(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Box shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BoxShape_Create(JoltC_Vec3 halfExtent, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BoxShape_Create")]
+		public static extern IntPtr BoxShape_Create(Vec3 halfExtent, float convexRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Sphere shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SphereShape_Create(float radius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SphereShape_Create")]
+		public static extern IntPtr SphereShape_Create(float radius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Capsule shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CapsuleShape_Create(float halfHeightOfCylinder, float radius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CapsuleShape_Create")]
+		public static extern IntPtr CapsuleShape_Create(float halfHeightOfCylinder, float radius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Cylinder shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CylinderShape_Create(float halfHeight, float radius, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CylinderShape_Create")]
+		public static extern IntPtr CylinderShape_Create(float halfHeight, float radius, float convexRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Tapered capsule shape (via settings, no direct ctor)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TaperedCapsuleShape_Create(float halfHeight, float topRadius, float bottomRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCapsuleShape_Create")]
+		public static extern IntPtr TaperedCapsuleShape_Create(float halfHeight, float topRadius, float bottomRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Convex hull shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ConvexHullShape_Create(JoltC_Vec3* points, int numPoints, float maxConvexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShape_Create")]
+		public static extern IntPtr ConvexHullShape_Create(Vec3* points, int numPoints, float maxConvexRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Mesh shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_MeshShape_Create(JoltC_Vec3* vertices, int numVertices, JoltC_IndexedTriangle* triangles, int numTriangles);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShape_Create")]
+		public static extern IntPtr MeshShape_Create(Vec3* vertices, int numVertices, IndexedTriangle* triangles, int numTriangles);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// HeightField shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_HeightFieldShape_Create(float* samples, JoltC_Vec3 offset, JoltC_Vec3 scale, uint sampleCount);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_Create")]
+		public static extern IntPtr HeightFieldShape_Create(float* samples, Vec3 offset, Vec3 scale, uint sampleCount);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_StaticCompoundShape_Create(JoltC_CompoundShapeSubShape* subShapes, int numSubShapes);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_StaticCompoundShape_Create")]
+		public static extern IntPtr StaticCompoundShape_Create(CompoundShapeSubShape* subShapes, int numSubShapes);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// MutableCompoundShape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_MutableCompoundShape_Create(JoltC_CompoundShapeSubShape* subShapes, int numSubShapes);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MutableCompoundShape_Create")]
+		public static extern IntPtr MutableCompoundShape_Create(CompoundShapeSubShape* subShapes, int numSubShapes);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Decorated shapes
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_RotatedTranslatedShape_Create(JoltC_Vec3 position, JoltC_Quat rotation, IntPtr innerShape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RotatedTranslatedShape_Create")]
+		public static extern IntPtr RotatedTranslatedShape_Create(Vec3 position, Quat rotation, IntPtr innerShape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ScaledShape_Create(IntPtr innerShape, JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ScaledShape_Create")]
+		public static extern IntPtr ScaledShape_Create(IntPtr innerShape, Vec3 scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_OffsetCenterOfMassShape_Create(IntPtr innerShape, JoltC_Vec3 offset);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_OffsetCenterOfMassShape_Create")]
+		public static extern IntPtr OffsetCenterOfMassShape_Create(IntPtr innerShape, Vec3 offset);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CompoundShape accessors
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CompoundShape_GetNumSubShapes(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CompoundShape_GetNumSubShapes")]
+		public static extern int CompoundShape_GetNumSubShapes(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CompoundShape_GetSubShape(IntPtr shape, int index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CompoundShape_GetSubShape")]
+		public static extern IntPtr CompoundShape_GetSubShape(IntPtr shape, int index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CompoundShape_GetSubShapeUserData(IntPtr shape, int index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CompoundShape_GetSubShapeUserData")]
+		public static extern uint CompoundShape_GetSubShapeUserData(IntPtr shape, int index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CompoundShape_GetSubShapePosition(IntPtr shape, int index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CompoundShape_GetSubShapePosition")]
+		public static extern Vec3 CompoundShape_GetSubShapePosition(IntPtr shape, int index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_CompoundShape_GetSubShapeRotation(IntPtr shape, int index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CompoundShape_GetSubShapeRotation")]
+		public static extern Quat CompoundShape_GetSubShapeRotation(IntPtr shape, int index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CompoundShape_GetSubShapeIndexFromID(IntPtr shape, uint subShapeId, uint* outRemainder);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CompoundShape_GetSubShapeIndexFromID")]
+		public static extern uint CompoundShape_GetSubShapeIndexFromID(IntPtr shape, uint subShapeId, uint* outRemainder);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// DecoratedShape accessor
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_DecoratedShape_GetInnerShape(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DecoratedShape_GetInnerShape")]
+		public static extern IntPtr DecoratedShape_GetInnerShape(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Shape user data
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Shape_SetUserData(IntPtr shape, ulong userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_SetUserData")]
+		public static extern void Shape_SetUserData(IntPtr shape, ulong userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_Shape_GetUserData(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetUserData")]
+		public static extern ulong Shape_GetUserData(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Extended Shape queries
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Shape_MustBeStatic(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_MustBeStatic")]
+		public static extern int Shape_MustBeStatic(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Shape_GetSubShapeIDBitsRecursive(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetSubShapeIDBitsRecursive")]
+		public static extern uint Shape_GetSubShapeIDBitsRecursive(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Shape_GetMassProperties(IntPtr shape, float* outMass, JoltC_Mat44* outInertia);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetMassProperties")]
+		public static extern void Shape_GetMassProperties(IntPtr shape, float* outMass, Mat44* outInertia);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Shape_CastRay(IntPtr shape, JoltC_Vec3 origin, JoltC_Vec3 direction, float* outFraction);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_CastRay")]
+		public static extern int Shape_CastRay(IntPtr shape, Vec3 origin, Vec3 direction, float* outFraction);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Shape_CollidePoint(IntPtr shape, JoltC_Vec3 point);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_CollidePoint")]
+		public static extern int Shape_CollidePoint(IntPtr shape, Vec3 point);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ConvexShape density
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_ConvexShape_GetDensity(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexShape_GetDensity")]
+		public static extern float ConvexShape_GetDensity(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ConvexShape_SetDensity(IntPtr shape, float density);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexShape_SetDensity")]
+		public static extern void ConvexShape_SetDensity(IntPtr shape, float density);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Box shape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_BoxShape_GetHalfExtent(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BoxShape_GetHalfExtent")]
+		public static extern Vec3 BoxShape_GetHalfExtent(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BoxShape_GetConvexRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BoxShape_GetConvexRadius")]
+		public static extern float BoxShape_GetConvexRadius(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Sphere shape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SphereShape_GetRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SphereShape_GetRadius")]
+		public static extern float SphereShape_GetRadius(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Capsule shape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CapsuleShape_GetRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CapsuleShape_GetRadius")]
+		public static extern float CapsuleShape_GetRadius(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CapsuleShape_GetHalfHeightOfCylinder(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CapsuleShape_GetHalfHeightOfCylinder")]
+		public static extern float CapsuleShape_GetHalfHeightOfCylinder(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Cylinder shape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CylinderShape_GetRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CylinderShape_GetRadius")]
+		public static extern float CylinderShape_GetRadius(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CylinderShape_GetHalfHeight(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CylinderShape_GetHalfHeight")]
+		public static extern float CylinderShape_GetHalfHeight(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// TaperedCapsule shape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TaperedCapsuleShape_GetTopRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCapsuleShape_GetTopRadius")]
+		public static extern float TaperedCapsuleShape_GetTopRadius(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TaperedCapsuleShape_GetBottomRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCapsuleShape_GetBottomRadius")]
+		public static extern float TaperedCapsuleShape_GetBottomRadius(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TaperedCapsuleShape_GetHalfHeight(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCapsuleShape_GetHalfHeight")]
+		public static extern float TaperedCapsuleShape_GetHalfHeight(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ConvexHull shape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ConvexHullShape_GetNumPoints(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShape_GetNumPoints")]
+		public static extern uint ConvexHullShape_GetNumPoints(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_ConvexHullShape_GetPoint(IntPtr shape, uint index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShape_GetPoint")]
+		public static extern Vec3 ConvexHullShape_GetPoint(IntPtr shape, uint index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ConvexHullShape_GetNumFaces(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShape_GetNumFaces")]
+		public static extern uint ConvexHullShape_GetNumFaces(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ConvexHullShape_GetNumVerticesInFace(IntPtr shape, uint faceIndex);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShape_GetNumVerticesInFace")]
+		public static extern uint ConvexHullShape_GetNumVerticesInFace(IntPtr shape, uint faceIndex);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ConvexHullShape_GetFaceVertices(IntPtr shape, uint faceIndex, uint maxVertices, uint* vertices);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShape_GetFaceVertices")]
+		public static extern uint ConvexHullShape_GetFaceVertices(IntPtr shape, uint faceIndex, uint maxVertices, uint* vertices);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// RotatedTranslatedShape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_RotatedTranslatedShape_GetPosition(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RotatedTranslatedShape_GetPosition")]
+		public static extern Vec3 RotatedTranslatedShape_GetPosition(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_RotatedTranslatedShape_GetRotation(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RotatedTranslatedShape_GetRotation")]
+		public static extern Quat RotatedTranslatedShape_GetRotation(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ScaledShape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_ScaledShape_GetScale(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ScaledShape_GetScale")]
+		public static extern Vec3 ScaledShape_GetScale(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// OffsetCenterOfMassShape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_OffsetCenterOfMassShape_GetOffset(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_OffsetCenterOfMassShape_GetOffset")]
+		public static extern Vec3 OffsetCenterOfMassShape_GetOffset(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// MutableCompoundShape modification
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_MutableCompoundShape_AddShape(IntPtr compound, JoltC_Vec3 position, JoltC_Quat rotation, IntPtr child, uint userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MutableCompoundShape_AddShape")]
+		public static extern uint MutableCompoundShape_AddShape(IntPtr compound, Vec3 position, Quat rotation, IntPtr child, uint userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MutableCompoundShape_RemoveShape(IntPtr compound, uint index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MutableCompoundShape_RemoveShape")]
+		public static extern void MutableCompoundShape_RemoveShape(IntPtr compound, uint index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MutableCompoundShape_ModifyShape(IntPtr compound, uint index, JoltC_Vec3 position, JoltC_Quat rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MutableCompoundShape_ModifyShape")]
+		public static extern void MutableCompoundShape_ModifyShape(IntPtr compound, uint index, Vec3 position, Quat rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MutableCompoundShape_ModifyShapeWithShape(IntPtr compound, uint index, JoltC_Vec3 position, JoltC_Quat rotation, IntPtr newShape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MutableCompoundShape_ModifyShapeWithShape")]
+		public static extern void MutableCompoundShape_ModifyShapeWithShape(IntPtr compound, uint index, Vec3 position, Quat rotation, IntPtr newShape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MutableCompoundShape_AdjustCenterOfMass(IntPtr compound);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MutableCompoundShape_AdjustCenterOfMass")]
+		public static extern void MutableCompoundShape_AdjustCenterOfMass(IntPtr compound);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MutableCompoundShape_ModifyShape2(IntPtr shape, uint subShapeIndex, JoltC_Vec3 position, JoltC_Quat rotation, IntPtr newShape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MutableCompoundShape_ModifyShape2")]
+		public static extern void MutableCompoundShape_ModifyShape2(IntPtr shape, uint subShapeIndex, Vec3 position, Quat rotation, IntPtr newShape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Triangle shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TriangleShape_Create(JoltC_Vec3 v1, JoltC_Vec3 v2, JoltC_Vec3 v3, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TriangleShape_Create")]
+		public static extern IntPtr TriangleShape_Create(Vec3 v1, Vec3 v2, Vec3 v3, float convexRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Plane shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PlaneShape_Create(JoltC_Vec3 normal, float distance, float halfExtent);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PlaneShape_Create")]
+		public static extern IntPtr PlaneShape_Create(Vec3 normal, float distance, float halfExtent);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Empty shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_EmptyShape_Create(JoltC_Vec3 centerOfMass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_EmptyShape_Create")]
+		public static extern IntPtr EmptyShape_Create(Vec3 centerOfMass);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// HeightFieldShapeSettings (opaque handle)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_HeightFieldShapeSettings_Create(float* samples, JoltC_Vec3 offset, JoltC_Vec3 scale, uint sampleCount);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_Create")]
+		public static extern IntPtr HeightFieldShapeSettings_Create(float* samples, Vec3 offset, Vec3 scale, uint sampleCount);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_Destroy(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_Destroy")]
+		public static extern void HeightFieldShapeSettings_Destroy(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HeightFieldShapeSettings_GetOffset(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_GetOffset")]
+		public static extern Vec3 HeightFieldShapeSettings_GetOffset(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_SetOffset(IntPtr settings, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_SetOffset")]
+		public static extern void HeightFieldShapeSettings_SetOffset(IntPtr settings, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HeightFieldShapeSettings_GetScale(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_GetScale")]
+		public static extern Vec3 HeightFieldShapeSettings_GetScale(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_SetScale(IntPtr settings, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_SetScale")]
+		public static extern void HeightFieldShapeSettings_SetScale(IntPtr settings, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_HeightFieldShapeSettings_GetSampleCount(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_GetSampleCount")]
+		public static extern uint HeightFieldShapeSettings_GetSampleCount(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HeightFieldShapeSettings_GetMinHeightValue(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_GetMinHeightValue")]
+		public static extern float HeightFieldShapeSettings_GetMinHeightValue(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_SetMinHeightValue(IntPtr settings, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_SetMinHeightValue")]
+		public static extern void HeightFieldShapeSettings_SetMinHeightValue(IntPtr settings, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HeightFieldShapeSettings_GetMaxHeightValue(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_GetMaxHeightValue")]
+		public static extern float HeightFieldShapeSettings_GetMaxHeightValue(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_SetMaxHeightValue(IntPtr settings, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_SetMaxHeightValue")]
+		public static extern void HeightFieldShapeSettings_SetMaxHeightValue(IntPtr settings, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_HeightFieldShapeSettings_GetBlockSize(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_GetBlockSize")]
+		public static extern uint HeightFieldShapeSettings_GetBlockSize(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_SetBlockSize(IntPtr settings, uint value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_SetBlockSize")]
+		public static extern void HeightFieldShapeSettings_SetBlockSize(IntPtr settings, uint value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_HeightFieldShapeSettings_GetBitsPerSample(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_GetBitsPerSample")]
+		public static extern uint HeightFieldShapeSettings_GetBitsPerSample(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_SetBitsPerSample(IntPtr settings, uint value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_SetBitsPerSample")]
+		public static extern void HeightFieldShapeSettings_SetBitsPerSample(IntPtr settings, uint value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_HeightFieldShapeSettings_CreateShape(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_CreateShape")]
+		public static extern IntPtr HeightFieldShapeSettings_CreateShape(IntPtr settings);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// HeightFieldShape instance queries
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_HeightFieldShape_GetSampleCount(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_GetSampleCount")]
+		public static extern uint HeightFieldShape_GetSampleCount(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_HeightFieldShape_GetBlockSize(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_GetBlockSize")]
+		public static extern uint HeightFieldShape_GetBlockSize(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HeightFieldShape_GetPosition(IntPtr shape, uint x, uint y);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_GetPosition")]
+		public static extern Vec3 HeightFieldShape_GetPosition(IntPtr shape, uint x, uint y);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_HeightFieldShape_IsNoCollision(IntPtr shape, uint x, uint y);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_IsNoCollision")]
+		public static extern int HeightFieldShape_IsNoCollision(IntPtr shape, uint x, uint y);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HeightFieldShape_GetMinHeightValue(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_GetMinHeightValue")]
+		public static extern float HeightFieldShape_GetMinHeightValue(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HeightFieldShape_GetMaxHeightValue(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_GetMaxHeightValue")]
+		public static extern float HeightFieldShape_GetMaxHeightValue(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_HeightFieldShape_ProjectOntoSurface(IntPtr shape, JoltC_Vec3 localPosition, JoltC_Vec3* outSurfacePosition, uint* outSubShapeId);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_ProjectOntoSurface")]
+		public static extern int HeightFieldShape_ProjectOntoSurface(IntPtr shape, Vec3 localPosition, Vec3* outSurfacePosition, uint* outSubShapeId);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// HeightFieldShapeSettings — generic (via JoltC_ShapeSettings*)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HeightFieldShapeSettings_GetActiveEdgeCosThresholdAngle(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_GetActiveEdgeCosThresholdAngle")]
+		public static extern float HeightFieldShapeSettings_GetActiveEdgeCosThresholdAngle(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_SetActiveEdgeCosThresholdAngle(IntPtr settings, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_SetActiveEdgeCosThresholdAngle")]
+		public static extern void HeightFieldShapeSettings_SetActiveEdgeCosThresholdAngle(IntPtr settings, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_SetSampleCount(IntPtr settings, uint count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_SetSampleCount")]
+		public static extern void HeightFieldShapeSettings_SetSampleCount(IntPtr settings, uint count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern byte JoltC_HeightFieldShapeSettings_CalculateBitsPerSampleForError(IntPtr settings, float maxError);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_CalculateBitsPerSampleForError")]
+		public static extern byte HeightFieldShapeSettings_CalculateBitsPerSampleForError(IntPtr settings, float maxError);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HeightFieldShapeSettings_DetermineMinAndMaxSample(IntPtr settings, float* outMin, float* outMax, float* outQuantizationScale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShapeSettings_DetermineMinAndMaxSample")]
+		public static extern void HeightFieldShapeSettings_DetermineMinAndMaxSample(IntPtr settings, float* outMin, float* outMax, float* outQuantizationScale);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// MeshShapeSettings (opaque handle)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_MeshShapeSettings_Create(JoltC_Triangle* triangles, uint triangleCount);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_Create")]
+		public static extern IntPtr MeshShapeSettings_Create(Triangle* triangles, uint triangleCount);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_MeshShapeSettings_Create2(JoltC_Vec3* vertices, uint vertexCount, JoltC_IndexedTriangle* triangles, uint triangleCount);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_Create2")]
+		public static extern IntPtr MeshShapeSettings_Create2(Vec3* vertices, uint vertexCount, IndexedTriangle* triangles, uint triangleCount);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MeshShapeSettings_Destroy(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_Destroy")]
+		public static extern void MeshShapeSettings_Destroy(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_MeshShapeSettings_GetMaxTrianglesPerLeaf(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_GetMaxTrianglesPerLeaf")]
+		public static extern uint MeshShapeSettings_GetMaxTrianglesPerLeaf(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MeshShapeSettings_SetMaxTrianglesPerLeaf(IntPtr settings, uint value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_SetMaxTrianglesPerLeaf")]
+		public static extern void MeshShapeSettings_SetMaxTrianglesPerLeaf(IntPtr settings, uint value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MeshShapeSettings_Sanitize(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_Sanitize")]
+		public static extern void MeshShapeSettings_Sanitize(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_MeshShapeSettings_CreateShape(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_CreateShape")]
+		public static extern IntPtr MeshShapeSettings_CreateShape(IntPtr settings);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// MeshShapeSettings — generic (via JoltC_ShapeSettings*)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MeshShapeSettings_GetActiveEdgeCosThresholdAngle(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_GetActiveEdgeCosThresholdAngle")]
+		public static extern float MeshShapeSettings_GetActiveEdgeCosThresholdAngle(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MeshShapeSettings_SetActiveEdgeCosThresholdAngle(IntPtr settings, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_SetActiveEdgeCosThresholdAngle")]
+		public static extern void MeshShapeSettings_SetActiveEdgeCosThresholdAngle(IntPtr settings, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_MeshShapeSettings_GetPerTriangleUserData(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_GetPerTriangleUserData")]
+		public static extern int MeshShapeSettings_GetPerTriangleUserData(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MeshShapeSettings_SetPerTriangleUserData(IntPtr settings, int perTriangleUserData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_SetPerTriangleUserData")]
+		public static extern void MeshShapeSettings_SetPerTriangleUserData(IntPtr settings, int perTriangleUserData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_MeshShapeSettings_GetBuildQuality(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_GetBuildQuality")]
+		public static extern int MeshShapeSettings_GetBuildQuality(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MeshShapeSettings_SetBuildQuality(IntPtr settings, int quality);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShapeSettings_SetBuildQuality")]
+		public static extern void MeshShapeSettings_SetBuildQuality(IntPtr settings, int quality);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// MeshShape — instance queries
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_MeshShape_GetTriangleUserData(IntPtr shape, uint subShapeId);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MeshShape_GetTriangleUserData")]
+		public static extern uint MeshShape_GetTriangleUserData(IntPtr shape, uint subShapeId);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ConvexHullShapeSettings (opaque handle)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ConvexHullShapeSettings_Create(JoltC_Vec3* points, uint pointCount, float maxConvexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShapeSettings_Create")]
+		public static extern IntPtr ConvexHullShapeSettings_Create(Vec3* points, uint pointCount, float maxConvexRadius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ConvexHullShapeSettings_Destroy(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShapeSettings_Destroy")]
+		public static extern void ConvexHullShapeSettings_Destroy(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ConvexHullShapeSettings_CreateShape(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexHullShapeSettings_CreateShape")]
+		public static extern IntPtr ConvexHullShapeSettings_CreateShape(IntPtr settings);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ShapeSettings base
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ShapeSettings_Destroy(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeSettings_Destroy")]
+		public static extern void ShapeSettings_Destroy(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_ShapeSettings_GetUserData(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeSettings_GetUserData")]
+		public static extern ulong ShapeSettings_GetUserData(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ShapeSettings_SetUserData(IntPtr settings, ulong userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeSettings_SetUserData")]
+		public static extern void ShapeSettings_SetUserData(IntPtr settings, ulong userData);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Shape_Destroy
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Shape_Destroy(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_Destroy")]
+		public static extern void Shape_Destroy(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BoxShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BoxShapeSettings_Create(JoltC_Vec3 halfExtent, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BoxShapeSettings_Create")]
+		public static extern IntPtr BoxShapeSettings_Create(Vec3 halfExtent, float convexRadius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BoxShapeSettings_CreateShape(JoltC_Vec3 halfExtent, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BoxShapeSettings_CreateShape")]
+		public static extern IntPtr BoxShapeSettings_CreateShape(Vec3 halfExtent, float convexRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// SphereShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SphereShapeSettings_Create(float radius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SphereShapeSettings_Create")]
+		public static extern IntPtr SphereShapeSettings_Create(float radius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SphereShapeSettings_CreateShape(float radius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SphereShapeSettings_CreateShape")]
+		public static extern IntPtr SphereShapeSettings_CreateShape(float radius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SphereShapeSettings_GetRadius(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SphereShapeSettings_GetRadius")]
+		public static extern float SphereShapeSettings_GetRadius(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SphereShapeSettings_SetRadius(IntPtr settings, float radius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SphereShapeSettings_SetRadius")]
+		public static extern void SphereShapeSettings_SetRadius(IntPtr settings, float radius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CapsuleShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CapsuleShapeSettings_Create(float halfHeight, float radius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CapsuleShapeSettings_Create")]
+		public static extern IntPtr CapsuleShapeSettings_Create(float halfHeight, float radius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CapsuleShapeSettings_CreateShape(float halfHeight, float radius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CapsuleShapeSettings_CreateShape")]
+		public static extern IntPtr CapsuleShapeSettings_CreateShape(float halfHeight, float radius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CylinderShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CylinderShapeSettings_Create(float halfHeight, float radius, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CylinderShapeSettings_Create")]
+		public static extern IntPtr CylinderShapeSettings_Create(float halfHeight, float radius, float convexRadius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CylinderShapeSettings_CreateShape(float halfHeight, float radius, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CylinderShapeSettings_CreateShape")]
+		public static extern IntPtr CylinderShapeSettings_CreateShape(float halfHeight, float radius, float convexRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// TaperedCapsuleShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TaperedCapsuleShapeSettings_Create(float halfHeight, float topRadius, float bottomRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCapsuleShapeSettings_Create")]
+		public static extern IntPtr TaperedCapsuleShapeSettings_Create(float halfHeight, float topRadius, float bottomRadius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TaperedCapsuleShapeSettings_CreateShape(float halfHeight, float topRadius, float bottomRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCapsuleShapeSettings_CreateShape")]
+		public static extern IntPtr TaperedCapsuleShapeSettings_CreateShape(float halfHeight, float topRadius, float bottomRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// TaperedCylinderShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TaperedCylinderShapeSettings_Create(float halfHeight, float topRadius, float bottomRadius, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCylinderShapeSettings_Create")]
+		public static extern IntPtr TaperedCylinderShapeSettings_Create(float halfHeight, float topRadius, float bottomRadius, float convexRadius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TaperedCylinderShapeSettings_CreateShape(float halfHeight, float topRadius, float bottomRadius, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCylinderShapeSettings_CreateShape")]
+		public static extern IntPtr TaperedCylinderShapeSettings_CreateShape(float halfHeight, float topRadius, float bottomRadius, float convexRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// TriangleShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TriangleShapeSettings_Create(JoltC_Vec3 v1, JoltC_Vec3 v2, JoltC_Vec3 v3, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TriangleShapeSettings_Create")]
+		public static extern IntPtr TriangleShapeSettings_Create(Vec3 v1, Vec3 v2, Vec3 v3, float convexRadius);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TriangleShapeSettings_CreateShape(JoltC_Vec3 v1, JoltC_Vec3 v2, JoltC_Vec3 v3, float convexRadius);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TriangleShapeSettings_CreateShape")]
+		public static extern IntPtr TriangleShapeSettings_CreateShape(Vec3 v1, Vec3 v2, Vec3 v3, float convexRadius);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PlaneShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PlaneShapeSettings_Create(JoltC_Vec3 normal, float distance, float halfExtent);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PlaneShapeSettings_Create")]
+		public static extern IntPtr PlaneShapeSettings_Create(Vec3 normal, float distance, float halfExtent);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PlaneShapeSettings_CreateShape(JoltC_Vec3 normal, float distance, float halfExtent);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PlaneShapeSettings_CreateShape")]
+		public static extern IntPtr PlaneShapeSettings_CreateShape(Vec3 normal, float distance, float halfExtent);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// EmptyShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_EmptyShapeSettings_Create(JoltC_Vec3 centerOfMass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_EmptyShapeSettings_Create")]
+		public static extern IntPtr EmptyShapeSettings_Create(Vec3 centerOfMass);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_EmptyShapeSettings_CreateShape(JoltC_Vec3 centerOfMass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_EmptyShapeSettings_CreateShape")]
+		public static extern IntPtr EmptyShapeSettings_CreateShape(Vec3 centerOfMass);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// RotatedTranslatedShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_RotatedTranslatedShapeSettings_Create(JoltC_Vec3 position, JoltC_Quat rotation, IntPtr innerSettings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RotatedTranslatedShapeSettings_Create")]
+		public static extern IntPtr RotatedTranslatedShapeSettings_Create(Vec3 position, Quat rotation, IntPtr innerSettings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_RotatedTranslatedShapeSettings_Create2(JoltC_Vec3 position, JoltC_Quat rotation, IntPtr innerShape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RotatedTranslatedShapeSettings_Create2")]
+		public static extern IntPtr RotatedTranslatedShapeSettings_Create2(Vec3 position, Quat rotation, IntPtr innerShape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_RotatedTranslatedShapeSettings_CreateShape(JoltC_Vec3 position, JoltC_Quat rotation, IntPtr innerShape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RotatedTranslatedShapeSettings_CreateShape")]
+		public static extern IntPtr RotatedTranslatedShapeSettings_CreateShape(Vec3 position, Quat rotation, IntPtr innerShape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ScaledShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ScaledShapeSettings_Create(IntPtr innerSettings, JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ScaledShapeSettings_Create")]
+		public static extern IntPtr ScaledShapeSettings_Create(IntPtr innerSettings, Vec3 scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ScaledShapeSettings_Create2(IntPtr innerShape, JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ScaledShapeSettings_Create2")]
+		public static extern IntPtr ScaledShapeSettings_Create2(IntPtr innerShape, Vec3 scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ScaledShapeSettings_CreateShape(IntPtr innerShape, JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ScaledShapeSettings_CreateShape")]
+		public static extern IntPtr ScaledShapeSettings_CreateShape(IntPtr innerShape, Vec3 scale);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// OffsetCenterOfMassShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_OffsetCenterOfMassShapeSettings_Create(JoltC_Vec3 offset, IntPtr innerSettings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_OffsetCenterOfMassShapeSettings_Create")]
+		public static extern IntPtr OffsetCenterOfMassShapeSettings_Create(Vec3 offset, IntPtr innerSettings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_OffsetCenterOfMassShapeSettings_Create2(JoltC_Vec3 offset, IntPtr innerShape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_OffsetCenterOfMassShapeSettings_Create2")]
+		public static extern IntPtr OffsetCenterOfMassShapeSettings_Create2(Vec3 offset, IntPtr innerShape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_OffsetCenterOfMassShapeSettings_CreateShape(JoltC_Vec3 offset, IntPtr innerShape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_OffsetCenterOfMassShapeSettings_CreateShape")]
+		public static extern IntPtr OffsetCenterOfMassShapeSettings_CreateShape(Vec3 offset, IntPtr innerShape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// StaticCompoundShapeSettings / MutableCompoundShapeSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_StaticCompoundShapeSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_StaticCompoundShapeSettings_Create")]
+		public static extern IntPtr StaticCompoundShapeSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_MutableCompoundShapeSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MutableCompoundShapeSettings_Create")]
+		public static extern IntPtr MutableCompoundShapeSettings_Create();
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CompoundShapeSettings_AddShape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CompoundShapeSettings_AddShape(IntPtr settings, JoltC_Vec3 position, JoltC_Quat rotation, IntPtr shape, uint userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CompoundShapeSettings_AddShape")]
+		public static extern void CompoundShapeSettings_AddShape(IntPtr settings, Vec3 position, Quat rotation, IntPtr shape, uint userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CompoundShapeSettings_AddShape2(IntPtr settings, JoltC_Vec3 position, JoltC_Quat rotation, IntPtr shape, uint userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CompoundShapeSettings_AddShape2")]
+		public static extern void CompoundShapeSettings_AddShape2(IntPtr settings, Vec3 position, Quat rotation, IntPtr shape, uint userData);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ConvexShapeSettings density
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_ConvexShapeSettings_GetDensity(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexShapeSettings_GetDensity")]
+		public static extern float ConvexShapeSettings_GetDensity(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ConvexShapeSettings_SetDensity(IntPtr settings, float density);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConvexShapeSettings_SetDensity")]
+		public static extern void ConvexShapeSettings_SetDensity(IntPtr settings, float density);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// TriangleShape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TriangleShape_GetConvexRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TriangleShape_GetConvexRadius")]
+		public static extern float TriangleShape_GetConvexRadius(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_TriangleShape_GetVertex1(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TriangleShape_GetVertex1")]
+		public static extern Vec3 TriangleShape_GetVertex1(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_TriangleShape_GetVertex2(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TriangleShape_GetVertex2")]
+		public static extern Vec3 TriangleShape_GetVertex2(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_TriangleShape_GetVertex3(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TriangleShape_GetVertex3")]
+		public static extern Vec3 TriangleShape_GetVertex3(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// TaperedCylinderShape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TaperedCylinderShape_GetHalfHeight(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCylinderShape_GetHalfHeight")]
+		public static extern float TaperedCylinderShape_GetHalfHeight(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TaperedCylinderShape_GetTopRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCylinderShape_GetTopRadius")]
+		public static extern float TaperedCylinderShape_GetTopRadius(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TaperedCylinderShape_GetBottomRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCylinderShape_GetBottomRadius")]
+		public static extern float TaperedCylinderShape_GetBottomRadius(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TaperedCylinderShape_GetConvexRadius(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TaperedCylinderShape_GetConvexRadius")]
+		public static extern float TaperedCylinderShape_GetConvexRadius(IntPtr shape);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PlaneShape getters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_PlaneShape_GetHalfExtent(IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PlaneShape_GetHalfExtent")]
+		public static extern float PlaneShape_GetHalfExtent(IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_PlaneShape_GetPlane(IntPtr shape, float* outDistance);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PlaneShape_GetPlane")]
+		public static extern Vec3 PlaneShape_GetPlane(IntPtr shape, float* outDistance);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Shape base — additional functions
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Shape_GetSurfaceNormal(IntPtr shape, uint subShapeId, JoltC_Vec3 localSurfacePosition);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetSurfaceNormal")]
+		public static extern Vec3 Shape_GetSurfaceNormal(IntPtr shape, uint subShapeId, Vec3 localSurfacePosition);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Shape_GetWorldSpaceBounds(IntPtr shape, JoltC_Mat44 centerOfMassTransform, JoltC_Vec3 scale, JoltC_Vec3* outMin, JoltC_Vec3* outMax);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_GetWorldSpaceBounds")]
+		public static extern void Shape_GetWorldSpaceBounds(IntPtr shape, Mat44 centerOfMassTransform, Vec3 scale, Vec3* outMin, Vec3* outMax);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Shape_IsValidScale(IntPtr shape, JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_IsValidScale")]
+		public static extern int Shape_IsValidScale(IntPtr shape, Vec3 scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Shape_MakeScaleValid(IntPtr shape, JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_MakeScaleValid")]
+		public static extern Vec3 Shape_MakeScaleValid(IntPtr shape, Vec3 scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Shape_ScaleShape(IntPtr shape, JoltC_Vec3 scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Shape_ScaleShape")]
+		public static extern IntPtr Shape_ScaleShape(IntPtr shape, Vec3 scale);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CollideShapeSettings / ShapeCastSettings init helpers
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CollideShapeSettings_Init(JoltC_CollideShapeSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CollideShapeSettings_Init")]
+		public static extern void CollideShapeSettings_Init(CollideShapeSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ShapeCastSettings_Init(JoltC_ShapeCastSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeCastSettings_Init")]
+		public static extern void ShapeCastSettings_Init(ShapeCastSettings* settings);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CollideShapeResult / CollisionEstimationResult free helpers
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CollideShapeResult_FreeMembers(JoltC_CollideShapeResult* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CollideShapeResult_FreeMembers")]
+		public static extern void CollideShapeResult_FreeMembers(CollideShapeResult* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CollisionEstimationResult_FreeMembers(IntPtr result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CollisionEstimationResult_FreeMembers")]
+		public static extern void CollisionEstimationResult_FreeMembers(IntPtr result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// TempAllocator
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TempAllocator_Create(uint size);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TempAllocator_Create")]
+		public static extern IntPtr TempAllocator_Create(uint size);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TempAllocator_Destroy(IntPtr allocator);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TempAllocator_Destroy")]
+		public static extern void TempAllocator_Destroy(IntPtr allocator);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// JobSystemThreadPool
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_JobSystemThreadPool_Create(uint maxJobs, uint maxBarriers, int numThreads);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_JobSystemThreadPool_Create")]
+		public static extern IntPtr JobSystemThreadPool_Create(uint maxJobs, uint maxBarriers, int numThreads);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_JobSystem_Destroy(IntPtr jobSystem);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_JobSystem_Destroy")]
+		public static extern void JobSystem_Destroy(IntPtr jobSystem);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseLayerInterface (callback-based)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BroadPhaseLayerInterface_Create(JoltC_GetNumBroadPhaseLayersFn getNumLayers, JoltC_GetBroadPhaseLayerFn getBroadPhaseLayer, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerInterface_Create")]
+		public static extern IntPtr BroadPhaseLayerInterface_Create(GetNumBroadPhaseLayersFn getNumLayers, GetBroadPhaseLayerFn getBroadPhaseLayer, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseLayerInterface_Destroy(IntPtr iface);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerInterface_Destroy")]
+		public static extern void BroadPhaseLayerInterface_Destroy(IntPtr iface);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ObjectVsBroadPhaseLayerFilter (callback-based)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ObjectVsBroadPhaseLayerFilter_Create(JoltC_ObjectVsBroadPhaseLayerFilterFn filterFn, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectVsBroadPhaseLayerFilter_Create")]
+		public static extern IntPtr ObjectVsBroadPhaseLayerFilter_Create(ObjectVsBroadPhaseLayerFilterFn filterFn, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ObjectVsBroadPhaseLayerFilter_Destroy(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectVsBroadPhaseLayerFilter_Destroy")]
+		public static extern void ObjectVsBroadPhaseLayerFilter_Destroy(IntPtr filter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ObjectLayerPairFilter (callback-based)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ObjectLayerPairFilter_Create(JoltC_ObjectLayerPairFilterFn filterFn, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilter_Create")]
+		public static extern IntPtr ObjectLayerPairFilter_Create(ObjectLayerPairFilterFn filterFn, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ObjectLayerPairFilter_Destroy(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilter_Destroy")]
+		public static extern void ObjectLayerPairFilter_Destroy(IntPtr filter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ContactListener (callback-based)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ContactListener_Create(JoltC_OnContactValidateFn onValidate, JoltC_OnContactAddedFn onAdded, JoltC_OnContactPersistedFn onPersisted, JoltC_OnContactRemovedFn onRemoved, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactListener_Create")]
+		public static extern IntPtr ContactListener_Create(OnContactValidateFn onValidate, OnContactAddedFn onAdded, OnContactPersistedFn onPersisted, OnContactRemovedFn onRemoved, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ContactListener_Destroy(IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactListener_Destroy")]
+		public static extern void ContactListener_Destroy(IntPtr listener);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyActivationListener (callback-based)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyActivationListener_Create(JoltC_OnBodyActivatedFn onActivated, JoltC_OnBodyDeactivatedFn onDeactivated, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyActivationListener_Create")]
+		public static extern IntPtr BodyActivationListener_Create(OnBodyActivatedFn onActivated, OnBodyDeactivatedFn onDeactivated, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyActivationListener_Destroy(IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyActivationListener_Destroy")]
+		public static extern void BodyActivationListener_Destroy(IntPtr listener);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PhysicsSystem
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsSystem_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_Create")]
+		public static extern IntPtr PhysicsSystem_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_Destroy(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_Destroy")]
+		public static extern void PhysicsSystem_Destroy(IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_Init(IntPtr system, uint maxBodies, uint numBodyMutexes, uint maxBodyPairs, uint maxContactConstraints, IntPtr broadPhaseLayerInterface, IntPtr objectVsBroadPhaseLayerFilter, IntPtr objectLayerPairFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_Init")]
+		public static extern void PhysicsSystem_Init(IntPtr system, uint maxBodies, uint numBodyMutexes, uint maxBodyPairs, uint maxContactConstraints, IntPtr broadPhaseLayerInterface, IntPtr objectVsBroadPhaseLayerFilter, IntPtr objectLayerPairFilter);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_OptimizeBroadPhase(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_OptimizeBroadPhase")]
+		public static extern void PhysicsSystem_OptimizeBroadPhase(IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_PhysicsSystem_Update(IntPtr system, float deltaTime, int collisionSteps, IntPtr tempAllocator, IntPtr jobSystem);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_Update")]
+		public static extern uint PhysicsSystem_Update(IntPtr system, float deltaTime, int collisionSteps, IntPtr tempAllocator, IntPtr jobSystem);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_SetGravity(IntPtr system, JoltC_Vec3 gravity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_SetGravity")]
+		public static extern void PhysicsSystem_SetGravity(IntPtr system, Vec3 gravity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_PhysicsSystem_GetGravity(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetGravity")]
+		public static extern Vec3 PhysicsSystem_GetGravity(IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_SetContactListener(IntPtr system, IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_SetContactListener")]
+		public static extern void PhysicsSystem_SetContactListener(IntPtr system, IntPtr listener);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_SetBodyActivationListener(IntPtr system, IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_SetBodyActivationListener")]
+		public static extern void PhysicsSystem_SetBodyActivationListener(IntPtr system, IntPtr listener);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_PhysicsSystem_GetNumBodies(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetNumBodies")]
+		public static extern uint PhysicsSystem_GetNumBodies(IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_PhysicsSystem_GetNumActiveBodies(IntPtr system, JoltC_BodyType bodyType);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetNumActiveBodies")]
+		public static extern uint PhysicsSystem_GetNumActiveBodies(IntPtr system, BodyType bodyType);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_PhysicsSystem_GetMaxBodies(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetMaxBodies")]
+		public static extern uint PhysicsSystem_GetMaxBodies(IntPtr system);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyInterface — obtained from PhysicsSystem, not owned by caller
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsSystem_GetBodyInterface(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetBodyInterface")]
+		public static extern IntPtr PhysicsSystem_GetBodyInterface(IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsSystem_GetBodyInterfaceNoLock(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetBodyInterfaceNoLock")]
+		public static extern IntPtr PhysicsSystem_GetBodyInterfaceNoLock(IntPtr system);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Additional PhysicsSystem queries
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_PhysicsSystem_WereBodiesInContact(IntPtr system, uint body1, uint body2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_WereBodiesInContact")]
+		public static extern int PhysicsSystem_WereBodiesInContact(IntPtr system, uint body1, uint body2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_PhysicsSystem_GetNumConstraints(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetNumConstraints")]
+		public static extern uint PhysicsSystem_GetNumConstraints(IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_GetBodies(IntPtr system, uint* outIDs, uint maxCount);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetBodies")]
+		public static extern void PhysicsSystem_GetBodies(IntPtr system, uint* outIDs, uint maxCount);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ObjectLayerPairFilterTable (built-in table implementation)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ObjectLayerPairFilterTable_Create(uint numObjectLayers);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterTable_Create")]
+		public static extern IntPtr ObjectLayerPairFilterTable_Create(uint numObjectLayers);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ObjectLayerPairFilterTable_DisableCollision(IntPtr filter, ushort layer1, ushort layer2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterTable_DisableCollision")]
+		public static extern void ObjectLayerPairFilterTable_DisableCollision(IntPtr filter, ushort layer1, ushort layer2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ObjectLayerPairFilterTable_EnableCollision(IntPtr filter, ushort layer1, ushort layer2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterTable_EnableCollision")]
+		public static extern void ObjectLayerPairFilterTable_EnableCollision(IntPtr filter, ushort layer1, ushort layer2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_ObjectLayerPairFilterTable_ShouldCollide(IntPtr filter, ushort layer1, ushort layer2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterTable_ShouldCollide")]
+		public static extern int ObjectLayerPairFilterTable_ShouldCollide(IntPtr filter, ushort layer1, ushort layer2);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ObjectLayerPairFilterMask (built-in mask implementation)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ObjectLayerPairFilterMask_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterMask_Create")]
+		public static extern IntPtr ObjectLayerPairFilterMask_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ushort JoltC_ObjectLayerPairFilterMask_GetObjectLayer(uint group, uint mask);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterMask_GetObjectLayer")]
+		public static extern ushort ObjectLayerPairFilterMask_GetObjectLayer(uint group, uint mask);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ObjectLayerPairFilterMask_GetGroup(ushort layer);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterMask_GetGroup")]
+		public static extern uint ObjectLayerPairFilterMask_GetGroup(ushort layer);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ObjectLayerPairFilterMask_GetMask(ushort layer);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterMask_GetMask")]
+		public static extern uint ObjectLayerPairFilterMask_GetMask(ushort layer);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseLayerInterfaceTable (built-in table implementation)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BroadPhaseLayerInterfaceTable_Create(uint numObjectLayers, uint numBroadPhaseLayers);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerInterfaceTable_Create")]
+		public static extern IntPtr BroadPhaseLayerInterfaceTable_Create(uint numObjectLayers, uint numBroadPhaseLayers);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseLayerInterfaceTable_MapObjectToBroadPhaseLayer(IntPtr iface, ushort objectLayer, byte broadPhaseLayer);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerInterfaceTable_MapObjectToBroadPhaseLayer")]
+		public static extern void BroadPhaseLayerInterfaceTable_MapObjectToBroadPhaseLayer(IntPtr iface, ushort objectLayer, byte broadPhaseLayer);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseLayerInterfaceMask (built-in mask implementation)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BroadPhaseLayerInterfaceMask_Create(uint numBroadPhaseLayers);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerInterfaceMask_Create")]
+		public static extern IntPtr BroadPhaseLayerInterfaceMask_Create(uint numBroadPhaseLayers);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseLayerInterfaceMask_ConfigureLayer(IntPtr iface, byte broadPhaseLayer, uint groupsToInclude, uint groupsToExclude);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerInterfaceMask_ConfigureLayer")]
+		public static extern void BroadPhaseLayerInterfaceMask_ConfigureLayer(IntPtr iface, byte broadPhaseLayer, uint groupsToInclude, uint groupsToExclude);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// GroupFilter / GroupFilterTable
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_GroupFilter_Destroy(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilter_Destroy")]
+		public static extern void GroupFilter_Destroy(IntPtr filter);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_GroupFilter_CanCollide(IntPtr filter, JoltC_CollisionGroup* group1, JoltC_CollisionGroup* group2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilter_CanCollide")]
+		public static extern int GroupFilter_CanCollide(IntPtr filter, CollisionGroup* group1, CollisionGroup* group2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_GroupFilterTable_Create(uint numSubGroups);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilterTable_Create")]
+		public static extern IntPtr GroupFilterTable_Create(uint numSubGroups);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_GroupFilterTable_DisableCollision(IntPtr filter, uint subGroup1, uint subGroup2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilterTable_DisableCollision")]
+		public static extern void GroupFilterTable_DisableCollision(IntPtr filter, uint subGroup1, uint subGroup2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_GroupFilterTable_EnableCollision(IntPtr filter, uint subGroup1, uint subGroup2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilterTable_EnableCollision")]
+		public static extern void GroupFilterTable_EnableCollision(IntPtr filter, uint subGroup1, uint subGroup2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_GroupFilterTable_IsCollisionEnabled(IntPtr filter, uint subGroup1, uint subGroup2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilterTable_IsCollisionEnabled")]
+		public static extern int GroupFilterTable_IsCollisionEnabled(IntPtr filter, uint subGroup1, uint subGroup2);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PhysicsMaterial
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsMaterial_Create(byte* name, uint color);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsMaterial_Create")]
+		public static extern IntPtr PhysicsMaterial_Create(byte* name, uint color);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsMaterial_Destroy(IntPtr material);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsMaterial_Destroy")]
+		public static extern void PhysicsMaterial_Destroy(IntPtr material);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern byte* JoltC_PhysicsMaterial_GetDebugName(IntPtr material);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsMaterial_GetDebugName")]
+		public static extern byte* PhysicsMaterial_GetDebugName(IntPtr material);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_PhysicsMaterial_GetDebugColor(IntPtr material);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsMaterial_GetDebugColor")]
+		public static extern uint PhysicsMaterial_GetDebugColor(IntPtr material);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PhysicsStepListener
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsStepListener_Create(JoltC_OnPhysicsStepFn fn, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsStepListener_Create")]
+		public static extern IntPtr PhysicsStepListener_Create(OnPhysicsStepFn fn, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsStepListener_Destroy(IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsStepListener_Destroy")]
+		public static extern void PhysicsStepListener_Destroy(IntPtr listener);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_AddStepListener(IntPtr system, IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_AddStepListener")]
+		public static extern void PhysicsSystem_AddStepListener(IntPtr system, IntPtr listener);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_RemoveStepListener(IntPtr system, IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_RemoveStepListener")]
+		public static extern void PhysicsSystem_RemoveStepListener(IntPtr system, IntPtr listener);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// SimShapeFilter on PhysicsSystem
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_SetSimShapeFilter(IntPtr system, IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_SetSimShapeFilter")]
+		public static extern void PhysicsSystem_SetSimShapeFilter(IntPtr system, IntPtr filter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Enhanced ContactListener (with Body/ContactManifold/ContactSettings)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ContactListener_CreateEnhanced(JoltC_OnContactValidateEnhancedFn onValidate, JoltC_OnContactAddedEnhancedFn onAdded, JoltC_OnContactPersistedEnhancedFn onPersisted, JoltC_OnContactRemovedEnhancedFn onRemoved, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactListener_CreateEnhanced")]
+		public static extern IntPtr ContactListener_CreateEnhanced(OnContactValidateEnhancedFn onValidate, OnContactAddedEnhancedFn onAdded, OnContactPersistedEnhancedFn onPersisted, OnContactRemovedEnhancedFn onRemoved, void* userData);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PhysicsSystem — constraints
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_AddConstraints(IntPtr system, IntPtr* constraints, int count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_AddConstraints")]
+		public static extern void PhysicsSystem_AddConstraints(IntPtr system, IntPtr* constraints, int count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_RemoveConstraints(IntPtr system, IntPtr* constraints, int count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_RemoveConstraints")]
+		public static extern void PhysicsSystem_RemoveConstraints(IntPtr system, IntPtr* constraints, int count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_PhysicsSystem_GetConstraints(IntPtr system, IntPtr* outConstraints, int maxCount);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetConstraints")]
+		public static extern int PhysicsSystem_GetConstraints(IntPtr system, IntPtr* outConstraints, int maxCount);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PhysicsSystem — settings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_GetPhysicsSettings(IntPtr system, JoltC_PhysicsSettings* outSettings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetPhysicsSettings")]
+		public static extern void PhysicsSystem_GetPhysicsSettings(IntPtr system, PhysicsSettings* outSettings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_SetPhysicsSettings(IntPtr system, JoltC_PhysicsSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_SetPhysicsSettings")]
+		public static extern void PhysicsSystem_SetPhysicsSettings(IntPtr system, PhysicsSettings* settings);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PhysicsSystem — activate bodies in AABB
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_ActivateBodiesInAABox(IntPtr system, JoltC_Vec3 min, JoltC_Vec3 max);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_ActivateBodiesInAABox")]
+		public static extern void PhysicsSystem_ActivateBodiesInAABox(IntPtr system, Vec3 min, Vec3 max);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Callback SetProcs — update function pointers on existing objects
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyActivationListener_SetProcs(IntPtr listener, JoltC_BodyActivationListener_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyActivationListener_SetProcs")]
+		public static extern void BodyActivationListener_SetProcs(IntPtr listener, BodyActivationListener_Procs procs, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ContactListener_SetProcs(IntPtr listener, JoltC_ContactListener_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactListener_SetProcs")]
+		public static extern void ContactListener_SetProcs(IntPtr listener, ContactListener_Procs procs, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsStepListener_SetProcs(IntPtr listener, JoltC_PhysicsStepListener_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsStepListener_SetProcs")]
+		public static extern void PhysicsStepListener_SetProcs(IntPtr listener, PhysicsStepListener_Procs procs, void* userData);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ObjectVsBroadPhaseLayerFilterTable (built-in table implementation)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ObjectVsBroadPhaseLayerFilterTable_Create(IntPtr bpInterface, uint numBroadPhaseLayers, IntPtr objectFilter, uint numObjectLayers);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectVsBroadPhaseLayerFilterTable_Create")]
+		public static extern IntPtr ObjectVsBroadPhaseLayerFilterTable_Create(IntPtr bpInterface, uint numBroadPhaseLayers, IntPtr objectFilter, uint numObjectLayers);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ObjectVsBroadPhaseLayerFilterMask (built-in mask implementation)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ObjectVsBroadPhaseLayerFilterMask_Create(IntPtr bpInterface);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectVsBroadPhaseLayerFilterMask_Create")]
+		public static extern IntPtr ObjectVsBroadPhaseLayerFilterMask_Create(IntPtr bpInterface);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// SoftBodyCreationSettings
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SoftBodyCreationSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SoftBodyCreationSettings_Create")]
+		public static extern IntPtr SoftBodyCreationSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SoftBodyCreationSettings_Destroy(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SoftBodyCreationSettings_Destroy")]
+		public static extern void SoftBodyCreationSettings_Destroy(IntPtr settings);
 
 		/// <summary>
 		/// ==========================================================================
 		/// BodyCreationSettings — opaque-handle API
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_BodyCreationSettings* JoltC_BodyCreationSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_Create")]
+		public static extern BodyCreationSettings* BodyCreationSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_BodyCreationSettings* JoltC_BodyCreationSettings_Create2(IntPtr shapeSettings, JoltC_RVec3 position, JoltC_Quat rotation, JoltC_MotionType motionType, ushort objectLayer);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_Create2")]
+		public static extern BodyCreationSettings* BodyCreationSettings_Create2(IntPtr shapeSettings, RVec3 position, Quat rotation, MotionType motionType, ushort objectLayer);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_BodyCreationSettings* JoltC_BodyCreationSettings_Create3(IntPtr shape, JoltC_RVec3 position, JoltC_Quat rotation, JoltC_MotionType motionType, ushort objectLayer);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_Create3")]
+		public static extern BodyCreationSettings* BodyCreationSettings_Create3(IntPtr shape, RVec3 position, Quat rotation, MotionType motionType, ushort objectLayer);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_Destroy(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_Destroy")]
+		public static extern void BodyCreationSettings_Destroy(BodyCreationSettings* s);
 
 		/// <summary>
 		/// Position / Rotation
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_GetPosition(JoltC_BodyCreationSettings* s, JoltC_RVec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetPosition")]
+		public static extern void BodyCreationSettings_GetPosition(BodyCreationSettings* s, RVec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetPosition(JoltC_BodyCreationSettings* s, JoltC_RVec3* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetPosition")]
+		public static extern void BodyCreationSettings_SetPosition(BodyCreationSettings* s, RVec3* value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_GetRotation(JoltC_BodyCreationSettings* s, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetRotation")]
+		public static extern void BodyCreationSettings_GetRotation(BodyCreationSettings* s, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetRotation(JoltC_BodyCreationSettings* s, JoltC_Quat* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetRotation")]
+		public static extern void BodyCreationSettings_SetRotation(BodyCreationSettings* s, Quat* value);
 
 		/// <summary>
 		/// Velocities
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_GetLinearVelocity(JoltC_BodyCreationSettings* s, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetLinearVelocity")]
+		public static extern void BodyCreationSettings_GetLinearVelocity(BodyCreationSettings* s, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetLinearVelocity(JoltC_BodyCreationSettings* s, JoltC_Vec3* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetLinearVelocity")]
+		public static extern void BodyCreationSettings_SetLinearVelocity(BodyCreationSettings* s, Vec3* value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_GetAngularVelocity(JoltC_BodyCreationSettings* s, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetAngularVelocity")]
+		public static extern void BodyCreationSettings_GetAngularVelocity(BodyCreationSettings* s, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetAngularVelocity(JoltC_BodyCreationSettings* s, JoltC_Vec3* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetAngularVelocity")]
+		public static extern void BodyCreationSettings_SetAngularVelocity(BodyCreationSettings* s, Vec3* value);
 
 		/// <summary>
 		/// User data
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_BodyCreationSettings_GetUserData(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetUserData")]
+		public static extern ulong BodyCreationSettings_GetUserData(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetUserData(JoltC_BodyCreationSettings* s, ulong value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetUserData")]
+		public static extern void BodyCreationSettings_SetUserData(BodyCreationSettings* s, ulong value);
 
 		/// <summary>
 		/// Layer / Group
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ushort JoltC_BodyCreationSettings_GetObjectLayer(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetObjectLayer")]
+		public static extern ushort BodyCreationSettings_GetObjectLayer(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetObjectLayer(JoltC_BodyCreationSettings* s, ushort value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetObjectLayer")]
+		public static extern void BodyCreationSettings_SetObjectLayer(BodyCreationSettings* s, ushort value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_GetCollisionGroup(JoltC_BodyCreationSettings* s, JoltC_CollisionGroup* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetCollisionGroup")]
+		public static extern void BodyCreationSettings_GetCollisionGroup(BodyCreationSettings* s, CollisionGroup* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetCollisionGroup(JoltC_BodyCreationSettings* s, JoltC_CollisionGroup* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetCollisionGroup")]
+		public static extern void BodyCreationSettings_SetCollisionGroup(BodyCreationSettings* s, CollisionGroup* value);
 
 		/// <summary>
 		/// Motion / DOFs
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotionType JoltC_BodyCreationSettings_GetMotionType(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetMotionType")]
+		public static extern MotionType BodyCreationSettings_GetMotionType(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetMotionType(JoltC_BodyCreationSettings* s, JoltC_MotionType value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetMotionType")]
+		public static extern void BodyCreationSettings_SetMotionType(BodyCreationSettings* s, MotionType value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_AllowedDOFs JoltC_BodyCreationSettings_GetAllowedDOFs(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetAllowedDOFs")]
+		public static extern AllowedDOFs BodyCreationSettings_GetAllowedDOFs(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetAllowedDOFs(JoltC_BodyCreationSettings* s, JoltC_AllowedDOFs value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetAllowedDOFs")]
+		public static extern void BodyCreationSettings_SetAllowedDOFs(BodyCreationSettings* s, AllowedDOFs value);
 
 		/// <summary>
 		/// Bool flags
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyCreationSettings_GetAllowDynamicOrKinematic(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetAllowDynamicOrKinematic")]
+		public static extern int BodyCreationSettings_GetAllowDynamicOrKinematic(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetAllowDynamicOrKinematic(JoltC_BodyCreationSettings* s, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetAllowDynamicOrKinematic")]
+		public static extern void BodyCreationSettings_SetAllowDynamicOrKinematic(BodyCreationSettings* s, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyCreationSettings_GetIsSensor(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetIsSensor")]
+		public static extern int BodyCreationSettings_GetIsSensor(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetIsSensor(JoltC_BodyCreationSettings* s, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetIsSensor")]
+		public static extern void BodyCreationSettings_SetIsSensor(BodyCreationSettings* s, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyCreationSettings_GetCollideKinematicVsNonDynamic(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetCollideKinematicVsNonDynamic")]
+		public static extern int BodyCreationSettings_GetCollideKinematicVsNonDynamic(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetCollideKinematicVsNonDynamic(JoltC_BodyCreationSettings* s, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetCollideKinematicVsNonDynamic")]
+		public static extern void BodyCreationSettings_SetCollideKinematicVsNonDynamic(BodyCreationSettings* s, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyCreationSettings_GetUseManifoldReduction(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetUseManifoldReduction")]
+		public static extern int BodyCreationSettings_GetUseManifoldReduction(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetUseManifoldReduction(JoltC_BodyCreationSettings* s, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetUseManifoldReduction")]
+		public static extern void BodyCreationSettings_SetUseManifoldReduction(BodyCreationSettings* s, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyCreationSettings_GetApplyGyroscopicForce(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetApplyGyroscopicForce")]
+		public static extern int BodyCreationSettings_GetApplyGyroscopicForce(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetApplyGyroscopicForce(JoltC_BodyCreationSettings* s, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetApplyGyroscopicForce")]
+		public static extern void BodyCreationSettings_SetApplyGyroscopicForce(BodyCreationSettings* s, int value);
 
 		/// <summary>
 		/// Motion quality / edge removal / sleeping
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotionQuality JoltC_BodyCreationSettings_GetMotionQuality(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetMotionQuality")]
+		public static extern MotionQuality BodyCreationSettings_GetMotionQuality(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetMotionQuality(JoltC_BodyCreationSettings* s, JoltC_MotionQuality value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetMotionQuality")]
+		public static extern void BodyCreationSettings_SetMotionQuality(BodyCreationSettings* s, MotionQuality value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyCreationSettings_GetEnhancedInternalEdgeRemoval(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetEnhancedInternalEdgeRemoval")]
+		public static extern int BodyCreationSettings_GetEnhancedInternalEdgeRemoval(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetEnhancedInternalEdgeRemoval(JoltC_BodyCreationSettings* s, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetEnhancedInternalEdgeRemoval")]
+		public static extern void BodyCreationSettings_SetEnhancedInternalEdgeRemoval(BodyCreationSettings* s, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyCreationSettings_GetAllowSleeping(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetAllowSleeping")]
+		public static extern int BodyCreationSettings_GetAllowSleeping(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetAllowSleeping(JoltC_BodyCreationSettings* s, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetAllowSleeping")]
+		public static extern void BodyCreationSettings_SetAllowSleeping(BodyCreationSettings* s, int value);
 
 		/// <summary>
 		/// Float properties
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyCreationSettings_GetFriction(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetFriction")]
+		public static extern float BodyCreationSettings_GetFriction(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetFriction(JoltC_BodyCreationSettings* s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetFriction")]
+		public static extern void BodyCreationSettings_SetFriction(BodyCreationSettings* s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyCreationSettings_GetRestitution(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetRestitution")]
+		public static extern float BodyCreationSettings_GetRestitution(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetRestitution(JoltC_BodyCreationSettings* s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetRestitution")]
+		public static extern void BodyCreationSettings_SetRestitution(BodyCreationSettings* s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyCreationSettings_GetLinearDamping(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetLinearDamping")]
+		public static extern float BodyCreationSettings_GetLinearDamping(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetLinearDamping(JoltC_BodyCreationSettings* s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetLinearDamping")]
+		public static extern void BodyCreationSettings_SetLinearDamping(BodyCreationSettings* s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyCreationSettings_GetAngularDamping(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetAngularDamping")]
+		public static extern float BodyCreationSettings_GetAngularDamping(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetAngularDamping(JoltC_BodyCreationSettings* s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetAngularDamping")]
+		public static extern void BodyCreationSettings_SetAngularDamping(BodyCreationSettings* s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyCreationSettings_GetMaxLinearVelocity(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetMaxLinearVelocity")]
+		public static extern float BodyCreationSettings_GetMaxLinearVelocity(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetMaxLinearVelocity(JoltC_BodyCreationSettings* s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetMaxLinearVelocity")]
+		public static extern void BodyCreationSettings_SetMaxLinearVelocity(BodyCreationSettings* s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyCreationSettings_GetMaxAngularVelocity(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetMaxAngularVelocity")]
+		public static extern float BodyCreationSettings_GetMaxAngularVelocity(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetMaxAngularVelocity(JoltC_BodyCreationSettings* s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetMaxAngularVelocity")]
+		public static extern void BodyCreationSettings_SetMaxAngularVelocity(BodyCreationSettings* s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyCreationSettings_GetGravityFactor(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetGravityFactor")]
+		public static extern float BodyCreationSettings_GetGravityFactor(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetGravityFactor(JoltC_BodyCreationSettings* s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetGravityFactor")]
+		public static extern void BodyCreationSettings_SetGravityFactor(BodyCreationSettings* s, float value);
 
 		/// <summary>
 		/// Solver overrides
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_BodyCreationSettings_GetNumVelocityStepsOverride(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetNumVelocityStepsOverride")]
+		public static extern uint BodyCreationSettings_GetNumVelocityStepsOverride(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetNumVelocityStepsOverride(JoltC_BodyCreationSettings* s, uint value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetNumVelocityStepsOverride")]
+		public static extern void BodyCreationSettings_SetNumVelocityStepsOverride(BodyCreationSettings* s, uint value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_BodyCreationSettings_GetNumPositionStepsOverride(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetNumPositionStepsOverride")]
+		public static extern uint BodyCreationSettings_GetNumPositionStepsOverride(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetNumPositionStepsOverride(JoltC_BodyCreationSettings* s, uint value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetNumPositionStepsOverride")]
+		public static extern void BodyCreationSettings_SetNumPositionStepsOverride(BodyCreationSettings* s, uint value);
 
 		/// <summary>
 		/// Mass properties
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_OverrideMassProperties JoltC_BodyCreationSettings_GetOverrideMassProperties(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetOverrideMassProperties")]
+		public static extern OverrideMassProperties BodyCreationSettings_GetOverrideMassProperties(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetOverrideMassProperties(JoltC_BodyCreationSettings* s, JoltC_OverrideMassProperties value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetOverrideMassProperties")]
+		public static extern void BodyCreationSettings_SetOverrideMassProperties(BodyCreationSettings* s, OverrideMassProperties value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyCreationSettings_GetInertiaMultiplier(JoltC_BodyCreationSettings* s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetInertiaMultiplier")]
+		public static extern float BodyCreationSettings_GetInertiaMultiplier(BodyCreationSettings* s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetInertiaMultiplier(JoltC_BodyCreationSettings* s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetInertiaMultiplier")]
+		public static extern void BodyCreationSettings_SetInertiaMultiplier(BodyCreationSettings* s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_GetMassPropertiesOverride(JoltC_BodyCreationSettings* s, JoltC_MassProperties* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetMassPropertiesOverride")]
+		public static extern void BodyCreationSettings_GetMassPropertiesOverride(BodyCreationSettings* s, MassProperties* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyCreationSettings_SetMassPropertiesOverride(JoltC_BodyCreationSettings* s, JoltC_MassProperties* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetMassPropertiesOverride")]
+		public static extern void BodyCreationSettings_SetMassPropertiesOverride(BodyCreationSettings* s, MassProperties* value);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Create / Destroy
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_BodyInterface_CreateBody(IntPtr iface, JoltC_BodyCreationSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateBody")]
+		public static extern uint BodyInterface_CreateBody(IntPtr iface, BodyCreationSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_BodyInterface_CreateAndAddBody(IntPtr iface, JoltC_BodyCreationSettings* settings, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateAndAddBody")]
+		public static extern uint BodyInterface_CreateAndAddBody(IntPtr iface, BodyCreationSettings* settings, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_DestroyBody(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_DestroyBody")]
+		public static extern void BodyInterface_DestroyBody(IntPtr iface, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Add / Remove
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddBody(IntPtr iface, uint bodyID, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddBody")]
+		public static extern void BodyInterface_AddBody(IntPtr iface, uint bodyID, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_RemoveBody(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_RemoveBody")]
+		public static extern void BodyInterface_RemoveBody(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyInterface_IsAdded(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_IsAdded")]
+		public static extern int BodyInterface_IsAdded(IntPtr iface, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Activation
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_ActivateBody(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_ActivateBody")]
+		public static extern void BodyInterface_ActivateBody(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_DeactivateBody(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_DeactivateBody")]
+		public static extern void BodyInterface_DeactivateBody(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyInterface_IsActive(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_IsActive")]
+		public static extern int BodyInterface_IsActive(IntPtr iface, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Position / Rotation
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetPosition(IntPtr iface, uint bodyID, JoltC_RVec3 position, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetPosition")]
+		public static extern void BodyInterface_SetPosition(IntPtr iface, uint bodyID, RVec3 position, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_BodyInterface_GetPosition(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetPosition")]
+		public static extern RVec3 BodyInterface_GetPosition(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_BodyInterface_GetCenterOfMassPosition(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetCenterOfMassPosition")]
+		public static extern RVec3 BodyInterface_GetCenterOfMassPosition(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetRotation(IntPtr iface, uint bodyID, JoltC_Quat rotation, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetRotation")]
+		public static extern void BodyInterface_SetRotation(IntPtr iface, uint bodyID, Quat rotation, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_BodyInterface_GetRotation(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetRotation")]
+		public static extern Quat BodyInterface_GetRotation(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetPositionAndRotation(IntPtr iface, uint bodyID, JoltC_RVec3 position, JoltC_Quat rotation, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetPositionAndRotation")]
+		public static extern void BodyInterface_SetPositionAndRotation(IntPtr iface, uint bodyID, RVec3 position, Quat rotation, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_GetPositionAndRotation(IntPtr iface, uint bodyID, JoltC_RVec3* outPosition, JoltC_Quat* outRotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetPositionAndRotation")]
+		public static extern void BodyInterface_GetPositionAndRotation(IntPtr iface, uint bodyID, RVec3* outPosition, Quat* outRotation);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Velocity
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetLinearVelocity(IntPtr iface, uint bodyID, JoltC_Vec3 velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetLinearVelocity")]
+		public static extern void BodyInterface_SetLinearVelocity(IntPtr iface, uint bodyID, Vec3 velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_BodyInterface_GetLinearVelocity(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetLinearVelocity")]
+		public static extern Vec3 BodyInterface_GetLinearVelocity(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddLinearVelocity(IntPtr iface, uint bodyID, JoltC_Vec3 velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddLinearVelocity")]
+		public static extern void BodyInterface_AddLinearVelocity(IntPtr iface, uint bodyID, Vec3 velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetAngularVelocity(IntPtr iface, uint bodyID, JoltC_Vec3 angularVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetAngularVelocity")]
+		public static extern void BodyInterface_SetAngularVelocity(IntPtr iface, uint bodyID, Vec3 angularVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_BodyInterface_GetAngularVelocity(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetAngularVelocity")]
+		public static extern Vec3 BodyInterface_GetAngularVelocity(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetLinearAndAngularVelocity(IntPtr iface, uint bodyID, JoltC_Vec3 linearVelocity, JoltC_Vec3 angularVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetLinearAndAngularVelocity")]
+		public static extern void BodyInterface_SetLinearAndAngularVelocity(IntPtr iface, uint bodyID, Vec3 linearVelocity, Vec3 angularVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_MoveKinematic(IntPtr iface, uint bodyID, JoltC_RVec3 targetPosition, JoltC_Quat targetRotation, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_MoveKinematic")]
+		public static extern void BodyInterface_MoveKinematic(IntPtr iface, uint bodyID, RVec3 targetPosition, Quat targetRotation, float deltaTime);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Force / Torque / Impulse
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddForce(IntPtr iface, uint bodyID, JoltC_Vec3 force);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddForce")]
+		public static extern void BodyInterface_AddForce(IntPtr iface, uint bodyID, Vec3 force);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddForceAtPosition(IntPtr iface, uint bodyID, JoltC_Vec3 force, JoltC_RVec3 point);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddForceAtPosition")]
+		public static extern void BodyInterface_AddForceAtPosition(IntPtr iface, uint bodyID, Vec3 force, RVec3 point);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddTorque(IntPtr iface, uint bodyID, JoltC_Vec3 torque);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddTorque")]
+		public static extern void BodyInterface_AddTorque(IntPtr iface, uint bodyID, Vec3 torque);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddImpulse(IntPtr iface, uint bodyID, JoltC_Vec3 impulse);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddImpulse")]
+		public static extern void BodyInterface_AddImpulse(IntPtr iface, uint bodyID, Vec3 impulse);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddImpulseAtPosition(IntPtr iface, uint bodyID, JoltC_Vec3 impulse, JoltC_RVec3 point);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddImpulseAtPosition")]
+		public static extern void BodyInterface_AddImpulseAtPosition(IntPtr iface, uint bodyID, Vec3 impulse, RVec3 point);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddAngularImpulse(IntPtr iface, uint bodyID, JoltC_Vec3 angularImpulse);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddAngularImpulse")]
+		public static extern void BodyInterface_AddAngularImpulse(IntPtr iface, uint bodyID, Vec3 angularImpulse);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Properties
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetMotionType(IntPtr iface, uint bodyID, JoltC_MotionType motionType, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetMotionType")]
+		public static extern void BodyInterface_SetMotionType(IntPtr iface, uint bodyID, MotionType motionType, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotionType JoltC_BodyInterface_GetMotionType(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetMotionType")]
+		public static extern MotionType BodyInterface_GetMotionType(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_BodyType JoltC_BodyInterface_GetBodyType(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetBodyType")]
+		public static extern BodyType BodyInterface_GetBodyType(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetFriction(IntPtr iface, uint bodyID, float friction);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetFriction")]
+		public static extern void BodyInterface_SetFriction(IntPtr iface, uint bodyID, float friction);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyInterface_GetFriction(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetFriction")]
+		public static extern float BodyInterface_GetFriction(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetRestitution(IntPtr iface, uint bodyID, float restitution);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetRestitution")]
+		public static extern void BodyInterface_SetRestitution(IntPtr iface, uint bodyID, float restitution);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyInterface_GetRestitution(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetRestitution")]
+		public static extern float BodyInterface_GetRestitution(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetGravityFactor(IntPtr iface, uint bodyID, float gravityFactor);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetGravityFactor")]
+		public static extern void BodyInterface_SetGravityFactor(IntPtr iface, uint bodyID, float gravityFactor);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyInterface_GetGravityFactor(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetGravityFactor")]
+		public static extern float BodyInterface_GetGravityFactor(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetObjectLayer(IntPtr iface, uint bodyID, ushort layer);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetObjectLayer")]
+		public static extern void BodyInterface_SetObjectLayer(IntPtr iface, uint bodyID, ushort layer);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ushort JoltC_BodyInterface_GetObjectLayer(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetObjectLayer")]
+		public static extern ushort BodyInterface_GetObjectLayer(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetUserData(IntPtr iface, uint bodyID, ulong userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetUserData")]
+		public static extern void BodyInterface_SetUserData(IntPtr iface, uint bodyID, ulong userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_BodyInterface_GetUserData(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetUserData")]
+		public static extern ulong BodyInterface_GetUserData(IntPtr iface, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetShape(IntPtr iface, uint bodyID, IntPtr shape, int updateMassProperties, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetShape")]
+		public static extern void BodyInterface_SetShape(IntPtr iface, uint bodyID, IntPtr shape, int updateMassProperties, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_NotifyShapeChanged(IntPtr iface, uint bodyID, JoltC_Vec3 previousCenterOfMass, int updateMassProperties, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_NotifyShapeChanged")]
+		public static extern void BodyInterface_NotifyShapeChanged(IntPtr iface, uint bodyID, Vec3 previousCenterOfMass, int updateMassProperties, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyInterface_GetShape(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetShape")]
+		public static extern IntPtr BodyInterface_GetShape(IntPtr iface, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Point velocity / Transform
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_BodyInterface_GetPointVelocity(IntPtr iface, uint bodyID, JoltC_RVec3 point);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetPointVelocity")]
+		public static extern Vec3 BodyInterface_GetPointVelocity(IntPtr iface, uint bodyID, RVec3 point);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_BodyInterface_GetWorldTransform(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetWorldTransform")]
+		public static extern Mat44 BodyInterface_GetWorldTransform(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_BodyInterface_GetCenterOfMassTransform(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetCenterOfMassTransform")]
+		public static extern Mat44 BodyInterface_GetCenterOfMassTransform(IntPtr iface, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Inverse mass / inertia
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyInterface_GetInverseMass(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetInverseMass")]
+		public static extern float BodyInterface_GetInverseMass(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetInverseMass(IntPtr iface, uint bodyID, float inverseMass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetInverseMass")]
+		public static extern void BodyInterface_SetInverseMass(IntPtr iface, uint bodyID, float inverseMass);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Additional body interface methods
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetMotionQuality(IntPtr iface, uint bodyID, JoltC_MotionQuality quality);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetMotionQuality")]
+		public static extern void BodyInterface_SetMotionQuality(IntPtr iface, uint bodyID, MotionQuality quality);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotionQuality JoltC_BodyInterface_GetMotionQuality(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetMotionQuality")]
+		public static extern MotionQuality BodyInterface_GetMotionQuality(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetLinearDamping(IntPtr iface, uint bodyID, float damping);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetLinearDamping")]
+		public static extern void BodyInterface_SetLinearDamping(IntPtr iface, uint bodyID, float damping);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyInterface_GetLinearDamping(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetLinearDamping")]
+		public static extern float BodyInterface_GetLinearDamping(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetAngularDamping(IntPtr iface, uint bodyID, float damping);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetAngularDamping")]
+		public static extern void BodyInterface_SetAngularDamping(IntPtr iface, uint bodyID, float damping);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyInterface_GetAngularDamping(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetAngularDamping")]
+		public static extern float BodyInterface_GetAngularDamping(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetMaxLinearVelocity(IntPtr iface, uint bodyID, float maxVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetMaxLinearVelocity")]
+		public static extern void BodyInterface_SetMaxLinearVelocity(IntPtr iface, uint bodyID, float maxVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyInterface_GetMaxLinearVelocity(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetMaxLinearVelocity")]
+		public static extern float BodyInterface_GetMaxLinearVelocity(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetMaxAngularVelocity(IntPtr iface, uint bodyID, float maxVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetMaxAngularVelocity")]
+		public static extern void BodyInterface_SetMaxAngularVelocity(IntPtr iface, uint bodyID, float maxVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_BodyInterface_GetMaxAngularVelocity(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetMaxAngularVelocity")]
+		public static extern float BodyInterface_GetMaxAngularVelocity(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_BodyInterface_GetWorldSpaceSurfaceNormal(IntPtr iface, uint bodyID, uint subShapeID, JoltC_RVec3 position);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetWorldSpaceSurfaceNormal")]
+		public static extern Vec3 BodyInterface_GetWorldSpaceSurfaceNormal(IntPtr iface, uint bodyID, uint subShapeID, RVec3 position);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyInterface_CreateBodyDirect(IntPtr iface, JoltC_BodyCreationSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateBodyDirect")]
+		public static extern IntPtr BodyInterface_CreateBodyDirect(IntPtr iface, BodyCreationSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyInterface_CreateBodyWithID(IntPtr iface, uint bodyID, JoltC_BodyCreationSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateBodyWithID")]
+		public static extern IntPtr BodyInterface_CreateBodyWithID(IntPtr iface, uint bodyID, BodyCreationSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyInterface_CreateBodyWithoutID(IntPtr iface, JoltC_BodyCreationSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateBodyWithoutID")]
+		public static extern IntPtr BodyInterface_CreateBodyWithoutID(IntPtr iface, BodyCreationSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_DestroyBodyWithoutID(IntPtr iface, IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_DestroyBodyWithoutID")]
+		public static extern void BodyInterface_DestroyBodyWithoutID(IntPtr iface, IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyInterface_AssignBodyID(IntPtr iface, IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AssignBodyID")]
+		public static extern int BodyInterface_AssignBodyID(IntPtr iface, IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyInterface_AssignBodyIDWithID(IntPtr iface, IntPtr body, uint desiredID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AssignBodyIDWithID")]
+		public static extern int BodyInterface_AssignBodyIDWithID(IntPtr iface, IntPtr body, uint desiredID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyInterface_UnassignBodyID(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_UnassignBodyID")]
+		public static extern IntPtr BodyInterface_UnassignBodyID(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_RemoveAndDestroyBody(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_RemoveAndDestroyBody")]
+		public static extern void BodyInterface_RemoveAndDestroyBody(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetPositionAndRotationWhenChanged(IntPtr iface, uint bodyID, JoltC_RVec3 position, JoltC_Quat rotation, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetPositionAndRotationWhenChanged")]
+		public static extern void BodyInterface_SetPositionAndRotationWhenChanged(IntPtr iface, uint bodyID, RVec3 position, Quat rotation, Activation activation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetPositionRotationAndVelocity(IntPtr iface, uint bodyID, JoltC_RVec3 position, JoltC_Quat rotation, JoltC_Vec3 linearVelocity, JoltC_Vec3 angularVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetPositionRotationAndVelocity")]
+		public static extern void BodyInterface_SetPositionRotationAndVelocity(IntPtr iface, uint bodyID, RVec3 position, Quat rotation, Vec3 linearVelocity, Vec3 angularVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_GetLinearAndAngularVelocity(IntPtr iface, uint bodyID, JoltC_Vec3* outLinear, JoltC_Vec3* outAngular);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetLinearAndAngularVelocity")]
+		public static extern void BodyInterface_GetLinearAndAngularVelocity(IntPtr iface, uint bodyID, Vec3* outLinear, Vec3* outAngular);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddLinearAndAngularVelocity(IntPtr iface, uint bodyID, JoltC_Vec3 linearVelocity, JoltC_Vec3 angularVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddLinearAndAngularVelocity")]
+		public static extern void BodyInterface_AddLinearAndAngularVelocity(IntPtr iface, uint bodyID, Vec3 linearVelocity, Vec3 angularVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddForceAndTorque(IntPtr iface, uint bodyID, JoltC_Vec3 force, JoltC_Vec3 torque);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddForceAndTorque")]
+		public static extern void BodyInterface_AddForceAndTorque(IntPtr iface, uint bodyID, Vec3 force, Vec3 torque);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_GetInverseInertia(IntPtr iface, uint bodyID, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetInverseInertia")]
+		public static extern void BodyInterface_GetInverseInertia(IntPtr iface, uint bodyID, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_ActivateBodies(IntPtr iface, uint* bodyIDs, uint count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_ActivateBodies")]
+		public static extern void BodyInterface_ActivateBodies(IntPtr iface, uint* bodyIDs, uint count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_DeactivateBodies(IntPtr iface, uint* bodyIDs, uint count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_DeactivateBodies")]
+		public static extern void BodyInterface_DeactivateBodies(IntPtr iface, uint* bodyIDs, uint count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_ResetSleepTimer(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_ResetSleepTimer")]
+		public static extern void BodyInterface_ResetSleepTimer(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetUseManifoldReduction(IntPtr iface, uint bodyID, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetUseManifoldReduction")]
+		public static extern void BodyInterface_SetUseManifoldReduction(IntPtr iface, uint bodyID, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyInterface_GetUseManifoldReduction(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetUseManifoldReduction")]
+		public static extern int BodyInterface_GetUseManifoldReduction(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetIsSensor(IntPtr iface, uint bodyID, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetIsSensor")]
+		public static extern void BodyInterface_SetIsSensor(IntPtr iface, uint bodyID, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyInterface_IsSensor(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_IsSensor")]
+		public static extern int BodyInterface_IsSensor(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_InvalidateContactCache(IntPtr iface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_InvalidateContactCache")]
+		public static extern void BodyInterface_InvalidateContactCache(IntPtr iface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyInterface_ApplyBuoyancyImpulse(IntPtr iface, uint bodyID, JoltC_RVec3 surfacePosition, JoltC_Vec3 surfaceNormal, float buoyancy, float linearDrag, float angularDrag, JoltC_Vec3 fluidVelocity, JoltC_Vec3 gravity, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_ApplyBuoyancyImpulse")]
+		public static extern int BodyInterface_ApplyBuoyancyImpulse(IntPtr iface, uint bodyID, RVec3 surfacePosition, Vec3 surfaceNormal, float buoyancy, float linearDrag, float angularDrag, Vec3 fluidVelocity, Vec3 gravity, float deltaTime);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyInterface — collision group
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_GetCollisionGroup(IntPtr iface, uint bodyID, JoltC_CollisionGroup* outGroup);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetCollisionGroup")]
+		public static extern void BodyInterface_GetCollisionGroup(IntPtr iface, uint bodyID, CollisionGroup* outGroup);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_SetCollisionGroup(IntPtr iface, uint bodyID, JoltC_CollisionGroup* group);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetCollisionGroup")]
+		public static extern void BodyInterface_SetCollisionGroup(IntPtr iface, uint bodyID, CollisionGroup* group);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyInterface — additional methods (batch 2)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_ActivateBodiesInAABox(IntPtr iface, JoltC_Vec3 min, JoltC_Vec3 max);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_ActivateBodiesInAABox")]
+		public static extern void BodyInterface_ActivateBodiesInAABox(IntPtr iface, Vec3 min, Vec3 max);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddForce2(IntPtr iface, uint bodyID, JoltC_Vec3 force, JoltC_RVec3 point);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddForce2")]
+		public static extern void BodyInterface_AddForce2(IntPtr iface, uint bodyID, Vec3 force, RVec3 point);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyInterface_AddImpulse2(IntPtr iface, uint bodyID, JoltC_Vec3 impulse, JoltC_RVec3 point);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AddImpulse2")]
+		public static extern void BodyInterface_AddImpulse2(IntPtr iface, uint bodyID, Vec3 impulse, RVec3 point);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_BodyInterface_AssignBodyID2(IntPtr iface, IntPtr body, uint desiredID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_AssignBodyID2")]
+		public static extern int BodyInterface_AssignBodyID2(IntPtr iface, IntPtr body, uint desiredID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Body — direct access (requires body lock or known-safe context)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetCollisionGroup(IntPtr body, JoltC_CollisionGroup* outGroup);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetCollisionGroup")]
+		public static extern void Body_GetCollisionGroup(IntPtr body, CollisionGroup* outGroup);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetCollisionGroup(IntPtr body, JoltC_CollisionGroup* group);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetCollisionGroup")]
+		public static extern void Body_SetCollisionGroup(IntPtr body, CollisionGroup* group);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Body_GetFixedToWorldBody();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetFixedToWorldBody")]
+		public static extern IntPtr Body_GetFixedToWorldBody();
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyInterface — SoftBody creation
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyInterface_CreateSoftBody(IntPtr bi, IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateSoftBody")]
+		public static extern IntPtr BodyInterface_CreateSoftBody(IntPtr bi, IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyInterface_CreateSoftBodyWithID(IntPtr bi, IntPtr settings, uint bodyId);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateSoftBodyWithID")]
+		public static extern IntPtr BodyInterface_CreateSoftBodyWithID(IntPtr bi, IntPtr settings, uint bodyId);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyInterface_CreateSoftBodyWithoutID(IntPtr bi, IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateSoftBodyWithoutID")]
+		public static extern IntPtr BodyInterface_CreateSoftBodyWithoutID(IntPtr bi, IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_BodyInterface_CreateAndAddSoftBody(IntPtr bi, IntPtr settings, JoltC_Activation activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_CreateAndAddSoftBody")]
+		public static extern uint BodyInterface_CreateAndAddSoftBody(IntPtr bi, IntPtr settings, Activation activation);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyLockInterface
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsSystem_GetBodyLockInterface(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetBodyLockInterface")]
+		public static extern IntPtr PhysicsSystem_GetBodyLockInterface(IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsSystem_GetBodyLockInterfaceNoLock(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetBodyLockInterfaceNoLock")]
+		public static extern IntPtr PhysicsSystem_GetBodyLockInterfaceNoLock(IntPtr system);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyLock Read/Write
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockRead_Create(IntPtr lockInterface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockRead_Create")]
+		public static extern IntPtr BodyLockRead_Create(IntPtr lockInterface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockRead_GetBody(IntPtr @lock);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockRead_GetBody")]
+		public static extern IntPtr BodyLockRead_GetBody(IntPtr @lock);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyLockRead_Destroy(IntPtr @lock);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockRead_Destroy")]
+		public static extern void BodyLockRead_Destroy(IntPtr @lock);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockWrite_Create(IntPtr lockInterface, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockWrite_Create")]
+		public static extern IntPtr BodyLockWrite_Create(IntPtr lockInterface, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockWrite_GetBody(IntPtr @lock);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockWrite_GetBody")]
+		public static extern IntPtr BodyLockWrite_GetBody(IntPtr @lock);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyLockWrite_Destroy(IntPtr @lock);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockWrite_Destroy")]
+		public static extern void BodyLockWrite_Destroy(IntPtr @lock);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyLockInterface — Lock / Unlock (alternative naming)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockInterface_LockRead(IntPtr lockInterface, uint bodyId);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockInterface_LockRead")]
+		public static extern IntPtr BodyLockInterface_LockRead(IntPtr lockInterface, uint bodyId);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyLockInterface_UnlockRead(IntPtr lockInterface, IntPtr @lock);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockInterface_UnlockRead")]
+		public static extern void BodyLockInterface_UnlockRead(IntPtr lockInterface, IntPtr @lock);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockInterface_LockWrite(IntPtr lockInterface, uint bodyId);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockInterface_LockWrite")]
+		public static extern IntPtr BodyLockInterface_LockWrite(IntPtr lockInterface, uint bodyId);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyLockInterface_UnlockWrite(IntPtr lockInterface, IntPtr @lock);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockInterface_UnlockWrite")]
+		public static extern void BodyLockInterface_UnlockWrite(IntPtr lockInterface, IntPtr @lock);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyLockMulti Read / Write
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockInterface_LockMultiRead(IntPtr lockInterface, uint* bodyIds, int count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockInterface_LockMultiRead")]
+		public static extern IntPtr BodyLockInterface_LockMultiRead(IntPtr lockInterface, uint* bodyIds, int count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockInterface_LockMultiWrite(IntPtr lockInterface, uint* bodyIds, int count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockInterface_LockMultiWrite")]
+		public static extern IntPtr BodyLockInterface_LockMultiWrite(IntPtr lockInterface, uint* bodyIds, int count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyLockMultiRead_Destroy(IntPtr @lock);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockMultiRead_Destroy")]
+		public static extern void BodyLockMultiRead_Destroy(IntPtr @lock);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyLockMultiWrite_Destroy(IntPtr @lock);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockMultiWrite_Destroy")]
+		public static extern void BodyLockMultiWrite_Destroy(IntPtr @lock);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyLockMultiWrite_GetBody(IntPtr @lock, int index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyLockMultiWrite_GetBody")]
+		public static extern IntPtr BodyLockMultiWrite_GetBody(IntPtr @lock, int index);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Body — read functions
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Body_GetID(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetID")]
+		public static extern uint Body_GetID(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_BodyType JoltC_Body_GetBodyType(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetBodyType")]
+		public static extern BodyType Body_GetBodyType(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsRigidBody(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsRigidBody")]
+		public static extern int Body_IsRigidBody(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsSoftBody(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsSoftBody")]
+		public static extern int Body_IsSoftBody(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsActive(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsActive")]
+		public static extern int Body_IsActive(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsStatic(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsStatic")]
+		public static extern int Body_IsStatic(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsKinematic(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsKinematic")]
+		public static extern int Body_IsKinematic(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsDynamic(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsDynamic")]
+		public static extern int Body_IsDynamic(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_CanBeKinematicOrDynamic(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_CanBeKinematicOrDynamic")]
+		public static extern int Body_CanBeKinematicOrDynamic(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsSensor(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsSensor")]
+		public static extern int Body_IsSensor(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetIsSensor(IntPtr body, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetIsSensor")]
+		public static extern void Body_SetIsSensor(IntPtr body, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_GetCollideKinematicVsNonDynamic(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetCollideKinematicVsNonDynamic")]
+		public static extern int Body_GetCollideKinematicVsNonDynamic(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetCollideKinematicVsNonDynamic(IntPtr body, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetCollideKinematicVsNonDynamic")]
+		public static extern void Body_SetCollideKinematicVsNonDynamic(IntPtr body, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_GetUseManifoldReduction(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetUseManifoldReduction")]
+		public static extern int Body_GetUseManifoldReduction(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetUseManifoldReduction(IntPtr body, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetUseManifoldReduction")]
+		public static extern void Body_SetUseManifoldReduction(IntPtr body, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_GetUseManifoldReductionWithBody(IntPtr body, IntPtr other);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetUseManifoldReductionWithBody")]
+		public static extern int Body_GetUseManifoldReductionWithBody(IntPtr body, IntPtr other);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_GetApplyGyroscopicForce(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetApplyGyroscopicForce")]
+		public static extern int Body_GetApplyGyroscopicForce(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetApplyGyroscopicForce(IntPtr body, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetApplyGyroscopicForce")]
+		public static extern void Body_SetApplyGyroscopicForce(IntPtr body, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_GetEnhancedInternalEdgeRemoval(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetEnhancedInternalEdgeRemoval")]
+		public static extern int Body_GetEnhancedInternalEdgeRemoval(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetEnhancedInternalEdgeRemoval(IntPtr body, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetEnhancedInternalEdgeRemoval")]
+		public static extern void Body_SetEnhancedInternalEdgeRemoval(IntPtr body, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_GetEnhancedInternalEdgeRemovalWithBody(IntPtr body, IntPtr other);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetEnhancedInternalEdgeRemovalWithBody")]
+		public static extern int Body_GetEnhancedInternalEdgeRemovalWithBody(IntPtr body, IntPtr other);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotionType JoltC_Body_GetMotionType(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetMotionType")]
+		public static extern MotionType Body_GetMotionType(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetMotionType(IntPtr body, JoltC_MotionType motionType);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetMotionType")]
+		public static extern void Body_SetMotionType(IntPtr body, MotionType motionType);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern byte JoltC_Body_GetBroadPhaseLayer(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetBroadPhaseLayer")]
+		public static extern byte Body_GetBroadPhaseLayer(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ushort JoltC_Body_GetObjectLayer(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetObjectLayer")]
+		public static extern ushort Body_GetObjectLayer(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_GetAllowSleeping(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetAllowSleeping")]
+		public static extern int Body_GetAllowSleeping(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetAllowSleeping(IntPtr body, int allowSleeping);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetAllowSleeping")]
+		public static extern void Body_SetAllowSleeping(IntPtr body, int allowSleeping);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_ResetSleepTimer(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_ResetSleepTimer")]
+		public static extern void Body_ResetSleepTimer(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Body_GetFriction(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetFriction")]
+		public static extern float Body_GetFriction(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetFriction(IntPtr body, float friction);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetFriction")]
+		public static extern void Body_SetFriction(IntPtr body, float friction);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Body_GetRestitution(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetRestitution")]
+		public static extern float Body_GetRestitution(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetRestitution(IntPtr body, float restitution);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetRestitution")]
+		public static extern void Body_SetRestitution(IntPtr body, float restitution);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetLinearVelocity(IntPtr body, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetLinearVelocity")]
+		public static extern void Body_GetLinearVelocity(IntPtr body, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetLinearVelocity(IntPtr body, JoltC_Vec3* velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetLinearVelocity")]
+		public static extern void Body_SetLinearVelocity(IntPtr body, Vec3* velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetLinearVelocityClamped(IntPtr body, JoltC_Vec3* velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetLinearVelocityClamped")]
+		public static extern void Body_SetLinearVelocityClamped(IntPtr body, Vec3* velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetAngularVelocity(IntPtr body, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetAngularVelocity")]
+		public static extern void Body_GetAngularVelocity(IntPtr body, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetAngularVelocity(IntPtr body, JoltC_Vec3* velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetAngularVelocity")]
+		public static extern void Body_SetAngularVelocity(IntPtr body, Vec3* velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetAngularVelocityClamped(IntPtr body, JoltC_Vec3* velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetAngularVelocityClamped")]
+		public static extern void Body_SetAngularVelocityClamped(IntPtr body, Vec3* velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetPointVelocityCOM(IntPtr body, JoltC_Vec3* pointRelativeToCOM, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetPointVelocityCOM")]
+		public static extern void Body_GetPointVelocityCOM(IntPtr body, Vec3* pointRelativeToCOM, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetPointVelocity(IntPtr body, JoltC_RVec3* point, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetPointVelocity")]
+		public static extern void Body_GetPointVelocity(IntPtr body, RVec3* point, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_AddForce(IntPtr body, JoltC_Vec3* force);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_AddForce")]
+		public static extern void Body_AddForce(IntPtr body, Vec3* force);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_AddForceAtPosition(IntPtr body, JoltC_Vec3* force, JoltC_RVec3* position);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_AddForceAtPosition")]
+		public static extern void Body_AddForceAtPosition(IntPtr body, Vec3* force, RVec3* position);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_AddTorque(IntPtr body, JoltC_Vec3* torque);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_AddTorque")]
+		public static extern void Body_AddTorque(IntPtr body, Vec3* torque);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetAccumulatedForce(IntPtr body, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetAccumulatedForce")]
+		public static extern void Body_GetAccumulatedForce(IntPtr body, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetAccumulatedTorque(IntPtr body, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetAccumulatedTorque")]
+		public static extern void Body_GetAccumulatedTorque(IntPtr body, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_ResetForce(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_ResetForce")]
+		public static extern void Body_ResetForce(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_ResetTorque(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_ResetTorque")]
+		public static extern void Body_ResetTorque(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_ResetMotion(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_ResetMotion")]
+		public static extern void Body_ResetMotion(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetInverseInertia(IntPtr body, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetInverseInertia")]
+		public static extern void Body_GetInverseInertia(IntPtr body, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_AddImpulse(IntPtr body, JoltC_Vec3* impulse);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_AddImpulse")]
+		public static extern void Body_AddImpulse(IntPtr body, Vec3* impulse);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_AddImpulseAtPosition(IntPtr body, JoltC_Vec3* impulse, JoltC_RVec3* position);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_AddImpulseAtPosition")]
+		public static extern void Body_AddImpulseAtPosition(IntPtr body, Vec3* impulse, RVec3* position);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_AddAngularImpulse(IntPtr body, JoltC_Vec3* angularImpulse);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_AddAngularImpulse")]
+		public static extern void Body_AddAngularImpulse(IntPtr body, Vec3* angularImpulse);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_MoveKinematic(IntPtr body, JoltC_RVec3* targetPosition, JoltC_Quat* targetRotation, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_MoveKinematic")]
+		public static extern void Body_MoveKinematic(IntPtr body, RVec3* targetPosition, Quat* targetRotation, float deltaTime);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_ApplyBuoyancyImpulse(IntPtr body, JoltC_RVec3* surfacePosition, JoltC_Vec3* surfaceNormal, float buoyancy, float linearDrag, float angularDrag, JoltC_Vec3* fluidVelocity, JoltC_Vec3* gravity, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_ApplyBuoyancyImpulse")]
+		public static extern int Body_ApplyBuoyancyImpulse(IntPtr body, RVec3* surfacePosition, Vec3* surfaceNormal, float buoyancy, float linearDrag, float angularDrag, Vec3* fluidVelocity, Vec3* gravity, float deltaTime);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsInBroadPhase(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsInBroadPhase")]
+		public static extern int Body_IsInBroadPhase(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Body_IsCollisionCacheInvalid(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_IsCollisionCacheInvalid")]
+		public static extern int Body_IsCollisionCacheInvalid(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Body_GetShape(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetShape")]
+		public static extern IntPtr Body_GetShape(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetPosition(IntPtr body, JoltC_RVec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetPosition")]
+		public static extern void Body_GetPosition(IntPtr body, RVec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetRotation(IntPtr body, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetRotation")]
+		public static extern void Body_GetRotation(IntPtr body, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetWorldTransform(IntPtr body, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetWorldTransform")]
+		public static extern void Body_GetWorldTransform(IntPtr body, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetCenterOfMassPosition(IntPtr body, JoltC_RVec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetCenterOfMassPosition")]
+		public static extern void Body_GetCenterOfMassPosition(IntPtr body, RVec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetCenterOfMassTransform(IntPtr body, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetCenterOfMassTransform")]
+		public static extern void Body_GetCenterOfMassTransform(IntPtr body, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetInverseCenterOfMassTransform(IntPtr body, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetInverseCenterOfMassTransform")]
+		public static extern void Body_GetInverseCenterOfMassTransform(IntPtr body, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetWorldSpaceBounds(IntPtr body, JoltC_AABox* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetWorldSpaceBounds")]
+		public static extern void Body_GetWorldSpaceBounds(IntPtr body, AABox* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_GetWorldSpaceSurfaceNormal(IntPtr body, uint subShapeID, JoltC_RVec3* position, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetWorldSpaceSurfaceNormal")]
+		public static extern void Body_GetWorldSpaceSurfaceNormal(IntPtr body, uint subShapeID, RVec3* position, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Body_GetMotionProperties(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetMotionProperties")]
+		public static extern IntPtr Body_GetMotionProperties(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Body_GetMotionPropertiesUnchecked(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetMotionPropertiesUnchecked")]
+		public static extern IntPtr Body_GetMotionPropertiesUnchecked(IntPtr body);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Body_SetUserData(IntPtr body, ulong userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_SetUserData")]
+		public static extern void Body_SetUserData(IntPtr body, ulong userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_Body_GetUserData(IntPtr body);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Body_GetUserData")]
+		public static extern ulong Body_GetUserData(IntPtr body);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// MotionProperties
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_AllowedDOFs JoltC_MotionProperties_GetAllowedDOFs(IntPtr properties);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_GetAllowedDOFs")]
+		public static extern AllowedDOFs MotionProperties_GetAllowedDOFs(IntPtr properties);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotionProperties_SetLinearDamping(IntPtr properties, float damping);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_SetLinearDamping")]
+		public static extern void MotionProperties_SetLinearDamping(IntPtr properties, float damping);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotionProperties_GetLinearDamping(IntPtr properties);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_GetLinearDamping")]
+		public static extern float MotionProperties_GetLinearDamping(IntPtr properties);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotionProperties_SetAngularDamping(IntPtr properties, float damping);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_SetAngularDamping")]
+		public static extern void MotionProperties_SetAngularDamping(IntPtr properties, float damping);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotionProperties_GetAngularDamping(IntPtr properties);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_GetAngularDamping")]
+		public static extern float MotionProperties_GetAngularDamping(IntPtr properties);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotionProperties_GetInverseMassUnchecked(IntPtr properties);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_GetInverseMassUnchecked")]
+		public static extern float MotionProperties_GetInverseMassUnchecked(IntPtr properties);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotionProperties_SetInverseMass(IntPtr properties, float inverseMass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_SetInverseMass")]
+		public static extern void MotionProperties_SetInverseMass(IntPtr properties, float inverseMass);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotionProperties_GetInverseInertiaDiagonal(IntPtr properties, JoltC_Vec3* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_GetInverseInertiaDiagonal")]
+		public static extern void MotionProperties_GetInverseInertiaDiagonal(IntPtr properties, Vec3* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotionProperties_GetInertiaRotation(IntPtr properties, JoltC_Quat* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_GetInertiaRotation")]
+		public static extern void MotionProperties_GetInertiaRotation(IntPtr properties, Quat* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotionProperties_SetInverseInertia(IntPtr properties, JoltC_Vec3* diagonal, JoltC_Quat* rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_SetInverseInertia")]
+		public static extern void MotionProperties_SetInverseInertia(IntPtr properties, Vec3* diagonal, Quat* rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotionProperties_SetMassProperties(IntPtr properties, JoltC_AllowedDOFs allowedDOFs, JoltC_MassProperties* massProperties);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_SetMassProperties")]
+		public static extern void MotionProperties_SetMassProperties(IntPtr properties, AllowedDOFs allowedDOFs, MassProperties* massProperties);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotionProperties_ScaleToMass(IntPtr properties, float mass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotionProperties_ScaleToMass")]
+		public static extern void MotionProperties_ScaleToMass(IntPtr properties, float mass);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Constraint base — ref-counted
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_AddRef(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_AddRef")]
+		public static extern void Constraint_AddRef(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_Release(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_Release")]
+		public static extern void Constraint_Release(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_Destroy(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_Destroy")]
+		public static extern void Constraint_Destroy(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_ConstraintType JoltC_Constraint_GetType(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_GetType")]
+		public static extern ConstraintType Constraint_GetType(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_ConstraintSubType JoltC_Constraint_GetSubType(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_GetSubType")]
+		public static extern ConstraintSubType Constraint_GetSubType(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_SetEnabled(IntPtr constraint, int enabled);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SetEnabled")]
+		public static extern void Constraint_SetEnabled(IntPtr constraint, int enabled);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Constraint_GetEnabled(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_GetEnabled")]
+		public static extern int Constraint_GetEnabled(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Constraint_IsActive(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_IsActive")]
+		public static extern int Constraint_IsActive(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_SetUserData(IntPtr constraint, ulong userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SetUserData")]
+		public static extern void Constraint_SetUserData(IntPtr constraint, ulong userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_Constraint_GetUserData(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_GetUserData")]
+		public static extern ulong Constraint_GetUserData(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Constraint_GetConstraintPriority(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_GetConstraintPriority")]
+		public static extern uint Constraint_GetConstraintPriority(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_SetConstraintPriority(IntPtr constraint, uint priority);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SetConstraintPriority")]
+		public static extern void Constraint_SetConstraintPriority(IntPtr constraint, uint priority);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Constraint_GetNumVelocityStepsOverride(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_GetNumVelocityStepsOverride")]
+		public static extern uint Constraint_GetNumVelocityStepsOverride(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_SetNumVelocityStepsOverride(IntPtr constraint, uint steps);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SetNumVelocityStepsOverride")]
+		public static extern void Constraint_SetNumVelocityStepsOverride(IntPtr constraint, uint steps);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Constraint_GetNumPositionStepsOverride(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_GetNumPositionStepsOverride")]
+		public static extern uint Constraint_GetNumPositionStepsOverride(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_SetNumPositionStepsOverride(IntPtr constraint, uint steps);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SetNumPositionStepsOverride")]
+		public static extern void Constraint_SetNumPositionStepsOverride(IntPtr constraint, uint steps);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_NotifyShapeChanged(IntPtr constraint, uint bodyID, JoltC_Vec3 deltaCOM);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_NotifyShapeChanged")]
+		public static extern void Constraint_NotifyShapeChanged(IntPtr constraint, uint bodyID, Vec3 deltaCOM);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_ResetWarmStart(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_ResetWarmStart")]
+		public static extern void Constraint_ResetWarmStart(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_SetupVelocityConstraint(IntPtr constraint, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SetupVelocityConstraint")]
+		public static extern void Constraint_SetupVelocityConstraint(IntPtr constraint, float deltaTime);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Constraint_WarmStartVelocityConstraint(IntPtr constraint, float warmStartImpulseRatio);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_WarmStartVelocityConstraint")]
+		public static extern void Constraint_WarmStartVelocityConstraint(IntPtr constraint, float warmStartImpulseRatio);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Constraint_SolveVelocityConstraint(IntPtr constraint, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SolveVelocityConstraint")]
+		public static extern int Constraint_SolveVelocityConstraint(IntPtr constraint, float deltaTime);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Constraint_SolvePositionConstraint(IntPtr constraint, float deltaTime, float baumgarte);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SolvePositionConstraint")]
+		public static extern int Constraint_SolvePositionConstraint(IntPtr constraint, float deltaTime, float baumgarte);
 
 		/// <summary>
 		/// TwoBodyConstraint
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TwoBodyConstraint_GetBody1(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TwoBodyConstraint_GetBody1")]
+		public static extern IntPtr TwoBodyConstraint_GetBody1(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TwoBodyConstraint_GetBody2(IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TwoBodyConstraint_GetBody2")]
+		public static extern IntPtr TwoBodyConstraint_GetBody2(IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TwoBodyConstraint_GetConstraintToBody1Matrix(IntPtr constraint, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TwoBodyConstraint_GetConstraintToBody1Matrix")]
+		public static extern void TwoBodyConstraint_GetConstraintToBody1Matrix(IntPtr constraint, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TwoBodyConstraint_GetConstraintToBody2Matrix(IntPtr constraint, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TwoBodyConstraint_GetConstraintToBody2Matrix")]
+		public static extern void TwoBodyConstraint_GetConstraintToBody2Matrix(IntPtr constraint, Mat44* result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PhysicsSystem constraint management
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_AddConstraint(IntPtr system, IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_AddConstraint")]
+		public static extern void PhysicsSystem_AddConstraint(IntPtr system, IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PhysicsSystem_RemoveConstraint(IntPtr system, IntPtr constraint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_RemoveConstraint")]
+		public static extern void PhysicsSystem_RemoveConstraint(IntPtr system, IntPtr constraint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PointConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_PointConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PointConstraint_Create")]
+		public static extern IntPtr PointConstraint_Create(IntPtr system, uint body1, uint body2, PointConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PointConstraint_SetPoint1(IntPtr c, JoltC_ConstraintSpace space, JoltC_RVec3 point);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PointConstraint_SetPoint1")]
+		public static extern void PointConstraint_SetPoint1(IntPtr c, ConstraintSpace space, RVec3 point);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PointConstraint_SetPoint2(IntPtr c, JoltC_ConstraintSpace space, JoltC_RVec3 point);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PointConstraint_SetPoint2")]
+		public static extern void PointConstraint_SetPoint2(IntPtr c, ConstraintSpace space, RVec3 point);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_PointConstraint_GetLocalSpacePoint1(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PointConstraint_GetLocalSpacePoint1")]
+		public static extern Vec3 PointConstraint_GetLocalSpacePoint1(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_PointConstraint_GetLocalSpacePoint2(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PointConstraint_GetLocalSpacePoint2")]
+		public static extern Vec3 PointConstraint_GetLocalSpacePoint2(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_PointConstraint_GetTotalLambdaPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PointConstraint_GetTotalLambdaPosition")]
+		public static extern Vec3 PointConstraint_GetTotalLambdaPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_PointConstraintSettings_Init(JoltC_PointConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PointConstraintSettings_Init")]
+		public static extern void PointConstraintSettings_Init(PointConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PointConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PointConstraint_GetSettings")]
+		public static extern IntPtr PointConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_FixedConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_FixedConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_FixedConstraint_Create")]
+		public static extern IntPtr FixedConstraint_Create(IntPtr system, uint body1, uint body2, FixedConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_FixedConstraintSettings_Init(JoltC_FixedConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_FixedConstraintSettings_Init")]
+		public static extern void FixedConstraintSettings_Init(FixedConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_FixedConstraint_GetTotalLambdaPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_FixedConstraint_GetTotalLambdaPosition")]
+		public static extern Vec3 FixedConstraint_GetTotalLambdaPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_FixedConstraint_GetTotalLambdaRotation(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_FixedConstraint_GetTotalLambdaRotation")]
+		public static extern Vec3 FixedConstraint_GetTotalLambdaRotation(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_FixedConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_FixedConstraint_GetSettings")]
+		public static extern IntPtr FixedConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_DistanceConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_DistanceConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraint_Create")]
+		public static extern IntPtr DistanceConstraint_Create(IntPtr system, uint body1, uint body2, DistanceConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_DistanceConstraint_SetDistance(IntPtr c, float minDist, float maxDist);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraint_SetDistance")]
+		public static extern void DistanceConstraint_SetDistance(IntPtr c, float minDist, float maxDist);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_DistanceConstraint_GetMinDistance(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraint_GetMinDistance")]
+		public static extern float DistanceConstraint_GetMinDistance(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_DistanceConstraint_GetMaxDistance(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraint_GetMaxDistance")]
+		public static extern float DistanceConstraint_GetMaxDistance(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_SpringSettings JoltC_DistanceConstraint_GetLimitsSpringSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraint_GetLimitsSpringSettings")]
+		public static extern SpringSettings DistanceConstraint_GetLimitsSpringSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_DistanceConstraint_SetLimitsSpringSettings(IntPtr c, JoltC_SpringSettings settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraint_SetLimitsSpringSettings")]
+		public static extern void DistanceConstraint_SetLimitsSpringSettings(IntPtr c, SpringSettings settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_DistanceConstraint_GetTotalLambdaPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraint_GetTotalLambdaPosition")]
+		public static extern Vec3 DistanceConstraint_GetTotalLambdaPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_DistanceConstraintSettings_Init(JoltC_DistanceConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraintSettings_Init")]
+		public static extern void DistanceConstraintSettings_Init(DistanceConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_DistanceConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_DistanceConstraint_GetSettings")]
+		public static extern IntPtr DistanceConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_HingeConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_HingeConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_Create")]
+		public static extern IntPtr HingeConstraint_Create(IntPtr system, uint body1, uint body2, HingeConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HingeConstraint_GetCurrentAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetCurrentAngle")]
+		public static extern float HingeConstraint_GetCurrentAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HingeConstraint_SetMotorState(IntPtr c, JoltC_MotorState state);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_SetMotorState")]
+		public static extern void HingeConstraint_SetMotorState(IntPtr c, MotorState state);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotorState JoltC_HingeConstraint_GetMotorState(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetMotorState")]
+		public static extern MotorState HingeConstraint_GetMotorState(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HingeConstraint_SetTargetAngularVelocity(IntPtr c, float velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_SetTargetAngularVelocity")]
+		public static extern void HingeConstraint_SetTargetAngularVelocity(IntPtr c, float velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HingeConstraint_GetTargetAngularVelocity(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetTargetAngularVelocity")]
+		public static extern float HingeConstraint_GetTargetAngularVelocity(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HingeConstraint_SetTargetAngle(IntPtr c, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_SetTargetAngle")]
+		public static extern void HingeConstraint_SetTargetAngle(IntPtr c, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HingeConstraint_GetTargetAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetTargetAngle")]
+		public static extern float HingeConstraint_GetTargetAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HingeConstraint_SetLimits(IntPtr c, float min, float max);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_SetLimits")]
+		public static extern void HingeConstraint_SetLimits(IntPtr c, float min, float max);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HingeConstraint_GetLimitsMin(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLimitsMin")]
+		public static extern float HingeConstraint_GetLimitsMin(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HingeConstraint_GetLimitsMax(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLimitsMax")]
+		public static extern float HingeConstraint_GetLimitsMax(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_HingeConstraint_HasLimits(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_HasLimits")]
+		public static extern int HingeConstraint_HasLimits(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HingeConstraint_SetMaxFrictionTorque(IntPtr c, float torque);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_SetMaxFrictionTorque")]
+		public static extern void HingeConstraint_SetMaxFrictionTorque(IntPtr c, float torque);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HingeConstraint_GetMaxFrictionTorque(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetMaxFrictionTorque")]
+		public static extern float HingeConstraint_GetMaxFrictionTorque(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_SpringSettings JoltC_HingeConstraint_GetLimitsSpringSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLimitsSpringSettings")]
+		public static extern SpringSettings HingeConstraint_GetLimitsSpringSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HingeConstraint_SetLimitsSpringSettings(IntPtr c, JoltC_SpringSettings settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_SetLimitsSpringSettings")]
+		public static extern void HingeConstraint_SetLimitsSpringSettings(IntPtr c, SpringSettings settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotorSettings JoltC_HingeConstraint_GetMotorSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetMotorSettings")]
+		public static extern MotorSettings HingeConstraint_GetMotorSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HingeConstraint_SetMotorSettings(IntPtr c, JoltC_MotorSettings settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_SetMotorSettings")]
+		public static extern void HingeConstraint_SetMotorSettings(IntPtr c, MotorSettings settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HingeConstraint_GetLocalSpacePoint1(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLocalSpacePoint1")]
+		public static extern Vec3 HingeConstraint_GetLocalSpacePoint1(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HingeConstraint_GetLocalSpacePoint2(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLocalSpacePoint2")]
+		public static extern Vec3 HingeConstraint_GetLocalSpacePoint2(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HingeConstraint_GetLocalSpaceHingeAxis1(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLocalSpaceHingeAxis1")]
+		public static extern Vec3 HingeConstraint_GetLocalSpaceHingeAxis1(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HingeConstraint_GetLocalSpaceHingeAxis2(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLocalSpaceHingeAxis2")]
+		public static extern Vec3 HingeConstraint_GetLocalSpaceHingeAxis2(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HingeConstraint_GetLocalSpaceNormalAxis1(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLocalSpaceNormalAxis1")]
+		public static extern Vec3 HingeConstraint_GetLocalSpaceNormalAxis1(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HingeConstraint_GetLocalSpaceNormalAxis2(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetLocalSpaceNormalAxis2")]
+		public static extern Vec3 HingeConstraint_GetLocalSpaceNormalAxis2(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_HingeConstraint_GetTotalLambdaPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetTotalLambdaPosition")]
+		public static extern Vec3 HingeConstraint_GetTotalLambdaPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec2 JoltC_HingeConstraint_GetTotalLambdaRotation(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetTotalLambdaRotation")]
+		public static extern Vec2 HingeConstraint_GetTotalLambdaRotation(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HingeConstraint_GetTotalLambdaRotationLimits(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetTotalLambdaRotationLimits")]
+		public static extern float HingeConstraint_GetTotalLambdaRotationLimits(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_HingeConstraint_GetTotalLambdaMotor(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetTotalLambdaMotor")]
+		public static extern float HingeConstraint_GetTotalLambdaMotor(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_HingeConstraintSettings_Init(JoltC_HingeConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraintSettings_Init")]
+		public static extern void HingeConstraintSettings_Init(HingeConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_HingeConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_GetSettings")]
+		public static extern IntPtr HingeConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SliderConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_SliderConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_Create")]
+		public static extern IntPtr SliderConstraint_Create(IntPtr system, uint body1, uint body2, SliderConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SliderConstraint_GetCurrentPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetCurrentPosition")]
+		public static extern float SliderConstraint_GetCurrentPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraint_SetMotorState(IntPtr c, JoltC_MotorState state);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_SetMotorState")]
+		public static extern void SliderConstraint_SetMotorState(IntPtr c, MotorState state);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotorState JoltC_SliderConstraint_GetMotorState(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetMotorState")]
+		public static extern MotorState SliderConstraint_GetMotorState(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraint_SetTargetVelocity(IntPtr c, float velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_SetTargetVelocity")]
+		public static extern void SliderConstraint_SetTargetVelocity(IntPtr c, float velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SliderConstraint_GetTargetVelocity(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetTargetVelocity")]
+		public static extern float SliderConstraint_GetTargetVelocity(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraint_SetTargetPosition(IntPtr c, float position);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_SetTargetPosition")]
+		public static extern void SliderConstraint_SetTargetPosition(IntPtr c, float position);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SliderConstraint_GetTargetPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetTargetPosition")]
+		public static extern float SliderConstraint_GetTargetPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraint_SetLimits(IntPtr c, float min, float max);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_SetLimits")]
+		public static extern void SliderConstraint_SetLimits(IntPtr c, float min, float max);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SliderConstraint_GetLimitsMin(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetLimitsMin")]
+		public static extern float SliderConstraint_GetLimitsMin(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SliderConstraint_GetLimitsMax(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetLimitsMax")]
+		public static extern float SliderConstraint_GetLimitsMax(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SliderConstraint_HasLimits(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_HasLimits")]
+		public static extern int SliderConstraint_HasLimits(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraint_SetMaxFrictionForce(IntPtr c, float force);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_SetMaxFrictionForce")]
+		public static extern void SliderConstraint_SetMaxFrictionForce(IntPtr c, float force);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SliderConstraint_GetMaxFrictionForce(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetMaxFrictionForce")]
+		public static extern float SliderConstraint_GetMaxFrictionForce(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_SpringSettings JoltC_SliderConstraint_GetLimitsSpringSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetLimitsSpringSettings")]
+		public static extern SpringSettings SliderConstraint_GetLimitsSpringSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraint_SetLimitsSpringSettings(IntPtr c, JoltC_SpringSettings settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_SetLimitsSpringSettings")]
+		public static extern void SliderConstraint_SetLimitsSpringSettings(IntPtr c, SpringSettings settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotorSettings JoltC_SliderConstraint_GetMotorSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetMotorSettings")]
+		public static extern MotorSettings SliderConstraint_GetMotorSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraint_SetMotorSettings(IntPtr c, JoltC_MotorSettings settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_SetMotorSettings")]
+		public static extern void SliderConstraint_SetMotorSettings(IntPtr c, MotorSettings settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SliderConstraint_GetTotalLambdaPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetTotalLambdaPosition")]
+		public static extern Vec3 SliderConstraint_GetTotalLambdaPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SliderConstraint_GetTotalLambdaPositionLimits(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetTotalLambdaPositionLimits")]
+		public static extern float SliderConstraint_GetTotalLambdaPositionLimits(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SliderConstraint_GetTotalLambdaRotation(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetTotalLambdaRotation")]
+		public static extern Vec3 SliderConstraint_GetTotalLambdaRotation(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SliderConstraint_GetTotalLambdaMotor(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetTotalLambdaMotor")]
+		public static extern float SliderConstraint_GetTotalLambdaMotor(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraintSettings_Init(JoltC_SliderConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraintSettings_Init")]
+		public static extern void SliderConstraintSettings_Init(SliderConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SliderConstraintSettings_SetSliderAxis(JoltC_SliderConstraintSettings* settings, JoltC_Vec3 axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraintSettings_SetSliderAxis")]
+		public static extern void SliderConstraintSettings_SetSliderAxis(SliderConstraintSettings* settings, Vec3 axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SliderConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_GetSettings")]
+		public static extern IntPtr SliderConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ConeConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_ConeConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConeConstraint_Create")]
+		public static extern IntPtr ConeConstraint_Create(IntPtr system, uint body1, uint body2, ConeConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ConeConstraint_SetHalfConeAngle(IntPtr c, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConeConstraint_SetHalfConeAngle")]
+		public static extern void ConeConstraint_SetHalfConeAngle(IntPtr c, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_ConeConstraint_GetCosHalfConeAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConeConstraint_GetCosHalfConeAngle")]
+		public static extern float ConeConstraint_GetCosHalfConeAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_ConeConstraint_GetTotalLambdaPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConeConstraint_GetTotalLambdaPosition")]
+		public static extern Vec3 ConeConstraint_GetTotalLambdaPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_ConeConstraint_GetTotalLambdaRotation(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConeConstraint_GetTotalLambdaRotation")]
+		public static extern float ConeConstraint_GetTotalLambdaRotation(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ConeConstraintSettings_Init(JoltC_ConeConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConeConstraintSettings_Init")]
+		public static extern void ConeConstraintSettings_Init(ConeConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ConeConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ConeConstraint_GetSettings")]
+		public static extern IntPtr ConeConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SwingTwistConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_SwingTwistConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_Create")]
+		public static extern IntPtr SwingTwistConstraint_Create(IntPtr system, uint body1, uint body2, SwingTwistConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetNormalHalfConeAngle(IntPtr c, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetNormalHalfConeAngle")]
+		public static extern void SwingTwistConstraint_SetNormalHalfConeAngle(IntPtr c, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetNormalHalfConeAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetNormalHalfConeAngle")]
+		public static extern float SwingTwistConstraint_GetNormalHalfConeAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetPlaneHalfConeAngle(IntPtr c, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetPlaneHalfConeAngle")]
+		public static extern void SwingTwistConstraint_SetPlaneHalfConeAngle(IntPtr c, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetPlaneHalfConeAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetPlaneHalfConeAngle")]
+		public static extern float SwingTwistConstraint_GetPlaneHalfConeAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetTwistMinAngle(IntPtr c, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetTwistMinAngle")]
+		public static extern void SwingTwistConstraint_SetTwistMinAngle(IntPtr c, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetTwistMinAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTwistMinAngle")]
+		public static extern float SwingTwistConstraint_GetTwistMinAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetTwistMaxAngle(IntPtr c, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetTwistMaxAngle")]
+		public static extern void SwingTwistConstraint_SetTwistMaxAngle(IntPtr c, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetTwistMaxAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTwistMaxAngle")]
+		public static extern float SwingTwistConstraint_GetTwistMaxAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetSwingMotorState(IntPtr c, JoltC_MotorState state);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetSwingMotorState")]
+		public static extern void SwingTwistConstraint_SetSwingMotorState(IntPtr c, MotorState state);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotorState JoltC_SwingTwistConstraint_GetSwingMotorState(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetSwingMotorState")]
+		public static extern MotorState SwingTwistConstraint_GetSwingMotorState(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetTwistMotorState(IntPtr c, JoltC_MotorState state);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetTwistMotorState")]
+		public static extern void SwingTwistConstraint_SetTwistMotorState(IntPtr c, MotorState state);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotorState JoltC_SwingTwistConstraint_GetTwistMotorState(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTwistMotorState")]
+		public static extern MotorState SwingTwistConstraint_GetTwistMotorState(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetTargetAngularVelocityCS(IntPtr c, JoltC_Vec3 velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetTargetAngularVelocityCS")]
+		public static extern void SwingTwistConstraint_SetTargetAngularVelocityCS(IntPtr c, Vec3 velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SwingTwistConstraint_GetTargetAngularVelocityCS(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTargetAngularVelocityCS")]
+		public static extern Vec3 SwingTwistConstraint_GetTargetAngularVelocityCS(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetTargetOrientationCS(IntPtr c, JoltC_Quat orientation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetTargetOrientationCS")]
+		public static extern void SwingTwistConstraint_SetTargetOrientationCS(IntPtr c, Quat orientation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_SwingTwistConstraint_GetTargetOrientationCS(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTargetOrientationCS")]
+		public static extern Quat SwingTwistConstraint_GetTargetOrientationCS(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraint_SetMaxFrictionTorque(IntPtr c, float torque);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_SetMaxFrictionTorque")]
+		public static extern void SwingTwistConstraint_SetMaxFrictionTorque(IntPtr c, float torque);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetMaxFrictionTorque(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetMaxFrictionTorque")]
+		public static extern float SwingTwistConstraint_GetMaxFrictionTorque(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SwingTwistConstraint_GetTotalLambdaPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTotalLambdaPosition")]
+		public static extern Vec3 SwingTwistConstraint_GetTotalLambdaPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetTotalLambdaTwist(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTotalLambdaTwist")]
+		public static extern float SwingTwistConstraint_GetTotalLambdaTwist(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetTotalLambdaSwingY(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTotalLambdaSwingY")]
+		public static extern float SwingTwistConstraint_GetTotalLambdaSwingY(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetTotalLambdaSwingZ(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTotalLambdaSwingZ")]
+		public static extern float SwingTwistConstraint_GetTotalLambdaSwingZ(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SwingTwistConstraint_GetTotalLambdaMotor(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetTotalLambdaMotor")]
+		public static extern float SwingTwistConstraint_GetTotalLambdaMotor(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SwingTwistConstraintSettings_Init(JoltC_SwingTwistConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraintSettings_Init")]
+		public static extern void SwingTwistConstraintSettings_Init(SwingTwistConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SwingTwistConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SwingTwistConstraint_GetSettings")]
+		public static extern IntPtr SwingTwistConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SixDOFConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_SixDOFConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_Create")]
+		public static extern IntPtr SixDOFConstraint_Create(IntPtr system, uint body1, uint body2, SixDOFConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetTranslationLimits(IntPtr c, JoltC_Vec3 limitMin, JoltC_Vec3 limitMax);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetTranslationLimits")]
+		public static extern void SixDOFConstraint_SetTranslationLimits(IntPtr c, Vec3 limitMin, Vec3 limitMax);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetRotationLimits(IntPtr c, JoltC_Vec3 limitMin, JoltC_Vec3 limitMax);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetRotationLimits")]
+		public static extern void SixDOFConstraint_SetRotationLimits(IntPtr c, Vec3 limitMin, Vec3 limitMax);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SixDOFConstraint_GetLimitsMin(IntPtr c, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetLimitsMin")]
+		public static extern float SixDOFConstraint_GetLimitsMin(IntPtr c, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SixDOFConstraint_GetLimitsMax(IntPtr c, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetLimitsMax")]
+		public static extern float SixDOFConstraint_GetLimitsMax(IntPtr c, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetMotorState(IntPtr c, JoltC_SixDOFConstraintAxis axis, JoltC_MotorState state);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetMotorState")]
+		public static extern void SixDOFConstraint_SetMotorState(IntPtr c, SixDOFConstraintAxis axis, MotorState state);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotorState JoltC_SixDOFConstraint_GetMotorState(IntPtr c, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetMotorState")]
+		public static extern MotorState SixDOFConstraint_GetMotorState(IntPtr c, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetTargetVelocityCS(IntPtr c, JoltC_Vec3 velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetTargetVelocityCS")]
+		public static extern void SixDOFConstraint_SetTargetVelocityCS(IntPtr c, Vec3 velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTargetVelocityCS(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTargetVelocityCS")]
+		public static extern Vec3 SixDOFConstraint_GetTargetVelocityCS(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetTargetAngularVelocityCS(IntPtr c, JoltC_Vec3 velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetTargetAngularVelocityCS")]
+		public static extern void SixDOFConstraint_SetTargetAngularVelocityCS(IntPtr c, Vec3 velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTargetAngularVelocityCS(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTargetAngularVelocityCS")]
+		public static extern Vec3 SixDOFConstraint_GetTargetAngularVelocityCS(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetTargetPositionCS(IntPtr c, JoltC_Vec3 position);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetTargetPositionCS")]
+		public static extern void SixDOFConstraint_SetTargetPositionCS(IntPtr c, Vec3 position);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTargetPositionCS(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTargetPositionCS")]
+		public static extern Vec3 SixDOFConstraint_GetTargetPositionCS(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetTargetOrientationCS(IntPtr c, JoltC_Quat orientation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetTargetOrientationCS")]
+		public static extern void SixDOFConstraint_SetTargetOrientationCS(IntPtr c, Quat orientation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_SixDOFConstraint_GetTargetOrientationCS(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTargetOrientationCS")]
+		public static extern Quat SixDOFConstraint_GetTargetOrientationCS(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetMaxFriction(IntPtr c, JoltC_SixDOFConstraintAxis axis, float friction);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetMaxFriction")]
+		public static extern void SixDOFConstraint_SetMaxFriction(IntPtr c, SixDOFConstraintAxis axis, float friction);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SixDOFConstraint_GetMaxFriction(IntPtr c, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetMaxFriction")]
+		public static extern float SixDOFConstraint_GetMaxFriction(IntPtr c, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTranslationLimitsMin(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTranslationLimitsMin")]
+		public static extern Vec3 SixDOFConstraint_GetTranslationLimitsMin(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTranslationLimitsMax(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTranslationLimitsMax")]
+		public static extern Vec3 SixDOFConstraint_GetTranslationLimitsMax(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetRotationLimitsMin(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetRotationLimitsMin")]
+		public static extern Vec3 SixDOFConstraint_GetRotationLimitsMin(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetRotationLimitsMax(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetRotationLimitsMax")]
+		public static extern Vec3 SixDOFConstraint_GetRotationLimitsMax(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SixDOFConstraint_IsFreeAxis(IntPtr c, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_IsFreeAxis")]
+		public static extern int SixDOFConstraint_IsFreeAxis(IntPtr c, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SixDOFConstraint_IsFixedAxis(IntPtr c, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_IsFixedAxis")]
+		public static extern int SixDOFConstraint_IsFixedAxis(IntPtr c, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_SpringSettings JoltC_SixDOFConstraint_GetLimitsSpringSettings(IntPtr c, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetLimitsSpringSettings")]
+		public static extern SpringSettings SixDOFConstraint_GetLimitsSpringSettings(IntPtr c, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetLimitsSpringSettings(IntPtr c, JoltC_SixDOFConstraintAxis axis, JoltC_SpringSettings settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetLimitsSpringSettings")]
+		public static extern void SixDOFConstraint_SetLimitsSpringSettings(IntPtr c, SixDOFConstraintAxis axis, SpringSettings settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_MotorSettings JoltC_SixDOFConstraint_GetMotorSettings(IntPtr c, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetMotorSettings")]
+		public static extern MotorSettings SixDOFConstraint_GetMotorSettings(IntPtr c, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_SixDOFConstraint_GetRotationInConstraintSpace(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetRotationInConstraintSpace")]
+		public static extern Quat SixDOFConstraint_GetRotationInConstraintSpace(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraint_SetTargetOrientationBS(IntPtr c, JoltC_Quat orientation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_SetTargetOrientationBS")]
+		public static extern void SixDOFConstraint_SetTargetOrientationBS(IntPtr c, Quat orientation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTotalLambdaPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTotalLambdaPosition")]
+		public static extern Vec3 SixDOFConstraint_GetTotalLambdaPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTotalLambdaRotation(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTotalLambdaRotation")]
+		public static extern Vec3 SixDOFConstraint_GetTotalLambdaRotation(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTotalLambdaMotorTranslation(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTotalLambdaMotorTranslation")]
+		public static extern Vec3 SixDOFConstraint_GetTotalLambdaMotorTranslation(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_SixDOFConstraint_GetTotalLambdaMotorRotation(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetTotalLambdaMotorRotation")]
+		public static extern Vec3 SixDOFConstraint_GetTotalLambdaMotorRotation(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraintSettings_Init(JoltC_SixDOFConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_Init")]
+		public static extern void SixDOFConstraintSettings_Init(SixDOFConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SixDOFConstraintSettings_IsFreeAxis(JoltC_SixDOFConstraintSettings* s, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_IsFreeAxis")]
+		public static extern int SixDOFConstraintSettings_IsFreeAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SixDOFConstraintSettings_IsFixedAxis(JoltC_SixDOFConstraintSettings* s, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_IsFixedAxis")]
+		public static extern int SixDOFConstraintSettings_IsFixedAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraintSettings_MakeFreeAxis(JoltC_SixDOFConstraintSettings* s, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_MakeFreeAxis")]
+		public static extern void SixDOFConstraintSettings_MakeFreeAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraintSettings_MakeFixedAxis(JoltC_SixDOFConstraintSettings* s, JoltC_SixDOFConstraintAxis axis);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_MakeFixedAxis")]
+		public static extern void SixDOFConstraintSettings_MakeFixedAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SixDOFConstraintSettings_SetLimitedAxis(JoltC_SixDOFConstraintSettings* s, JoltC_SixDOFConstraintAxis axis, float min, float max);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_SetLimitedAxis")]
+		public static extern void SixDOFConstraintSettings_SetLimitedAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis, float min, float max);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SixDOFConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetSettings")]
+		public static extern IntPtr SixDOFConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PulleyConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_PulleyConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PulleyConstraint_Create")]
+		public static extern IntPtr PulleyConstraint_Create(IntPtr system, uint body1, uint body2, PulleyConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_GearConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_GearConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GearConstraint_Create")]
+		public static extern IntPtr GearConstraint_Create(IntPtr system, uint body1, uint body2, GearConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_GearConstraint_SetConstraints(IntPtr c, IntPtr gear1, IntPtr gear2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GearConstraint_SetConstraints")]
+		public static extern void GearConstraint_SetConstraints(IntPtr c, IntPtr gear1, IntPtr gear2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_GearConstraint_GetTotalLambda(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GearConstraint_GetTotalLambda")]
+		public static extern float GearConstraint_GetTotalLambda(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_GearConstraintSettings_Init(JoltC_GearConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GearConstraintSettings_Init")]
+		public static extern void GearConstraintSettings_Init(GearConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_GearConstraint_GetSettings(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GearConstraint_GetSettings")]
+		public static extern IntPtr GearConstraint_GetSettings(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_RackAndPinionConstraint_Create(IntPtr system, uint body1, uint body2, JoltC_RackAndPinionConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RackAndPinionConstraint_Create")]
+		public static extern IntPtr RackAndPinionConstraint_Create(IntPtr system, uint body1, uint body2, RackAndPinionConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RackAndPinionConstraint_SetConstraints(IntPtr c, IntPtr pinion, IntPtr rack);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RackAndPinionConstraint_SetConstraints")]
+		public static extern void RackAndPinionConstraint_SetConstraints(IntPtr c, IntPtr pinion, IntPtr rack);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_RackAndPinionConstraint_GetTotalLambda(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RackAndPinionConstraint_GetTotalLambda")]
+		public static extern float RackAndPinionConstraint_GetTotalLambda(IntPtr c);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// NarrowPhaseQuery — obtained from PhysicsSystem, not owned by caller
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsSystem_GetNarrowPhaseQuery(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetNarrowPhaseQuery")]
+		public static extern IntPtr PhysicsSystem_GetNarrowPhaseQuery(IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsSystem_GetNarrowPhaseQueryNoLock(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetNarrowPhaseQueryNoLock")]
+		public static extern IntPtr PhysicsSystem_GetNarrowPhaseQueryNoLock(IntPtr system);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CastRay — single closest hit (no filters)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_NarrowPhaseQuery_CastRay(IntPtr query, JoltC_RVec3 origin, JoltC_Vec3 direction, JoltC_RayCastResult* outResult);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay")]
+		public static extern int NarrowPhaseQuery_CastRay(IntPtr query, RVec3 origin, Vec3 direction, RayCastResult* outResult);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_NarrowPhaseQuery_CastRayAll(IntPtr query, JoltC_RVec3 origin, JoltC_Vec3 direction, JoltC_RayCastSettings* rayCastSettings, JoltC_CastRayCollectorFn callback, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastRayAll")]
+		public static extern void NarrowPhaseQuery_CastRayAll(IntPtr query, RVec3 origin, Vec3 direction, RayCastSettings* rayCastSettings, CastRayCollectorFn callback, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_NarrowPhaseQuery_CollidePoint(IntPtr query, JoltC_RVec3 point, JoltC_CollidePointCollectorFn callback, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CollidePoint")]
+		public static extern void NarrowPhaseQuery_CollidePoint(IntPtr query, RVec3 point, CollidePointCollectorFn callback, void* userData);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CastRay2 — single closest hit with filter support
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_NarrowPhaseQuery_CastRay2(IntPtr query, JoltC_RVec3 origin, JoltC_Vec3 direction, JoltC_RayCastResult* outResult, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay2")]
+		public static extern int NarrowPhaseQuery_CastRay2(IntPtr query, RVec3 origin, Vec3 direction, RayCastResult* outResult, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CastRay3 — multiple hits via callback with all filters
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_NarrowPhaseQuery_CastRay3(IntPtr query, JoltC_RVec3 origin, JoltC_Vec3 direction, JoltC_RayCastSettings* rayCastSettings, JoltC_CastRayCollectorFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay3")]
+		public static extern void NarrowPhaseQuery_CastRay3(IntPtr query, RVec3 origin, Vec3 direction, RayCastSettings* rayCastSettings, CastRayCollectorFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CollidePoint2 — with filter support
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_NarrowPhaseQuery_CollidePoint2(IntPtr query, JoltC_RVec3 point, JoltC_CollidePointCollectorFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CollidePoint2")]
+		public static extern void NarrowPhaseQuery_CollidePoint2(IntPtr query, RVec3 point, CollidePointCollectorFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CollideShape — find all body shapes overlapping with a query shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_NarrowPhaseQuery_CollideShape(IntPtr query, IntPtr shape, JoltC_Vec3 scale, JoltC_Mat44 centerOfMassTransform, JoltC_RVec3 baseOffset, JoltC_CollideShapeResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CollideShape")]
+		public static extern void NarrowPhaseQuery_CollideShape(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, RVec3 baseOffset, CollideShapeResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CastShape — sweep a shape along a direction
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_NarrowPhaseQuery_CastShape(IntPtr query, IntPtr shape, JoltC_Vec3 scale, JoltC_Mat44 centerOfMassTransform, JoltC_Vec3 direction, JoltC_RVec3 baseOffset, JoltC_CastShapeResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastShape")]
+		public static extern void NarrowPhaseQuery_CastShape(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, Vec3 direction, RVec3 baseOffset, CastShapeResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseQuery — obtained from PhysicsSystem, not owned by caller
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_PhysicsSystem_GetBroadPhaseQuery(IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsSystem_GetBroadPhaseQuery")]
+		public static extern IntPtr PhysicsSystem_GetBroadPhaseQuery(IntPtr system);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseQuery — CastRay
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseQuery_CastRay(IntPtr query, JoltC_Vec3 origin, JoltC_Vec3 direction, JoltC_BroadPhaseCastResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseQuery_CastRay")]
+		public static extern void BroadPhaseQuery_CastRay(IntPtr query, Vec3 origin, Vec3 direction, BroadPhaseCastResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseQuery — CollideAABox
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseQuery_CollideAABox(IntPtr query, JoltC_AABox box, JoltC_CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseQuery_CollideAABox")]
+		public static extern void BroadPhaseQuery_CollideAABox(IntPtr query, AABox box, CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseQuery — CollideSphere
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseQuery_CollideSphere(IntPtr query, JoltC_Vec3 center, float radius, JoltC_CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseQuery_CollideSphere")]
+		public static extern void BroadPhaseQuery_CollideSphere(IntPtr query, Vec3 center, float radius, CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseQuery — CollidePoint
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseQuery_CollidePoint(IntPtr query, JoltC_Vec3 point, JoltC_CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseQuery_CollidePoint")]
+		public static extern void BroadPhaseQuery_CollidePoint(IntPtr query, Vec3 point, CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ContactManifold reader functions
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_ContactManifold_GetWorldSpaceNormal(IntPtr manifold);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactManifold_GetWorldSpaceNormal")]
+		public static extern Vec3 ContactManifold_GetWorldSpaceNormal(IntPtr manifold);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_ContactManifold_GetPenetrationDepth(IntPtr manifold);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactManifold_GetPenetrationDepth")]
+		public static extern float ContactManifold_GetPenetrationDepth(IntPtr manifold);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ContactManifold_GetSubShapeID1(IntPtr manifold);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactManifold_GetSubShapeID1")]
+		public static extern uint ContactManifold_GetSubShapeID1(IntPtr manifold);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ContactManifold_GetSubShapeID2(IntPtr manifold);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactManifold_GetSubShapeID2")]
+		public static extern uint ContactManifold_GetSubShapeID2(IntPtr manifold);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ContactManifold_GetPointCount(IntPtr manifold);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactManifold_GetPointCount")]
+		public static extern uint ContactManifold_GetPointCount(IntPtr manifold);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_ContactManifold_GetWorldSpaceContactPointOn1(IntPtr manifold, uint index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactManifold_GetWorldSpaceContactPointOn1")]
+		public static extern RVec3 ContactManifold_GetWorldSpaceContactPointOn1(IntPtr manifold, uint index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_ContactManifold_GetWorldSpaceContactPointOn2(IntPtr manifold, uint index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ContactManifold_GetWorldSpaceContactPointOn2")]
+		public static extern RVec3 ContactManifold_GetWorldSpaceContactPointOn2(IntPtr manifold, uint index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtualSettings_SetDefault(JoltC_CharacterVirtualSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtualSettings_SetDefault")]
+		public static extern void CharacterVirtualSettings_SetDefault(CharacterVirtualSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CharacterContactListener_Create(JoltC_OnCharacterContactValidateFn onValidate, JoltC_OnCharacterContactAddedFn onAdded, JoltC_OnCharacterContactPersistedFn onPersisted, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterContactListener_Create")]
+		public static extern IntPtr CharacterContactListener_Create(OnCharacterContactValidateFn onValidate, OnCharacterContactAddedFn onAdded, OnCharacterContactPersistedFn onPersisted, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterContactListener_Destroy(IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterContactListener_Destroy")]
+		public static extern void CharacterContactListener_Destroy(IntPtr listener);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CharacterVirtual create / destroy
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CharacterVirtual_Create(JoltC_CharacterVirtualSettings* settings, JoltC_RVec3 position, JoltC_Quat rotation, ulong userData, IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_Create")]
+		public static extern IntPtr CharacterVirtual_Create(CharacterVirtualSettings* settings, RVec3 position, Quat rotation, ulong userData, IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_Destroy(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_Destroy")]
+		public static extern void CharacterVirtual_Destroy(IntPtr character);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CharacterVirtual methods
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetListener(IntPtr c, IntPtr listener);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetListener")]
+		public static extern void CharacterVirtual_SetListener(IntPtr c, IntPtr listener);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterVirtual_GetLinearVelocity(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetLinearVelocity")]
+		public static extern Vec3 CharacterVirtual_GetLinearVelocity(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetLinearVelocity(IntPtr c, JoltC_Vec3 velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetLinearVelocity")]
+		public static extern void CharacterVirtual_SetLinearVelocity(IntPtr c, Vec3 velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_CharacterVirtual_GetPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetPosition")]
+		public static extern RVec3 CharacterVirtual_GetPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetPosition(IntPtr c, JoltC_RVec3 position);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetPosition")]
+		public static extern void CharacterVirtual_SetPosition(IntPtr c, RVec3 position);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_CharacterVirtual_GetRotation(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetRotation")]
+		public static extern Quat CharacterVirtual_GetRotation(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetRotation(IntPtr c, JoltC_Quat rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetRotation")]
+		public static extern void CharacterVirtual_SetRotation(IntPtr c, Quat rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_CharacterVirtual_GetCenterOfMassPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetCenterOfMassPosition")]
+		public static extern RVec3 CharacterVirtual_GetCenterOfMassPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CharacterVirtual_GetMass(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetMass")]
+		public static extern float CharacterVirtual_GetMass(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetMass(IntPtr c, float mass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetMass")]
+		public static extern void CharacterVirtual_SetMass(IntPtr c, float mass);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CharacterVirtual_GetMaxStrength(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetMaxStrength")]
+		public static extern float CharacterVirtual_GetMaxStrength(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetMaxStrength(IntPtr c, float strength);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetMaxStrength")]
+		public static extern void CharacterVirtual_SetMaxStrength(IntPtr c, float strength);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CharacterVirtual_GetPenetrationRecoverySpeed(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetPenetrationRecoverySpeed")]
+		public static extern float CharacterVirtual_GetPenetrationRecoverySpeed(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetPenetrationRecoverySpeed(IntPtr c, float speed);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetPenetrationRecoverySpeed")]
+		public static extern void CharacterVirtual_SetPenetrationRecoverySpeed(IntPtr c, float speed);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CharacterVirtual_GetCharacterPadding(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetCharacterPadding")]
+		public static extern float CharacterVirtual_GetCharacterPadding(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CharacterVirtual_GetMaxNumHits(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetMaxNumHits")]
+		public static extern uint CharacterVirtual_GetMaxNumHits(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetMaxNumHits(IntPtr c, uint maxHits);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetMaxNumHits")]
+		public static extern void CharacterVirtual_SetMaxNumHits(IntPtr c, uint maxHits);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_CharacterVirtual_GetUserData(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetUserData")]
+		public static extern ulong CharacterVirtual_GetUserData(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetUserData(IntPtr c, ulong userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetUserData")]
+		public static extern void CharacterVirtual_SetUserData(IntPtr c, ulong userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CharacterVirtual_GetInnerBodyID(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetInnerBodyID")]
+		public static extern uint CharacterVirtual_GetInnerBodyID(IntPtr c);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CharacterBase ground state
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_GroundState JoltC_CharacterVirtual_GetGroundState(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundState")]
+		public static extern GroundState CharacterVirtual_GetGroundState(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_IsSupported(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_IsSupported")]
+		public static extern int CharacterVirtual_IsSupported(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_CharacterVirtual_GetGroundPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundPosition")]
+		public static extern RVec3 CharacterVirtual_GetGroundPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterVirtual_GetGroundNormal(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundNormal")]
+		public static extern Vec3 CharacterVirtual_GetGroundNormal(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterVirtual_GetGroundVelocity(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundVelocity")]
+		public static extern Vec3 CharacterVirtual_GetGroundVelocity(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CharacterVirtual_GetGroundBodyID(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundBodyID")]
+		public static extern uint CharacterVirtual_GetGroundBodyID(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterVirtual_GetUp(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetUp")]
+		public static extern Vec3 CharacterVirtual_GetUp(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetUp(IntPtr c, JoltC_Vec3 up);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetUp")]
+		public static extern void CharacterVirtual_SetUp(IntPtr c, Vec3 up);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetMaxSlopeAngle(IntPtr c, float maxSlopeAngle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetMaxSlopeAngle")]
+		public static extern void CharacterVirtual_SetMaxSlopeAngle(IntPtr c, float maxSlopeAngle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CharacterVirtual_GetShape(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetShape")]
+		public static extern IntPtr CharacterVirtual_GetShape(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_SetShape(IntPtr c, IntPtr shape, float maxPenetrationDepth, IntPtr allocator);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetShape")]
+		public static extern int CharacterVirtual_SetShape(IntPtr c, IntPtr shape, float maxPenetrationDepth, IntPtr allocator);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CharacterVirtual simulation
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_Update(IntPtr c, float deltaTime, JoltC_Vec3 gravity, IntPtr allocator);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_Update")]
+		public static extern void CharacterVirtual_Update(IntPtr c, float deltaTime, Vec3 gravity, IntPtr allocator);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ExtendedUpdateSettings_SetDefault(JoltC_ExtendedUpdateSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ExtendedUpdateSettings_SetDefault")]
+		public static extern void ExtendedUpdateSettings_SetDefault(ExtendedUpdateSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_ExtendedUpdate(IntPtr c, float deltaTime, JoltC_Vec3 gravity, JoltC_ExtendedUpdateSettings* settings, IntPtr allocator);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_ExtendedUpdate")]
+		public static extern void CharacterVirtual_ExtendedUpdate(IntPtr c, float deltaTime, Vec3 gravity, ExtendedUpdateSettings* settings, IntPtr allocator);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_RefreshContacts(IntPtr c, IntPtr allocator);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_RefreshContacts")]
+		public static extern void CharacterVirtual_RefreshContacts(IntPtr c, IntPtr allocator);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Additional CharacterBase/CharacterVirtual accessors
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CharacterVirtual_GetCosMaxSlopeAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetCosMaxSlopeAngle")]
+		public static extern float CharacterVirtual_GetCosMaxSlopeAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_IsSlopeTooSteep(IntPtr c, JoltC_Vec3 normal);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_IsSlopeTooSteep")]
+		public static extern int CharacterVirtual_IsSlopeTooSteep(IntPtr c, Vec3 normal);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CharacterVirtual_GetGroundSubShapeID(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundSubShapeID")]
+		public static extern uint CharacterVirtual_GetGroundSubShapeID(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_CharacterVirtual_GetGroundUserData(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundUserData")]
+		public static extern ulong CharacterVirtual_GetGroundUserData(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_CharacterVirtual_GetWorldTransform(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetWorldTransform")]
+		public static extern Mat44 CharacterVirtual_GetWorldTransform(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_CharacterVirtual_GetCenterOfMassTransform(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetCenterOfMassTransform")]
+		public static extern Mat44 CharacterVirtual_GetCenterOfMassTransform(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_GetEnhancedInternalEdgeRemoval(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetEnhancedInternalEdgeRemoval")]
+		public static extern int CharacterVirtual_GetEnhancedInternalEdgeRemoval(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetEnhancedInternalEdgeRemoval(IntPtr c, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetEnhancedInternalEdgeRemoval")]
+		public static extern void CharacterVirtual_SetEnhancedInternalEdgeRemoval(IntPtr c, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CharacterVirtual_GetHitReductionCosMaxAngle(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetHitReductionCosMaxAngle")]
+		public static extern float CharacterVirtual_GetHitReductionCosMaxAngle(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetHitReductionCosMaxAngle(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetHitReductionCosMaxAngle")]
+		public static extern void CharacterVirtual_SetHitReductionCosMaxAngle(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_GetMaxHitsExceeded(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetMaxHitsExceeded")]
+		public static extern int CharacterVirtual_GetMaxHitsExceeded(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterVirtual_GetShapeOffset(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetShapeOffset")]
+		public static extern Vec3 CharacterVirtual_GetShapeOffset(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetShapeOffset(IntPtr c, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetShapeOffset")]
+		public static extern void CharacterVirtual_SetShapeOffset(IntPtr c, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterVirtual_CancelVelocityTowardsSteepSlopes(IntPtr c, JoltC_Vec3 desiredVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_CancelVelocityTowardsSteepSlopes")]
+		public static extern Vec3 CharacterVirtual_CancelVelocityTowardsSteepSlopes(IntPtr c, Vec3 desiredVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_UpdateGroundVelocity(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_UpdateGroundVelocity")]
+		public static extern void CharacterVirtual_UpdateGroundVelocity(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_HasCollidedWithBody(IntPtr c, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_HasCollidedWithBody")]
+		public static extern int CharacterVirtual_HasCollidedWithBody(IntPtr c, uint bodyID);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CharacterVirtual_GetNumActiveContacts(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetNumActiveContacts")]
+		public static extern uint CharacterVirtual_GetNumActiveContacts(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetInnerBodyShape(IntPtr c, IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetInnerBodyShape")]
+		public static extern void CharacterVirtual_SetInnerBodyShape(IntPtr c, IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterSettings_SetDefault(JoltC_CharacterSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterSettings_SetDefault")]
+		public static extern void CharacterSettings_SetDefault(CharacterSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Character_Create(JoltC_CharacterSettings* settings, JoltC_RVec3 position, JoltC_Quat rotation, ulong userData, IntPtr system);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_Create")]
+		public static extern IntPtr Character_Create(CharacterSettings* settings, RVec3 position, Quat rotation, ulong userData, IntPtr system);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_Destroy(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_Destroy")]
+		public static extern void Character_Destroy(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_AddToPhysicsSystem(IntPtr c, JoltC_Activation activation, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_AddToPhysicsSystem")]
+		public static extern void Character_AddToPhysicsSystem(IntPtr c, Activation activation, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_RemoveFromPhysicsSystem(IntPtr c, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_RemoveFromPhysicsSystem")]
+		public static extern void Character_RemoveFromPhysicsSystem(IntPtr c, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_Activate(IntPtr c, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_Activate")]
+		public static extern void Character_Activate(IntPtr c, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_PostSimulation(IntPtr c, float maxSeparationDistance, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_PostSimulation")]
+		public static extern void Character_PostSimulation(IntPtr c, float maxSeparationDistance, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Character_GetLinearVelocity(IntPtr c, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetLinearVelocity")]
+		public static extern Vec3 Character_GetLinearVelocity(IntPtr c, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetLinearVelocity(IntPtr c, JoltC_Vec3 velocity, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetLinearVelocity")]
+		public static extern void Character_SetLinearVelocity(IntPtr c, Vec3 velocity, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_AddLinearVelocity(IntPtr c, JoltC_Vec3 velocity, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_AddLinearVelocity")]
+		public static extern void Character_AddLinearVelocity(IntPtr c, Vec3 velocity, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_AddImpulse(IntPtr c, JoltC_Vec3 impulse, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_AddImpulse")]
+		public static extern void Character_AddImpulse(IntPtr c, Vec3 impulse, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Character_GetBodyID(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetBodyID")]
+		public static extern uint Character_GetBodyID(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_Character_GetPosition(IntPtr c, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetPosition")]
+		public static extern RVec3 Character_GetPosition(IntPtr c, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetPosition(IntPtr c, JoltC_RVec3 position, JoltC_Activation activation, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetPosition")]
+		public static extern void Character_SetPosition(IntPtr c, RVec3 position, Activation activation, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Quat JoltC_Character_GetRotation(IntPtr c, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetRotation")]
+		public static extern Quat Character_GetRotation(IntPtr c, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetRotation(IntPtr c, JoltC_Quat rotation, JoltC_Activation activation, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetRotation")]
+		public static extern void Character_SetRotation(IntPtr c, Quat rotation, Activation activation, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_Character_GetCenterOfMassPosition(IntPtr c, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetCenterOfMassPosition")]
+		public static extern RVec3 Character_GetCenterOfMassPosition(IntPtr c, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ushort JoltC_Character_GetLayer(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetLayer")]
+		public static extern ushort Character_GetLayer(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetLayer(IntPtr c, ushort layer, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetLayer")]
+		public static extern void Character_SetLayer(IntPtr c, ushort layer, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetShape(IntPtr c, IntPtr shape, float maxPenetrationDepth, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetShape")]
+		public static extern void Character_SetShape(IntPtr c, IntPtr shape, float maxPenetrationDepth, int lockBodies);
 
 		/// <summary>
 		/// CharacterBase accessors on Character
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_GroundState JoltC_Character_GetGroundState(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetGroundState")]
+		public static extern GroundState Character_GetGroundState(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Character_IsSupported(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_IsSupported")]
+		public static extern int Character_IsSupported(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_Character_GetGroundPosition(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetGroundPosition")]
+		public static extern RVec3 Character_GetGroundPosition(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Character_GetGroundNormal(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetGroundNormal")]
+		public static extern Vec3 Character_GetGroundNormal(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Character_GetGroundVelocity(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetGroundVelocity")]
+		public static extern Vec3 Character_GetGroundVelocity(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Character_GetGroundBodyID(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetGroundBodyID")]
+		public static extern uint Character_GetGroundBodyID(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Character_GetUp(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetUp")]
+		public static extern Vec3 Character_GetUp(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetUp(IntPtr c, JoltC_Vec3 up);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetUp")]
+		public static extern void Character_SetUp(IntPtr c, Vec3 up);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetMaxSlopeAngle(IntPtr c, float maxSlopeAngle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetMaxSlopeAngle")]
+		public static extern void Character_SetMaxSlopeAngle(IntPtr c, float maxSlopeAngle);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Additional Character methods
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_GetPositionAndRotation(IntPtr character, JoltC_RVec3* outPosition, JoltC_Quat* outRotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetPositionAndRotation")]
+		public static extern void Character_GetPositionAndRotation(IntPtr character, RVec3* outPosition, Quat* outRotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Mat44 JoltC_Character_GetWorldTransform(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetWorldTransform")]
+		public static extern Mat44 Character_GetWorldTransform(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetLinearAndAngularVelocity(IntPtr character, JoltC_Vec3 linearVelocity, JoltC_Vec3 angularVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetLinearAndAngularVelocity")]
+		public static extern void Character_SetLinearAndAngularVelocity(IntPtr character, Vec3 linearVelocity, Vec3 angularVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Character_SetPositionAndRotation(IntPtr character, JoltC_RVec3 position, JoltC_Quat rotation, int activation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetPositionAndRotation")]
+		public static extern void Character_SetPositionAndRotation(IntPtr character, RVec3 position, Quat rotation, int activation);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CharacterBase (polymorphic base — obtain via AsBase converters)
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Character_AsBase(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_AsBase")]
+		public static extern IntPtr Character_AsBase(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CharacterVirtual_AsBase(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_AsBase")]
+		public static extern IntPtr CharacterVirtual_AsBase(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterBase_Destroy(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_Destroy")]
+		public static extern void CharacterBase_Destroy(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_CharacterBase_GetCosMaxSlopeAngle(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetCosMaxSlopeAngle")]
+		public static extern float CharacterBase_GetCosMaxSlopeAngle(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CharacterBase_GetGroundBodyId(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetGroundBodyId")]
+		public static extern uint CharacterBase_GetGroundBodyId(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterBase_GetGroundNormal(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetGroundNormal")]
+		public static extern Vec3 CharacterBase_GetGroundNormal(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_CharacterBase_GetGroundPosition(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetGroundPosition")]
+		public static extern RVec3 CharacterBase_GetGroundPosition(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterBase_GetGroundState(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetGroundState")]
+		public static extern int CharacterBase_GetGroundState(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CharacterBase_GetGroundSubShapeId(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetGroundSubShapeId")]
+		public static extern uint CharacterBase_GetGroundSubShapeId(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ulong JoltC_CharacterBase_GetGroundUserData(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetGroundUserData")]
+		public static extern ulong CharacterBase_GetGroundUserData(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterBase_GetGroundVelocity(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetGroundVelocity")]
+		public static extern Vec3 CharacterBase_GetGroundVelocity(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_CharacterBase_GetUp(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_GetUp")]
+		public static extern Vec3 CharacterBase_GetUp(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterBase_IsSlopeTooSteep(IntPtr character, JoltC_Vec3 normal);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_IsSlopeTooSteep")]
+		public static extern int CharacterBase_IsSlopeTooSteep(IntPtr character, Vec3 normal);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterBase_IsSupported(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_IsSupported")]
+		public static extern int CharacterBase_IsSupported(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterBase_SetMaxSlopeAngle(IntPtr character, float maxSlopeAngle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_SetMaxSlopeAngle")]
+		public static extern void CharacterBase_SetMaxSlopeAngle(IntPtr character, float maxSlopeAngle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterBase_SetUp(IntPtr character, JoltC_Vec3 up);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterBase_SetUp")]
+		public static extern void CharacterBase_SetUp(IntPtr character, Vec3 up);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CharacterSettings / CharacterVirtualSettings Init aliases
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterSettings_Init(JoltC_CharacterSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterSettings_Init")]
+		public static extern void CharacterSettings_Init(CharacterSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtualSettings_Init(JoltC_CharacterVirtualSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtualSettings_Init")]
+		public static extern void CharacterVirtualSettings_Init(CharacterVirtualSettings* settings);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Additional CharacterVirtual methods
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_CanWalkStairs(IntPtr character, JoltC_Vec3 linearVelocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_CanWalkStairs")]
+		public static extern int CharacterVirtual_CanWalkStairs(IntPtr character, Vec3 linearVelocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_FinishTrackingContactChanges(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_FinishTrackingContactChanges")]
+		public static extern void CharacterVirtual_FinishTrackingContactChanges(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_GetActiveContact(IntPtr character, uint index, JoltC_Vec3* outContactNormal, JoltC_Vec3* outContactVelocity, uint* outBodyId2, uint* outSubShapeId2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetActiveContact")]
+		public static extern void CharacterVirtual_GetActiveContact(IntPtr character, uint index, Vec3* outContactNormal, Vec3* outContactVelocity, uint* outBodyId2, uint* outSubShapeId2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_CharacterVirtual_GetID(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetID")]
+		public static extern uint CharacterVirtual_GetID(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_HasCollidedWith(IntPtr character, uint bodyId);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_HasCollidedWith")]
+		public static extern int CharacterVirtual_HasCollidedWith(IntPtr character, uint bodyId);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_HasCollidedWithCharacter(IntPtr character, uint otherCharacterId);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_HasCollidedWithCharacter")]
+		public static extern int CharacterVirtual_HasCollidedWithCharacter(IntPtr character, uint otherCharacterId);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_SetCharacterVsCharacterCollision(IntPtr character, IntPtr collision);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetCharacterVsCharacterCollision")]
+		public static extern void CharacterVirtual_SetCharacterVsCharacterCollision(IntPtr character, IntPtr collision);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVirtual_StartTrackingContactChanges(IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_StartTrackingContactChanges")]
+		public static extern void CharacterVirtual_StartTrackingContactChanges(IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_StickToFloor(IntPtr character, JoltC_Vec3 stepDown, IntPtr allocator);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_StickToFloor")]
+		public static extern int CharacterVirtual_StickToFloor(IntPtr character, Vec3 stepDown, IntPtr allocator);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_CharacterVirtual_WalkStairs(IntPtr character, float deltaTime, JoltC_Vec3 stepUp, JoltC_Vec3 stepForward, JoltC_Vec3 stepForwardTest, JoltC_Vec3 stepDownExtra, IntPtr allocator);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_WalkStairs")]
+		public static extern int CharacterVirtual_WalkStairs(IntPtr character, float deltaTime, Vec3 stepUp, Vec3 stepForward, Vec3 stepForwardTest, Vec3 stepDownExtra, IntPtr allocator);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterContactListener_SetProcs(IntPtr listener, JoltC_CharacterContactListener_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterContactListener_SetProcs")]
+		public static extern void CharacterContactListener_SetProcs(IntPtr listener, CharacterContactListener_Procs procs, void* userData);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// CharacterVsCharacterCollision
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CharacterVsCharacterCollision_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVsCharacterCollision_Create")]
+		public static extern IntPtr CharacterVsCharacterCollision_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_CharacterVsCharacterCollision_CreateSimple();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVsCharacterCollision_CreateSimple")]
+		public static extern IntPtr CharacterVsCharacterCollision_CreateSimple();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVsCharacterCollision_Destroy(IntPtr collision);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVsCharacterCollision_Destroy")]
+		public static extern void CharacterVsCharacterCollision_Destroy(IntPtr collision);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVsCharacterCollisionSimple_AddCharacter(IntPtr collision, IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVsCharacterCollisionSimple_AddCharacter")]
+		public static extern void CharacterVsCharacterCollisionSimple_AddCharacter(IntPtr collision, IntPtr character);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_CharacterVsCharacterCollisionSimple_RemoveCharacter(IntPtr collision, IntPtr character);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVsCharacterCollisionSimple_RemoveCharacter")]
+		public static extern void CharacterVsCharacterCollisionSimple_RemoveCharacter(IntPtr collision, IntPtr character);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BroadPhaseLayerFilter
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BroadPhaseLayerFilter_Create(JoltC_BroadPhaseLayerFilterFn fn, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerFilter_Create")]
+		public static extern IntPtr BroadPhaseLayerFilter_Create(BroadPhaseLayerFilterFn fn, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseLayerFilter_Destroy(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerFilter_Destroy")]
+		public static extern void BroadPhaseLayerFilter_Destroy(IntPtr filter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ObjectLayerFilter
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ObjectLayerFilter_Create(JoltC_ObjectLayerFilterFn fn, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerFilter_Create")]
+		public static extern IntPtr ObjectLayerFilter_Create(ObjectLayerFilterFn fn, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ObjectLayerFilter_Destroy(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerFilter_Destroy")]
+		public static extern void ObjectLayerFilter_Destroy(IntPtr filter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// BodyFilter
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_BodyFilter_Create(JoltC_BodyFilterFn fn, JoltC_BodyFilterLockedFn fnLocked, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyFilter_Create")]
+		public static extern IntPtr BodyFilter_Create(BodyFilterFn fn, BodyFilterLockedFn fnLocked, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyFilter_Destroy(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyFilter_Destroy")]
+		public static extern void BodyFilter_Destroy(IntPtr filter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ShapeFilter
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_ShapeFilter_Create(JoltC_ShapeFilterFn fn, JoltC_ShapeFilter2Fn fn2, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeFilter_Create")]
+		public static extern IntPtr ShapeFilter_Create(ShapeFilterFn fn, ShapeFilter2Fn fn2, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ShapeFilter_Destroy(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeFilter_Destroy")]
+		public static extern void ShapeFilter_Destroy(IntPtr filter);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_ShapeFilter_GetBodyID2(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeFilter_GetBodyID2")]
+		public static extern uint ShapeFilter_GetBodyID2(IntPtr filter);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ShapeFilter_SetBodyID2(IntPtr filter, uint bodyID);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeFilter_SetBodyID2")]
+		public static extern void ShapeFilter_SetBodyID2(IntPtr filter, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// SimShapeFilter
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SimShapeFilter_Create(JoltC_SimShapeFilterFn fn, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SimShapeFilter_Create")]
+		public static extern IntPtr SimShapeFilter_Create(SimShapeFilterFn fn, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SimShapeFilter_Destroy(IntPtr filter);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SimShapeFilter_Destroy")]
+		public static extern void SimShapeFilter_Destroy(IntPtr filter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// SetProcs — update function pointers on existing filter objects
 		/// --------------------------------------------------------------------------
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BroadPhaseLayerFilter_SetProcs(IntPtr filter, JoltC_BroadPhaseLayerFilter_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BroadPhaseLayerFilter_SetProcs")]
+		public static extern void BroadPhaseLayerFilter_SetProcs(IntPtr filter, BroadPhaseLayerFilter_Procs procs, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ObjectLayerFilter_SetProcs(IntPtr filter, JoltC_ObjectLayerFilter_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerFilter_SetProcs")]
+		public static extern void ObjectLayerFilter_SetProcs(IntPtr filter, ObjectLayerFilter_Procs procs, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_BodyFilter_SetProcs(IntPtr filter, JoltC_BodyFilter_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyFilter_SetProcs")]
+		public static extern void BodyFilter_SetProcs(IntPtr filter, BodyFilter_Procs procs, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_ShapeFilter_SetProcs(IntPtr filter, JoltC_ShapeFilter_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ShapeFilter_SetProcs")]
+		public static extern void ShapeFilter_SetProcs(IntPtr filter, ShapeFilter_Procs procs, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SimShapeFilter_SetProcs(IntPtr filter, JoltC_SimShapeFilter_Procs procs, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SimShapeFilter_SetProcs")]
+		public static extern void SimShapeFilter_SetProcs(IntPtr filter, SimShapeFilter_Procs procs, void* userData);
 
 		/// <summary>
 		/// ==========================================================================
 		/// LinearCurve
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_LinearCurve_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_Create")]
+		public static extern IntPtr LinearCurve_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_LinearCurve_Destroy(IntPtr curve);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_Destroy")]
+		public static extern void LinearCurve_Destroy(IntPtr curve);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_LinearCurve_Clear(IntPtr curve);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_Clear")]
+		public static extern void LinearCurve_Clear(IntPtr curve);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_LinearCurve_Reserve(IntPtr curve, uint numPoints);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_Reserve")]
+		public static extern void LinearCurve_Reserve(IntPtr curve, uint numPoints);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_LinearCurve_AddPoint(IntPtr curve, float x, float y);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_AddPoint")]
+		public static extern void LinearCurve_AddPoint(IntPtr curve, float x, float y);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_LinearCurve_Sort(IntPtr curve);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_Sort")]
+		public static extern void LinearCurve_Sort(IntPtr curve);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_LinearCurve_GetMinX(IntPtr curve);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_GetMinX")]
+		public static extern float LinearCurve_GetMinX(IntPtr curve);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_LinearCurve_GetMaxX(IntPtr curve);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_GetMaxX")]
+		public static extern float LinearCurve_GetMaxX(IntPtr curve);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_LinearCurve_GetValue(IntPtr curve, float x);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_GetValue")]
+		public static extern float LinearCurve_GetValue(IntPtr curve, float x);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_LinearCurve_GetPointCount(IntPtr curve);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_GetPointCount")]
+		public static extern uint LinearCurve_GetPointCount(IntPtr curve);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_LinearCurve_GetPoint(IntPtr curve, uint index, JoltC_Point* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_GetPoint")]
+		public static extern void LinearCurve_GetPoint(IntPtr curve, uint index, Point* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_LinearCurve_GetPoints(IntPtr curve, JoltC_Point* points, uint* count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_LinearCurve_GetPoints")]
+		public static extern void LinearCurve_GetPoints(IntPtr curve, Point* points, uint* count);
 
 		/// <summary>
 		/// ==========================================================================
 		/// WheelSettings (base)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_Create")]
+		public static extern IntPtr WheelSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_Destroy(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_Destroy")]
+		public static extern void WheelSettings_Destroy(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_WheelSettings_GetPosition(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetPosition")]
+		public static extern Vec3 WheelSettings_GetPosition(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetPosition(IntPtr s, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetPosition")]
+		public static extern void WheelSettings_SetPosition(IntPtr s, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_WheelSettings_GetSuspensionForcePoint(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetSuspensionForcePoint")]
+		public static extern Vec3 WheelSettings_GetSuspensionForcePoint(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetSuspensionForcePoint(IntPtr s, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetSuspensionForcePoint")]
+		public static extern void WheelSettings_SetSuspensionForcePoint(IntPtr s, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_WheelSettings_GetSuspensionDirection(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetSuspensionDirection")]
+		public static extern Vec3 WheelSettings_GetSuspensionDirection(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetSuspensionDirection(IntPtr s, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetSuspensionDirection")]
+		public static extern void WheelSettings_SetSuspensionDirection(IntPtr s, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_WheelSettings_GetSteeringAxis(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetSteeringAxis")]
+		public static extern Vec3 WheelSettings_GetSteeringAxis(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetSteeringAxis(IntPtr s, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetSteeringAxis")]
+		public static extern void WheelSettings_SetSteeringAxis(IntPtr s, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_WheelSettings_GetWheelUp(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetWheelUp")]
+		public static extern Vec3 WheelSettings_GetWheelUp(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetWheelUp(IntPtr s, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetWheelUp")]
+		public static extern void WheelSettings_SetWheelUp(IntPtr s, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_WheelSettings_GetWheelForward(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetWheelForward")]
+		public static extern Vec3 WheelSettings_GetWheelForward(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetWheelForward(IntPtr s, JoltC_Vec3 value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetWheelForward")]
+		public static extern void WheelSettings_SetWheelForward(IntPtr s, Vec3 value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettings_GetSuspensionMinLength(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetSuspensionMinLength")]
+		public static extern float WheelSettings_GetSuspensionMinLength(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetSuspensionMinLength(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetSuspensionMinLength")]
+		public static extern void WheelSettings_SetSuspensionMinLength(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettings_GetSuspensionMaxLength(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetSuspensionMaxLength")]
+		public static extern float WheelSettings_GetSuspensionMaxLength(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetSuspensionMaxLength(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetSuspensionMaxLength")]
+		public static extern void WheelSettings_SetSuspensionMaxLength(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettings_GetSuspensionPreloadLength(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetSuspensionPreloadLength")]
+		public static extern float WheelSettings_GetSuspensionPreloadLength(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetSuspensionPreloadLength(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetSuspensionPreloadLength")]
+		public static extern void WheelSettings_SetSuspensionPreloadLength(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_SpringSettings JoltC_WheelSettings_GetSuspensionSpring(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetSuspensionSpring")]
+		public static extern SpringSettings WheelSettings_GetSuspensionSpring(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetSuspensionSpring(IntPtr s, JoltC_SpringSettings value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetSuspensionSpring")]
+		public static extern void WheelSettings_SetSuspensionSpring(IntPtr s, SpringSettings value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettings_GetRadius(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetRadius")]
+		public static extern float WheelSettings_GetRadius(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetRadius(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetRadius")]
+		public static extern void WheelSettings_SetRadius(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettings_GetWidth(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetWidth")]
+		public static extern float WheelSettings_GetWidth(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetWidth(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetWidth")]
+		public static extern void WheelSettings_SetWidth(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_WheelSettings_GetEnableSuspensionForcePoint(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetEnableSuspensionForcePoint")]
+		public static extern int WheelSettings_GetEnableSuspensionForcePoint(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettings_SetEnableSuspensionForcePoint(IntPtr s, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetEnableSuspensionForcePoint")]
+		public static extern void WheelSettings_SetEnableSuspensionForcePoint(IntPtr s, int value);
 
 		/// <summary>
 		/// ==========================================================================
 		/// WheelSettingsWV (wheeled vehicle)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelSettingsWV_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_Create")]
+		public static extern IntPtr WheelSettingsWV_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettingsWV_GetInertia(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_GetInertia")]
+		public static extern float WheelSettingsWV_GetInertia(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsWV_SetInertia(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_SetInertia")]
+		public static extern void WheelSettingsWV_SetInertia(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettingsWV_GetAngularDamping(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_GetAngularDamping")]
+		public static extern float WheelSettingsWV_GetAngularDamping(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsWV_SetAngularDamping(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_SetAngularDamping")]
+		public static extern void WheelSettingsWV_SetAngularDamping(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettingsWV_GetMaxSteerAngle(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_GetMaxSteerAngle")]
+		public static extern float WheelSettingsWV_GetMaxSteerAngle(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsWV_SetMaxSteerAngle(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_SetMaxSteerAngle")]
+		public static extern void WheelSettingsWV_SetMaxSteerAngle(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelSettingsWV_GetLongitudinalFriction(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_GetLongitudinalFriction")]
+		public static extern IntPtr WheelSettingsWV_GetLongitudinalFriction(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsWV_SetLongitudinalFriction(IntPtr s, IntPtr curve);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_SetLongitudinalFriction")]
+		public static extern void WheelSettingsWV_SetLongitudinalFriction(IntPtr s, IntPtr curve);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelSettingsWV_GetLateralFriction(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_GetLateralFriction")]
+		public static extern IntPtr WheelSettingsWV_GetLateralFriction(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsWV_SetLateralFriction(IntPtr s, IntPtr curve);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_SetLateralFriction")]
+		public static extern void WheelSettingsWV_SetLateralFriction(IntPtr s, IntPtr curve);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettingsWV_GetMaxBrakeTorque(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_GetMaxBrakeTorque")]
+		public static extern float WheelSettingsWV_GetMaxBrakeTorque(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsWV_SetMaxBrakeTorque(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_SetMaxBrakeTorque")]
+		public static extern void WheelSettingsWV_SetMaxBrakeTorque(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettingsWV_GetMaxHandBrakeTorque(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_GetMaxHandBrakeTorque")]
+		public static extern float WheelSettingsWV_GetMaxHandBrakeTorque(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsWV_SetMaxHandBrakeTorque(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsWV_SetMaxHandBrakeTorque")]
+		public static extern void WheelSettingsWV_SetMaxHandBrakeTorque(IntPtr s, float value);
 
 		/// <summary>
 		/// ==========================================================================
 		/// WheelSettingsTV (tracked vehicle)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelSettingsTV_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsTV_Create")]
+		public static extern IntPtr WheelSettingsTV_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettingsTV_GetLongitudinalFriction(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsTV_GetLongitudinalFriction")]
+		public static extern float WheelSettingsTV_GetLongitudinalFriction(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsTV_SetLongitudinalFriction(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsTV_SetLongitudinalFriction")]
+		public static extern void WheelSettingsTV_SetLongitudinalFriction(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheelSettingsTV_GetLateralFriction(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsTV_GetLateralFriction")]
+		public static extern float WheelSettingsTV_GetLateralFriction(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelSettingsTV_SetLateralFriction(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettingsTV_SetLateralFriction")]
+		public static extern void WheelSettingsTV_SetLateralFriction(IntPtr s, float value);
 
 		/// <summary>
 		/// ==========================================================================
 		/// Wheel (runtime, base)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Wheel_GetSettings(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetSettings")]
+		public static extern IntPtr Wheel_GetSettings(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Wheel_GetAngularVelocity(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetAngularVelocity")]
+		public static extern float Wheel_GetAngularVelocity(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Wheel_SetAngularVelocity(IntPtr w, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_SetAngularVelocity")]
+		public static extern void Wheel_SetAngularVelocity(IntPtr w, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Wheel_GetRotationAngle(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetRotationAngle")]
+		public static extern float Wheel_GetRotationAngle(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Wheel_SetRotationAngle(IntPtr w, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_SetRotationAngle")]
+		public static extern void Wheel_SetRotationAngle(IntPtr w, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Wheel_GetSteerAngle(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetSteerAngle")]
+		public static extern float Wheel_GetSteerAngle(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Wheel_SetSteerAngle(IntPtr w, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_SetSteerAngle")]
+		public static extern void Wheel_SetSteerAngle(IntPtr w, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Wheel_HasContact(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_HasContact")]
+		public static extern int Wheel_HasContact(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Wheel_GetContactBodyID(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetContactBodyID")]
+		public static extern uint Wheel_GetContactBodyID(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Wheel_GetContactSubShapeID(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetContactSubShapeID")]
+		public static extern uint Wheel_GetContactSubShapeID(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_Wheel_GetContactPosition(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetContactPosition")]
+		public static extern RVec3 Wheel_GetContactPosition(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Wheel_GetContactPointVelocity(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetContactPointVelocity")]
+		public static extern Vec3 Wheel_GetContactPointVelocity(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Wheel_GetContactNormal(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetContactNormal")]
+		public static extern Vec3 Wheel_GetContactNormal(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Wheel_GetContactLongitudinal(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetContactLongitudinal")]
+		public static extern Vec3 Wheel_GetContactLongitudinal(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_Wheel_GetContactLateral(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetContactLateral")]
+		public static extern Vec3 Wheel_GetContactLateral(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Wheel_GetSuspensionLength(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetSuspensionLength")]
+		public static extern float Wheel_GetSuspensionLength(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Wheel_GetSuspensionLambda(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetSuspensionLambda")]
+		public static extern float Wheel_GetSuspensionLambda(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Wheel_GetLongitudinalLambda(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetLongitudinalLambda")]
+		public static extern float Wheel_GetLongitudinalLambda(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_Wheel_GetLateralLambda(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetLateralLambda")]
+		public static extern float Wheel_GetLateralLambda(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Wheel_HasHitHardPoint(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_HasHitHardPoint")]
+		public static extern int Wheel_HasHitHardPoint(IntPtr w);
 
 		/// <summary>
 		/// ==========================================================================
 		/// WheelWV / WheelTV
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelWV_GetSettings(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelWV_GetSettings")]
+		public static extern IntPtr WheelWV_GetSettings(IntPtr w);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheelWV_ApplyTorque(IntPtr w, float torque, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelWV_ApplyTorque")]
+		public static extern void WheelWV_ApplyTorque(IntPtr w, float torque, float deltaTime);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelTV_GetSettings(IntPtr w);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelTV_GetSettings")]
+		public static extern IntPtr WheelTV_GetSettings(IntPtr w);
 
 		/// <summary>
 		/// ==========================================================================
 		/// VehicleConstraintSettings
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleConstraintSettings_Init(JoltC_VehicleConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraintSettings_Init")]
+		public static extern void VehicleConstraintSettings_Init(VehicleConstraintSettings* settings);
 
 		/// <summary>
 		/// ==========================================================================
 		/// VehicleConstraint
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleConstraint_Create(IntPtr body, JoltC_VehicleConstraintSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_Create")]
+		public static extern IntPtr VehicleConstraint_Create(IntPtr body, VehicleConstraintSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleConstraint_AsPhysicsStepListener(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_AsPhysicsStepListener")]
+		public static extern IntPtr VehicleConstraint_AsPhysicsStepListener(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleConstraint_SetMaxPitchRollAngle(IntPtr vc, float angle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_SetMaxPitchRollAngle")]
+		public static extern void VehicleConstraint_SetMaxPitchRollAngle(IntPtr vc, float angle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleConstraint_SetVehicleCollisionTester(IntPtr vc, IntPtr tester);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_SetVehicleCollisionTester")]
+		public static extern void VehicleConstraint_SetVehicleCollisionTester(IntPtr vc, IntPtr tester);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleConstraint_OverrideGravity(IntPtr vc, JoltC_Vec3 gravity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_OverrideGravity")]
+		public static extern void VehicleConstraint_OverrideGravity(IntPtr vc, Vec3 gravity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_VehicleConstraint_IsGravityOverridden(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_IsGravityOverridden")]
+		public static extern int VehicleConstraint_IsGravityOverridden(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_VehicleConstraint_GetGravityOverride(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetGravityOverride")]
+		public static extern Vec3 VehicleConstraint_GetGravityOverride(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleConstraint_ResetGravityOverride(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_ResetGravityOverride")]
+		public static extern void VehicleConstraint_ResetGravityOverride(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_VehicleConstraint_GetLocalForward(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetLocalForward")]
+		public static extern Vec3 VehicleConstraint_GetLocalForward(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_VehicleConstraint_GetLocalUp(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetLocalUp")]
+		public static extern Vec3 VehicleConstraint_GetLocalUp(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_Vec3 JoltC_VehicleConstraint_GetWorldUp(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetWorldUp")]
+		public static extern Vec3 VehicleConstraint_GetWorldUp(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleConstraint_GetVehicleBody(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetVehicleBody")]
+		public static extern IntPtr VehicleConstraint_GetVehicleBody(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleConstraint_GetController(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetController")]
+		public static extern IntPtr VehicleConstraint_GetController(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_VehicleConstraint_GetWheelsCount(IntPtr vc);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetWheelsCount")]
+		public static extern uint VehicleConstraint_GetWheelsCount(IntPtr vc);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleConstraint_GetWheel(IntPtr vc, uint index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetWheel")]
+		public static extern IntPtr VehicleConstraint_GetWheel(IntPtr vc, uint index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleConstraint_GetWheelLocalTransform(IntPtr vc, uint wheelIndex, JoltC_Vec3 wheelRight, JoltC_Vec3 wheelUp, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetWheelLocalTransform")]
+		public static extern void VehicleConstraint_GetWheelLocalTransform(IntPtr vc, uint wheelIndex, Vec3 wheelRight, Vec3 wheelUp, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleConstraint_GetWheelWorldTransform(IntPtr vc, uint wheelIndex, JoltC_Vec3 wheelRight, JoltC_Vec3 wheelUp, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetWheelWorldTransform")]
+		public static extern void VehicleConstraint_GetWheelWorldTransform(IntPtr vc, uint wheelIndex, Vec3 wheelRight, Vec3 wheelUp, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleConstraint_GetWheelLocalBasis(IntPtr constraint, uint wheelIndex, JoltC_Vec3* outUp, JoltC_Vec3* outForward);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetWheelLocalBasis")]
+		public static extern void VehicleConstraint_GetWheelLocalBasis(IntPtr constraint, uint wheelIndex, Vec3* outUp, Vec3* outForward);
 
 		/// <summary>
 		/// ==========================================================================
 		/// VehicleCollisionTester
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleCollisionTester_Destroy(IntPtr tester);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleCollisionTester_Destroy")]
+		public static extern void VehicleCollisionTester_Destroy(IntPtr tester);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern ushort JoltC_VehicleCollisionTester_GetObjectLayer(IntPtr tester);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleCollisionTester_GetObjectLayer")]
+		public static extern ushort VehicleCollisionTester_GetObjectLayer(IntPtr tester);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleCollisionTester_SetObjectLayer(IntPtr tester, ushort layer);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleCollisionTester_SetObjectLayer")]
+		public static extern void VehicleCollisionTester_SetObjectLayer(IntPtr tester, ushort layer);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleCollisionTesterRay_Create(ushort layer, JoltC_Vec3 up, float maxSlopeAngle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleCollisionTesterRay_Create")]
+		public static extern IntPtr VehicleCollisionTesterRay_Create(ushort layer, Vec3 up, float maxSlopeAngle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleCollisionTesterCastSphere_Create(ushort layer, float radius, JoltC_Vec3 up, float maxSlopeAngle);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleCollisionTesterCastSphere_Create")]
+		public static extern IntPtr VehicleCollisionTesterCastSphere_Create(ushort layer, float radius, Vec3 up, float maxSlopeAngle);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleCollisionTesterCastCylinder_Create(ushort layer, float convexRadiusFraction);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleCollisionTesterCastCylinder_Create")]
+		public static extern IntPtr VehicleCollisionTesterCastCylinder_Create(ushort layer, float convexRadiusFraction);
 
 		/// <summary>
 		/// ==========================================================================
 		/// VehicleControllerSettings
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleControllerSettings_Destroy(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleControllerSettings_Destroy")]
+		public static extern void VehicleControllerSettings_Destroy(IntPtr settings);
 
 		/// <summary>
 		/// ==========================================================================
 		/// WheeledVehicleControllerSettings
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheeledVehicleControllerSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_Create")]
+		public static extern IntPtr WheeledVehicleControllerSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleControllerSettings_GetEngine(IntPtr s, JoltC_VehicleEngineSettings* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_GetEngine")]
+		public static extern void WheeledVehicleControllerSettings_GetEngine(IntPtr s, VehicleEngineSettings* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleControllerSettings_SetEngine(IntPtr s, JoltC_VehicleEngineSettings* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_SetEngine")]
+		public static extern void WheeledVehicleControllerSettings_SetEngine(IntPtr s, VehicleEngineSettings* value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheeledVehicleControllerSettings_GetTransmission(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_GetTransmission")]
+		public static extern IntPtr WheeledVehicleControllerSettings_GetTransmission(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleControllerSettings_SetTransmission(IntPtr s, IntPtr value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_SetTransmission")]
+		public static extern void WheeledVehicleControllerSettings_SetTransmission(IntPtr s, IntPtr value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_WheeledVehicleControllerSettings_GetDifferentialsCount(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_GetDifferentialsCount")]
+		public static extern uint WheeledVehicleControllerSettings_GetDifferentialsCount(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleControllerSettings_SetDifferentialsCount(IntPtr s, uint count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_SetDifferentialsCount")]
+		public static extern void WheeledVehicleControllerSettings_SetDifferentialsCount(IntPtr s, uint count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleControllerSettings_GetDifferential(IntPtr s, uint index, JoltC_VehicleDifferentialSettings* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_GetDifferential")]
+		public static extern void WheeledVehicleControllerSettings_GetDifferential(IntPtr s, uint index, VehicleDifferentialSettings* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleControllerSettings_SetDifferential(IntPtr s, uint index, JoltC_VehicleDifferentialSettings* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_SetDifferential")]
+		public static extern void WheeledVehicleControllerSettings_SetDifferential(IntPtr s, uint index, VehicleDifferentialSettings* value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleControllerSettings_SetDifferentials(IntPtr s, JoltC_VehicleDifferentialSettings* values, uint count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_SetDifferentials")]
+		public static extern void WheeledVehicleControllerSettings_SetDifferentials(IntPtr s, VehicleDifferentialSettings* values, uint count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheeledVehicleControllerSettings_GetDifferentialLimitedSlipRatio(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_GetDifferentialLimitedSlipRatio")]
+		public static extern float WheeledVehicleControllerSettings_GetDifferentialLimitedSlipRatio(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleControllerSettings_SetDifferentialLimitedSlipRatio(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleControllerSettings_SetDifferentialLimitedSlipRatio")]
+		public static extern void WheeledVehicleControllerSettings_SetDifferentialLimitedSlipRatio(IntPtr s, float value);
 
 		/// <summary>
 		/// ==========================================================================
 		/// MotorcycleControllerSettings
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_MotorcycleControllerSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_Create")]
+		public static extern IntPtr MotorcycleControllerSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleControllerSettings_GetMaxLeanAngle(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_GetMaxLeanAngle")]
+		public static extern float MotorcycleControllerSettings_GetMaxLeanAngle(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleControllerSettings_SetMaxLeanAngle(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_SetMaxLeanAngle")]
+		public static extern void MotorcycleControllerSettings_SetMaxLeanAngle(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleControllerSettings_GetLeanSpringConstant(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_GetLeanSpringConstant")]
+		public static extern float MotorcycleControllerSettings_GetLeanSpringConstant(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleControllerSettings_SetLeanSpringConstant(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_SetLeanSpringConstant")]
+		public static extern void MotorcycleControllerSettings_SetLeanSpringConstant(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleControllerSettings_GetLeanSpringDamping(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_GetLeanSpringDamping")]
+		public static extern float MotorcycleControllerSettings_GetLeanSpringDamping(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleControllerSettings_SetLeanSpringDamping(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_SetLeanSpringDamping")]
+		public static extern void MotorcycleControllerSettings_SetLeanSpringDamping(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleControllerSettings_GetLeanSpringIntegrationCoefficient(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_GetLeanSpringIntegrationCoefficient")]
+		public static extern float MotorcycleControllerSettings_GetLeanSpringIntegrationCoefficient(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleControllerSettings_SetLeanSpringIntegrationCoefficient(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_SetLeanSpringIntegrationCoefficient")]
+		public static extern void MotorcycleControllerSettings_SetLeanSpringIntegrationCoefficient(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleControllerSettings_GetLeanSpringIntegrationCoefficientDecay(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_GetLeanSpringIntegrationCoefficientDecay")]
+		public static extern float MotorcycleControllerSettings_GetLeanSpringIntegrationCoefficientDecay(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleControllerSettings_SetLeanSpringIntegrationCoefficientDecay(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_SetLeanSpringIntegrationCoefficientDecay")]
+		public static extern void MotorcycleControllerSettings_SetLeanSpringIntegrationCoefficientDecay(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleControllerSettings_GetLeanSmoothingFactor(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_GetLeanSmoothingFactor")]
+		public static extern float MotorcycleControllerSettings_GetLeanSmoothingFactor(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleControllerSettings_SetLeanSmoothingFactor(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleControllerSettings_SetLeanSmoothingFactor")]
+		public static extern void MotorcycleControllerSettings_SetLeanSmoothingFactor(IntPtr s, float value);
 
 		/// <summary>
 		/// ==========================================================================
 		/// TrackedVehicleControllerSettings
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TrackedVehicleControllerSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleControllerSettings_Create")]
+		public static extern IntPtr TrackedVehicleControllerSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TrackedVehicleControllerSettings_GetEngine(IntPtr s, JoltC_VehicleEngineSettings* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleControllerSettings_GetEngine")]
+		public static extern void TrackedVehicleControllerSettings_GetEngine(IntPtr s, VehicleEngineSettings* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TrackedVehicleControllerSettings_SetEngine(IntPtr s, JoltC_VehicleEngineSettings* value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleControllerSettings_SetEngine")]
+		public static extern void TrackedVehicleControllerSettings_SetEngine(IntPtr s, VehicleEngineSettings* value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TrackedVehicleControllerSettings_GetTransmission(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleControllerSettings_GetTransmission")]
+		public static extern IntPtr TrackedVehicleControllerSettings_GetTransmission(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TrackedVehicleControllerSettings_SetTransmission(IntPtr s, IntPtr value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleControllerSettings_SetTransmission")]
+		public static extern void TrackedVehicleControllerSettings_SetTransmission(IntPtr s, IntPtr value);
 
 		/// <summary>
 		/// ==========================================================================
 		/// WheeledVehicleController (runtime)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleController_SetDriverInput(IntPtr c, float forward, float right, float brake, float handBrake);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_SetDriverInput")]
+		public static extern void WheeledVehicleController_SetDriverInput(IntPtr c, float forward, float right, float brake, float handBrake);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleController_SetForwardInput(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_SetForwardInput")]
+		public static extern void WheeledVehicleController_SetForwardInput(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheeledVehicleController_GetForwardInput(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_GetForwardInput")]
+		public static extern float WheeledVehicleController_GetForwardInput(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleController_SetRightInput(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_SetRightInput")]
+		public static extern void WheeledVehicleController_SetRightInput(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheeledVehicleController_GetRightInput(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_GetRightInput")]
+		public static extern float WheeledVehicleController_GetRightInput(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleController_SetBrakeInput(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_SetBrakeInput")]
+		public static extern void WheeledVehicleController_SetBrakeInput(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheeledVehicleController_GetBrakeInput(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_GetBrakeInput")]
+		public static extern float WheeledVehicleController_GetBrakeInput(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleController_SetHandBrakeInput(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_SetHandBrakeInput")]
+		public static extern void WheeledVehicleController_SetHandBrakeInput(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheeledVehicleController_GetHandBrakeInput(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_GetHandBrakeInput")]
+		public static extern float WheeledVehicleController_GetHandBrakeInput(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_WheeledVehicleController_GetWheelSpeedAtClutch(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_GetWheelSpeedAtClutch")]
+		public static extern float WheeledVehicleController_GetWheelSpeedAtClutch(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_WheeledVehicleController_SetTireMaxImpulseCallback(IntPtr c, JoltC_TireMaxImpulseCallback cb, void* userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_SetTireMaxImpulseCallback")]
+		public static extern void WheeledVehicleController_SetTireMaxImpulseCallback(IntPtr c, TireMaxImpulseCallback cb, void* userData);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheeledVehicleController_GetEngine(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_GetEngine")]
+		public static extern IntPtr WheeledVehicleController_GetEngine(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheeledVehicleController_GetTransmission(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheeledVehicleController_GetTransmission")]
+		public static extern IntPtr WheeledVehicleController_GetTransmission(IntPtr c);
 
 		/// <summary>
 		/// ==========================================================================
 		/// MotorcycleController (runtime)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleController_GetWheelBase(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_GetWheelBase")]
+		public static extern float MotorcycleController_GetWheelBase(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_MotorcycleController_IsLeanControllerEnabled(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_IsLeanControllerEnabled")]
+		public static extern int MotorcycleController_IsLeanControllerEnabled(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleController_EnableLeanController(IntPtr c, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_EnableLeanController")]
+		public static extern void MotorcycleController_EnableLeanController(IntPtr c, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_MotorcycleController_IsLeanSteeringLimitEnabled(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_IsLeanSteeringLimitEnabled")]
+		public static extern int MotorcycleController_IsLeanSteeringLimitEnabled(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleController_EnableLeanSteeringLimit(IntPtr c, int value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_EnableLeanSteeringLimit")]
+		public static extern void MotorcycleController_EnableLeanSteeringLimit(IntPtr c, int value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleController_GetLeanSpringConstant(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_GetLeanSpringConstant")]
+		public static extern float MotorcycleController_GetLeanSpringConstant(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleController_SetLeanSpringConstant(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_SetLeanSpringConstant")]
+		public static extern void MotorcycleController_SetLeanSpringConstant(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleController_GetLeanSpringDamping(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_GetLeanSpringDamping")]
+		public static extern float MotorcycleController_GetLeanSpringDamping(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleController_SetLeanSpringDamping(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_SetLeanSpringDamping")]
+		public static extern void MotorcycleController_SetLeanSpringDamping(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleController_GetLeanSpringIntegrationCoefficient(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_GetLeanSpringIntegrationCoefficient")]
+		public static extern float MotorcycleController_GetLeanSpringIntegrationCoefficient(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleController_SetLeanSpringIntegrationCoefficient(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_SetLeanSpringIntegrationCoefficient")]
+		public static extern void MotorcycleController_SetLeanSpringIntegrationCoefficient(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleController_GetLeanSpringIntegrationCoefficientDecay(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_GetLeanSpringIntegrationCoefficientDecay")]
+		public static extern float MotorcycleController_GetLeanSpringIntegrationCoefficientDecay(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleController_SetLeanSpringIntegrationCoefficientDecay(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_SetLeanSpringIntegrationCoefficientDecay")]
+		public static extern void MotorcycleController_SetLeanSpringIntegrationCoefficientDecay(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_MotorcycleController_GetLeanSmoothingFactor(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_GetLeanSmoothingFactor")]
+		public static extern float MotorcycleController_GetLeanSmoothingFactor(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_MotorcycleController_SetLeanSmoothingFactor(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_SetLeanSmoothingFactor")]
+		public static extern void MotorcycleController_SetLeanSmoothingFactor(IntPtr c, float value);
 
 		/// <summary>
 		/// ==========================================================================
 		/// TrackedVehicleController (runtime)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TrackedVehicleController_GetTrack(IntPtr c, JoltC_TrackSide side);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_GetTrack")]
+		public static extern IntPtr TrackedVehicleController_GetTrack(IntPtr c, TrackSide side);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TrackedVehicleController_SetDriverInput(IntPtr c, float forward, float leftRatio, float rightRatio, float brake);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_SetDriverInput")]
+		public static extern void TrackedVehicleController_SetDriverInput(IntPtr c, float forward, float leftRatio, float rightRatio, float brake);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TrackedVehicleController_GetForwardInput(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_GetForwardInput")]
+		public static extern float TrackedVehicleController_GetForwardInput(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TrackedVehicleController_SetForwardInput(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_SetForwardInput")]
+		public static extern void TrackedVehicleController_SetForwardInput(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TrackedVehicleController_GetLeftRatio(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_GetLeftRatio")]
+		public static extern float TrackedVehicleController_GetLeftRatio(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TrackedVehicleController_SetLeftRatio(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_SetLeftRatio")]
+		public static extern void TrackedVehicleController_SetLeftRatio(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TrackedVehicleController_GetRightRatio(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_GetRightRatio")]
+		public static extern float TrackedVehicleController_GetRightRatio(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TrackedVehicleController_SetRightRatio(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_SetRightRatio")]
+		public static extern void TrackedVehicleController_SetRightRatio(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_TrackedVehicleController_GetBrakeInput(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_GetBrakeInput")]
+		public static extern float TrackedVehicleController_GetBrakeInput(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_TrackedVehicleController_SetBrakeInput(IntPtr c, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_SetBrakeInput")]
+		public static extern void TrackedVehicleController_SetBrakeInput(IntPtr c, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TrackedVehicleController_GetEngine(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_GetEngine")]
+		public static extern IntPtr TrackedVehicleController_GetEngine(IntPtr c);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_TrackedVehicleController_GetTransmission(IntPtr c);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_TrackedVehicleController_GetTransmission")]
+		public static extern IntPtr TrackedVehicleController_GetTransmission(IntPtr c);
 
 		/// <summary>
 		/// ==========================================================================
 		/// VehicleEngine (runtime)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleEngine_ClampRPM(IntPtr e);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_ClampRPM")]
+		public static extern void VehicleEngine_ClampRPM(IntPtr e);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleEngine_GetCurrentRPM(IntPtr e);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_GetCurrentRPM")]
+		public static extern float VehicleEngine_GetCurrentRPM(IntPtr e);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleEngine_SetCurrentRPM(IntPtr e, float rpm);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_SetCurrentRPM")]
+		public static extern void VehicleEngine_SetCurrentRPM(IntPtr e, float rpm);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleEngine_GetAngularVelocity(IntPtr e);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_GetAngularVelocity")]
+		public static extern float VehicleEngine_GetAngularVelocity(IntPtr e);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleEngine_GetTorque(IntPtr e, float acceleration);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_GetTorque")]
+		public static extern float VehicleEngine_GetTorque(IntPtr e, float acceleration);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleEngine_ApplyTorque(IntPtr e, float torque, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_ApplyTorque")]
+		public static extern void VehicleEngine_ApplyTorque(IntPtr e, float torque, float deltaTime);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleEngine_ApplyDamping(IntPtr e, float deltaTime);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_ApplyDamping")]
+		public static extern void VehicleEngine_ApplyDamping(IntPtr e, float deltaTime);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_VehicleEngine_AllowSleep(IntPtr e);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_AllowSleep")]
+		public static extern int VehicleEngine_AllowSleep(IntPtr e);
 
 		/// <summary>
 		/// ==========================================================================
 		/// VehicleTransmissionSettings (opaque — has internal arrays)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_VehicleTransmissionSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_Create")]
+		public static extern IntPtr VehicleTransmissionSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_Destroy(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_Destroy")]
+		public static extern void VehicleTransmissionSettings_Destroy(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_TransmissionMode JoltC_VehicleTransmissionSettings_GetMode(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetMode")]
+		public static extern TransmissionMode VehicleTransmissionSettings_GetMode(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetMode(IntPtr s, JoltC_TransmissionMode mode);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetMode")]
+		public static extern void VehicleTransmissionSettings_SetMode(IntPtr s, TransmissionMode mode);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_VehicleTransmissionSettings_GetGearRatioCount(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetGearRatioCount")]
+		public static extern uint VehicleTransmissionSettings_GetGearRatioCount(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmissionSettings_GetGearRatio(IntPtr s, uint index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetGearRatio")]
+		public static extern float VehicleTransmissionSettings_GetGearRatio(IntPtr s, uint index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetGearRatios(IntPtr s, float* values, uint count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetGearRatios")]
+		public static extern void VehicleTransmissionSettings_SetGearRatios(IntPtr s, float* values, uint count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_VehicleTransmissionSettings_GetReverseGearRatioCount(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetReverseGearRatioCount")]
+		public static extern uint VehicleTransmissionSettings_GetReverseGearRatioCount(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmissionSettings_GetReverseGearRatio(IntPtr s, uint index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetReverseGearRatio")]
+		public static extern float VehicleTransmissionSettings_GetReverseGearRatio(IntPtr s, uint index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetReverseGearRatios(IntPtr s, float* values, uint count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetReverseGearRatios")]
+		public static extern void VehicleTransmissionSettings_SetReverseGearRatios(IntPtr s, float* values, uint count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmissionSettings_GetSwitchTime(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetSwitchTime")]
+		public static extern float VehicleTransmissionSettings_GetSwitchTime(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetSwitchTime(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetSwitchTime")]
+		public static extern void VehicleTransmissionSettings_SetSwitchTime(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmissionSettings_GetClutchReleaseTime(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetClutchReleaseTime")]
+		public static extern float VehicleTransmissionSettings_GetClutchReleaseTime(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetClutchReleaseTime(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetClutchReleaseTime")]
+		public static extern void VehicleTransmissionSettings_SetClutchReleaseTime(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmissionSettings_GetSwitchLatency(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetSwitchLatency")]
+		public static extern float VehicleTransmissionSettings_GetSwitchLatency(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetSwitchLatency(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetSwitchLatency")]
+		public static extern void VehicleTransmissionSettings_SetSwitchLatency(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmissionSettings_GetShiftUpRPM(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetShiftUpRPM")]
+		public static extern float VehicleTransmissionSettings_GetShiftUpRPM(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetShiftUpRPM(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetShiftUpRPM")]
+		public static extern void VehicleTransmissionSettings_SetShiftUpRPM(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmissionSettings_GetShiftDownRPM(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetShiftDownRPM")]
+		public static extern float VehicleTransmissionSettings_GetShiftDownRPM(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetShiftDownRPM(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetShiftDownRPM")]
+		public static extern void VehicleTransmissionSettings_SetShiftDownRPM(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmissionSettings_GetClutchStrength(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_GetClutchStrength")]
+		public static extern float VehicleTransmissionSettings_GetClutchStrength(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetClutchStrength(IntPtr s, float value);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetClutchStrength")]
+		public static extern void VehicleTransmissionSettings_SetClutchStrength(IntPtr s, float value);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetGearRatio(IntPtr s, int gearIndex, float ratio);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetGearRatio")]
+		public static extern void VehicleTransmissionSettings_SetGearRatio(IntPtr s, int gearIndex, float ratio);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmissionSettings_SetReverseGearRatio(IntPtr s, int gearIndex, float ratio);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmissionSettings_SetReverseGearRatio")]
+		public static extern void VehicleTransmissionSettings_SetReverseGearRatio(IntPtr s, int gearIndex, float ratio);
 
 		/// <summary>
 		/// ==========================================================================
 		/// VehicleTransmission (runtime)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmission_Set(IntPtr t, int currentGear, float clutchFriction);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_Set")]
+		public static extern void VehicleTransmission_Set(IntPtr t, int currentGear, float clutchFriction);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTransmission_Update(IntPtr t, float deltaTime, float currentRPM, float forwardInput, int canShiftUp);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_Update")]
+		public static extern void VehicleTransmission_Update(IntPtr t, float deltaTime, float currentRPM, float forwardInput, int canShiftUp);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_VehicleTransmission_GetCurrentGear(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_GetCurrentGear")]
+		public static extern int VehicleTransmission_GetCurrentGear(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmission_GetClutchFriction(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_GetClutchFriction")]
+		public static extern float VehicleTransmission_GetClutchFriction(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_VehicleTransmission_IsSwitchingGear(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_IsSwitchingGear")]
+		public static extern int VehicleTransmission_IsSwitchingGear(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTransmission_GetCurrentRatio(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_GetCurrentRatio")]
+		public static extern float VehicleTransmission_GetCurrentRatio(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_VehicleTransmission_AllowSleep(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_AllowSleep")]
+		public static extern int VehicleTransmission_AllowSleep(IntPtr t);
 
 		/// <summary>
 		/// ==========================================================================
 		/// VehicleTrack (runtime)
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTrack_GetAngularVelocity(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTrack_GetAngularVelocity")]
+		public static extern float VehicleTrack_GetAngularVelocity(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTrack_SetAngularVelocity(IntPtr t, float velocity);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTrack_SetAngularVelocity")]
+		public static extern void VehicleTrack_SetAngularVelocity(IntPtr t, float velocity);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_VehicleTrack_GetDrivenWheel(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTrack_GetDrivenWheel")]
+		public static extern uint VehicleTrack_GetDrivenWheel(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTrack_GetInertia(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTrack_GetInertia")]
+		public static extern float VehicleTrack_GetInertia(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTrack_GetAngularDamping(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTrack_GetAngularDamping")]
+		public static extern float VehicleTrack_GetAngularDamping(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTrack_GetMaxBrakeTorque(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTrack_GetMaxBrakeTorque")]
+		public static extern float VehicleTrack_GetMaxBrakeTorque(IntPtr t);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_VehicleTrack_GetDifferentialRatio(IntPtr t);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTrack_GetDifferentialRatio")]
+		public static extern float VehicleTrack_GetDifferentialRatio(IntPtr t);
 
 		/// <summary>
 		/// ==========================================================================
 		/// Init helpers
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleEngineSettings_Init(JoltC_VehicleEngineSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngineSettings_Init")]
+		public static extern void VehicleEngineSettings_Init(VehicleEngineSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleDifferentialSettings_Init(JoltC_VehicleDifferentialSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleDifferentialSettings_Init")]
+		public static extern void VehicleDifferentialSettings_Init(VehicleDifferentialSettings* settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleAntiRollBar_Init(JoltC_VehicleAntiRollBar* bar);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleAntiRollBar_Init")]
+		public static extern void VehicleAntiRollBar_Init(VehicleAntiRollBar* bar);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_VehicleTrackSettings_Init(JoltC_VehicleTrackSettings* settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTrackSettings_Init")]
+		public static extern void VehicleTrackSettings_Init(VehicleTrackSettings* settings);
 
 		/// <summary>
 		/// ==========================================================================
 		/// Wheel / WheelWV / WheelTV — Create / Destroy
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Wheel_Create(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_Create")]
+		public static extern IntPtr Wheel_Create(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Wheel_Destroy(IntPtr wheel);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_Destroy")]
+		public static extern void Wheel_Destroy(IntPtr wheel);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelWV_Create(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelWV_Create")]
+		public static extern IntPtr WheelWV_Create(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_WheelTV_Create(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelTV_Create")]
+		public static extern IntPtr WheelTV_Create(IntPtr settings);
 
 		/// <summary>
 		/// ==========================================================================
 		/// Skeleton
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Skeleton_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_Create")]
+		public static extern IntPtr Skeleton_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Skeleton_Destroy(IntPtr skeleton);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_Destroy")]
+		public static extern void Skeleton_Destroy(IntPtr skeleton);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Skeleton_AddJoint(IntPtr skeleton, byte* name);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_AddJoint")]
+		public static extern uint Skeleton_AddJoint(IntPtr skeleton, byte* name);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Skeleton_AddJoint2(IntPtr skeleton, byte* name, int parentIndex);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_AddJoint2")]
+		public static extern uint Skeleton_AddJoint2(IntPtr skeleton, byte* name, int parentIndex);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Skeleton_AddJoint3(IntPtr skeleton, byte* name, byte* parentName);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_AddJoint3")]
+		public static extern uint Skeleton_AddJoint3(IntPtr skeleton, byte* name, byte* parentName);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Skeleton_GetJointCount(IntPtr skeleton);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_GetJointCount")]
+		public static extern int Skeleton_GetJointCount(IntPtr skeleton);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Skeleton_GetJoint(IntPtr skeleton, int index, JoltC_SkeletonJoint* joint);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_GetJoint")]
+		public static extern void Skeleton_GetJoint(IntPtr skeleton, int index, SkeletonJoint* joint);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Skeleton_GetJointIndex(IntPtr skeleton, byte* name);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_GetJointIndex")]
+		public static extern int Skeleton_GetJointIndex(IntPtr skeleton, byte* name);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Skeleton_CalculateParentJointIndices(IntPtr skeleton);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_CalculateParentJointIndices")]
+		public static extern void Skeleton_CalculateParentJointIndices(IntPtr skeleton);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Skeleton_AreJointsCorrectlyOrdered(IntPtr skeleton);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_AreJointsCorrectlyOrdered")]
+		public static extern int Skeleton_AreJointsCorrectlyOrdered(IntPtr skeleton);
 
 		/// <summary>
 		/// ==========================================================================
 		/// SkeletonPose
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SkeletonPose_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_Create")]
+		public static extern IntPtr SkeletonPose_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_Destroy(IntPtr pose);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_Destroy")]
+		public static extern void SkeletonPose_Destroy(IntPtr pose);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_SetSkeleton(IntPtr pose, IntPtr skeleton);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_SetSkeleton")]
+		public static extern void SkeletonPose_SetSkeleton(IntPtr pose, IntPtr skeleton);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SkeletonPose_GetSkeleton(IntPtr pose);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_GetSkeleton")]
+		public static extern IntPtr SkeletonPose_GetSkeleton(IntPtr pose);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_SetRootOffset(IntPtr pose, JoltC_RVec3 offset);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_SetRootOffset")]
+		public static extern void SkeletonPose_SetRootOffset(IntPtr pose, RVec3 offset);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern JoltC_RVec3 JoltC_SkeletonPose_GetRootOffset(IntPtr pose);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_GetRootOffset")]
+		public static extern RVec3 SkeletonPose_GetRootOffset(IntPtr pose);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SkeletonPose_GetJointCount(IntPtr pose);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_GetJointCount")]
+		public static extern int SkeletonPose_GetJointCount(IntPtr pose);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_GetJointState(IntPtr pose, int index, JoltC_Vec3* outTranslation, JoltC_Quat* outRotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_GetJointState")]
+		public static extern void SkeletonPose_GetJointState(IntPtr pose, int index, Vec3* outTranslation, Quat* outRotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_SetJointState(IntPtr pose, int index, JoltC_Vec3 translation, JoltC_Quat rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_SetJointState")]
+		public static extern void SkeletonPose_SetJointState(IntPtr pose, int index, Vec3 translation, Quat rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_GetJointMatrix(IntPtr pose, int index, JoltC_Mat44* result);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_GetJointMatrix")]
+		public static extern void SkeletonPose_GetJointMatrix(IntPtr pose, int index, Mat44* result);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_SetJointMatrix(IntPtr pose, int index, JoltC_Mat44* matrix);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_SetJointMatrix")]
+		public static extern void SkeletonPose_SetJointMatrix(IntPtr pose, int index, Mat44* matrix);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_GetJointMatrices(IntPtr pose, JoltC_Mat44* outMatrices, int count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_GetJointMatrices")]
+		public static extern void SkeletonPose_GetJointMatrices(IntPtr pose, Mat44* outMatrices, int count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_SetJointMatrices(IntPtr pose, JoltC_Mat44* matrices, int count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_SetJointMatrices")]
+		public static extern void SkeletonPose_SetJointMatrices(IntPtr pose, Mat44* matrices, int count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_CalculateJointMatrices(IntPtr pose);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_CalculateJointMatrices")]
+		public static extern void SkeletonPose_CalculateJointMatrices(IntPtr pose);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_CalculateJointStates(IntPtr pose);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_CalculateJointStates")]
+		public static extern void SkeletonPose_CalculateJointStates(IntPtr pose);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonPose_CalculateLocalSpaceJointMatrices(IntPtr pose, JoltC_Mat44* outMatrices);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonPose_CalculateLocalSpaceJointMatrices")]
+		public static extern void SkeletonPose_CalculateLocalSpaceJointMatrices(IntPtr pose, Mat44* outMatrices);
 
 		/// <summary>
 		/// ==========================================================================
 		/// SkeletalAnimation
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SkeletalAnimation_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_Create")]
+		public static extern IntPtr SkeletalAnimation_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletalAnimation_Destroy(IntPtr anim);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_Destroy")]
+		public static extern void SkeletalAnimation_Destroy(IntPtr anim);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern float JoltC_SkeletalAnimation_GetDuration(IntPtr anim);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_GetDuration")]
+		public static extern float SkeletalAnimation_GetDuration(IntPtr anim);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SkeletalAnimation_IsLooping(IntPtr anim);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_IsLooping")]
+		public static extern int SkeletalAnimation_IsLooping(IntPtr anim);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletalAnimation_SetIsLooping(IntPtr anim, int looping);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_SetIsLooping")]
+		public static extern void SkeletalAnimation_SetIsLooping(IntPtr anim, int looping);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletalAnimation_ScaleJoints(IntPtr anim, float scale);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_ScaleJoints")]
+		public static extern void SkeletalAnimation_ScaleJoints(IntPtr anim, float scale);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletalAnimation_Sample(IntPtr anim, float time, IntPtr pose);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_Sample")]
+		public static extern void SkeletalAnimation_Sample(IntPtr anim, float time, IntPtr pose);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SkeletalAnimation_GetAnimatedJointCount(IntPtr anim);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_GetAnimatedJointCount")]
+		public static extern int SkeletalAnimation_GetAnimatedJointCount(IntPtr anim);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletalAnimation_AddAnimatedJoint(IntPtr anim, byte* jointName);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_AddAnimatedJoint")]
+		public static extern void SkeletalAnimation_AddAnimatedJoint(IntPtr anim, byte* jointName);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletalAnimation_AddKeyframe(IntPtr anim, int jointIndex, float time, JoltC_Vec3 translation, JoltC_Quat rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_AddKeyframe")]
+		public static extern void SkeletalAnimation_AddKeyframe(IntPtr anim, int jointIndex, float time, Vec3 translation, Quat rotation);
 
 		/// <summary>
 		/// ==========================================================================
 		/// SkeletonMapper
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_SkeletonMapper_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_Create")]
+		public static extern IntPtr SkeletonMapper_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonMapper_Destroy(IntPtr mapper);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_Destroy")]
+		public static extern void SkeletonMapper_Destroy(IntPtr mapper);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonMapper_Initialize(IntPtr mapper, IntPtr sk1, JoltC_Mat44* neutralPose1, IntPtr sk2, JoltC_Mat44* neutralPose2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_Initialize")]
+		public static extern void SkeletonMapper_Initialize(IntPtr mapper, IntPtr sk1, Mat44* neutralPose1, IntPtr sk2, Mat44* neutralPose2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonMapper_LockAllTranslations(IntPtr mapper, IntPtr sk2, JoltC_Mat44* neutralPose2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_LockAllTranslations")]
+		public static extern void SkeletonMapper_LockAllTranslations(IntPtr mapper, IntPtr sk2, Mat44* neutralPose2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonMapper_LockTranslations(IntPtr mapper, IntPtr sk2, int* lockedTranslations, JoltC_Mat44* neutralPose2);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_LockTranslations")]
+		public static extern void SkeletonMapper_LockTranslations(IntPtr mapper, IntPtr sk2, int* lockedTranslations, Mat44* neutralPose2);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonMapper_Map(IntPtr mapper, JoltC_Mat44* pose1ModelSpace, JoltC_Mat44* pose2LocalSpace, JoltC_Mat44* outPose2ModelSpace);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_Map")]
+		public static extern void SkeletonMapper_Map(IntPtr mapper, Mat44* pose1ModelSpace, Mat44* pose2LocalSpace, Mat44* outPose2ModelSpace);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_SkeletonMapper_MapReverse(IntPtr mapper, JoltC_Mat44* pose2ModelSpace, JoltC_Mat44* outPose1ModelSpace);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_MapReverse")]
+		public static extern void SkeletonMapper_MapReverse(IntPtr mapper, Mat44* pose2ModelSpace, Mat44* outPose1ModelSpace);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SkeletonMapper_GetMappedJointIndex(IntPtr mapper, int joint1Index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_GetMappedJointIndex")]
+		public static extern int SkeletonMapper_GetMappedJointIndex(IntPtr mapper, int joint1Index);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_SkeletonMapper_IsJointTranslationLocked(IntPtr mapper, int joint2Index);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_IsJointTranslationLocked")]
+		public static extern int SkeletonMapper_IsJointTranslationLocked(IntPtr mapper, int joint2Index);
 
 		/// <summary>
 		/// ==========================================================================
 		/// RagdollSettings
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_RagdollSettings_Create();
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_Create")]
+		public static extern IntPtr RagdollSettings_Create();
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_Destroy(IntPtr settings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_Destroy")]
+		public static extern void RagdollSettings_Destroy(IntPtr settings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_RagdollSettings_GetSkeleton(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_GetSkeleton")]
+		public static extern IntPtr RagdollSettings_GetSkeleton(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_SetSkeleton(IntPtr s, IntPtr skeleton);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_SetSkeleton")]
+		public static extern void RagdollSettings_SetSkeleton(IntPtr s, IntPtr skeleton);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_RagdollSettings_Stabilize(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_Stabilize")]
+		public static extern int RagdollSettings_Stabilize(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_DisableParentChildCollisions(IntPtr s, JoltC_Mat44* jointMatrices, float minSeparationDistance);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_DisableParentChildCollisions")]
+		public static extern void RagdollSettings_DisableParentChildCollisions(IntPtr s, Mat44* jointMatrices, float minSeparationDistance);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_CalculateBodyIndexToConstraintIndex(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_CalculateBodyIndexToConstraintIndex")]
+		public static extern void RagdollSettings_CalculateBodyIndexToConstraintIndex(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_RagdollSettings_GetConstraintIndexForBodyIndex(IntPtr s, int bodyIndex);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_GetConstraintIndexForBodyIndex")]
+		public static extern int RagdollSettings_GetConstraintIndexForBodyIndex(IntPtr s, int bodyIndex);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_CalculateConstraintIndexToBodyIdxPair(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_CalculateConstraintIndexToBodyIdxPair")]
+		public static extern void RagdollSettings_CalculateConstraintIndexToBodyIdxPair(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_ResizeParts(IntPtr s, int count);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_ResizeParts")]
+		public static extern void RagdollSettings_ResizeParts(IntPtr s, int count);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_RagdollSettings_GetPartCount(IntPtr s);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_GetPartCount")]
+		public static extern int RagdollSettings_GetPartCount(IntPtr s);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_SetPartShape(IntPtr s, int partIndex, IntPtr shape);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_SetPartShape")]
+		public static extern void RagdollSettings_SetPartShape(IntPtr s, int partIndex, IntPtr shape);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_SetPartPosition(IntPtr s, int partIndex, JoltC_RVec3 position);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_SetPartPosition")]
+		public static extern void RagdollSettings_SetPartPosition(IntPtr s, int partIndex, RVec3 position);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_SetPartRotation(IntPtr s, int partIndex, JoltC_Quat rotation);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_SetPartRotation")]
+		public static extern void RagdollSettings_SetPartRotation(IntPtr s, int partIndex, Quat rotation);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_SetPartMotionType(IntPtr s, int partIndex, JoltC_MotionType motionType);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_SetPartMotionType")]
+		public static extern void RagdollSettings_SetPartMotionType(IntPtr s, int partIndex, MotionType motionType);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_SetPartObjectLayer(IntPtr s, int partIndex, ushort layer);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_SetPartObjectLayer")]
+		public static extern void RagdollSettings_SetPartObjectLayer(IntPtr s, int partIndex, ushort layer);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_SetPartMassProperties(IntPtr s, int partIndex, float mass);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_SetPartMassProperties")]
+		public static extern void RagdollSettings_SetPartMassProperties(IntPtr s, int partIndex, float mass);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_RagdollSettings_SetPartToParent(IntPtr settings, int partIndex, int parentIndex, IntPtr constraintSettings);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_SetPartToParent")]
+		public static extern void RagdollSettings_SetPartToParent(IntPtr settings, int partIndex, int parentIndex, IntPtr constraintSettings);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_RagdollSettings_CreateRagdoll(IntPtr s, IntPtr system, uint collisionGroup, ulong userData);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_CreateRagdoll")]
+		public static extern IntPtr RagdollSettings_CreateRagdoll(IntPtr s, IntPtr system, uint collisionGroup, ulong userData);
 
 		/// <summary>
 		/// ==========================================================================
 		/// Ragdoll
 		/// ==========================================================================
 		/// </summary>
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_Destroy(IntPtr ragdoll);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_Destroy")]
+		public static extern void Ragdoll_Destroy(IntPtr ragdoll);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_AddToPhysicsSystem(IntPtr ragdoll, JoltC_Activation activation, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_AddToPhysicsSystem")]
+		public static extern void Ragdoll_AddToPhysicsSystem(IntPtr ragdoll, Activation activation, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_RemoveFromPhysicsSystem(IntPtr ragdoll, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_RemoveFromPhysicsSystem")]
+		public static extern void Ragdoll_RemoveFromPhysicsSystem(IntPtr ragdoll, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_Activate(IntPtr ragdoll, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_Activate")]
+		public static extern void Ragdoll_Activate(IntPtr ragdoll, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Ragdoll_IsActive(IntPtr ragdoll, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_IsActive")]
+		public static extern int Ragdoll_IsActive(IntPtr ragdoll, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_ResetWarmStart(IntPtr ragdoll);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_ResetWarmStart")]
+		public static extern void Ragdoll_ResetWarmStart(IntPtr ragdoll);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_SetPose(IntPtr ragdoll, IntPtr pose, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_SetPose")]
+		public static extern void Ragdoll_SetPose(IntPtr ragdoll, IntPtr pose, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_SetPose2(IntPtr ragdoll, JoltC_RVec3 rootOffset, JoltC_Mat44* jointMatrices, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_SetPose2")]
+		public static extern void Ragdoll_SetPose2(IntPtr ragdoll, RVec3 rootOffset, Mat44* jointMatrices, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_GetPose(IntPtr ragdoll, IntPtr outPose, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetPose")]
+		public static extern void Ragdoll_GetPose(IntPtr ragdoll, IntPtr outPose, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_GetPose2(IntPtr ragdoll, JoltC_RVec3* outRootOffset, JoltC_Mat44* outJointMatrices, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetPose2")]
+		public static extern void Ragdoll_GetPose2(IntPtr ragdoll, RVec3* outRootOffset, Mat44* outJointMatrices, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_DriveToPoseUsingMotors(IntPtr ragdoll, IntPtr pose);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_DriveToPoseUsingMotors")]
+		public static extern void Ragdoll_DriveToPoseUsingMotors(IntPtr ragdoll, IntPtr pose);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_DriveToPoseUsingKinematics(IntPtr ragdoll, IntPtr pose, float deltaTime, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_DriveToPoseUsingKinematics")]
+		public static extern void Ragdoll_DriveToPoseUsingKinematics(IntPtr ragdoll, IntPtr pose, float deltaTime, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void JoltC_Ragdoll_GetRootTransform(IntPtr ragdoll, JoltC_RVec3* outPosition, JoltC_Quat* outRotation, int lockBodies);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetRootTransform")]
+		public static extern void Ragdoll_GetRootTransform(IntPtr ragdoll, RVec3* outPosition, Quat* outRotation, int lockBodies);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Ragdoll_GetBodyCount(IntPtr ragdoll);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetBodyCount")]
+		public static extern int Ragdoll_GetBodyCount(IntPtr ragdoll);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint JoltC_Ragdoll_GetBodyID(IntPtr ragdoll, int bodyIndex);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetBodyID")]
+		public static extern uint Ragdoll_GetBodyID(IntPtr ragdoll, int bodyIndex);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int JoltC_Ragdoll_GetConstraintCount(IntPtr ragdoll);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetConstraintCount")]
+		public static extern int Ragdoll_GetConstraintCount(IntPtr ragdoll);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Ragdoll_GetConstraint(IntPtr ragdoll, int constraintIndex);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetConstraint")]
+		public static extern IntPtr Ragdoll_GetConstraint(IntPtr ragdoll, int constraintIndex);
 
-		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr JoltC_Ragdoll_GetRagdollSettings(IntPtr ragdoll);
+		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetRagdollSettings")]
+		public static extern IntPtr Ragdoll_GetRagdollSettings(IntPtr ragdoll);
 
 	}
 }

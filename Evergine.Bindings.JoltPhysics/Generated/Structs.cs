@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 namespace Evergine.Bindings.JoltPhysics
 {
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_CollisionGroup
+	public unsafe partial struct CollisionGroup
 	{
-		public IntPtr groupFilter;
-		public uint groupID;
-		public uint subGroupID;
+		public IntPtr GroupFilter;
+		public uint GroupID;
+		public uint SubGroupID;
 	}
 
 	/// <summary>
@@ -18,12 +18,12 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_SubShapeIDPair
+	public unsafe partial struct SubShapeIDPair
 	{
-		public uint body1ID;
-		public uint subShapeID1;
-		public uint body2ID;
-		public uint subShapeID2;
+		public uint Body1ID;
+		public uint SubShapeID1;
+		public uint Body2ID;
+		public uint SubShapeID2;
 	}
 
 	/// <summary>
@@ -32,76 +32,76 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_Vec2
+	public unsafe partial struct Vec2
 	{
-		public float x;
-		public float y;
+		public float X;
+		public float Y;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_Vec3
+	public unsafe partial struct Vec3
 	{
-		public float x;
-		public float y;
-		public float z;
+		public float X;
+		public float Y;
+		public float Z;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_Vec4
+	public unsafe partial struct Vec4
 	{
-		public float x;
-		public float y;
-		public float z;
-		public float w;
+		public float X;
+		public float Y;
+		public float Z;
+		public float W;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_Quat
+	public unsafe partial struct Quat
 	{
-		public float x;
-		public float y;
-		public float z;
-		public float w;
+		public float X;
+		public float Y;
+		public float Z;
+		public float W;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_RVec3
+	public unsafe partial struct RVec3
 	{
-		public float x;
-		public float y;
-		public float z;
+		public float X;
+		public float Y;
+		public float Z;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_Mat44
+	public unsafe partial struct Mat44
 	{
-		public fixed float m[16];
+		public fixed float M[16];
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_AABox
+	public unsafe partial struct AABox
 	{
-		public JoltC_Vec3 min;
-		public JoltC_Vec3 max;
+		public Vec3 Min;
+		public Vec3 Max;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_Triangle
+	public unsafe partial struct Triangle
 	{
-		public JoltC_Vec3 v1;
-		public JoltC_Vec3 v2;
-		public JoltC_Vec3 v3;
-		public uint materialIndex;
+		public Vec3 V1;
+		public Vec3 V2;
+		public Vec3 V3;
+		public uint MaterialIndex;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_IndexedTriangle
+	public unsafe partial struct IndexedTriangle
 	{
-		public uint i1;
-		public uint i2;
-		public uint i3;
-		public uint materialIndex;
-		public uint userData;
+		public uint I1;
+		public uint I2;
+		public uint I3;
+		public uint MaterialIndex;
+		public uint UserData;
 	}
 
 	/// <summary>
@@ -110,73 +110,73 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_Point
+	public unsafe partial struct Point
 	{
-		public float x;
-		public float y;
+		public float X;
+		public float Y;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_VehicleAntiRollBar
+	public unsafe partial struct VehicleAntiRollBar
 	{
-		public int leftWheel;
-		public int rightWheel;
-		public float stiffness;
+		public int LeftWheel;
+		public int RightWheel;
+		public float Stiffness;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_VehicleEngineSettings
+	public unsafe partial struct VehicleEngineSettings
 	{
-		public float maxTorque;
-		public float minRPM;
-		public float maxRPM;
-		public IntPtr normalizedTorque;
-		public float inertia;
-		public float angularDamping;
+		public float MaxTorque;
+		public float MinRPM;
+		public float MaxRPM;
+		public IntPtr NormalizedTorque;
+		public float Inertia;
+		public float AngularDamping;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_VehicleDifferentialSettings
+	public unsafe partial struct VehicleDifferentialSettings
 	{
-		public int leftWheel;
-		public int rightWheel;
-		public float differentialRatio;
-		public float leftRightSplit;
-		public float limitedSlipRatio;
-		public float engineTorqueRatio;
+		public int LeftWheel;
+		public int RightWheel;
+		public float DifferentialRatio;
+		public float LeftRightSplit;
+		public float LimitedSlipRatio;
+		public float EngineTorqueRatio;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_VehicleConstraintSettings
+	public unsafe partial struct VehicleConstraintSettings
 	{
-		public JoltC_Vec3 up;
-		public JoltC_Vec3 forward;
-		public float maxPitchRollAngle;
-		public uint wheelsCount;
-		public IntPtr* wheels;
-		public uint antiRollBarsCount;
-		public JoltC_VehicleAntiRollBar* antiRollBars;
-		public IntPtr controller;
+		public Vec3 Up;
+		public Vec3 Forward;
+		public float MaxPitchRollAngle;
+		public uint WheelsCount;
+		public IntPtr* Wheels;
+		public uint AntiRollBarsCount;
+		public VehicleAntiRollBar* AntiRollBars;
+		public IntPtr Controller;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_VehicleTrackSettings
+	public unsafe partial struct VehicleTrackSettings
 	{
-		public uint drivenWheel;
-		public uint* wheels;
-		public uint wheelsCount;
-		public float inertia;
-		public float angularDamping;
-		public float maxBrakeTorque;
-		public float differentialRatio;
+		public uint DrivenWheel;
+		public uint* Wheels;
+		public uint WheelsCount;
+		public float Inertia;
+		public float AngularDamping;
+		public float MaxBrakeTorque;
+		public float DifferentialRatio;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_SkeletonJoint
+	public unsafe partial struct SkeletonJoint
 	{
-		public byte* name;
-		public byte* parentName;
-		public int parentJointIndex;
+		public byte* Name;
+		public byte* ParentName;
+		public int ParentJointIndex;
 	}
 
 	/// <summary>
@@ -185,21 +185,21 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_SpringSettings
+	public unsafe partial struct SpringSettings
 	{
-		public JoltC_SpringMode mode;
-		public float frequencyOrStiffness;
-		public float damping;
+		public SpringMode Mode;
+		public float FrequencyOrStiffness;
+		public float Damping;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_MotorSettings
+	public unsafe partial struct MotorSettings
 	{
-		public JoltC_SpringSettings springSettings;
-		public float minForceLimit;
-		public float maxForceLimit;
-		public float minTorqueLimit;
-		public float maxTorqueLimit;
+		public SpringSettings SpringSettings;
+		public float MinForceLimit;
+		public float MaxForceLimit;
+		public float MinTorqueLimit;
+		public float MaxTorqueLimit;
 	}
 
 	/// <summary>
@@ -208,19 +208,19 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_RayCastResult
+	public unsafe partial struct RayCastResult
 	{
-		public uint bodyID;
-		public float fraction;
-		public uint subShapeID2;
+		public uint BodyID;
+		public float Fraction;
+		public uint SubShapeID2;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_RayCastSettings
+	public unsafe partial struct RayCastSettings
 	{
-		public JoltC_BackFaceMode backFaceModeTriangles;
-		public JoltC_BackFaceMode backFaceModeConvex;
-		public int treatConvexAsSolid;
+		public BackFaceMode BackFaceModeTriangles;
+		public BackFaceMode BackFaceModeConvex;
+		public int TreatConvexAsSolid;
 	}
 
 	/// <summary>
@@ -229,10 +229,10 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_CollidePointResult
+	public unsafe partial struct CollidePointResult
 	{
-		public uint bodyID;
-		public uint subShapeID2;
+		public uint BodyID;
+		public uint SubShapeID2;
 	}
 
 	/// <summary>
@@ -241,15 +241,15 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_CollideShapeResult
+	public unsafe partial struct CollideShapeResult
 	{
-		public JoltC_Vec3 contactPointOn1;
-		public JoltC_Vec3 contactPointOn2;
-		public JoltC_Vec3 penetrationAxis;
-		public float penetrationDepth;
-		public uint subShapeID1;
-		public uint subShapeID2;
-		public uint bodyID2;
+		public Vec3 ContactPointOn1;
+		public Vec3 ContactPointOn2;
+		public Vec3 PenetrationAxis;
+		public float PenetrationDepth;
+		public uint SubShapeID1;
+		public uint SubShapeID2;
+		public uint BodyID2;
 	}
 
 	/// <summary>
@@ -258,17 +258,17 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_ShapeCastResult
+	public unsafe partial struct ShapeCastResult
 	{
-		public JoltC_Vec3 contactPointOn1;
-		public JoltC_Vec3 contactPointOn2;
-		public JoltC_Vec3 penetrationAxis;
-		public float penetrationDepth;
-		public uint subShapeID1;
-		public uint subShapeID2;
-		public uint bodyID2;
-		public float fraction;
-		public int isBackFaceHit;
+		public Vec3 ContactPointOn1;
+		public Vec3 ContactPointOn2;
+		public Vec3 PenetrationAxis;
+		public float PenetrationDepth;
+		public uint SubShapeID1;
+		public uint SubShapeID2;
+		public uint BodyID2;
+		public float Fraction;
+		public int IsBackFaceHit;
 	}
 
 	/// <summary>
@@ -277,10 +277,10 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_BroadPhaseCastResult
+	public unsafe partial struct BroadPhaseCastResult
 	{
-		public uint bodyID;
-		public float fraction;
+		public uint BodyID;
+		public float Fraction;
 	}
 
 	/// <summary>
@@ -289,23 +289,23 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_CollideShapeSettings
+	public unsafe partial struct CollideShapeSettings
 	{
-		public JoltC_BackFaceMode backFaceModeTriangles;
-		public JoltC_BackFaceMode backFaceModeConvex;
-		public float maxSeparationDistance;
-		public float collisionTolerance;
+		public BackFaceMode BackFaceModeTriangles;
+		public BackFaceMode BackFaceModeConvex;
+		public float MaxSeparationDistance;
+		public float CollisionTolerance;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_ShapeCastSettings
+	public unsafe partial struct ShapeCastSettings
 	{
-		public JoltC_BackFaceMode backFaceModeTriangles;
-		public JoltC_BackFaceMode backFaceModeConvex;
-		public int useShrunkenShapeAndConvexRadius;
-		public int returnDeepestPoint;
-		public float collisionTolerance;
-		public float penetrationTolerance;
+		public BackFaceMode BackFaceModeTriangles;
+		public BackFaceMode BackFaceModeConvex;
+		public int UseShrunkenShapeAndConvexRadius;
+		public int ReturnDeepestPoint;
+		public float CollisionTolerance;
+		public float PenetrationTolerance;
 	}
 
 	/// <summary>
@@ -314,17 +314,17 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_ContactSettings
+	public unsafe partial struct ContactSettings
 	{
-		public float combinedFriction;
-		public float combinedRestitution;
-		public float invMassScale1;
-		public float invInertiaScale1;
-		public float invMassScale2;
-		public float invInertiaScale2;
-		public int isSensor;
-		public JoltC_Vec3 relativeLinearSurfaceVelocity;
-		public JoltC_Vec3 relativeAngularSurfaceVelocity;
+		public float CombinedFriction;
+		public float CombinedRestitution;
+		public float InvMassScale1;
+		public float InvInertiaScale1;
+		public float InvMassScale2;
+		public float InvInertiaScale2;
+		public int IsSensor;
+		public Vec3 RelativeLinearSurfaceVelocity;
+		public Vec3 RelativeAngularSurfaceVelocity;
 	}
 
 	/// <summary>
@@ -333,10 +333,10 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_MassProperties
+	public unsafe partial struct MassProperties
 	{
-		public float mass;
-		public JoltC_Mat44 inertia;
+		public float Mass;
+		public Mat44 Inertia;
 	}
 
 	/// <summary>
@@ -345,38 +345,38 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_BodyCreationSettings
+	public unsafe partial struct BodyCreationSettings
 	{
-		public JoltC_RVec3 position;
-		public JoltC_Quat rotation;
-		public JoltC_Vec3 linearVelocity;
-		public JoltC_Vec3 angularVelocity;
-		public ulong userData;
-		public ushort objectLayer;
-		public JoltC_CollisionGroup collisionGroup;
-		public JoltC_MotionType motionType;
-		public JoltC_AllowedDOFs allowedDOFs;
-		public int allowDynamicOrKinematic;
-		public int isSensor;
-		public int collideKinematicVsNonDynamic;
-		public int useManifoldReduction;
-		public int applyGyroscopicForce;
-		public JoltC_MotionQuality motionQuality;
-		public int enhancedInternalEdgeRemoval;
-		public int allowSleeping;
-		public float friction;
-		public float restitution;
-		public float linearDamping;
-		public float angularDamping;
-		public float maxLinearVelocity;
-		public float maxAngularVelocity;
-		public float gravityFactor;
-		public uint numVelocityStepsOverride;
-		public uint numPositionStepsOverride;
-		public JoltC_OverrideMassProperties overrideMassProperties;
-		public float inertiaMultiplier;
-		public JoltC_MassProperties massPropertiesOverride;
-		public IntPtr shape;
+		public RVec3 Position;
+		public Quat Rotation;
+		public Vec3 LinearVelocity;
+		public Vec3 AngularVelocity;
+		public ulong UserData;
+		public ushort ObjectLayer;
+		public CollisionGroup CollisionGroup;
+		public MotionType MotionType;
+		public AllowedDOFs AllowedDOFs;
+		public int AllowDynamicOrKinematic;
+		public int IsSensor;
+		public int CollideKinematicVsNonDynamic;
+		public int UseManifoldReduction;
+		public int ApplyGyroscopicForce;
+		public MotionQuality MotionQuality;
+		public int EnhancedInternalEdgeRemoval;
+		public int AllowSleeping;
+		public float Friction;
+		public float Restitution;
+		public float LinearDamping;
+		public float AngularDamping;
+		public float MaxLinearVelocity;
+		public float MaxAngularVelocity;
+		public float GravityFactor;
+		public uint NumVelocityStepsOverride;
+		public uint NumPositionStepsOverride;
+		public OverrideMassProperties OverrideMassProperties;
+		public float InertiaMultiplier;
+		public MassProperties MassPropertiesOverride;
+		public IntPtr Shape;
 	}
 
 	/// <summary>
@@ -385,34 +385,34 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_PhysicsSettings
+	public unsafe partial struct PhysicsSettings
 	{
-		public int maxInFlightBodyPairs;
-		public int stepListenersBatchSize;
-		public int stepListenerBatchesPerJob;
-		public float baumgarte;
-		public float speculativeContactDistance;
-		public float penetrationSlop;
-		public float linearCastThreshold;
-		public float linearCastMaxPenetration;
-		public float manifoldTolerance;
-		public float maxPenetrationDistance;
-		public float bodyPairCacheMaxDeltaPositionSq;
-		public float bodyPairCacheCosMaxDeltaRotationDiv2;
-		public float contactNormalCosMaxDeltaRotation;
-		public float contactPointPreserveLambdaMaxDistSq;
-		public uint numVelocitySteps;
-		public uint numPositionSteps;
-		public float minVelocityForRestitution;
-		public float timeBeforeSleep;
-		public float pointVelocitySleepThreshold;
-		public int deterministicSimulation;
-		public int constraintWarmStart;
-		public int useBodyPairContactCache;
-		public int useManifoldReduction;
-		public int useLargeIslandSplitter;
-		public int allowSleeping;
-		public int checkActiveEdges;
+		public int MaxInFlightBodyPairs;
+		public int StepListenersBatchSize;
+		public int StepListenerBatchesPerJob;
+		public float Baumgarte;
+		public float SpeculativeContactDistance;
+		public float PenetrationSlop;
+		public float LinearCastThreshold;
+		public float LinearCastMaxPenetration;
+		public float ManifoldTolerance;
+		public float MaxPenetrationDistance;
+		public float BodyPairCacheMaxDeltaPositionSq;
+		public float BodyPairCacheCosMaxDeltaRotationDiv2;
+		public float ContactNormalCosMaxDeltaRotation;
+		public float ContactPointPreserveLambdaMaxDistSq;
+		public uint NumVelocitySteps;
+		public uint NumPositionSteps;
+		public float MinVelocityForRestitution;
+		public float TimeBeforeSleep;
+		public float PointVelocitySleepThreshold;
+		public int DeterministicSimulation;
+		public int ConstraintWarmStart;
+		public int UseBodyPairContactCache;
+		public int UseManifoldReduction;
+		public int UseLargeIslandSplitter;
+		public int AllowSleeping;
+		public int CheckActiveEdges;
 	}
 
 	/// <summary>
@@ -421,57 +421,57 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_BodyActivationListener_Procs
+	public unsafe partial struct BodyActivationListener_Procs
 	{
-		public JoltC_OnBodyActivatedFn onBodyActivated;
-		public JoltC_OnBodyDeactivatedFn onBodyDeactivated;
+		public OnBodyActivatedFn OnBodyActivated;
+		public OnBodyDeactivatedFn OnBodyDeactivated;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_BodyFilter_Procs
+	public unsafe partial struct BodyFilter_Procs
 	{
-		public JoltC_BodyFilterFn shouldCollide;
-		public JoltC_BodyFilterLockedFn shouldCollideLocked;
+		public BodyFilterFn ShouldCollide;
+		public BodyFilterLockedFn ShouldCollideLocked;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_BroadPhaseLayerFilter_Procs
+	public unsafe partial struct BroadPhaseLayerFilter_Procs
 	{
-		public JoltC_BroadPhaseLayerFilterFn shouldCollide;
+		public BroadPhaseLayerFilterFn ShouldCollide;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_ContactListener_Procs
+	public unsafe partial struct ContactListener_Procs
 	{
-		public JoltC_OnContactValidateFn onContactValidate;
-		public JoltC_OnContactAddedFn onContactAdded;
-		public JoltC_OnContactPersistedFn onContactPersisted;
-		public JoltC_OnContactRemovedFn onContactRemoved;
+		public OnContactValidateFn OnContactValidate;
+		public OnContactAddedFn OnContactAdded;
+		public OnContactPersistedFn OnContactPersisted;
+		public OnContactRemovedFn OnContactRemoved;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_ObjectLayerFilter_Procs
+	public unsafe partial struct ObjectLayerFilter_Procs
 	{
-		public JoltC_ObjectLayerFilterFn shouldCollide;
+		public ObjectLayerFilterFn ShouldCollide;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_PhysicsStepListener_Procs
+	public unsafe partial struct PhysicsStepListener_Procs
 	{
-		public JoltC_OnPhysicsStepFn onStep;
+		public OnPhysicsStepFn OnStep;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_ShapeFilter_Procs
+	public unsafe partial struct ShapeFilter_Procs
 	{
-		public JoltC_ShapeFilterFn shouldCollide;
-		public JoltC_ShapeFilter2Fn shouldCollide2;
+		public ShapeFilterFn ShouldCollide;
+		public ShapeFilter2Fn ShouldCollide2;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_SimShapeFilter_Procs
+	public unsafe partial struct SimShapeFilter_Procs
 	{
-		public JoltC_SimShapeFilterFn shouldCollide;
+		public SimShapeFilterFn ShouldCollide;
 	}
 
 	/// <summary>
@@ -480,12 +480,12 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_CompoundShapeSubShape
+	public unsafe partial struct CompoundShapeSubShape
 	{
-		public JoltC_Vec3 position;
-		public JoltC_Quat rotation;
-		public IntPtr shape;
-		public uint userData;
+		public Vec3 Position;
+		public Quat Rotation;
+		public IntPtr Shape;
+		public uint UserData;
 	}
 
 	/// <summary>
@@ -494,11 +494,11 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_PointConstraintSettings
+	public unsafe partial struct PointConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_RVec3 point1;
-		public JoltC_RVec3 point2;
+		public ConstraintSpace Space;
+		public RVec3 Point1;
+		public RVec3 Point2;
 	}
 
 	/// <summary>
@@ -507,16 +507,16 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_FixedConstraintSettings
+	public unsafe partial struct FixedConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public int autoDetectPoint;
-		public JoltC_RVec3 point1;
-		public JoltC_Vec3 axisX1;
-		public JoltC_Vec3 axisY1;
-		public JoltC_RVec3 point2;
-		public JoltC_Vec3 axisX2;
-		public JoltC_Vec3 axisY2;
+		public ConstraintSpace Space;
+		public int AutoDetectPoint;
+		public RVec3 Point1;
+		public Vec3 AxisX1;
+		public Vec3 AxisY1;
+		public RVec3 Point2;
+		public Vec3 AxisX2;
+		public Vec3 AxisY2;
 	}
 
 	/// <summary>
@@ -525,14 +525,14 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_DistanceConstraintSettings
+	public unsafe partial struct DistanceConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_RVec3 point1;
-		public JoltC_RVec3 point2;
-		public float minDistance;
-		public float maxDistance;
-		public JoltC_SpringSettings limitsSpringSettings;
+		public ConstraintSpace Space;
+		public RVec3 Point1;
+		public RVec3 Point2;
+		public float MinDistance;
+		public float MaxDistance;
+		public SpringSettings LimitsSpringSettings;
 	}
 
 	/// <summary>
@@ -541,20 +541,20 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_HingeConstraintSettings
+	public unsafe partial struct HingeConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_RVec3 point1;
-		public JoltC_Vec3 hingeAxis1;
-		public JoltC_Vec3 normalAxis1;
-		public JoltC_RVec3 point2;
-		public JoltC_Vec3 hingeAxis2;
-		public JoltC_Vec3 normalAxis2;
-		public float limitsMin;
-		public float limitsMax;
-		public JoltC_SpringSettings limitsSpringSettings;
-		public float maxFrictionTorque;
-		public JoltC_MotorSettings motorSettings;
+		public ConstraintSpace Space;
+		public RVec3 Point1;
+		public Vec3 HingeAxis1;
+		public Vec3 NormalAxis1;
+		public RVec3 Point2;
+		public Vec3 HingeAxis2;
+		public Vec3 NormalAxis2;
+		public float LimitsMin;
+		public float LimitsMax;
+		public SpringSettings LimitsSpringSettings;
+		public float MaxFrictionTorque;
+		public MotorSettings MotorSettings;
 	}
 
 	/// <summary>
@@ -563,21 +563,21 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_SliderConstraintSettings
+	public unsafe partial struct SliderConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public int autoDetectPoint;
-		public JoltC_RVec3 point1;
-		public JoltC_Vec3 sliderAxis1;
-		public JoltC_Vec3 normalAxis1;
-		public JoltC_RVec3 point2;
-		public JoltC_Vec3 sliderAxis2;
-		public JoltC_Vec3 normalAxis2;
-		public float limitsMin;
-		public float limitsMax;
-		public JoltC_SpringSettings limitsSpringSettings;
-		public float maxFrictionForce;
-		public JoltC_MotorSettings motorSettings;
+		public ConstraintSpace Space;
+		public int AutoDetectPoint;
+		public RVec3 Point1;
+		public Vec3 SliderAxis1;
+		public Vec3 NormalAxis1;
+		public RVec3 Point2;
+		public Vec3 SliderAxis2;
+		public Vec3 NormalAxis2;
+		public float LimitsMin;
+		public float LimitsMax;
+		public SpringSettings LimitsSpringSettings;
+		public float MaxFrictionForce;
+		public MotorSettings MotorSettings;
 	}
 
 	/// <summary>
@@ -586,14 +586,14 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_ConeConstraintSettings
+	public unsafe partial struct ConeConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_RVec3 point1;
-		public JoltC_Vec3 twistAxis1;
-		public JoltC_RVec3 point2;
-		public JoltC_Vec3 twistAxis2;
-		public float halfConeAngle;
+		public ConstraintSpace Space;
+		public RVec3 Point1;
+		public Vec3 TwistAxis1;
+		public RVec3 Point2;
+		public Vec3 TwistAxis2;
+		public float HalfConeAngle;
 	}
 
 	/// <summary>
@@ -602,23 +602,23 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_SwingTwistConstraintSettings
+	public unsafe partial struct SwingTwistConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_RVec3 position1;
-		public JoltC_Vec3 twistAxis1;
-		public JoltC_Vec3 planeAxis1;
-		public JoltC_RVec3 position2;
-		public JoltC_Vec3 twistAxis2;
-		public JoltC_Vec3 planeAxis2;
-		public JoltC_SwingType swingType;
-		public float normalHalfConeAngle;
-		public float planeHalfConeAngle;
-		public float twistMinAngle;
-		public float twistMaxAngle;
-		public float maxFrictionTorque;
-		public JoltC_MotorSettings swingMotorSettings;
-		public JoltC_MotorSettings twistMotorSettings;
+		public ConstraintSpace Space;
+		public RVec3 Position1;
+		public Vec3 TwistAxis1;
+		public Vec3 PlaneAxis1;
+		public RVec3 Position2;
+		public Vec3 TwistAxis2;
+		public Vec3 PlaneAxis2;
+		public SwingType SwingType;
+		public float NormalHalfConeAngle;
+		public float PlaneHalfConeAngle;
+		public float TwistMinAngle;
+		public float TwistMaxAngle;
+		public float MaxFrictionTorque;
+		public MotorSettings SwingMotorSettings;
+		public MotorSettings TwistMotorSettings;
 	}
 
 	/// <summary>
@@ -627,28 +627,28 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_SixDOFConstraintSettings
+	public unsafe partial struct SixDOFConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_RVec3 position1;
-		public JoltC_Vec3 axisX1;
-		public JoltC_Vec3 axisY1;
-		public JoltC_RVec3 position2;
-		public JoltC_Vec3 axisX2;
-		public JoltC_Vec3 axisY2;
-		public fixed float maxFriction[6];
-		public JoltC_SwingType swingType;
-		public fixed float limitMin[6];
-		public fixed float limitMax[6];
-		public JoltC_SpringSettings limitsSpringSettings_0;
-		public JoltC_SpringSettings limitsSpringSettings_1;
-		public JoltC_SpringSettings limitsSpringSettings_2;
-		public JoltC_MotorSettings motorSettings_0;
-		public JoltC_MotorSettings motorSettings_1;
-		public JoltC_MotorSettings motorSettings_2;
-		public JoltC_MotorSettings motorSettings_3;
-		public JoltC_MotorSettings motorSettings_4;
-		public JoltC_MotorSettings motorSettings_5;
+		public ConstraintSpace Space;
+		public RVec3 Position1;
+		public Vec3 AxisX1;
+		public Vec3 AxisY1;
+		public RVec3 Position2;
+		public Vec3 AxisX2;
+		public Vec3 AxisY2;
+		public fixed float MaxFriction[6];
+		public SwingType SwingType;
+		public fixed float LimitMin[6];
+		public fixed float LimitMax[6];
+		public SpringSettings LimitsSpringSettings_0;
+		public SpringSettings LimitsSpringSettings_1;
+		public SpringSettings LimitsSpringSettings_2;
+		public MotorSettings MotorSettings_0;
+		public MotorSettings MotorSettings_1;
+		public MotorSettings MotorSettings_2;
+		public MotorSettings MotorSettings_3;
+		public MotorSettings MotorSettings_4;
+		public MotorSettings MotorSettings_5;
 	}
 
 	/// <summary>
@@ -657,16 +657,16 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_PulleyConstraintSettings
+	public unsafe partial struct PulleyConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_RVec3 bodyPoint1;
-		public JoltC_RVec3 fixedPoint1;
-		public JoltC_RVec3 bodyPoint2;
-		public JoltC_RVec3 fixedPoint2;
-		public float ratio;
-		public float minLength;
-		public float maxLength;
+		public ConstraintSpace Space;
+		public RVec3 BodyPoint1;
+		public RVec3 FixedPoint1;
+		public RVec3 BodyPoint2;
+		public RVec3 FixedPoint2;
+		public float Ratio;
+		public float MinLength;
+		public float MaxLength;
 	}
 
 	/// <summary>
@@ -675,12 +675,12 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_GearConstraintSettings
+	public unsafe partial struct GearConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_Vec3 hingeAxis1;
-		public JoltC_Vec3 hingeAxis2;
-		public float ratio;
+		public ConstraintSpace Space;
+		public Vec3 HingeAxis1;
+		public Vec3 HingeAxis2;
+		public float Ratio;
 	}
 
 	/// <summary>
@@ -689,12 +689,12 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_RackAndPinionConstraintSettings
+	public unsafe partial struct RackAndPinionConstraintSettings
 	{
-		public JoltC_ConstraintSpace space;
-		public JoltC_Vec3 hingeAxis;
-		public JoltC_Vec3 sliderAxis;
-		public float ratio;
+		public ConstraintSpace Space;
+		public Vec3 HingeAxis;
+		public Vec3 SliderAxis;
+		public float Ratio;
 	}
 
 	/// <summary>
@@ -703,51 +703,51 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_CharacterVirtualSettings
+	public unsafe partial struct CharacterVirtualSettings
 	{
-		public JoltC_Vec3 up;
-		public float maxSlopeAngle;
-		public int enhancedInternalEdgeRemoval;
-		public IntPtr shape;
-		public float mass;
-		public float maxStrength;
-		public JoltC_Vec3 shapeOffset;
-		public JoltC_BackFaceMode backFaceMode;
-		public float predictiveContactDistance;
-		public uint maxCollisionIterations;
-		public uint maxConstraintIterations;
-		public float minTimeRemaining;
-		public float collisionTolerance;
-		public float characterPadding;
-		public uint maxNumHits;
-		public float hitReductionCosMaxAngle;
-		public float penetrationRecoverySpeed;
-		public IntPtr innerBodyShape;
-		public ushort innerBodyLayer;
+		public Vec3 Up;
+		public float MaxSlopeAngle;
+		public int EnhancedInternalEdgeRemoval;
+		public IntPtr Shape;
+		public float Mass;
+		public float MaxStrength;
+		public Vec3 ShapeOffset;
+		public BackFaceMode BackFaceMode;
+		public float PredictiveContactDistance;
+		public uint MaxCollisionIterations;
+		public uint MaxConstraintIterations;
+		public float MinTimeRemaining;
+		public float CollisionTolerance;
+		public float CharacterPadding;
+		public uint MaxNumHits;
+		public float HitReductionCosMaxAngle;
+		public float PenetrationRecoverySpeed;
+		public IntPtr InnerBodyShape;
+		public ushort InnerBodyLayer;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_ExtendedUpdateSettings
+	public unsafe partial struct ExtendedUpdateSettings
 	{
-		public JoltC_Vec3 stickToFloorStepDown;
-		public JoltC_Vec3 walkStairsStepUp;
-		public float walkStairsMinStepForward;
-		public float walkStairsStepForwardTest;
-		public float walkStairsCosAngleForwardContact;
-		public JoltC_Vec3 walkStairsStepDownExtra;
+		public Vec3 StickToFloorStepDown;
+		public Vec3 WalkStairsStepUp;
+		public float WalkStairsMinStepForward;
+		public float WalkStairsStepForwardTest;
+		public float WalkStairsCosAngleForwardContact;
+		public Vec3 WalkStairsStepDownExtra;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_CharacterSettings
+	public unsafe partial struct CharacterSettings
 	{
-		public JoltC_Vec3 up;
-		public float maxSlopeAngle;
-		public int enhancedInternalEdgeRemoval;
-		public IntPtr shape;
-		public ushort layer;
-		public float mass;
-		public float friction;
-		public float gravityFactor;
+		public Vec3 Up;
+		public float MaxSlopeAngle;
+		public int EnhancedInternalEdgeRemoval;
+		public IntPtr Shape;
+		public ushort Layer;
+		public float Mass;
+		public float Friction;
+		public float GravityFactor;
 	}
 
 	/// <summary>
@@ -756,11 +756,11 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct JoltC_CharacterContactListener_Procs
+	public unsafe partial struct CharacterContactListener_Procs
 	{
-		public JoltC_OnCharacterContactValidateFn onValidate;
-		public JoltC_OnCharacterContactAddedFn onAdded;
-		public JoltC_OnCharacterContactPersistedFn onPersisted;
+		public OnCharacterContactValidateFn OnValidate;
+		public OnCharacterContactAddedFn OnAdded;
+		public OnCharacterContactPersistedFn OnPersisted;
 	}
 
 }

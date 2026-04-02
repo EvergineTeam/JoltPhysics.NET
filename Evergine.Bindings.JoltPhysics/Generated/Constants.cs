@@ -3,13 +3,13 @@ using System;
 
 namespace Evergine.Bindings.JoltPhysics
 {
-	public static unsafe partial class JoltPhysicsNative
+	public static unsafe partial class JoltPhysics
 	{
-		public const int JOLTC_TRUE = 1;
-		public const int JOLTC_FALSE = 0;
-		public const uint JOLTC_BODY_ID_INVALID = 0xFFFFFFFF;
-		public const uint JOLTC_OBJECT_LAYER_INVALID = 0xFFFF;
-		public const uint JOLTC_INVALID_COLLISION_GROUP_ID = ~0U;
-		public const uint JOLTC_INVALID_COLLISION_SUBGROUP_ID = ~0U;
+		public const int TRUE = 1;
+		public const int FALSE = 0;
+		public const uint BODY_ID_INVALID = 0xFFFFFFFF;
+		public const uint OBJECT_LAYER_INVALID = 0xFFFF;
+		public const uint INVALID_COLLISION_GROUP_ID = ~0U;
+		public const uint INVALID_COLLISION_SUBGROUP_ID = ~0U;
 	}
 }

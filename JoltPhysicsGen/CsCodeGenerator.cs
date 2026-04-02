@@ -11,7 +11,7 @@ namespace JoltPhysicsGen
 		public static readonly CsCodeGenerator Instance = new();
 
 		private const string Namespace = "Evergine.Bindings.JoltPhysics";
-		private const string NativeClass = "JoltPhysicsNative";
+		private const string NativeClass = "JoltPhysics";
 		private const string DllName = "JoltC";
 
 		public void Generate(CppCompilation compilation, string outputPath)
@@ -184,7 +184,7 @@ namespace JoltPhysicsGen
 					continue;
 				}
 
-				writer.WriteLine($"\t\tpublic const {type} {name} = {csValue};");
+				writer.WriteLine($"\t\tpublic const {type} {Helpers.StripPrefix(name)} = {csValue};");
 			}
 
 			writer.WriteLine("\t}");
@@ -213,6 +213,7 @@ namespace JoltPhysicsGen
 				if (cppEnum.IsAnonymous) continue;
 
 				var enumName = cppEnum.Name;
+				var csEnumName = Helpers.StripPrefix(enumName);
 
 				// Detect [Flags] by checking if any typedef named EnumNameFlags exists
 				bool isFlags = compilation.Typedefs.Any(t => t.Name == enumName + "Flags");
@@ -225,13 +226,20 @@ namespace JoltPhysicsGen
 				if (isFlags)
 					writer.WriteLine("\t[Flags]");
 
-				writer.WriteLine($"\tpublic enum {enumName}");
+				writer.WriteLine($"\tpublic enum {csEnumName}");
 				writer.WriteLine("\t{");
+
+				// Find common prefix among all values (after stripping JOLTC_ prefix)
+				var strippedValues = cppEnum.Items.Select(i => Helpers.StripPrefix(i.Name)).ToList();
+				var commonPrefix = Helpers.FindCommonPrefix(strippedValues);
 
 				foreach (var item in cppEnum.Items)
 				{
 					Helpers.WriteComment(writer, item.Comment, "\t\t");
-					writer.WriteLine($"\t\t{item.Name} = {item.Value},");
+					var strippedValue = Helpers.StripPrefix(item.Name);
+					var valueSuffix = strippedValue.Substring(commonPrefix.Length);
+					var csValueName = Helpers.ScreamingToPascalCase(valueSuffix);
+					writer.WriteLine($"\t\t{csValueName} = {item.Value},");
 				}
 
 				writer.WriteLine("\t}");
@@ -264,6 +272,7 @@ namespace JoltPhysicsGen
 				if (type is CppPointerType ptr && ptr.ElementType is CppFunctionType funcType)
 				{
 					var delegateName = td.Name;
+					var csDelegateName = Helpers.StripPrefix(delegateName);
 					var returnType = Helpers.ConvertReturnType(funcType.ReturnType);
 
 					var parameters = new List<string>();
@@ -279,7 +288,7 @@ namespace JoltPhysicsGen
 					var paramStr = string.Join(", ", parameters);
 
 					writer.WriteLine($"\t[UnmanagedFunctionPointer(CallingConvention.Cdecl)]");
-					writer.WriteLine($"\tpublic unsafe delegate {returnType} {delegateName}({paramStr});");
+					writer.WriteLine($"\tpublic unsafe delegate {returnType} {csDelegateName}({paramStr});");
 					writer.WriteLine();
 				}
 			}
@@ -331,12 +340,12 @@ namespace JoltPhysicsGen
 					writer.WriteLine("\t[StructLayout(LayoutKind.Sequential)]");
 				}
 
-				writer.WriteLine($"\tpublic unsafe partial struct {cls.Name}");
+				writer.WriteLine($"\tpublic unsafe partial struct {Helpers.StripPrefix(cls.Name)}");
 				writer.WriteLine("\t{");
 
 				foreach (var field in cls.Fields)
 				{
-					var fieldName = Helpers.EscapeReservedKeyword(field.Name);
+					var fieldName = Helpers.EscapeReservedKeyword(Helpers.PascalCaseField(field.Name));
 					var fieldType = Helpers.ConvertFieldType(field.Type, out int fixedSize);
 
 					if (isUnion)
@@ -403,6 +412,7 @@ namespace JoltPhysicsGen
 
 				var returnType = Helpers.ConvertReturnType(func.ReturnType);
 				var funcName = func.Name;
+				var csFuncName = Helpers.StripPrefix(funcName);
 
 				var parameters = new List<string>();
 				foreach (var param in func.Parameters)
@@ -420,7 +430,7 @@ namespace JoltPhysicsGen
 						var matchingTypedef = FindMatchingDelegate(ptr, compilation);
 						if (matchingTypedef != null)
 						{
-							paramType = matchingTypedef;
+							paramType = Helpers.StripPrefix(matchingTypedef);
 						}
 						else
 						{
@@ -429,7 +439,7 @@ namespace JoltPhysicsGen
 					}
 					else if (param.Type is CppTypedef td && Helpers.DelegateNames.Contains(td.Name))
 					{
-						paramType = td.Name;
+						paramType = Helpers.StripPrefix(td.Name);
 					}
 
 					parameters.Add($"{paramType} {paramName}");
@@ -438,8 +448,8 @@ namespace JoltPhysicsGen
 				var paramStr = string.Join(", ", parameters);
 
 				Helpers.WriteComment(writer, func.Comment, "\t\t");
-				writer.WriteLine($"\t\t[DllImport(\"{DllName}\", CallingConvention = CallingConvention.Cdecl)]");
-				writer.WriteLine($"\t\tpublic static extern {returnType} {funcName}({paramStr});");
+				writer.WriteLine($"\t\t[DllImport(\"{DllName}\", CallingConvention = CallingConvention.Cdecl, EntryPoint = \"{funcName}\")]");
+				writer.WriteLine($"\t\tpublic static extern {returnType} {csFuncName}({paramStr});");
 				writer.WriteLine();
 			}
 

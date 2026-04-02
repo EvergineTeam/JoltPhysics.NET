@@ -8,173 +8,173 @@ namespace Evergine.Bindings.JoltPhysics
 	/// Enums
 	/// --------------------------------------------------------------------------
 	/// </summary>
-	public enum JoltC_MotionType
+	public enum MotionType
 	{
-		JOLTC_MOTION_TYPE_STATIC = 0,
-		JOLTC_MOTION_TYPE_KINEMATIC = 1,
-		JOLTC_MOTION_TYPE_DYNAMIC = 2,
+		Static = 0,
+		Kinematic = 1,
+		Dynamic = 2,
 	}
 
-	public enum JoltC_MotionQuality
+	public enum MotionQuality
 	{
-		JOLTC_MOTION_QUALITY_DISCRETE = 0,
-		JOLTC_MOTION_QUALITY_LINEAR_CAST = 1,
+		Discrete = 0,
+		LinearCast = 1,
 	}
 
-	public enum JoltC_Activation
+	public enum Activation
 	{
-		JOLTC_ACTIVATION_ACTIVATE = 0,
-		JOLTC_ACTIVATION_DONT_ACTIVATE = 1,
+		Activate = 0,
+		DontActivate = 1,
 	}
 
-	public enum JoltC_BodyType
+	public enum BodyType
 	{
-		JOLTC_BODY_TYPE_RIGID = 0,
-		JOLTC_BODY_TYPE_SOFT = 1,
+		Rigid = 0,
+		Soft = 1,
 	}
 
-	public enum JoltC_ShapeType
+	public enum ShapeType
 	{
-		JOLTC_SHAPE_TYPE_CONVEX = 0,
-		JOLTC_SHAPE_TYPE_COMPOUND = 1,
-		JOLTC_SHAPE_TYPE_DECORATED = 2,
-		JOLTC_SHAPE_TYPE_MESH = 3,
-		JOLTC_SHAPE_TYPE_HEIGHT_FIELD = 4,
-		JOLTC_SHAPE_TYPE_SOFT_BODY = 5,
-		JOLTC_SHAPE_TYPE_PLANE = 9,
-		JOLTC_SHAPE_TYPE_EMPTY = 10,
+		Convex = 0,
+		Compound = 1,
+		Decorated = 2,
+		Mesh = 3,
+		HeightField = 4,
+		SoftBody = 5,
+		Plane = 9,
+		Empty = 10,
 	}
 
-	public enum JoltC_ShapeSubType
+	public enum ShapeSubType
 	{
-		JOLTC_SHAPE_SUB_TYPE_SPHERE = 0,
-		JOLTC_SHAPE_SUB_TYPE_BOX = 1,
-		JOLTC_SHAPE_SUB_TYPE_TRIANGLE = 2,
-		JOLTC_SHAPE_SUB_TYPE_CAPSULE = 3,
-		JOLTC_SHAPE_SUB_TYPE_TAPERED_CAPSULE = 4,
-		JOLTC_SHAPE_SUB_TYPE_CYLINDER = 5,
-		JOLTC_SHAPE_SUB_TYPE_CONVEX_HULL = 6,
-		JOLTC_SHAPE_SUB_TYPE_STATIC_COMPOUND = 7,
-		JOLTC_SHAPE_SUB_TYPE_MUTABLE_COMPOUND = 8,
-		JOLTC_SHAPE_SUB_TYPE_ROTATED_TRANSLATED = 9,
-		JOLTC_SHAPE_SUB_TYPE_SCALED = 10,
-		JOLTC_SHAPE_SUB_TYPE_OFFSET_CENTER_OF_MASS = 11,
-		JOLTC_SHAPE_SUB_TYPE_MESH = 12,
-		JOLTC_SHAPE_SUB_TYPE_HEIGHT_FIELD = 13,
-		JOLTC_SHAPE_SUB_TYPE_SOFT_BODY = 14,
+		Sphere = 0,
+		Box = 1,
+		Triangle = 2,
+		Capsule = 3,
+		TaperedCapsule = 4,
+		Cylinder = 5,
+		ConvexHull = 6,
+		StaticCompound = 7,
+		MutableCompound = 8,
+		RotatedTranslated = 9,
+		Scaled = 10,
+		OffsetCenterOfMass = 11,
+		Mesh = 12,
+		HeightField = 13,
+		SoftBody = 14,
 	}
 
-	public enum JoltC_ValidateResult
+	public enum ValidateResult
 	{
-		JOLTC_VALIDATE_RESULT_ACCEPT_ALL = 0,
-		JOLTC_VALIDATE_RESULT_ACCEPT = 1,
-		JOLTC_VALIDATE_RESULT_REJECT = 2,
-		JOLTC_VALIDATE_RESULT_REJECT_ALL = 3,
+		AcceptAll = 0,
+		Accept = 1,
+		Reject = 2,
+		RejectAll = 3,
 	}
 
-	public enum JoltC_OverrideMassProperties
+	public enum OverrideMassProperties
 	{
-		JOLTC_OVERRIDE_MASS_CALC_MASS_AND_INERTIA = 0,
-		JOLTC_OVERRIDE_MASS_CALC_INERTIA = 1,
-		JOLTC_OVERRIDE_MASS_PROVIDED = 2,
+		CalcMassAndInertia = 0,
+		CalcInertia = 1,
+		Provided = 2,
 	}
 
 	[Flags]
-	public enum JoltC_AllowedDOFs
+	public enum AllowedDOFs
 	{
-		JOLTC_ALLOWED_DOFS_ALL = 63,
-		JOLTC_ALLOWED_DOFS_TRANSLATION_X = 1,
-		JOLTC_ALLOWED_DOFS_TRANSLATION_Y = 2,
-		JOLTC_ALLOWED_DOFS_TRANSLATION_Z = 4,
-		JOLTC_ALLOWED_DOFS_ROTATION_X = 8,
-		JOLTC_ALLOWED_DOFS_ROTATION_Y = 16,
-		JOLTC_ALLOWED_DOFS_ROTATION_Z = 32,
-		JOLTC_ALLOWED_DOFS_PLANE_2D = 35,
+		All = 63,
+		TranslationX = 1,
+		TranslationY = 2,
+		TranslationZ = 4,
+		RotationX = 8,
+		RotationY = 16,
+		RotationZ = 32,
+		Plane2D = 35,
 	}
 
-	public enum JoltC_GroundState
+	public enum GroundState
 	{
-		JOLTC_GROUND_STATE_ON_GROUND = 0,
-		JOLTC_GROUND_STATE_ON_STEEP_GROUND = 1,
-		JOLTC_GROUND_STATE_NOT_SUPPORTED = 2,
-		JOLTC_GROUND_STATE_IN_AIR = 3,
+		OnGround = 0,
+		OnSteepGround = 1,
+		NotSupported = 2,
+		InAir = 3,
 	}
 
-	public enum JoltC_ConstraintSpace
+	public enum ConstraintSpace
 	{
-		JOLTC_CONSTRAINT_SPACE_LOCAL_TO_BODY_COM = 0,
-		JOLTC_CONSTRAINT_SPACE_WORLD_SPACE = 1,
+		LocalToBodyCom = 0,
+		WorldSpace = 1,
 	}
 
-	public enum JoltC_MotorState
+	public enum MotorState
 	{
-		JOLTC_MOTOR_STATE_OFF = 0,
-		JOLTC_MOTOR_STATE_VELOCITY = 1,
-		JOLTC_MOTOR_STATE_POSITION = 2,
+		Off = 0,
+		Velocity = 1,
+		Position = 2,
 	}
 
-	public enum JoltC_SpringMode
+	public enum SpringMode
 	{
-		JOLTC_SPRING_MODE_FREQUENCY_AND_DAMPING = 0,
-		JOLTC_SPRING_MODE_STIFFNESS_AND_DAMPING = 1,
+		FrequencyAndDamping = 0,
+		StiffnessAndDamping = 1,
 	}
 
-	public enum JoltC_ConstraintType
+	public enum ConstraintType
 	{
-		JOLTC_CONSTRAINT_TYPE_CONSTRAINT = 0,
-		JOLTC_CONSTRAINT_TYPE_TWO_BODY = 1,
+		Constraint = 0,
+		TwoBody = 1,
 	}
 
-	public enum JoltC_ConstraintSubType
+	public enum ConstraintSubType
 	{
-		JOLTC_CONSTRAINT_SUB_TYPE_FIXED = 0,
-		JOLTC_CONSTRAINT_SUB_TYPE_POINT = 1,
-		JOLTC_CONSTRAINT_SUB_TYPE_HINGE = 2,
-		JOLTC_CONSTRAINT_SUB_TYPE_SLIDER = 3,
-		JOLTC_CONSTRAINT_SUB_TYPE_DISTANCE = 4,
-		JOLTC_CONSTRAINT_SUB_TYPE_CONE = 5,
-		JOLTC_CONSTRAINT_SUB_TYPE_SWING_TWIST = 6,
-		JOLTC_CONSTRAINT_SUB_TYPE_SIX_DOF = 7,
-		JOLTC_CONSTRAINT_SUB_TYPE_PATH = 8,
-		JOLTC_CONSTRAINT_SUB_TYPE_VEHICLE = 9,
-		JOLTC_CONSTRAINT_SUB_TYPE_RACK_AND_PINION = 10,
-		JOLTC_CONSTRAINT_SUB_TYPE_GEAR = 11,
-		JOLTC_CONSTRAINT_SUB_TYPE_PULLEY = 12,
+		Fixed = 0,
+		Point = 1,
+		Hinge = 2,
+		Slider = 3,
+		Distance = 4,
+		Cone = 5,
+		SwingTwist = 6,
+		SixDof = 7,
+		Path = 8,
+		Vehicle = 9,
+		RackAndPinion = 10,
+		Gear = 11,
+		Pulley = 12,
 	}
 
-	public enum JoltC_SwingType
+	public enum SwingType
 	{
-		JOLTC_SWING_TYPE_CONE = 0,
-		JOLTC_SWING_TYPE_PYRAMID = 1,
+		Cone = 0,
+		Pyramid = 1,
 	}
 
-	public enum JoltC_SixDOFConstraintAxis
+	public enum SixDOFConstraintAxis
 	{
-		JOLTC_SIX_DOF_TRANSLATION_X = 0,
-		JOLTC_SIX_DOF_TRANSLATION_Y = 1,
-		JOLTC_SIX_DOF_TRANSLATION_Z = 2,
-		JOLTC_SIX_DOF_ROTATION_X = 3,
-		JOLTC_SIX_DOF_ROTATION_Y = 4,
-		JOLTC_SIX_DOF_ROTATION_Z = 5,
-		JOLTC_SIX_DOF_NUM = 6,
+		TranslationX = 0,
+		TranslationY = 1,
+		TranslationZ = 2,
+		RotationX = 3,
+		RotationY = 4,
+		RotationZ = 5,
+		Num = 6,
 	}
 
-	public enum JoltC_BackFaceMode
+	public enum BackFaceMode
 	{
-		JOLTC_BACK_FACE_IGNORE = 0,
-		JOLTC_BACK_FACE_COLLIDE = 1,
+		Ignore = 0,
+		Collide = 1,
 	}
 
-	public enum JoltC_TransmissionMode
+	public enum TransmissionMode
 	{
-		JOLTC_TRANSMISSION_MODE_AUTO = 0,
-		JOLTC_TRANSMISSION_MODE_MANUAL = 1,
+		Auto = 0,
+		Manual = 1,
 	}
 
-	public enum JoltC_TrackSide
+	public enum TrackSide
 	{
-		JOLTC_TRACK_SIDE_LEFT = 0,
-		JOLTC_TRACK_SIDE_RIGHT = 1,
+		Left = 0,
+		Right = 1,
 	}
 
 }

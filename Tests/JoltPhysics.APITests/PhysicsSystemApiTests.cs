@@ -2,9 +2,9 @@ using System;
 using Evergine.Bindings.JoltPhysics;
 using FluentAssertions;
 using Xunit;
-using static JoltPhysics.APITests.NativeTestHelpers;
+using static JoltPhysicsTests.NativeTestHelpers;
 
-namespace JoltPhysics.APITests;
+namespace JoltPhysicsTests;
 
 [Collection("Jolt")]
 public unsafe class PhysicsSystemApiTests
@@ -14,11 +14,11 @@ public unsafe class PhysicsSystemApiTests
 	{
 		using var env = new JoltTestEnvironment();
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_SetGravity(env.PhysicsSystem, Vec3(0f, -20f, 0f));
-		JoltC_Vec3 gravity = JoltPhysicsNative.JoltC_PhysicsSystem_GetGravity(env.PhysicsSystem);
-		gravity.x.Should().BeApproximately(0f, 1e-5f);
-		gravity.y.Should().BeApproximately(-20f, 1e-5f);
-		gravity.z.Should().BeApproximately(0f, 1e-5f);
+		JoltPhysics.PhysicsSystem_SetGravity(env.PhysicsSystem, Vec3(0f, -20f, 0f));
+		Vec3 gravity = JoltPhysics.PhysicsSystem_GetGravity(env.PhysicsSystem);
+		gravity.X.Should().BeApproximately(0f, 1e-5f);
+		gravity.Y.Should().BeApproximately(-20f, 1e-5f);
+		gravity.Z.Should().BeApproximately(0f, 1e-5f);
 	}
 
 	[Fact]
@@ -26,12 +26,12 @@ public unsafe class PhysicsSystemApiTests
 	{
 		using var env = new JoltTestEnvironment();
 
-		uint before = JoltPhysicsNative.JoltC_PhysicsSystem_GetNumActiveBodies(env.PhysicsSystem, JoltC_BodyType.JOLTC_BODY_TYPE_RIGID);
+		uint before = JoltPhysics.PhysicsSystem_GetNumActiveBodies(env.PhysicsSystem, BodyType.Rigid);
 		before.Should().Be(0u);
 
 		env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		uint after = JoltPhysicsNative.JoltC_PhysicsSystem_GetNumActiveBodies(env.PhysicsSystem, JoltC_BodyType.JOLTC_BODY_TYPE_RIGID);
+		uint after = JoltPhysics.PhysicsSystem_GetNumActiveBodies(env.PhysicsSystem, BodyType.Rigid);
 		after.Should().Be(1u);
 	}
 
@@ -39,7 +39,7 @@ public unsafe class PhysicsSystemApiTests
 	public void MaxBodies_returns_configured_value()
 	{
 		using var env = new JoltTestEnvironment();
-		uint maxBodies = JoltPhysicsNative.JoltC_PhysicsSystem_GetMaxBodies(env.PhysicsSystem);
+		uint maxBodies = JoltPhysics.PhysicsSystem_GetMaxBodies(env.PhysicsSystem);
 		maxBodies.Should().Be(1024u, "JoltTestEnvironment creates system with 1024 max bodies");
 	}
 
@@ -50,34 +50,34 @@ public unsafe class PhysicsSystemApiTests
 
 		// Put a big box at origin
 		env.CreateStaticBox(Vec3(10f, 10f, 10f), RVec3(0f, 0f, 0f));
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 
-		IntPtr query = JoltPhysicsNative.JoltC_PhysicsSystem_GetNarrowPhaseQuery(env.PhysicsSystem);
+		IntPtr query = JoltPhysics.PhysicsSystem_GetNarrowPhaseQuery(env.PhysicsSystem);
 		query.Should().NotBe(IntPtr.Zero);
 
-		JoltC_RayCastResult result = default;
+		RayCastResult result = default;
 		// Cast ray from far away toward the box
-		int hit = JoltPhysicsNative.JoltC_NarrowPhaseQuery_CastRay(
+		int hit = JoltPhysics.NarrowPhaseQuery_CastRay(
 			query,
 			RVec3(-50f, 0f, 0f),   // origin: far left
 			Vec3(100f, 0f, 0f),     // direction (unnormalized, represents max distance)
 			&result);
 
 		hit.Should().Be(1, "ray should hit the box");
-		result.fraction.Should().BeGreaterThan(0f);
-		result.fraction.Should().BeLessThan(1f);
+		result.Fraction.Should().BeGreaterThan(0f);
+		result.Fraction.Should().BeLessThan(1f);
 	}
 
 	[Fact]
 	public void NarrowPhaseQuery_CastRay_misses_empty_world()
 	{
 		using var env = new JoltTestEnvironment();
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 
-		IntPtr query = JoltPhysicsNative.JoltC_PhysicsSystem_GetNarrowPhaseQuery(env.PhysicsSystem);
+		IntPtr query = JoltPhysics.PhysicsSystem_GetNarrowPhaseQuery(env.PhysicsSystem);
 
-		JoltC_RayCastResult result = default;
-		int hit = JoltPhysicsNative.JoltC_NarrowPhaseQuery_CastRay(
+		RayCastResult result = default;
+		int hit = JoltPhysics.NarrowPhaseQuery_CastRay(
 			query,
 			RVec3(0f, 0f, 0f),
 			Vec3(1f, 0f, 0f),
@@ -95,7 +95,7 @@ public unsafe class PhysicsSystemApiTests
 		env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(1f, 12f, 0f));
 		env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(-1f, 14f, 0f));
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 
 		for (int i = 0; i < 120; i++)
 		{
@@ -104,33 +104,33 @@ public unsafe class PhysicsSystemApiTests
 		}
 
 		// All bodies should still exist
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumBodies(env.PhysicsSystem).Should().Be(4u);
+		JoltPhysics.PhysicsSystem_GetNumBodies(env.PhysicsSystem).Should().Be(4u);
 	}
 
 	[Fact]
 	public void Zero_gravity_body_does_not_fall()
 	{
 		using var env = new JoltTestEnvironment();
-		JoltPhysicsNative.JoltC_PhysicsSystem_SetGravity(env.PhysicsSystem, Vec3(0f, 0f, 0f));
+		JoltPhysics.PhysicsSystem_SetGravity(env.PhysicsSystem, Vec3(0f, 0f, 0f));
 
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
-		JoltPhysicsNative.JoltC_BodyInterface_SetLinearVelocity(env.BodyInterface, body, Vec3(0f, 0f, 0f));
+		JoltPhysics.BodyInterface_SetLinearVelocity(env.BodyInterface, body, Vec3(0f, 0f, 0f));
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 
 		for (int i = 0; i < 60; i++)
 			env.Step();
 
-		JoltC_RVec3 pos = JoltPhysicsNative.JoltC_BodyInterface_GetCenterOfMassPosition(env.BodyInterface, body);
-		pos.y.Should().BeApproximately(5f, 0.01f, "with zero gravity, body should stay at y=5");
+		RVec3 pos = JoltPhysics.BodyInterface_GetCenterOfMassPosition(env.BodyInterface, body);
+		pos.Y.Should().BeApproximately(5f, 0.01f, "with zero gravity, body should stay at y=5");
 	}
 
 	[Fact]
 	public void Error_handling_GetLastError_and_ClearLastError()
 	{
 		// After a successful operation the error should be empty
-		JoltPhysicsNative.JoltC_ClearLastError();
-		byte* err = JoltPhysicsNative.JoltC_GetLastError();
+		JoltPhysics.ClearLastError();
+		byte* err = JoltPhysics.GetLastError();
 		string errorStr = err == null ? string.Empty : System.Runtime.InteropServices.Marshal.PtrToStringUTF8((IntPtr)err) ?? string.Empty;
 		errorStr.Should().BeEmpty();
 	}

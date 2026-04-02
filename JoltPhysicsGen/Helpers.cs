@@ -2,6 +2,7 @@ using CppAst;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace JoltPhysicsGen
 {
@@ -84,7 +85,7 @@ namespace JoltPhysicsGen
 
 			if (type is CppEnum enumType)
 			{
-				return enumType.Name;
+				return StripPrefix(enumType.Name);
 			}
 
 			if (type is CppTypedef typedefType)
@@ -97,7 +98,7 @@ namespace JoltPhysicsGen
 				string name = classType.Name;
 				if (BlittableStructs.Contains(name))
 				{
-					return name;
+					return StripPrefix(name);
 				}
 
 				if (OpaqueHandles.Contains(name))
@@ -111,7 +112,7 @@ namespace JoltPhysicsGen
 					return mapped;
 				}
 
-				return name;
+				return StripPrefix(name);
 			}
 
 			if (type is CppPointerType pointerType)
@@ -206,9 +207,9 @@ namespace JoltPhysicsGen
 				return "IntPtr";
 
 			if (DelegateNames.Contains(name))
-				return name;
+				return StripPrefix(name);
 
-			return name;
+			return StripPrefix(name);
 		}
 
 		/// <summary>
@@ -253,6 +254,84 @@ namespace JoltPhysicsGen
 			}
 
 			return ConvertToCSharpType(type, false);
+		}
+
+		/// <summary>
+		/// Capitalize the first letter of a field name (camelCase → PascalCase).
+		/// Preserves existing uppercase runs like "ID" in "bodyID" → "BodyID".
+		/// </summary>
+		public static string PascalCaseField(string name)
+		{
+			if (string.IsNullOrEmpty(name)) return name;
+			return char.ToUpper(name[0]) + name.Substring(1);
+		}
+
+		/// <summary>
+		/// Strip the JoltC_ or JOLTC_ prefix from a C name.
+		/// </summary>
+		public static string StripPrefix(string name)
+		{
+			if (name.StartsWith("JoltC_"))
+				return name.Substring(6);
+			if (name.StartsWith("JOLTC_"))
+				return name.Substring(6);
+			return name;
+		}
+
+		/// <summary>
+		/// Find the longest common prefix (at underscore boundary) among a list of SCREAMING_CASE names.
+		/// </summary>
+		public static string FindCommonPrefix(IEnumerable<string> names)
+		{
+			var list = names.ToList();
+			if (list.Count == 0) return "";
+			if (list.Count == 1)
+			{
+				int lastUnderscore = list[0].LastIndexOf('_');
+				return lastUnderscore >= 0 ? list[0].Substring(0, lastUnderscore + 1) : "";
+			}
+
+			string first = list[0];
+			int prefixLen = first.Length;
+
+			for (int i = 1; i < list.Count; i++)
+			{
+				string current = list[i];
+				int maxLen = Math.Min(prefixLen, current.Length);
+				int j = 0;
+				while (j < maxLen && first[j] == current[j])
+					j++;
+				prefixLen = j;
+			}
+
+			string rawPrefix = first.Substring(0, prefixLen);
+			int lastUs = rawPrefix.LastIndexOf('_');
+			return lastUs >= 0 ? rawPrefix.Substring(0, lastUs + 1) : "";
+		}
+
+		/// <summary>
+		/// Convert a SCREAMING_CASE name to PascalCase (e.g. DONT_ACTIVATE → DontActivate).
+		/// </summary>
+		public static string ScreamingToPascalCase(string screaming)
+		{
+			if (string.IsNullOrEmpty(screaming)) return screaming;
+
+			var parts = screaming.Split('_', StringSplitOptions.RemoveEmptyEntries);
+			var sb = new StringBuilder();
+			foreach (var part in parts)
+			{
+				if (part.Length == 0) continue;
+				if (char.IsDigit(part[0]))
+				{
+					sb.Append(part); // Keep numeric-leading parts as-is (e.g. "2D")
+				}
+				else
+				{
+					sb.Append(char.ToUpper(part[0]));
+					sb.Append(part.Substring(1).ToLower());
+				}
+			}
+			return sb.ToString();
 		}
 
 		/// <summary>

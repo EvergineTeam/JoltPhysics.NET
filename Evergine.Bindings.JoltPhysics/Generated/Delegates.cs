@@ -5,99 +5,99 @@ using System.Runtime.InteropServices;
 namespace Evergine.Bindings.JoltPhysics
 {
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_TireMaxImpulseCallback(void* userData, uint wheelIndex, float* outLongitudinalImpulse, float* outLateralImpulse, float suspensionImpulse, float longitudinalFriction, float lateralFriction, float longitudinalSlip, float lateralSlip, float deltaTime);
+	public unsafe delegate void TireMaxImpulseCallback(void* userData, uint wheelIndex, float* outLongitudinalImpulse, float* outLateralImpulse, float suspensionImpulse, float longitudinalFriction, float lateralFriction, float longitudinalSlip, float lateralSlip, float deltaTime);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint JoltC_GetNumBroadPhaseLayersFn(void* userData);
+	public unsafe delegate uint GetNumBroadPhaseLayersFn(void* userData);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte JoltC_GetBroadPhaseLayerFn(void* userData, ushort layer);
+	public unsafe delegate byte GetBroadPhaseLayerFn(void* userData, ushort layer);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_ObjectVsBroadPhaseLayerFilterFn(void* userData, ushort layer1, byte layer2);
+	public unsafe delegate int ObjectVsBroadPhaseLayerFilterFn(void* userData, ushort layer1, byte layer2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_ObjectLayerPairFilterFn(void* userData, ushort layer1, ushort layer2);
+	public unsafe delegate int ObjectLayerPairFilterFn(void* userData, ushort layer1, ushort layer2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate JoltC_ValidateResult JoltC_OnContactValidateFn(void* userData, uint body1, uint body2);
+	public unsafe delegate ValidateResult OnContactValidateFn(void* userData, uint body1, uint body2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnContactAddedFn(void* userData, uint body1, uint body2);
+	public unsafe delegate void OnContactAddedFn(void* userData, uint body1, uint body2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnContactPersistedFn(void* userData, uint body1, uint body2);
+	public unsafe delegate void OnContactPersistedFn(void* userData, uint body1, uint body2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnContactRemovedFn(void* userData, uint body1, uint body2);
+	public unsafe delegate void OnContactRemovedFn(void* userData, uint body1, uint body2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnBodyActivatedFn(void* userData, uint bodyID, ulong bodyUserData);
+	public unsafe delegate void OnBodyActivatedFn(void* userData, uint bodyID, ulong bodyUserData);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnBodyDeactivatedFn(void* userData, uint bodyID, ulong bodyUserData);
+	public unsafe delegate void OnBodyDeactivatedFn(void* userData, uint bodyID, ulong bodyUserData);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_BroadPhaseLayerFilterFn(void* userData, byte layer);
+	public unsafe delegate int BroadPhaseLayerFilterFn(void* userData, byte layer);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_ObjectLayerFilterFn(void* userData, ushort layer);
+	public unsafe delegate int ObjectLayerFilterFn(void* userData, ushort layer);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_BodyFilterFn(void* userData, uint bodyID);
+	public unsafe delegate int BodyFilterFn(void* userData, uint bodyID);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_BodyFilterLockedFn(void* userData, IntPtr body);
+	public unsafe delegate int BodyFilterLockedFn(void* userData, IntPtr body);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_ShapeFilterFn(void* userData, IntPtr shape2, uint subShapeID2);
+	public unsafe delegate int ShapeFilterFn(void* userData, IntPtr shape2, uint subShapeID2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_ShapeFilter2Fn(void* userData, IntPtr shape1, uint subShapeID1, IntPtr shape2, uint subShapeID2);
+	public unsafe delegate int ShapeFilter2Fn(void* userData, IntPtr shape1, uint subShapeID1, IntPtr shape2, uint subShapeID2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int JoltC_SimShapeFilterFn(void* userData, IntPtr body1, IntPtr shape1, uint subShapeID1, IntPtr body2, IntPtr shape2, uint subShapeID2);
+	public unsafe delegate int SimShapeFilterFn(void* userData, IntPtr body1, IntPtr shape1, uint subShapeID1, IntPtr body2, IntPtr shape2, uint subShapeID2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_CollideShapeResultFn(void* userData, JoltC_CollideShapeResult* result);
+	public unsafe delegate void CollideShapeResultFn(void* userData, CollideShapeResult* result);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_CastShapeResultFn(void* userData, JoltC_ShapeCastResult* result);
+	public unsafe delegate void CastShapeResultFn(void* userData, ShapeCastResult* result);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_BroadPhaseCastResultFn(void* userData, JoltC_BroadPhaseCastResult* result);
+	public unsafe delegate void BroadPhaseCastResultFn(void* userData, BroadPhaseCastResult* result);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_CollideShapeBodyResultFn(void* userData, uint bodyID);
+	public unsafe delegate void CollideShapeBodyResultFn(void* userData, uint bodyID);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate JoltC_ValidateResult JoltC_OnContactValidateEnhancedFn(void* userData, IntPtr body1, IntPtr body2, JoltC_RVec3 baseOffset, JoltC_CollideShapeResult* collisionResult);
+	public unsafe delegate ValidateResult OnContactValidateEnhancedFn(void* userData, IntPtr body1, IntPtr body2, RVec3 baseOffset, CollideShapeResult* collisionResult);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnContactAddedEnhancedFn(void* userData, IntPtr body1, IntPtr body2, IntPtr manifold, JoltC_ContactSettings* settings);
+	public unsafe delegate void OnContactAddedEnhancedFn(void* userData, IntPtr body1, IntPtr body2, IntPtr manifold, ContactSettings* settings);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnContactPersistedEnhancedFn(void* userData, IntPtr body1, IntPtr body2, IntPtr manifold, JoltC_ContactSettings* settings);
+	public unsafe delegate void OnContactPersistedEnhancedFn(void* userData, IntPtr body1, IntPtr body2, IntPtr manifold, ContactSettings* settings);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnContactRemovedEnhancedFn(void* userData, JoltC_SubShapeIDPair* subShapePair);
+	public unsafe delegate void OnContactRemovedEnhancedFn(void* userData, SubShapeIDPair* subShapePair);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnPhysicsStepFn(void* userData, float deltaTime, int isFirstStep, int isLastStep);
+	public unsafe delegate void OnPhysicsStepFn(void* userData, float deltaTime, int isFirstStep, int isLastStep);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_CastRayCollectorFn(void* userData, JoltC_RayCastResult* result);
+	public unsafe delegate void CastRayCollectorFn(void* userData, RayCastResult* result);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_CollidePointCollectorFn(void* userData, uint bodyID, uint subShapeID);
+	public unsafe delegate void CollidePointCollectorFn(void* userData, uint bodyID, uint subShapeID);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnCharacterContactValidateFn(void* userData, uint bodyID2, int* outAccept);
+	public unsafe delegate void OnCharacterContactValidateFn(void* userData, uint bodyID2, int* outAccept);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnCharacterContactAddedFn(void* userData, uint bodyID2, JoltC_RVec3 contactPosition, JoltC_Vec3 contactNormal, int* outCanPushCharacter, int* outCanReceiveImpulses);
+	public unsafe delegate void OnCharacterContactAddedFn(void* userData, uint bodyID2, RVec3 contactPosition, Vec3 contactNormal, int* outCanPushCharacter, int* outCanReceiveImpulses);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void JoltC_OnCharacterContactPersistedFn(void* userData, uint bodyID2, JoltC_RVec3 contactPosition, JoltC_Vec3 contactNormal, int* outCanPushCharacter, int* outCanReceiveImpulses);
+	public unsafe delegate void OnCharacterContactPersistedFn(void* userData, uint bodyID2, RVec3 contactPosition, Vec3 contactNormal, int* outCanPushCharacter, int* outCanReceiveImpulses);
 
 }

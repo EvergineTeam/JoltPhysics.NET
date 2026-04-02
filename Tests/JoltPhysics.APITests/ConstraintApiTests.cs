@@ -2,9 +2,9 @@ using System;
 using Evergine.Bindings.JoltPhysics;
 using FluentAssertions;
 using Xunit;
-using static JoltPhysics.APITests.NativeTestHelpers;
+using static JoltPhysicsTests.NativeTestHelpers;
 
-namespace JoltPhysics.APITests;
+namespace JoltPhysicsTests;
 
 [Collection("Jolt")]
 public unsafe class ConstraintApiTests
@@ -16,23 +16,23 @@ public unsafe class ConstraintApiTests
 		uint bodyA = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 3f, 0f));
 		uint bodyB = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(1f, 3f, 0f));
 
-		JoltC_PointConstraintSettings settings = default;
-		JoltPhysicsNative.JoltC_PointConstraintSettings_Init(&settings);
-		settings.space = JoltC_ConstraintSpace.JOLTC_CONSTRAINT_SPACE_WORLD_SPACE;
-		settings.point1 = RVec3(0.5f, 3f, 0f);
-		settings.point2 = RVec3(0.5f, 3f, 0f);
+		PointConstraintSettings settings = default;
+		JoltPhysics.PointConstraintSettings_Init(&settings);
+		settings.Space = ConstraintSpace.WorldSpace;
+		settings.Point1 = RVec3(0.5f, 3f, 0f);
+		settings.Point2 = RVec3(0.5f, 3f, 0f);
 
-		IntPtr constraint = JoltPhysicsNative.JoltC_PointConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
+		IntPtr constraint = JoltPhysics.PointConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
 		constraint.Should().NotBe(IntPtr.Zero);
 
 		IntPtr* ptr = stackalloc IntPtr[1] { constraint };
-		JoltPhysicsNative.JoltC_PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
+		JoltPhysics.PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
 
 		// Cleanup
-		JoltPhysicsNative.JoltC_PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
-		JoltPhysicsNative.JoltC_Constraint_Destroy(constraint);
+		JoltPhysics.PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.Constraint_Destroy(constraint);
 	}
 
 	[Fact]
@@ -42,24 +42,24 @@ public unsafe class ConstraintApiTests
 		uint bodyA = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 3f, 0f));
 		uint bodyB = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(2f, 3f, 0f));
 
-		JoltC_DistanceConstraintSettings settings = default;
-		JoltPhysicsNative.JoltC_DistanceConstraintSettings_Init(&settings);
-		settings.space = JoltC_ConstraintSpace.JOLTC_CONSTRAINT_SPACE_WORLD_SPACE;
-		settings.point1 = RVec3(0f, 3f, 0f);
-		settings.point2 = RVec3(2f, 3f, 0f);
-		settings.minDistance = 1.5f;
-		settings.maxDistance = 2.5f;
+		DistanceConstraintSettings settings = default;
+		JoltPhysics.DistanceConstraintSettings_Init(&settings);
+		settings.Space = ConstraintSpace.WorldSpace;
+		settings.Point1 = RVec3(0f, 3f, 0f);
+		settings.Point2 = RVec3(2f, 3f, 0f);
+		settings.MinDistance = 1.5f;
+		settings.MaxDistance = 2.5f;
 
-		IntPtr constraint = JoltPhysicsNative.JoltC_DistanceConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
+		IntPtr constraint = JoltPhysics.DistanceConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
 		constraint.Should().NotBe(IntPtr.Zero);
 
 		IntPtr* ptr = stackalloc IntPtr[1] { constraint };
-		JoltPhysicsNative.JoltC_PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
+		JoltPhysics.PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
-		JoltPhysicsNative.JoltC_Constraint_Destroy(constraint);
+		JoltPhysics.PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.Constraint_Destroy(constraint);
 	}
 
 	[Fact]
@@ -69,28 +69,28 @@ public unsafe class ConstraintApiTests
 		uint bodyA = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 3f, 0f));
 		uint bodyB = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(1f, 3f, 0f));
 
-		JoltC_HingeConstraintSettings settings = default;
-		JoltPhysicsNative.JoltC_HingeConstraintSettings_Init(&settings);
-		settings.space = JoltC_ConstraintSpace.JOLTC_CONSTRAINT_SPACE_WORLD_SPACE;
-		settings.point1 = RVec3(0.5f, 3f, 0f);
-		settings.hingeAxis1 = Vec3(0f, 1f, 0f);
-		settings.normalAxis1 = Vec3(1f, 0f, 0f);
-		settings.point2 = RVec3(0.5f, 3f, 0f);
-		settings.hingeAxis2 = Vec3(0f, 1f, 0f);
-		settings.normalAxis2 = Vec3(1f, 0f, 0f);
-		settings.limitsMin = -MathF.PI;
-		settings.limitsMax = MathF.PI;
+		HingeConstraintSettings settings = default;
+		JoltPhysics.HingeConstraintSettings_Init(&settings);
+		settings.Space = ConstraintSpace.WorldSpace;
+		settings.Point1 = RVec3(0.5f, 3f, 0f);
+		settings.HingeAxis1 = Vec3(0f, 1f, 0f);
+		settings.NormalAxis1 = Vec3(1f, 0f, 0f);
+		settings.Point2 = RVec3(0.5f, 3f, 0f);
+		settings.HingeAxis2 = Vec3(0f, 1f, 0f);
+		settings.NormalAxis2 = Vec3(1f, 0f, 0f);
+		settings.LimitsMin = -MathF.PI;
+		settings.LimitsMax = MathF.PI;
 
-		IntPtr constraint = JoltPhysicsNative.JoltC_HingeConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
+		IntPtr constraint = JoltPhysics.HingeConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
 		constraint.Should().NotBe(IntPtr.Zero);
 
 		IntPtr* ptr = stackalloc IntPtr[1] { constraint };
-		JoltPhysicsNative.JoltC_PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
+		JoltPhysics.PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
-		JoltPhysicsNative.JoltC_Constraint_Destroy(constraint);
+		JoltPhysics.PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.Constraint_Destroy(constraint);
 	}
 
 	[Fact]
@@ -100,27 +100,27 @@ public unsafe class ConstraintApiTests
 		uint bodyA = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 3f, 0f));
 		uint bodyB = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(1f, 3f, 0f));
 
-		JoltC_SliderConstraintSettings settings = default;
-		JoltPhysicsNative.JoltC_SliderConstraintSettings_Init(&settings);
-		settings.space = JoltC_ConstraintSpace.JOLTC_CONSTRAINT_SPACE_WORLD_SPACE;
-		settings.autoDetectPoint = 1;
-		settings.sliderAxis1 = Vec3(1f, 0f, 0f);
-		settings.normalAxis1 = Vec3(0f, 1f, 0f);
-		settings.sliderAxis2 = Vec3(1f, 0f, 0f);
-		settings.normalAxis2 = Vec3(0f, 1f, 0f);
-		settings.limitsMin = -5f;
-		settings.limitsMax = 5f;
+		SliderConstraintSettings settings = default;
+		JoltPhysics.SliderConstraintSettings_Init(&settings);
+		settings.Space = ConstraintSpace.WorldSpace;
+		settings.AutoDetectPoint = 1;
+		settings.SliderAxis1 = Vec3(1f, 0f, 0f);
+		settings.NormalAxis1 = Vec3(0f, 1f, 0f);
+		settings.SliderAxis2 = Vec3(1f, 0f, 0f);
+		settings.NormalAxis2 = Vec3(0f, 1f, 0f);
+		settings.LimitsMin = -5f;
+		settings.LimitsMax = 5f;
 
-		IntPtr constraint = JoltPhysicsNative.JoltC_SliderConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
+		IntPtr constraint = JoltPhysics.SliderConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
 		constraint.Should().NotBe(IntPtr.Zero);
 
 		IntPtr* ptr = stackalloc IntPtr[1] { constraint };
-		JoltPhysicsNative.JoltC_PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
+		JoltPhysics.PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
-		JoltPhysicsNative.JoltC_Constraint_Destroy(constraint);
+		JoltPhysics.PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.Constraint_Destroy(constraint);
 	}
 
 	[Fact]
@@ -130,25 +130,25 @@ public unsafe class ConstraintApiTests
 		uint bodyA = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 3f, 0f));
 		uint bodyB = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(1f, 3f, 0f));
 
-		JoltC_ConeConstraintSettings settings = default;
-		JoltPhysicsNative.JoltC_ConeConstraintSettings_Init(&settings);
-		settings.space = JoltC_ConstraintSpace.JOLTC_CONSTRAINT_SPACE_WORLD_SPACE;
-		settings.point1 = RVec3(0.5f, 3f, 0f);
-		settings.twistAxis1 = Vec3(1f, 0f, 0f);
-		settings.point2 = RVec3(0.5f, 3f, 0f);
-		settings.twistAxis2 = Vec3(1f, 0f, 0f);
-		settings.halfConeAngle = MathF.PI / 4f;
+		ConeConstraintSettings settings = default;
+		JoltPhysics.ConeConstraintSettings_Init(&settings);
+		settings.Space = ConstraintSpace.WorldSpace;
+		settings.Point1 = RVec3(0.5f, 3f, 0f);
+		settings.TwistAxis1 = Vec3(1f, 0f, 0f);
+		settings.Point2 = RVec3(0.5f, 3f, 0f);
+		settings.TwistAxis2 = Vec3(1f, 0f, 0f);
+		settings.HalfConeAngle = MathF.PI / 4f;
 
-		IntPtr constraint = JoltPhysicsNative.JoltC_ConeConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
+		IntPtr constraint = JoltPhysics.ConeConstraint_Create(env.PhysicsSystem, bodyA, bodyB, &settings);
 		constraint.Should().NotBe(IntPtr.Zero);
 
 		IntPtr* ptr = stackalloc IntPtr[1] { constraint };
-		JoltPhysicsNative.JoltC_PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.PhysicsSystem_AddConstraints(env.PhysicsSystem, ptr, 1);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
+		JoltPhysics.PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(1u);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
-		JoltPhysicsNative.JoltC_Constraint_Destroy(constraint);
+		JoltPhysics.PhysicsSystem_RemoveConstraints(env.PhysicsSystem, ptr, 1);
+		JoltPhysics.Constraint_Destroy(constraint);
 	}
 
 	[Fact]
@@ -161,19 +161,19 @@ public unsafe class ConstraintApiTests
 		IntPtr constraint = env.CreateFixedConstraint(bodyA, bodyB);
 		constraint.Should().NotBe(IntPtr.Zero);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
+		JoltPhysics.PhysicsSystem_OptimizeBroadPhase(env.PhysicsSystem);
 
 		// Step a few times
 		for (int i = 0; i < 30; i++)
 			env.Step();
 
-		JoltC_RVec3 posA = JoltPhysicsNative.JoltC_BodyInterface_GetCenterOfMassPosition(env.BodyInterface, bodyA);
-		JoltC_RVec3 posB = JoltPhysicsNative.JoltC_BodyInterface_GetCenterOfMassPosition(env.BodyInterface, bodyB);
+		RVec3 posA = JoltPhysics.BodyInterface_GetCenterOfMassPosition(env.BodyInterface, bodyA);
+		RVec3 posB = JoltPhysics.BodyInterface_GetCenterOfMassPosition(env.BodyInterface, bodyB);
 
 		// Bodies should have fallen (gravity) but stayed close together
-		float dx = posA.x - posB.x;
-		float dy = posA.y - posB.y;
-		float dz = posA.z - posB.z;
+		float dx = posA.X - posB.X;
+		float dy = posA.Y - posB.Y;
+		float dz = posA.Z - posB.Z;
 		float dist = MathF.Sqrt(dx * dx + dy * dy + dz * dz);
 		dist.Should().BeLessThan(1.5f, "fixed constraint should keep bodies close together");
 	}
@@ -192,6 +192,6 @@ public unsafe class ConstraintApiTests
 		c1.Should().NotBe(IntPtr.Zero);
 		c2.Should().NotBe(IntPtr.Zero);
 
-		JoltPhysicsNative.JoltC_PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(2u);
+		JoltPhysics.PhysicsSystem_GetNumConstraints(env.PhysicsSystem).Should().Be(2u);
 	}
 }

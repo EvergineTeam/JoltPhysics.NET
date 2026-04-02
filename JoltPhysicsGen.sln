@@ -1,13 +1,14 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11626.88 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoltPhysicsGen", "JoltPhysicsGen\JoltPhysicsGen.csproj", "{A1B2C3D4-E5F6-7890-1234-567890ABCDE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evergine.Bindings.JoltPhysics", "Evergine.Bindings.JoltPhysics\Evergine.Bindings.JoltPhysics.csproj", "{A1B2C3D4-E5F6-7890-1234-567890ABCDE2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoltPhysics.APITests", "Tests\JoltPhysics.APITests\JoltPhysics.APITests.csproj", "{5C0C3A8E-6FA6-4EE3-BB96-8ABAE2EF1FCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoltPhysics.HelloWorld", "Samples\JoltPhysics.HelloWorld\JoltPhysics.HelloWorld.csproj", "{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,5 +28,12 @@ Global
 		{5C0C3A8E-6FA6-4EE3-BB96-8ABAE2EF1FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C0C3A8E-6FA6-4EE3-BB96-8ABAE2EF1FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C0C3A8E-6FA6-4EE3-BB96-8ABAE2EF1FCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
