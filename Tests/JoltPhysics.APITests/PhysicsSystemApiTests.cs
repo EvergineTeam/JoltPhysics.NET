@@ -57,13 +57,13 @@ public unsafe class PhysicsSystemApiTests
 
 		RayCastResult result = default;
 		// Cast ray from far away toward the box
-		int hit = JoltPhysics.NarrowPhaseQuery_CastRay(
+		bool hit = JoltPhysics.NarrowPhaseQuery_CastRay(
 			query,
 			RVec3(-50f, 0f, 0f),   // origin: far left
 			Vec3(100f, 0f, 0f),     // direction (unnormalized, represents max distance)
 			&result);
 
-		hit.Should().Be(1, "ray should hit the box");
+		hit.Should().BeTrue("ray should hit the box");
 		result.Fraction.Should().BeGreaterThan(0f);
 		result.Fraction.Should().BeLessThan(1f);
 	}
@@ -77,13 +77,13 @@ public unsafe class PhysicsSystemApiTests
 		IntPtr query = JoltPhysics.PhysicsSystem_GetNarrowPhaseQuery(env.PhysicsSystem);
 
 		RayCastResult result = default;
-		int hit = JoltPhysics.NarrowPhaseQuery_CastRay(
+		bool hit = JoltPhysics.NarrowPhaseQuery_CastRay(
 			query,
 			RVec3(0f, 0f, 0f),
 			Vec3(1f, 0f, 0f),
 			&result);
 
-		hit.Should().Be(0, "no bodies in the world to hit");
+		hit.Should().BeFalse("no bodies in the world to hit");
 	}
 
 	[Fact]

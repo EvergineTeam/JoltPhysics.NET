@@ -52,13 +52,13 @@ public unsafe class BodyInterfaceApiTests
 		using var env = new JoltTestEnvironment();
 		uint body = env.CreateDynamicBox(Vec3(0.5f, 0.5f, 0.5f), RVec3(0f, 5f, 0f));
 
-		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().Be(1, "body should start active");
+		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().BeTrue("body should start active");
 
 		JoltPhysics.BodyInterface_DeactivateBody(env.BodyInterface, body);
-		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().Be(0, "body should be deactivated");
+		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().BeFalse("body should be deactivated");
 
 		JoltPhysics.BodyInterface_ActivateBody(env.BodyInterface, body);
-		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().Be(1, "body should be reactivated");
+		JoltPhysics.BodyInterface_IsActive(env.BodyInterface, body).Should().BeTrue("body should be reactivated");
 	}
 
 	[Fact]

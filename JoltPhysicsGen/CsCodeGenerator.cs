@@ -25,7 +25,10 @@ namespace JoltPhysicsGen
 			// 3. Pre-collect blittable struct names (structs with definitions)
 			CollectBlittableStructs(compilation);
 
-			// 4. Generate each file
+			// 4. Pre-collect boolean typedefs (e.g. JoltC_Bool = typedef int)
+			CollectBoolTypedefs(compilation);
+
+			// 5. Generate each file
 			GenerateConstants(compilation, outputPath);
 			GenerateEnums(compilation, outputPath);
 			GenerateDelegates(compilation, outputPath);
@@ -107,6 +110,22 @@ namespace JoltPhysicsGen
 			}
 
 			Console.WriteLine($"Blittable structs: {Helpers.BlittableStructs.Count}");
+		}
+
+		private void CollectBoolTypedefs(CppCompilation compilation)
+		{
+			foreach (var td in compilation.Typedefs)
+			{
+				if (td.ElementType is CppPrimitiveType prim && prim.Kind == CppPrimitiveKind.Int)
+				{
+					if (td.Name.Contains("Bool", StringComparison.OrdinalIgnoreCase))
+					{
+						Helpers.BoolTypedefNames.Add(td.Name);
+					}
+				}
+			}
+
+			Console.WriteLine($"Bool typedefs: {Helpers.BoolTypedefNames.Count} ({string.Join(", ", Helpers.BoolTypedefNames)})");
 		}
 
 		// ==================================================================
@@ -273,21 +292,26 @@ namespace JoltPhysicsGen
 				{
 					var delegateName = td.Name;
 					var csDelegateName = Helpers.StripPrefix(delegateName);
-					var returnType = Helpers.ConvertReturnType(funcType.ReturnType);
+					var (returnType, returnAttr) = Helpers.GetMarshaledDelegateReturnType(funcType.ReturnType);
 
 					var parameters = new List<string>();
 					foreach (var param in funcType.Parameters)
 					{
-						var paramType = Helpers.ConvertParameterType(param.Type);
+						var (paramType, marshalAttr) = Helpers.GetMarshaledDelegateParameterType(param.Type);
 						var paramName = string.IsNullOrEmpty(param.Name)
 							? $"arg{funcType.Parameters.IndexOf(param)}"
 							: Helpers.EscapeReservedKeyword(param.Name);
-						parameters.Add($"{paramType} {paramName}");
+						if (marshalAttr != null)
+							parameters.Add($"{marshalAttr} {paramType} {paramName}");
+						else
+							parameters.Add($"{paramType} {paramName}");
 					}
 
 					var paramStr = string.Join(", ", parameters);
 
 					writer.WriteLine($"\t[UnmanagedFunctionPointer(CallingConvention.Cdecl)]");
+					if (returnAttr != null)
+						writer.WriteLine($"\t{returnAttr}");
 					writer.WriteLine($"\tpublic unsafe delegate {returnType} {csDelegateName}({paramStr});");
 					writer.WriteLine();
 				}
@@ -410,14 +434,14 @@ namespace JoltPhysicsGen
 				if (func.Flags.HasFlag(CppFunctionFlags.Inline)) continue;
 				if (func.Flags.HasFlag(CppFunctionFlags.FunctionTemplate)) continue;
 
-				var returnType = Helpers.ConvertReturnType(func.ReturnType);
+				var (returnType, returnMarshalAttr) = Helpers.GetMarshaledReturnType(func.ReturnType);
 				var funcName = func.Name;
 				var csFuncName = Helpers.StripPrefix(funcName);
 
 				var parameters = new List<string>();
 				foreach (var param in func.Parameters)
 				{
-					var paramType = Helpers.ConvertParameterType(param.Type);
+					var (paramType, marshalAttr) = Helpers.GetMarshaledParameterType(param.Type);
 					var paramName = string.IsNullOrEmpty(param.Name)
 						? $"arg{func.Parameters.IndexOf(param)}"
 						: Helpers.EscapeReservedKeyword(param.Name);
@@ -434,21 +458,29 @@ namespace JoltPhysicsGen
 						}
 						else
 						{
-							paramType = "IntPtr";
+							// Generate an inline delegate name from the function + parameter name
+							paramType = GenerateInlineDelegate(ptr, csFuncName, paramName, compilation);
 						}
+						marshalAttr = null; // delegates don't need MarshalAs
 					}
 					else if (param.Type is CppTypedef td && Helpers.DelegateNames.Contains(td.Name))
 					{
 						paramType = Helpers.StripPrefix(td.Name);
+						marshalAttr = null;
 					}
 
-					parameters.Add($"{paramType} {paramName}");
+					if (marshalAttr != null)
+						parameters.Add($"{marshalAttr} {paramType} {paramName}");
+					else
+						parameters.Add($"{paramType} {paramName}");
 				}
 
 				var paramStr = string.Join(", ", parameters);
 
 				Helpers.WriteComment(writer, func.Comment, "\t\t");
 				writer.WriteLine($"\t\t[DllImport(\"{DllName}\", CallingConvention = CallingConvention.Cdecl, EntryPoint = \"{funcName}\")]");
+				if (returnMarshalAttr != null)
+					writer.WriteLine($"\t\t{returnMarshalAttr}");
 				writer.WriteLine($"\t\tpublic static extern {returnType} {csFuncName}({paramStr});");
 				writer.WriteLine();
 			}
@@ -456,7 +488,40 @@ namespace JoltPhysicsGen
 			writer.WriteLine("\t}");
 			writer.WriteLine("}");
 
+			// Append inline delegates (generated from function parameters) to Delegates.cs
+			if (_inlineDelegates.Count > 0)
+			{
+				AppendInlineDelegates(outputPath);
+			}
+
 			Console.WriteLine($"  Generated: Functions.cs");
+		}
+
+		/// <summary>
+		/// Append inline-generated delegates to the existing Delegates.cs file.
+		/// Re-reads the file, inserts the new delegates before the closing brace.
+		/// </summary>
+		private void AppendInlineDelegates(string outputPath)
+		{
+			var filePath = Path.Combine(outputPath, "Delegates.cs");
+			var content = File.ReadAllText(filePath);
+
+			// Find the last closing brace (end of namespace) and insert before it
+			var lastBrace = content.LastIndexOf('}');
+			if (lastBrace >= 0)
+			{
+				var sb = new System.Text.StringBuilder();
+				sb.AppendLine("\t// Inline function pointer delegates (no matching typedef in headers)");
+				foreach (var del in _inlineDelegates)
+				{
+					sb.AppendLine(del);
+				}
+
+				content = content.Insert(lastBrace, sb.ToString());
+				File.WriteAllText(filePath, content);
+			}
+
+			Console.WriteLine($"  Appended {_inlineDelegates.Count} inline delegate(s) to Delegates.cs");
 		}
 
 		/// <summary>
@@ -497,6 +562,63 @@ namespace JoltPhysicsGen
 			}
 
 			return true;
+		}
+
+		/// <summary>
+		/// List of inline delegates generated during function processing.
+		/// Written to the Delegates.cs file at the end.
+		/// </summary>
+		private readonly List<string> _inlineDelegates = new();
+
+		/// <summary>
+		/// Set of already-generated inline delegate names to avoid duplicates.
+		/// </summary>
+		private readonly HashSet<string> _inlineDelegateNames = new();
+
+		/// <summary>
+		/// Generate a named delegate type for an inline function pointer parameter.
+		/// Returns the C# delegate type name.
+		/// </summary>
+		private string GenerateInlineDelegate(CppPointerType ptrType, string funcName, string paramName, CppCompilation compilation)
+		{
+			if (ptrType.ElementType is not CppFunctionType funcType)
+				return "IntPtr";
+
+			// Build a delegate name from the function name + parameter name
+			var delegateName = $"{funcName}_{Helpers.PascalCaseField(paramName)}Fn";
+
+			// Avoid duplicates
+			if (_inlineDelegateNames.Contains(delegateName))
+				return delegateName;
+
+			_inlineDelegateNames.Add(delegateName);
+
+			var (returnType, returnAttr) = Helpers.GetMarshaledDelegateReturnType(funcType.ReturnType);
+
+			var parameters = new List<string>();
+			foreach (var param in funcType.Parameters)
+			{
+				var (paramType, marshalAttr) = Helpers.GetMarshaledDelegateParameterType(param.Type);
+				var pName = string.IsNullOrEmpty(param.Name)
+					? $"arg{funcType.Parameters.IndexOf(param)}"
+					: Helpers.EscapeReservedKeyword(param.Name);
+				if (marshalAttr != null)
+					parameters.Add($"{marshalAttr} {paramType} {pName}");
+				else
+					parameters.Add($"{paramType} {pName}");
+			}
+
+			var paramStr = string.Join(", ", parameters);
+
+			var sb = new System.Text.StringBuilder();
+			sb.AppendLine($"\t[UnmanagedFunctionPointer(CallingConvention.Cdecl)]");
+			if (returnAttr != null)
+				sb.AppendLine($"\t{returnAttr}");
+			sb.AppendLine($"\tpublic unsafe delegate {returnType} {delegateName}({paramStr});");
+
+			_inlineDelegates.Add(sb.ToString());
+
+			return delegateName;
 		}
 	}
 }

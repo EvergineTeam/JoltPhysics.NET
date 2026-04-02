@@ -14,10 +14,12 @@ namespace Evergine.Bindings.JoltPhysics
 	public unsafe delegate byte GetBroadPhaseLayerFn(void* userData, ushort layer);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int ObjectVsBroadPhaseLayerFilterFn(void* userData, ushort layer1, byte layer2);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool ObjectVsBroadPhaseLayerFilterFn(void* userData, ushort layer1, byte layer2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int ObjectLayerPairFilterFn(void* userData, ushort layer1, ushort layer2);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool ObjectLayerPairFilterFn(void* userData, ushort layer1, ushort layer2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ValidateResult OnContactValidateFn(void* userData, uint body1, uint body2);
@@ -38,25 +40,32 @@ namespace Evergine.Bindings.JoltPhysics
 	public unsafe delegate void OnBodyDeactivatedFn(void* userData, uint bodyID, ulong bodyUserData);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int BroadPhaseLayerFilterFn(void* userData, byte layer);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool BroadPhaseLayerFilterFn(void* userData, byte layer);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int ObjectLayerFilterFn(void* userData, ushort layer);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool ObjectLayerFilterFn(void* userData, ushort layer);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int BodyFilterFn(void* userData, uint bodyID);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool BodyFilterFn(void* userData, uint bodyID);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int BodyFilterLockedFn(void* userData, IntPtr body);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool BodyFilterLockedFn(void* userData, IntPtr body);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int ShapeFilterFn(void* userData, IntPtr shape2, uint subShapeID2);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool ShapeFilterFn(void* userData, IntPtr shape2, uint subShapeID2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int ShapeFilter2Fn(void* userData, IntPtr shape1, uint subShapeID1, IntPtr shape2, uint subShapeID2);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool ShapeFilter2Fn(void* userData, IntPtr shape1, uint subShapeID1, IntPtr shape2, uint subShapeID2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SimShapeFilterFn(void* userData, IntPtr body1, IntPtr shape1, uint subShapeID1, IntPtr body2, IntPtr shape2, uint subShapeID2);
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public unsafe delegate bool SimShapeFilterFn(void* userData, IntPtr body1, IntPtr shape1, uint subShapeID1, IntPtr body2, IntPtr shape2, uint subShapeID2);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void CollideShapeResultFn(void* userData, CollideShapeResult* result);
@@ -83,7 +92,7 @@ namespace Evergine.Bindings.JoltPhysics
 	public unsafe delegate void OnContactRemovedEnhancedFn(void* userData, SubShapeIDPair* subShapePair);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void OnPhysicsStepFn(void* userData, float deltaTime, int isFirstStep, int isLastStep);
+	public unsafe delegate void OnPhysicsStepFn(void* userData, float deltaTime, [MarshalAs(UnmanagedType.Bool)] bool isFirstStep, [MarshalAs(UnmanagedType.Bool)] bool isLastStep);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void CastRayCollectorFn(void* userData, RayCastResult* result);
@@ -99,5 +108,12 @@ namespace Evergine.Bindings.JoltPhysics
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void OnCharacterContactPersistedFn(void* userData, uint bodyID2, RVec3 contactPosition, Vec3 contactNormal, int* outCanPushCharacter, int* outCanReceiveImpulses);
+
+	// Inline function pointer delegates (no matching typedef in headers)
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SetTraceHandler_HandlerFn(byte* message);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int SetAssertFailureHandler_HandlerFn(byte* expression, byte* message, byte* file, uint line);
 
 }

@@ -169,14 +169,11 @@ public unsafe class JoltApiTests
 		IntPtr skeleton = JoltPhysics.Skeleton_Create();
 		try
 		{
-			byte* hip = stackalloc byte[] { (byte)'H', (byte)'i', (byte)'p', 0 };
-			byte* knee = stackalloc byte[] { (byte)'K', (byte)'n', (byte)'e', (byte)'e', 0 };
-
-			uint hipIndex = JoltPhysics.Skeleton_AddJoint(skeleton, hip);
-			uint kneeIndex = JoltPhysics.Skeleton_AddJoint2(skeleton, knee, (int)hipIndex);
+			uint hipIndex = JoltPhysics.Skeleton_AddJoint(skeleton, "Hip");
+			uint kneeIndex = JoltPhysics.Skeleton_AddJoint2(skeleton, "Knee", (int)hipIndex);
 
 			JoltPhysics.Skeleton_GetJointCount(skeleton).Should().Be(2);
-			JoltPhysics.Skeleton_AreJointsCorrectlyOrdered(skeleton).Should().Be(1);
+			JoltPhysics.Skeleton_AreJointsCorrectlyOrdered(skeleton).Should().BeTrue();
 			SkeletonJoint joint = default;
 			JoltPhysics.Skeleton_GetJoint(skeleton, (int)kneeIndex, &joint);
 			joint.ParentJointIndex.Should().Be((int)hipIndex);

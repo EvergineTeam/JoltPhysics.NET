@@ -29,10 +29,10 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void Shutdown();
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SetTraceHandler")]
-		public static extern void SetTraceHandler(IntPtr handler);
+		public static extern void SetTraceHandler(SetTraceHandler_HandlerFn handler);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SetAssertFailureHandler")]
-		public static extern void SetAssertFailureHandler(IntPtr handler);
+		public static extern void SetAssertFailureHandler(SetAssertFailureHandler_HandlerFn handler);
 
 		/// <summary>
 		/// Helper to fill defaults matching JoltPhysics defaults
@@ -836,7 +836,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern Vec3 HeightFieldShape_GetPosition(IntPtr shape, uint x, uint y);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_IsNoCollision")]
-		public static extern int HeightFieldShape_IsNoCollision(IntPtr shape, uint x, uint y);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool HeightFieldShape_IsNoCollision(IntPtr shape, uint x, uint y);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HeightFieldShape_GetMinHeightValue")]
 		public static extern float HeightFieldShape_GetMinHeightValue(IntPtr shape);
@@ -1385,7 +1386,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void ObjectLayerPairFilterTable_EnableCollision(IntPtr filter, ushort layer1, ushort layer2);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_ObjectLayerPairFilterTable_ShouldCollide")]
-		public static extern int ObjectLayerPairFilterTable_ShouldCollide(IntPtr filter, ushort layer1, ushort layer2);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool ObjectLayerPairFilterTable_ShouldCollide(IntPtr filter, ushort layer1, ushort layer2);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -1435,7 +1437,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void GroupFilter_Destroy(IntPtr filter);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilter_CanCollide")]
-		public static extern int GroupFilter_CanCollide(IntPtr filter, CollisionGroup* group1, CollisionGroup* group2);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool GroupFilter_CanCollide(IntPtr filter, CollisionGroup* group1, CollisionGroup* group2);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilterTable_Create")]
 		public static extern IntPtr GroupFilterTable_Create(uint numSubGroups);
@@ -1447,7 +1450,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void GroupFilterTable_EnableCollision(IntPtr filter, uint subGroup1, uint subGroup2);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_GroupFilterTable_IsCollisionEnabled")]
-		public static extern int GroupFilterTable_IsCollisionEnabled(IntPtr filter, uint subGroup1, uint subGroup2);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool GroupFilterTable_IsCollisionEnabled(IntPtr filter, uint subGroup1, uint subGroup2);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -1455,7 +1459,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsMaterial_Create")]
-		public static extern IntPtr PhysicsMaterial_Create(byte* name, uint color);
+		public static extern IntPtr PhysicsMaterial_Create([MarshalAs(UnmanagedType.LPUTF8Str)] string name, uint color);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_PhysicsMaterial_Destroy")]
 		public static extern void PhysicsMaterial_Destroy(IntPtr material);
@@ -1663,34 +1667,39 @@ namespace Evergine.Bindings.JoltPhysics
 		/// Bool flags
 		/// </summary>
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetAllowDynamicOrKinematic")]
-		public static extern int BodyCreationSettings_GetAllowDynamicOrKinematic(BodyCreationSettings* s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyCreationSettings_GetAllowDynamicOrKinematic(BodyCreationSettings* s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetAllowDynamicOrKinematic")]
-		public static extern void BodyCreationSettings_SetAllowDynamicOrKinematic(BodyCreationSettings* s, int value);
+		public static extern void BodyCreationSettings_SetAllowDynamicOrKinematic(BodyCreationSettings* s, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetIsSensor")]
-		public static extern int BodyCreationSettings_GetIsSensor(BodyCreationSettings* s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyCreationSettings_GetIsSensor(BodyCreationSettings* s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetIsSensor")]
-		public static extern void BodyCreationSettings_SetIsSensor(BodyCreationSettings* s, int value);
+		public static extern void BodyCreationSettings_SetIsSensor(BodyCreationSettings* s, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetCollideKinematicVsNonDynamic")]
-		public static extern int BodyCreationSettings_GetCollideKinematicVsNonDynamic(BodyCreationSettings* s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyCreationSettings_GetCollideKinematicVsNonDynamic(BodyCreationSettings* s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetCollideKinematicVsNonDynamic")]
-		public static extern void BodyCreationSettings_SetCollideKinematicVsNonDynamic(BodyCreationSettings* s, int value);
+		public static extern void BodyCreationSettings_SetCollideKinematicVsNonDynamic(BodyCreationSettings* s, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetUseManifoldReduction")]
-		public static extern int BodyCreationSettings_GetUseManifoldReduction(BodyCreationSettings* s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyCreationSettings_GetUseManifoldReduction(BodyCreationSettings* s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetUseManifoldReduction")]
-		public static extern void BodyCreationSettings_SetUseManifoldReduction(BodyCreationSettings* s, int value);
+		public static extern void BodyCreationSettings_SetUseManifoldReduction(BodyCreationSettings* s, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetApplyGyroscopicForce")]
-		public static extern int BodyCreationSettings_GetApplyGyroscopicForce(BodyCreationSettings* s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyCreationSettings_GetApplyGyroscopicForce(BodyCreationSettings* s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetApplyGyroscopicForce")]
-		public static extern void BodyCreationSettings_SetApplyGyroscopicForce(BodyCreationSettings* s, int value);
+		public static extern void BodyCreationSettings_SetApplyGyroscopicForce(BodyCreationSettings* s, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		/// <summary>
 		/// Motion quality / edge removal / sleeping
@@ -1702,16 +1711,18 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void BodyCreationSettings_SetMotionQuality(BodyCreationSettings* s, MotionQuality value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetEnhancedInternalEdgeRemoval")]
-		public static extern int BodyCreationSettings_GetEnhancedInternalEdgeRemoval(BodyCreationSettings* s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyCreationSettings_GetEnhancedInternalEdgeRemoval(BodyCreationSettings* s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetEnhancedInternalEdgeRemoval")]
-		public static extern void BodyCreationSettings_SetEnhancedInternalEdgeRemoval(BodyCreationSettings* s, int value);
+		public static extern void BodyCreationSettings_SetEnhancedInternalEdgeRemoval(BodyCreationSettings* s, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_GetAllowSleeping")]
-		public static extern int BodyCreationSettings_GetAllowSleeping(BodyCreationSettings* s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyCreationSettings_GetAllowSleeping(BodyCreationSettings* s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyCreationSettings_SetAllowSleeping")]
-		public static extern void BodyCreationSettings_SetAllowSleeping(BodyCreationSettings* s, int value);
+		public static extern void BodyCreationSettings_SetAllowSleeping(BodyCreationSettings* s, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		/// <summary>
 		/// Float properties
@@ -1820,7 +1831,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void BodyInterface_RemoveBody(IntPtr iface, uint bodyID);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_IsAdded")]
-		public static extern int BodyInterface_IsAdded(IntPtr iface, uint bodyID);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyInterface_IsAdded(IntPtr iface, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -1834,7 +1846,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void BodyInterface_DeactivateBody(IntPtr iface, uint bodyID);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_IsActive")]
-		public static extern int BodyInterface_IsActive(IntPtr iface, uint bodyID);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool BodyInterface_IsActive(IntPtr iface, uint bodyID);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -1961,10 +1974,10 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_SetShape")]
-		public static extern void BodyInterface_SetShape(IntPtr iface, uint bodyID, IntPtr shape, int updateMassProperties, Activation activation);
+		public static extern void BodyInterface_SetShape(IntPtr iface, uint bodyID, IntPtr shape, [MarshalAs(UnmanagedType.Bool)] bool updateMassProperties, Activation activation);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_NotifyShapeChanged")]
-		public static extern void BodyInterface_NotifyShapeChanged(IntPtr iface, uint bodyID, Vec3 previousCenterOfMass, int updateMassProperties, Activation activation);
+		public static extern void BodyInterface_NotifyShapeChanged(IntPtr iface, uint bodyID, Vec3 previousCenterOfMass, [MarshalAs(UnmanagedType.Bool)] bool updateMassProperties, Activation activation);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_BodyInterface_GetShape")]
 		public static extern IntPtr BodyInterface_GetShape(IntPtr iface, uint bodyID);
@@ -2505,13 +2518,15 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern ConstraintSubType Constraint_GetSubType(IntPtr constraint);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SetEnabled")]
-		public static extern void Constraint_SetEnabled(IntPtr constraint, int enabled);
+		public static extern void Constraint_SetEnabled(IntPtr constraint, [MarshalAs(UnmanagedType.Bool)] bool enabled);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_GetEnabled")]
-		public static extern int Constraint_GetEnabled(IntPtr constraint);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Constraint_GetEnabled(IntPtr constraint);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_IsActive")]
-		public static extern int Constraint_IsActive(IntPtr constraint);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Constraint_IsActive(IntPtr constraint);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SetUserData")]
 		public static extern void Constraint_SetUserData(IntPtr constraint, ulong userData);
@@ -2550,10 +2565,12 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void Constraint_WarmStartVelocityConstraint(IntPtr constraint, float warmStartImpulseRatio);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SolveVelocityConstraint")]
-		public static extern int Constraint_SolveVelocityConstraint(IntPtr constraint, float deltaTime);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Constraint_SolveVelocityConstraint(IntPtr constraint, float deltaTime);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Constraint_SolvePositionConstraint")]
-		public static extern int Constraint_SolvePositionConstraint(IntPtr constraint, float deltaTime, float baumgarte);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Constraint_SolvePositionConstraint(IntPtr constraint, float deltaTime, float baumgarte);
 
 		/// <summary>
 		/// TwoBodyConstraint
@@ -2681,7 +2698,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern float HingeConstraint_GetLimitsMax(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_HasLimits")]
-		public static extern int HingeConstraint_HasLimits(IntPtr c);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool HingeConstraint_HasLimits(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_HingeConstraint_SetMaxFrictionTorque")]
 		public static extern void HingeConstraint_SetMaxFrictionTorque(IntPtr c, float torque);
@@ -2771,7 +2789,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern float SliderConstraint_GetLimitsMax(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_HasLimits")]
-		public static extern int SliderConstraint_HasLimits(IntPtr c);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool SliderConstraint_HasLimits(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SliderConstraint_SetMaxFrictionForce")]
 		public static extern void SliderConstraint_SetMaxFrictionForce(IntPtr c, float force);
@@ -2975,10 +2994,12 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern Vec3 SixDOFConstraint_GetRotationLimitsMax(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_IsFreeAxis")]
-		public static extern int SixDOFConstraint_IsFreeAxis(IntPtr c, SixDOFConstraintAxis axis);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool SixDOFConstraint_IsFreeAxis(IntPtr c, SixDOFConstraintAxis axis);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_IsFixedAxis")]
-		public static extern int SixDOFConstraint_IsFixedAxis(IntPtr c, SixDOFConstraintAxis axis);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool SixDOFConstraint_IsFixedAxis(IntPtr c, SixDOFConstraintAxis axis);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraint_GetLimitsSpringSettings")]
 		public static extern SpringSettings SixDOFConstraint_GetLimitsSpringSettings(IntPtr c, SixDOFConstraintAxis axis);
@@ -3011,10 +3032,12 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void SixDOFConstraintSettings_Init(SixDOFConstraintSettings* settings);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_IsFreeAxis")]
-		public static extern int SixDOFConstraintSettings_IsFreeAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool SixDOFConstraintSettings_IsFreeAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_IsFixedAxis")]
-		public static extern int SixDOFConstraintSettings_IsFixedAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool SixDOFConstraintSettings_IsFixedAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SixDOFConstraintSettings_MakeFreeAxis")]
 		public static extern void SixDOFConstraintSettings_MakeFreeAxis(SixDOFConstraintSettings* s, SixDOFConstraintAxis axis);
@@ -3072,7 +3095,8 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay")]
-		public static extern int NarrowPhaseQuery_CastRay(IntPtr query, RVec3 origin, Vec3 direction, RayCastResult* outResult);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool NarrowPhaseQuery_CastRay(IntPtr query, RVec3 origin, Vec3 direction, RayCastResult* outResult);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastRayAll")]
 		public static extern void NarrowPhaseQuery_CastRayAll(IntPtr query, RVec3 origin, Vec3 direction, RayCastSettings* rayCastSettings, CastRayCollectorFn callback, void* userData);
@@ -3086,7 +3110,8 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay2")]
-		public static extern int NarrowPhaseQuery_CastRay2(IntPtr query, RVec3 origin, Vec3 direction, RayCastResult* outResult, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool NarrowPhaseQuery_CastRay2(IntPtr query, RVec3 origin, Vec3 direction, RayCastResult* outResult, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3280,7 +3305,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern GroundState CharacterVirtual_GetGroundState(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_IsSupported")]
-		public static extern int CharacterVirtual_IsSupported(IntPtr c);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool CharacterVirtual_IsSupported(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundPosition")]
 		public static extern RVec3 CharacterVirtual_GetGroundPosition(IntPtr c);
@@ -3307,7 +3333,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern IntPtr CharacterVirtual_GetShape(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetShape")]
-		public static extern int CharacterVirtual_SetShape(IntPtr c, IntPtr shape, float maxPenetrationDepth, IntPtr allocator);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool CharacterVirtual_SetShape(IntPtr c, IntPtr shape, float maxPenetrationDepth, IntPtr allocator);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3335,7 +3362,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern float CharacterVirtual_GetCosMaxSlopeAngle(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_IsSlopeTooSteep")]
-		public static extern int CharacterVirtual_IsSlopeTooSteep(IntPtr c, Vec3 normal);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool CharacterVirtual_IsSlopeTooSteep(IntPtr c, Vec3 normal);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetGroundSubShapeID")]
 		public static extern uint CharacterVirtual_GetGroundSubShapeID(IntPtr c);
@@ -3350,10 +3378,11 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern Mat44 CharacterVirtual_GetCenterOfMassTransform(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetEnhancedInternalEdgeRemoval")]
-		public static extern int CharacterVirtual_GetEnhancedInternalEdgeRemoval(IntPtr c);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool CharacterVirtual_GetEnhancedInternalEdgeRemoval(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_SetEnhancedInternalEdgeRemoval")]
-		public static extern void CharacterVirtual_SetEnhancedInternalEdgeRemoval(IntPtr c, int value);
+		public static extern void CharacterVirtual_SetEnhancedInternalEdgeRemoval(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetHitReductionCosMaxAngle")]
 		public static extern float CharacterVirtual_GetHitReductionCosMaxAngle(IntPtr c);
@@ -3362,7 +3391,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void CharacterVirtual_SetHitReductionCosMaxAngle(IntPtr c, float value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetMaxHitsExceeded")]
-		public static extern int CharacterVirtual_GetMaxHitsExceeded(IntPtr c);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool CharacterVirtual_GetMaxHitsExceeded(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetShapeOffset")]
 		public static extern Vec3 CharacterVirtual_GetShapeOffset(IntPtr c);
@@ -3377,7 +3407,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void CharacterVirtual_UpdateGroundVelocity(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_HasCollidedWithBody")]
-		public static extern int CharacterVirtual_HasCollidedWithBody(IntPtr c, uint bodyID);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool CharacterVirtual_HasCollidedWithBody(IntPtr c, uint bodyID);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_CharacterVirtual_GetNumActiveContacts")]
 		public static extern uint CharacterVirtual_GetNumActiveContacts(IntPtr c);
@@ -3395,55 +3426,55 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void Character_Destroy(IntPtr character);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_AddToPhysicsSystem")]
-		public static extern void Character_AddToPhysicsSystem(IntPtr c, Activation activation, int lockBodies);
+		public static extern void Character_AddToPhysicsSystem(IntPtr c, Activation activation, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_RemoveFromPhysicsSystem")]
-		public static extern void Character_RemoveFromPhysicsSystem(IntPtr c, int lockBodies);
+		public static extern void Character_RemoveFromPhysicsSystem(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_Activate")]
-		public static extern void Character_Activate(IntPtr c, int lockBodies);
+		public static extern void Character_Activate(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_PostSimulation")]
-		public static extern void Character_PostSimulation(IntPtr c, float maxSeparationDistance, int lockBodies);
+		public static extern void Character_PostSimulation(IntPtr c, float maxSeparationDistance, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetLinearVelocity")]
-		public static extern Vec3 Character_GetLinearVelocity(IntPtr c, int lockBodies);
+		public static extern Vec3 Character_GetLinearVelocity(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetLinearVelocity")]
-		public static extern void Character_SetLinearVelocity(IntPtr c, Vec3 velocity, int lockBodies);
+		public static extern void Character_SetLinearVelocity(IntPtr c, Vec3 velocity, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_AddLinearVelocity")]
-		public static extern void Character_AddLinearVelocity(IntPtr c, Vec3 velocity, int lockBodies);
+		public static extern void Character_AddLinearVelocity(IntPtr c, Vec3 velocity, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_AddImpulse")]
-		public static extern void Character_AddImpulse(IntPtr c, Vec3 impulse, int lockBodies);
+		public static extern void Character_AddImpulse(IntPtr c, Vec3 impulse, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetBodyID")]
 		public static extern uint Character_GetBodyID(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetPosition")]
-		public static extern RVec3 Character_GetPosition(IntPtr c, int lockBodies);
+		public static extern RVec3 Character_GetPosition(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetPosition")]
-		public static extern void Character_SetPosition(IntPtr c, RVec3 position, Activation activation, int lockBodies);
+		public static extern void Character_SetPosition(IntPtr c, RVec3 position, Activation activation, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetRotation")]
-		public static extern Quat Character_GetRotation(IntPtr c, int lockBodies);
+		public static extern Quat Character_GetRotation(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetRotation")]
-		public static extern void Character_SetRotation(IntPtr c, Quat rotation, Activation activation, int lockBodies);
+		public static extern void Character_SetRotation(IntPtr c, Quat rotation, Activation activation, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetCenterOfMassPosition")]
-		public static extern RVec3 Character_GetCenterOfMassPosition(IntPtr c, int lockBodies);
+		public static extern RVec3 Character_GetCenterOfMassPosition(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetLayer")]
 		public static extern ushort Character_GetLayer(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetLayer")]
-		public static extern void Character_SetLayer(IntPtr c, ushort layer, int lockBodies);
+		public static extern void Character_SetLayer(IntPtr c, ushort layer, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_SetShape")]
-		public static extern void Character_SetShape(IntPtr c, IntPtr shape, float maxPenetrationDepth, int lockBodies);
+		public static extern void Character_SetShape(IntPtr c, IntPtr shape, float maxPenetrationDepth, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		/// <summary>
 		/// CharacterBase accessors on Character
@@ -3452,7 +3483,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern GroundState Character_GetGroundState(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_IsSupported")]
-		public static extern int Character_IsSupported(IntPtr c);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Character_IsSupported(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Character_GetGroundPosition")]
 		public static extern RVec3 Character_GetGroundPosition(IntPtr c);
@@ -3820,10 +3852,11 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void WheelSettings_SetWidth(IntPtr s, float value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_GetEnableSuspensionForcePoint")]
-		public static extern int WheelSettings_GetEnableSuspensionForcePoint(IntPtr s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool WheelSettings_GetEnableSuspensionForcePoint(IntPtr s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_WheelSettings_SetEnableSuspensionForcePoint")]
-		public static extern void WheelSettings_SetEnableSuspensionForcePoint(IntPtr s, int value);
+		public static extern void WheelSettings_SetEnableSuspensionForcePoint(IntPtr s, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		/// <summary>
 		/// ==========================================================================
@@ -3922,7 +3955,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void Wheel_SetSteerAngle(IntPtr w, float value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_HasContact")]
-		public static extern int Wheel_HasContact(IntPtr w);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Wheel_HasContact(IntPtr w);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_GetContactBodyID")]
 		public static extern uint Wheel_GetContactBodyID(IntPtr w);
@@ -3958,7 +3992,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern float Wheel_GetLateralLambda(IntPtr w);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Wheel_HasHitHardPoint")]
-		public static extern int Wheel_HasHitHardPoint(IntPtr w);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Wheel_HasHitHardPoint(IntPtr w);
 
 		/// <summary>
 		/// ==========================================================================
@@ -4003,7 +4038,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void VehicleConstraint_OverrideGravity(IntPtr vc, Vec3 gravity);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_IsGravityOverridden")]
-		public static extern int VehicleConstraint_IsGravityOverridden(IntPtr vc);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool VehicleConstraint_IsGravityOverridden(IntPtr vc);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleConstraint_GetGravityOverride")]
 		public static extern Vec3 VehicleConstraint_GetGravityOverride(IntPtr vc);
@@ -4230,16 +4266,18 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern float MotorcycleController_GetWheelBase(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_IsLeanControllerEnabled")]
-		public static extern int MotorcycleController_IsLeanControllerEnabled(IntPtr c);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool MotorcycleController_IsLeanControllerEnabled(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_EnableLeanController")]
-		public static extern void MotorcycleController_EnableLeanController(IntPtr c, int value);
+		public static extern void MotorcycleController_EnableLeanController(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_IsLeanSteeringLimitEnabled")]
-		public static extern int MotorcycleController_IsLeanSteeringLimitEnabled(IntPtr c);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool MotorcycleController_IsLeanSteeringLimitEnabled(IntPtr c);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_EnableLeanSteeringLimit")]
-		public static extern void MotorcycleController_EnableLeanSteeringLimit(IntPtr c, int value);
+		public static extern void MotorcycleController_EnableLeanSteeringLimit(IntPtr c, [MarshalAs(UnmanagedType.Bool)] bool value);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_MotorcycleController_GetLeanSpringConstant")]
 		public static extern float MotorcycleController_GetLeanSpringConstant(IntPtr c);
@@ -4339,7 +4377,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void VehicleEngine_ApplyDamping(IntPtr e, float deltaTime);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleEngine_AllowSleep")]
-		public static extern int VehicleEngine_AllowSleep(IntPtr e);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool VehicleEngine_AllowSleep(IntPtr e);
 
 		/// <summary>
 		/// ==========================================================================
@@ -4427,7 +4466,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void VehicleTransmission_Set(IntPtr t, int currentGear, float clutchFriction);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_Update")]
-		public static extern void VehicleTransmission_Update(IntPtr t, float deltaTime, float currentRPM, float forwardInput, int canShiftUp);
+		public static extern void VehicleTransmission_Update(IntPtr t, float deltaTime, float currentRPM, float forwardInput, [MarshalAs(UnmanagedType.Bool)] bool canShiftUp);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_GetCurrentGear")]
 		public static extern int VehicleTransmission_GetCurrentGear(IntPtr t);
@@ -4436,13 +4475,15 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern float VehicleTransmission_GetClutchFriction(IntPtr t);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_IsSwitchingGear")]
-		public static extern int VehicleTransmission_IsSwitchingGear(IntPtr t);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool VehicleTransmission_IsSwitchingGear(IntPtr t);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_GetCurrentRatio")]
 		public static extern float VehicleTransmission_GetCurrentRatio(IntPtr t);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_VehicleTransmission_AllowSleep")]
-		public static extern int VehicleTransmission_AllowSleep(IntPtr t);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool VehicleTransmission_AllowSleep(IntPtr t);
 
 		/// <summary>
 		/// ==========================================================================
@@ -4516,13 +4557,13 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void Skeleton_Destroy(IntPtr skeleton);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_AddJoint")]
-		public static extern uint Skeleton_AddJoint(IntPtr skeleton, byte* name);
+		public static extern uint Skeleton_AddJoint(IntPtr skeleton, [MarshalAs(UnmanagedType.LPUTF8Str)] string name);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_AddJoint2")]
-		public static extern uint Skeleton_AddJoint2(IntPtr skeleton, byte* name, int parentIndex);
+		public static extern uint Skeleton_AddJoint2(IntPtr skeleton, [MarshalAs(UnmanagedType.LPUTF8Str)] string name, int parentIndex);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_AddJoint3")]
-		public static extern uint Skeleton_AddJoint3(IntPtr skeleton, byte* name, byte* parentName);
+		public static extern uint Skeleton_AddJoint3(IntPtr skeleton, [MarshalAs(UnmanagedType.LPUTF8Str)] string name, [MarshalAs(UnmanagedType.LPUTF8Str)] string parentName);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_GetJointCount")]
 		public static extern int Skeleton_GetJointCount(IntPtr skeleton);
@@ -4531,13 +4572,14 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void Skeleton_GetJoint(IntPtr skeleton, int index, SkeletonJoint* joint);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_GetJointIndex")]
-		public static extern int Skeleton_GetJointIndex(IntPtr skeleton, byte* name);
+		public static extern int Skeleton_GetJointIndex(IntPtr skeleton, [MarshalAs(UnmanagedType.LPUTF8Str)] string name);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_CalculateParentJointIndices")]
 		public static extern void Skeleton_CalculateParentJointIndices(IntPtr skeleton);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Skeleton_AreJointsCorrectlyOrdered")]
-		public static extern int Skeleton_AreJointsCorrectlyOrdered(IntPtr skeleton);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Skeleton_AreJointsCorrectlyOrdered(IntPtr skeleton);
 
 		/// <summary>
 		/// ==========================================================================
@@ -4607,10 +4649,11 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern float SkeletalAnimation_GetDuration(IntPtr anim);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_IsLooping")]
-		public static extern int SkeletalAnimation_IsLooping(IntPtr anim);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool SkeletalAnimation_IsLooping(IntPtr anim);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_SetIsLooping")]
-		public static extern void SkeletalAnimation_SetIsLooping(IntPtr anim, int looping);
+		public static extern void SkeletalAnimation_SetIsLooping(IntPtr anim, [MarshalAs(UnmanagedType.Bool)] bool looping);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_ScaleJoints")]
 		public static extern void SkeletalAnimation_ScaleJoints(IntPtr anim, float scale);
@@ -4622,7 +4665,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern int SkeletalAnimation_GetAnimatedJointCount(IntPtr anim);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_AddAnimatedJoint")]
-		public static extern void SkeletalAnimation_AddAnimatedJoint(IntPtr anim, byte* jointName);
+		public static extern void SkeletalAnimation_AddAnimatedJoint(IntPtr anim, [MarshalAs(UnmanagedType.LPUTF8Str)] string jointName);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletalAnimation_AddKeyframe")]
 		public static extern void SkeletalAnimation_AddKeyframe(IntPtr anim, int jointIndex, float time, Vec3 translation, Quat rotation);
@@ -4657,7 +4700,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern int SkeletonMapper_GetMappedJointIndex(IntPtr mapper, int joint1Index);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_SkeletonMapper_IsJointTranslationLocked")]
-		public static extern int SkeletonMapper_IsJointTranslationLocked(IntPtr mapper, int joint2Index);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool SkeletonMapper_IsJointTranslationLocked(IntPtr mapper, int joint2Index);
 
 		/// <summary>
 		/// ==========================================================================
@@ -4677,7 +4721,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void RagdollSettings_SetSkeleton(IntPtr s, IntPtr skeleton);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_Stabilize")]
-		public static extern int RagdollSettings_Stabilize(IntPtr s);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool RagdollSettings_Stabilize(IntPtr s);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_RagdollSettings_DisableParentChildCollisions")]
 		public static extern void RagdollSettings_DisableParentChildCollisions(IntPtr s, Mat44* jointMatrices, float minSeparationDistance);
@@ -4730,40 +4775,41 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void Ragdoll_Destroy(IntPtr ragdoll);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_AddToPhysicsSystem")]
-		public static extern void Ragdoll_AddToPhysicsSystem(IntPtr ragdoll, Activation activation, int lockBodies);
+		public static extern void Ragdoll_AddToPhysicsSystem(IntPtr ragdoll, Activation activation, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_RemoveFromPhysicsSystem")]
-		public static extern void Ragdoll_RemoveFromPhysicsSystem(IntPtr ragdoll, int lockBodies);
+		public static extern void Ragdoll_RemoveFromPhysicsSystem(IntPtr ragdoll, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_Activate")]
-		public static extern void Ragdoll_Activate(IntPtr ragdoll, int lockBodies);
+		public static extern void Ragdoll_Activate(IntPtr ragdoll, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_IsActive")]
-		public static extern int Ragdoll_IsActive(IntPtr ragdoll, int lockBodies);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool Ragdoll_IsActive(IntPtr ragdoll, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_ResetWarmStart")]
 		public static extern void Ragdoll_ResetWarmStart(IntPtr ragdoll);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_SetPose")]
-		public static extern void Ragdoll_SetPose(IntPtr ragdoll, IntPtr pose, int lockBodies);
+		public static extern void Ragdoll_SetPose(IntPtr ragdoll, IntPtr pose, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_SetPose2")]
-		public static extern void Ragdoll_SetPose2(IntPtr ragdoll, RVec3 rootOffset, Mat44* jointMatrices, int lockBodies);
+		public static extern void Ragdoll_SetPose2(IntPtr ragdoll, RVec3 rootOffset, Mat44* jointMatrices, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetPose")]
-		public static extern void Ragdoll_GetPose(IntPtr ragdoll, IntPtr outPose, int lockBodies);
+		public static extern void Ragdoll_GetPose(IntPtr ragdoll, IntPtr outPose, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetPose2")]
-		public static extern void Ragdoll_GetPose2(IntPtr ragdoll, RVec3* outRootOffset, Mat44* outJointMatrices, int lockBodies);
+		public static extern void Ragdoll_GetPose2(IntPtr ragdoll, RVec3* outRootOffset, Mat44* outJointMatrices, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_DriveToPoseUsingMotors")]
 		public static extern void Ragdoll_DriveToPoseUsingMotors(IntPtr ragdoll, IntPtr pose);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_DriveToPoseUsingKinematics")]
-		public static extern void Ragdoll_DriveToPoseUsingKinematics(IntPtr ragdoll, IntPtr pose, float deltaTime, int lockBodies);
+		public static extern void Ragdoll_DriveToPoseUsingKinematics(IntPtr ragdoll, IntPtr pose, float deltaTime, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetRootTransform")]
-		public static extern void Ragdoll_GetRootTransform(IntPtr ragdoll, RVec3* outPosition, Quat* outRotation, int lockBodies);
+		public static extern void Ragdoll_GetRootTransform(IntPtr ragdoll, RVec3* outPosition, Quat* outRotation, [MarshalAs(UnmanagedType.Bool)] bool lockBodies);
 
 		[DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_Ragdoll_GetBodyCount")]
 		public static extern int Ragdoll_GetBodyCount(IntPtr ragdoll);

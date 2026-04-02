@@ -110,7 +110,7 @@ unsafe
     const int cCollisionSteps = 1;
 
     int step = 0;
-    while (JoltPhysics.BodyInterface_IsActive(bodyInterface, sphereBodyId) != 0)
+    while (JoltPhysics.BodyInterface_IsActive(bodyInterface, sphereBodyId))
     {
         step++;
 

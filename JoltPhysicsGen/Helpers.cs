@@ -19,6 +19,12 @@ namespace JoltPhysicsGen
 		public static List<string> DelegateNames = new();
 
 		/// <summary>
+		/// Set of typedef names that represent boolean types (e.g. JoltC_Bool = typedef int).
+		/// These get marshalled as [MarshalAs(UnmanagedType.Bool)] bool in function signatures.
+		/// </summary>
+		public static HashSet<string> BoolTypedefNames = new();
+
+		/// <summary>
 		/// Mapping of typedef names to C# primitive types.
 		/// </summary>
 		private static readonly Dictionary<string, string> csNameMappings = new()
@@ -226,6 +232,73 @@ namespace JoltPhysicsGen
 		public static string ConvertReturnType(CppType type)
 		{
 			return ConvertToCSharpType(type, false);
+		}
+
+		/// <summary>
+		/// Check if a type is a boolean typedef (e.g. JoltC_Bool).
+		/// </summary>
+		public static bool IsBoolTypedef(CppType type)
+		{
+			if (type is CppTypedef td)
+				return BoolTypedefNames.Contains(td.Name);
+			return false;
+		}
+
+		/// <summary>
+		/// Get the marshalled parameter type and optional [MarshalAs] attribute for a function parameter.
+		/// Returns (csType, marshalAttribute) where marshalAttribute may be null.
+		/// </summary>
+		public static (string csType, string marshalAttribute) GetMarshaledParameterType(CppType type)
+		{
+			// JoltC_Bool → [MarshalAs(UnmanagedType.Bool)] bool (4-byte BOOL)
+			if (IsBoolTypedef(type))
+				return ("bool", "[MarshalAs(UnmanagedType.Bool)]");
+
+			// const char* → [MarshalAs(UnmanagedType.LPUTF8Str)] string
+			if (type is CppPointerType ptr && IsConstCharPointer(ptr))
+				return ("string", "[MarshalAs(UnmanagedType.LPUTF8Str)]");
+
+			return (ConvertParameterType(type), null);
+		}
+
+		/// <summary>
+		/// Get the marshalled return type and optional [return: MarshalAs] attribute for a function return.
+		/// Returns (csType, marshalAttribute) where marshalAttribute may be null.
+		/// Note: const char* returns keep byte* — the marshaller must NOT free native-owned memory.
+		/// </summary>
+		public static (string csType, string returnAttribute) GetMarshaledReturnType(CppType type)
+		{
+			// JoltC_Bool → [return: MarshalAs(UnmanagedType.Bool)] bool
+			if (IsBoolTypedef(type))
+				return ("bool", "[return: MarshalAs(UnmanagedType.Bool)]");
+
+			// const char* return → keep byte* (caller doesn't own the native memory)
+			return (ConvertReturnType(type), null);
+		}
+
+		/// <summary>
+		/// Get the marshalled parameter type for a delegate parameter.
+		/// Bool typedefs get [MarshalAs(UnmanagedType.Bool)] bool.
+		/// const char* stays byte* in delegates (callbacks from native code).
+		/// </summary>
+		public static (string csType, string marshalAttribute) GetMarshaledDelegateParameterType(CppType type)
+		{
+			// JoltC_Bool → [MarshalAs(UnmanagedType.Bool)] bool
+			if (IsBoolTypedef(type))
+				return ("bool", "[MarshalAs(UnmanagedType.Bool)]");
+
+			return (ConvertParameterType(type), null);
+		}
+
+		/// <summary>
+		/// Get the marshalled return type for a delegate.
+		/// </summary>
+		public static (string csType, string returnAttribute) GetMarshaledDelegateReturnType(CppType type)
+		{
+			if (IsBoolTypedef(type))
+				return ("bool", "[return: MarshalAs(UnmanagedType.Bool)]");
+
+			return (ConvertReturnType(type), null);
 		}
 
 		/// <summary>
