@@ -25,6 +25,11 @@ This repository contains low-level bindings for [JoltPhysics](https://github.com
 - [x] Linux x64
 - [x] Linux ARM64
 - [x] macOS ARM64
+- [x] Android ARM
+- [x] Android ARM64
+- [x] iOS ARM64
+- [x] iOS Simulator ARM64
+- [x] Browser WASM
 
 ## Development
 
