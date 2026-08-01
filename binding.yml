@@ -1,0 +1,35 @@
+# Binding manifest — see https://github.com/EvergineTeam/Evergine.Bindings
+# Schema: https://github.com/EvergineTeam/Evergine.Bindings/blob/main/binding.schema.json
+toolbox: 1.0.0
+
+package:
+  id: Evergine.Bindings.JoltPhysics
+  project: Evergine.Bindings.JoltPhysics/Evergine.Bindings.JoltPhysics.csproj
+  target-framework: net10.0
+  runtime-identifier: linux-x64
+
+upstream:
+  kind: git-tree
+  language: cpp
+  # JoltPhysics is C++; EvergineTeam/JoltPhysicsC is the pure C API layer we maintain
+  # over it, and that layer is what this binding is generated from with CppAst.NET.
+  project: https://github.com/EvergineTeam/JoltPhysicsC
+  version-from: git-release
+  sources:
+    - repo: EvergineTeam/JoltPhysicsC
+      ref: main
+      remote-path: JoltC/include/JoltC
+      path: JoltPhysicsGen/Headers/JoltC
+      format: c-header
+
+generator:
+  project: JoltPhysicsGen/JoltPhysicsGen.csproj
+  name: JoltPhysicsGen
+  output:
+    - Evergine.Bindings.JoltPhysics/Generated
+
+# NOTE — the upstream is a repository we own, which carries JoltPhysics itself as a
+# submodule. When the C layer is missing something, the fix belongs in JoltPhysicsC, not
+# in a workaround inside the generator; an agent that finds a gap should report it rather
+# than paper over it. This repository also has Tests/ and Samples/, so a regeneration
+# that compiles but breaks a test is a real regression and must never be auto-merged.
