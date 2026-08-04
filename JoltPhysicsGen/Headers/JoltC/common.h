@@ -9,6 +9,19 @@
 #include <stddef.h>
 
 /* -------------------------------------------------------------------------- */
+/*  Version                                                                   */
+/* -------------------------------------------------------------------------- */
+/* The JoltPhysics release this wrapper is written against. Until now the only
+ * machine-readable statement of it was the SHA of the JoltPhysics submodule, so
+ * answering "which Jolt does the C# package bind to?" meant chasing two
+ * repositories and resolving a commit against a tag list. Keep this in step with
+ * the submodule pointer; the release workflow reads it. */
+#define JOLTC_JOLT_VERSION_MAJOR 5
+#define JOLTC_JOLT_VERSION_MINOR 5
+#define JOLTC_JOLT_VERSION_PATCH 0
+#define JOLTC_JOLT_VERSION       "5.5.0"
+
+/* -------------------------------------------------------------------------- */
 /*  Export macro                                                              */
 /* -------------------------------------------------------------------------- */
 #ifdef _WIN32
