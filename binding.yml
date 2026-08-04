@@ -1,12 +1,14 @@
 # Binding manifest — see https://github.com/EvergineTeam/Evergine.Bindings
 # Schema: https://github.com/EvergineTeam/Evergine.Bindings/blob/main/binding.schema.json
-toolbox: 1.0.0
+toolbox: 1.18.0
 
 package:
   id: Evergine.Bindings.JoltPhysics
   project: Evergine.Bindings.JoltPhysics/Evergine.Bindings.JoltPhysics.csproj
   target-framework: net10.0
-  runtime-identifier: linux-x64
+  # Windows: CppAst's libclang cannot resolve <stdint.h> on the Linux runner, so parsing
+  # common.h aborts and the binding is generated from an incomplete compilation.
+  runtime-identifier: win-x64
 
 upstream:
   kind: git-tree
@@ -15,12 +17,35 @@ upstream:
   # over it, and that layer is what this binding is generated from with CppAst.NET.
   project: https://github.com/EvergineTeam/JoltPhysicsC
   version-from: git-release
+
+  release:
+    repo: EvergineTeam/JoltPhysicsC
+    # Stable releases, not main. The tag is the only thing that ties the headers and the
+    # ten native libraries to one revision of the C wrapper: they are built from the same
+    # commit and published together. Following main would take headers from whatever was
+    # pushed last, against binaries from whenever somebody last copied them.
+    track: stable
+    current: v5.5.0
+
   sources:
+    # No `ref` any more, so this follows the tracked release. It read `main`, which
+    # recorded no SHA and had no drift check -- the vendored headers happened to match
+    # upstream and nothing would have said so if they stopped.
     - repo: EvergineTeam/JoltPhysicsC
-      ref: main
       remote-path: JoltC/include/JoltC
       path: JoltPhysicsGen/Headers/JoltC
       format: c-header
+
+  # The ten libraries, from the same release as the headers above. Each archive already
+  # carries runtimes/<rid>/native/, so unpacking is the whole mapping.
+  #
+  # They stay committed as well. The fetch keeps them current and is idempotent when the
+  # release has not moved, and CI needs them present to check that all 1,280 P/Invokes
+  # resolve -- a pull request does not fetch.
+  assets:
+    - name: 'joltc-*.zip'
+      unpack: zip
+      into: Evergine.Bindings.JoltPhysics
 
 generator:
   project: JoltPhysicsGen/JoltPhysicsGen.csproj

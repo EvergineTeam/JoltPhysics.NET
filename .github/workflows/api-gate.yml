@@ -1,0 +1,35 @@
+# Measures what a pull request does to the public API surface, and reports whether
+# anything a consumer could notice changed.
+#
+# auto-merge stays off. Every other repository in the fleet earned it by running the
+# pipeline a few times first, and this one has never published from a working generator:
+# until today the generator wrote its output into a directory nobody read, so no CD has
+# ever produced a package from a fresh parse. Turn it on after a couple of clean cycles.
+
+name: api
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  api:
+    uses: EvergineTeam/Evergine.Bindings/.github/workflows/binding-api-gate.yml@v1
+    with:
+      binding-project: "Evergine.Bindings.JoltPhysics/Evergine.Bindings.JoltPhysics.csproj"
+      dotnet-version: "10.x"
+      # Windows, same reason as CI and CD: the parse aborts on Linux, and a partial
+      # surface compared against a full one reads as a large removal.
+      runner-os: windows-latest
+      # This package ships ten native libraries, and the agent that opens these pull
+      # requests runs the generator, not the native build. Without this the coherence
+      # check would run alongside the gate, go red, and the merge would proceed anyway.
+      native-coherence: true
+      auto-merge: false
+      app-client-id: ${{ vars.APP_CLIENT_ID }}
+    secrets:
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}

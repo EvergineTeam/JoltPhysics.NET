@@ -33,3 +33,14 @@ jobs:
       build-configuration: "Release"
       nuget-artifacts: ${{ inputs.publish-artifacts || false }}
       revision: ${{ github.run_number }}
+
+  # 1,280 P/Invoke declarations against ten native libraries nobody was comparing them to.
+  # P/Invoke binds late: a declaration naming a symbol the library does not export
+  # compiles, passes CI, packs, publishes, and throws the first time a consumer calls it.
+  # Until today the libraries arrived here by hand, downloaded from another repository's
+  # artifacts and committed, with nothing recording which revision they came from.
+  #
+  # This also reads each library's machine field and checks it against the architecture
+  # its RID promises. ImGui.Net shipped an osx-x64 dylib that was arm64 for months.
+  coherence:
+    uses: EvergineTeam/Evergine.Bindings/.github/workflows/binding-native-coherence.yml@v1

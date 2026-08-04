@@ -1,7 +1,10 @@
-# Binding Simple CD - Template
 name: CD
 
 on:
+  # Monthly, so a new JoltPhysicsC release reaches the package without anybody asking.
+  # Previously dispatch-only, which is why the last publish predates the manifest.
+  schedule:
+    - cron: "0 3 1 * *"
   workflow_dispatch:
     inputs:
       skip-assets-publishing:
@@ -9,25 +12,52 @@ on:
         required: false
         type: boolean
         default: false
+      force-publish:
+        description: 'Publish even when the generated code is unchanged'
+        required: false
+        type: boolean
+        default: false
+      publish-only:
+        description: 'Publish main exactly as it stands, without looking at upstream'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
-  cd:
+  # Reports how far behind the tracked JoltPhysicsC release we are, without touching the
+  # tree. Its answer decides nothing here -- the fetch inside the CD resolves the same
+  # release -- but it puts the version in the run summary before anything is committed,
+  # which is what makes a surprise visible rather than archaeological.
+  resolve:
     if: github.event_name != 'schedule' || github.ref == 'refs/heads/main'
-    uses: EvergineTeam/Evergine.Bindings/.github/workflows/binding-simple-cd.yml@v1
+    uses: EvergineTeam/Evergine.Bindings/.github/workflows/binding-resolve-upstream.yml@v1
+
+  cd:
+    needs: resolve
+    if: always() && needs.resolve.result == 'success' && !cancelled()
+    # binding-tracked-cd, not binding-simple-cd. simple-cd builds and publishes
+    # unconditionally, which is why a cron could not be added to it: it would ship a
+    # package every month whether or not the API moved. tracked-cd reads binding.yml,
+    # fetches what it declares, and publishes only when the generated code changed.
+    uses: EvergineTeam/Evergine.Bindings/.github/workflows/binding-tracked-cd.yml@v1
     with:
+      # Windows, because CppAst's libclang cannot resolve <stdint.h> on the Linux runner
+      # and the parse aborts. The generator would then emit a smaller binding, not none.
+      runner-os: windows-latest
       generator-project: "JoltPhysicsGen/JoltPhysicsGen.csproj"
       generator-name: "JoltPhysicsGen"
       binding-project: "Evergine.Bindings.JoltPhysics/Evergine.Bindings.JoltPhysics.csproj"
       target-framework: "net10.0"
       dotnet-version: "10.x"
       nuget-version: "6.x"
-      # Windows, for the same reason as CI: CppAst's libclang cannot resolve <stdint.h>
-      # on the Linux runner, so the parse fails and the binding would be generated from
-      # an incomplete compilation.
-      runner-os: windows-latest
       runtime-identifier: "win-x64"
       build-configuration: "Release"
       revision: ${{ github.run_number }}
+      # No natives-artifact-pattern: the ten libraries are not built here. They come from
+      # the release assets the manifest declares, unpacked by the fetch step, which is
+      # also what satisfies the CD's refusal to commit a bump without them.
+      force-publish: ${{ inputs.force-publish || false }}
+      publish-only: ${{ inputs.publish-only || false }}
       publish-enabled: ${{ !inputs.skip-assets-publishing }}
       enable-email-notifications: true
     secrets:
