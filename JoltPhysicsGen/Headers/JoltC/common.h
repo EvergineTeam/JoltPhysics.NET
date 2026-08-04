@@ -17,9 +17,9 @@
  * repositories and resolving a commit against a tag list. Keep this in step with
  * the submodule pointer; the release workflow reads it. */
 #define JOLTC_JOLT_VERSION_MAJOR 5
-#define JOLTC_JOLT_VERSION_MINOR 5
+#define JOLTC_JOLT_VERSION_MINOR 6
 #define JOLTC_JOLT_VERSION_PATCH 0
-#define JOLTC_JOLT_VERSION       "5.5.0"
+#define JOLTC_JOLT_VERSION       "5.6.0"
 
 /* -------------------------------------------------------------------------- */
 /*  Export macro                                                              */
