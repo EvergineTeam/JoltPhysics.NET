@@ -192,7 +192,23 @@ namespace JoltPhysicsGen
 					type = "uint";
 					csValue = value;
 				}
-				else if (value.EndsWith("f") || value.Contains("."))
+				// Before the numeric guesses, because a quoted string can contain anything
+				// that looks like a number. JOLTC_JOLT_VERSION "5.5.0" was classified as
+				// float by the test below -- it contains a dot -- and emitted as
+				// `public const float JOLT_VERSION = "5.5.0";`, which does not compile.
+				else if (value.Length >= 2 && value.StartsWith("\"") && value.EndsWith("\""))
+				{
+					type = "string";
+					csValue = value;
+				}
+				// TryParse rather than "contains a dot or ends in f": the loose test
+				// accepted anything with punctuation in it and produced a float
+				// declaration initialised with something that is not one.
+				else if (float.TryParse(
+					value.TrimEnd('f', 'F'),
+					System.Globalization.NumberStyles.Float,
+					System.Globalization.CultureInfo.InvariantCulture,
+					out _))
 				{
 					type = "float";
 					csValue = value;

@@ -8,7 +8,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public const int JOLT_VERSION_MAJOR = 5;
 		public const int JOLT_VERSION_MINOR = 5;
 		public const int JOLT_VERSION_PATCH = 0;
-		public const float JOLT_VERSION = "5.5.0";
+		public const string JOLT_VERSION = "5.5.0";
 		public const int TRUE = 1;
 		public const int FALSE = 0;
 		public const uint BODY_ID_INVALID = 0xFFFFFFFF;
