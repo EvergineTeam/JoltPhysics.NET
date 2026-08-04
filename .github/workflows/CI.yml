@@ -44,3 +44,14 @@ jobs:
   # its RID promises. ImGui.Net shipped an osx-x64 dylib that was arm64 for months.
   coherence:
     uses: EvergineTeam/Evergine.Bindings/.github/workflows/binding-native-coherence.yml@v1
+
+  # Closes the gap that let a broken binding reach main. CI regenerates from the vendored
+  # headers; the CD fetches them from the tracked release first. Those were different
+  # revisions here -- headers from `main`, manifest recording v5.5.0 -- so every pull
+  # request passed while the first CD regenerated something that did not compile.
+  #
+  # Fetches at release.current, not at the newest release, so a new JoltPhysicsC release
+  # does not turn this red. It only goes red when the tree disagrees with the revision it
+  # declares, which is the state that reaches consumers.
+  drift:
+    uses: EvergineTeam/Evergine.Bindings/.github/workflows/binding-upstream-drift.yml@v1

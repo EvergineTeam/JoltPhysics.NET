@@ -1,10 +1,15 @@
 # Measures what a pull request does to the public API surface, and reports whether
 # anything a consumer could notice changed.
 #
-# auto-merge stays off. Every other repository in the fleet earned it by running the
-# pipeline a few times first, and this one has never published from a working generator:
-# until today the generator wrote its output into a directory nobody read, so no CD has
-# ever produced a package from a fresh parse. Turn it on after a couple of clean cycles.
+# auto-merge is on, and the reasoning is worth stating because the risk here is not the
+# usual one. The agent that opens these pull requests regenerates C# from a C header; it
+# does not write the C. So the failure it could introduce is a binding that disagrees with
+# the library, and that is what the gate measures: the API delta, plus every P/Invoke
+# resolving in all ten shipped libraries.
+#
+# What the gate cannot judge is whether the C wrapper itself is right, and that question
+# is answered upstream in JoltPhysicsC -- where a bump compiles on ten platforms and runs
+# eleven test suites before a release is cut. A wrapper defect is caught there, not here.
 
 name: api
 
@@ -29,7 +34,7 @@ jobs:
       # requests runs the generator, not the native build. Without this the coherence
       # check would run alongside the gate, go red, and the merge would proceed anyway.
       native-coherence: true
-      auto-merge: false
+      auto-merge: true
       app-client-id: ${{ vars.APP_CLIENT_ID }}
     secrets:
       APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
