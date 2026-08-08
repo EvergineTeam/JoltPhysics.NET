@@ -1,0 +1,154 @@
+# Runs the package on every runtime identifier a runner can execute, before it is published.
+#
+# The CD proves the package builds. This proves it works: each leg installs the .nupkg a CD run
+# produced, drops a sphere onto a floor through the native library, and fails the job if the
+# sphere does not fall, does not settle, or falls through.
+#
+# Five of the ten identifiers, and the gap is honest rather than an oversight: android-arm,
+# android-arm64, ios-arm64, iossimulator-arm64 and browser-wasm ship in the package and no
+# GitHub runner can execute a console application on them. They are built and never run.
+name: Package smoke test
+
+on:
+  # Called by the CD, where it stands between packing and publishing, and dispatchable by hand
+  # against any past run's artifact.
+  workflow_call:
+    inputs:
+      cd-run-id:
+        description: >-
+          The CD run whose nuget-packages artifact to test. Leave empty when calling from the
+          run that produced it, which is the normal case.
+        required: false
+        type: string
+        default: ''
+      rids:
+        description: 'Comma-separated runtime identifiers to run. Empty means all five.'
+        required: false
+        type: string
+        default: ''
+
+  workflow_dispatch:
+    inputs:
+      cd-run-id:
+        description: >-
+          The CD run whose nuget-packages artifact to test, e.g. 31220702712. Take it from a run
+          started with skip-assets-publishing, so nothing has been published yet.
+        required: true
+        type: string
+      rids:
+        description: >-
+          Comma-separated runtime identifiers to run, e.g. win-arm64. Leave empty for all five.
+          Retrying one identifier should not drag the four that already passed along with it.
+        required: false
+        type: string
+
+jobs:
+  # The matrix is built here rather than filtered in the job below, because an `if` on a matrix
+  # job does not stop it queueing for a runner -- it would sit waiting for the very machine that
+  # is scarce, and then skip.
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.pick.outputs.matrix }}
+    steps:
+      - id: pick
+        shell: bash
+        env:
+          WANTED: ${{ inputs.rids }}
+        run: |
+          set -euo pipefail
+
+          # Plain shell rather than jq, so the whole thing can be run on a developer machine
+          # before it is pushed.
+          ORDER="win-x64 win-arm64 linux-x64 linux-arm64 osx-arm64"
+          runner_for() {
+            case "$1" in
+              win-x64)     echo windows-latest ;;
+              win-arm64)   echo windows-11-arm ;;
+              linux-x64)   echo ubuntu-latest ;;
+              linux-arm64) echo ubuntu-24.04-arm ;;
+              osx-arm64)   echo macos-14 ;;
+              *)           echo "" ;;
+            esac
+          }
+
+          selected="${WANTED:-}"
+          if [ -z "$selected" ]; then
+            selected="$ORDER"
+          else
+            selected=$(echo "$selected" | tr ',' ' ')
+          fi
+
+          entries=""
+          for rid in $selected; do
+            os=$(runner_for "$rid")
+            if [ -z "$os" ]; then
+              echo "::error::'$rid' is not a runtime identifier this workflow knows"
+              for known in $ORDER; do echo "  known: $known"; done
+              exit 1
+            fi
+            entries="${entries}{\"rid\":\"$rid\",\"os\":\"$os\"},"
+            echo "  $rid on $os"
+          done
+
+          echo "matrix=[${entries%,}]" >> "$GITHUB_OUTPUT"
+
+  desktop:
+    needs: prepare
+    name: ${{ matrix.rid }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      # The artifact the CD produced rather than one packed here, so the thing under test is
+      # what would be published, byte for byte.
+      #
+      # Two ways in, because the artifact lives in a different place depending on who is asking.
+      # Called from the CD it belongs to this same run, and download-artifact finds it with no
+      # id at all. Dispatched by hand it belongs to a run that finished days ago, which only
+      # `gh run download` can reach.
+      - name: Fetch the package from this run
+        if: inputs.cd-run-id == ''
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-packages
+          path: DesktopSmokeTest/local-packages
+
+      - name: Fetch the package from an earlier run
+        if: inputs.cd-run-id != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p DesktopSmokeTest/local-packages
+          gh run download "${{ inputs.cd-run-id }}" --repo "$GITHUB_REPOSITORY" \
+            -n nuget-packages -D DesktopSmokeTest/local-packages
+
+      - name: Work out which version is under test
+        shell: bash
+        run: |
+          set -euo pipefail
+          ls -la DesktopSmokeTest/local-packages/
+
+          pkg=$(ls DesktopSmokeTest/local-packages/*.nupkg | head -1)
+          version=$(basename "$pkg" .nupkg | sed 's/^Evergine\.Bindings\.JoltPhysics\.//')
+          echo "JOLT_VERSION=$version" >> "$GITHUB_ENV"
+          echo "testing $version on ${{ matrix.rid }}"
+
+      - name: Run the package on ${{ matrix.rid }}
+        shell: bash
+        working-directory: DesktopSmokeTest
+        run: |
+          set -euo pipefail
+          dotnet run -c Release -r ${{ matrix.rid }} --self-contained false \
+            -p:JoltPhysicsVersion="$JOLT_VERSION"
