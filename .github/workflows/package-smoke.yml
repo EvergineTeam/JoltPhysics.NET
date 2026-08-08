@@ -151,4 +151,4 @@ jobs:
         run: |
           set -euo pipefail
           dotnet run -c Release -r ${{ matrix.rid }} --self-contained false \
-            -p:JoltPhysicsVersion="$JOLT_VERSION"
+            -p:JoltVersion="$JOLT_VERSION"
