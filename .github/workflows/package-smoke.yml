@@ -30,7 +30,9 @@ on:
         type: string
         default: ''
       rids:
-        description: 'Comma-separated runtime identifiers to run. Empty means all five.'
+        description: >-
+          Comma-separated desktop runtime identifiers to run. Empty means all five. The wasm leg
+          is a separate job and always runs.
         required: false
         type: string
         default: ''
@@ -45,8 +47,9 @@ on:
         type: string
       rids:
         description: >-
-          Comma-separated runtime identifiers to run, e.g. win-arm64. Leave empty for all five.
-          Retrying one identifier should not drag the four that already passed along with it.
+          Comma-separated desktop runtime identifiers to run, e.g. win-arm64. Leave empty for all
+          five. Retrying one identifier should not drag the four that already passed along with
+          it. This does not reach the wasm leg, which is a separate job and always runs.
         required: false
         type: string
 
