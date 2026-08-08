@@ -14,7 +14,7 @@
     project reference bypasses all of it and would pass against a package shipping nothing.
   -->
   <ItemGroup>
-    <PackageReference Include="Evergine.Bindings.JoltPhysics" Version="$(JoltVersion)" />
+    <PackageReference Include="Evergine.Bindings.JoltPhysics" Version="$(JoltPhysicsVersion)" />
   </ItemGroup>
 
 </Project>
