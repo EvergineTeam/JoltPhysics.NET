@@ -1,0 +1,23 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+    browser-wasm has no dynamic loading, so runtimes/browser-wasm/native is not probed at run
+    time the way the desktop identifiers are: the archive has to be linked into the application
+    when it publishes. That is what this does, and the package shipped for a long time without
+    it, carrying a 3.6 MB archive that no consumer could ever link.
+
+    ScanForPInvokes is what makes the DllImports resolve. It has the build read the managed
+    assembly's P/Invokes and emit the table the runtime looks them up in; the reference alone
+    puts the code in the module and leaves every call unresolved.
+
+    The archive is packed as JoltC.a rather than the libJoltC.a that CMake produces, because the
+    module name comes from the file name and every DllImport in Generated says "JoltC".
+    Evergine.Bindings.CesiumNative ships CesiumNativeC.a and Evergine.Bindings.Imgui ships
+    cimgui.a on the same arrangement; neither carries a lib prefix.
+  -->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'browser-wasm'">
+    <NativeFileReference Include="$(MSBuildThisFileDirectory)../runtimes/browser-wasm/native/JoltC.a"
+                         ScanForPInvokes="true" />
+  </ItemGroup>
+
+</Project>
