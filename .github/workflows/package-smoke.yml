@@ -4,9 +4,17 @@
 # produced, drops a sphere onto a floor through the native library, and fails the job if the
 # sphere does not fall, does not settle, or falls through.
 #
-# Five of the ten identifiers, and the gap is honest rather than an oversight: android-arm,
-# android-arm64, ios-arm64, iossimulator-arm64 and browser-wasm ship in the package and no
-# GitHub runner can execute a console application on them. They are built and never run.
+# Six of the ten identifiers, and the gap is honest rather than an oversight: android-arm,
+# android-arm64, ios-arm64 and iossimulator-arm64 ship in the package and no GitHub runner can
+# execute a console application on them. They are built and never run.
+#
+# browser-wasm is the sixth and it needs its own job rather than a row in the matrix, because
+# nothing about it resembles the others: the archive is linked into the application when it
+# publishes instead of being loaded out of runtimes/ at run time, so what makes it work is the
+# package's buildTransitive targets file and the name the archive is packed under. For months
+# there was no targets file and the archive was packed as libJoltC.a against DllImport("JoltC"),
+# and the package shipped 3.6 MB of wasm that no consumer could have linked. Nothing failed,
+# because nothing tried. This is the leg that tries.
 name: Package smoke test
 
 on:
@@ -161,3 +169,72 @@ jobs:
           set -euo pipefail
           dotnet run -c Release -r ${{ matrix.rid }} --self-contained false \
             -p:JoltPhysicsVersion="$JOLT_VERSION"
+
+  # Its own job rather than a row in the matrix above, because almost nothing is shared: there is
+  # no runtime identifier to select, the wasm workload has to be installed, publishing is not
+  # optional, and the thing that runs the result is node rather than the host.
+  #
+  # The fetch and the version parse are repeated from the desktop job instead of being hoisted
+  # into `prepare`. Hoisting would mean prepare downloading the artifact too, which trades twelve
+  # duplicated lines for a coupling between a job that decides a matrix and the artifact under
+  # test. The duplication is the cheaper of the two.
+  wasm:
+    name: browser-wasm
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      # Not present on the runner by default, and without it WasmBuildNative has no Emscripten to
+      # link with.
+      - name: Install the wasm workload
+        run: dotnet workload install wasm-tools
+
+      - name: Fetch the package from this run
+        if: inputs.cd-run-id == ''
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-packages
+          path: WasmSmokeTest/local-packages
+
+      - name: Fetch the package from an earlier run
+        if: inputs.cd-run-id != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p WasmSmokeTest/local-packages
+          gh run download "${{ inputs.cd-run-id }}" --repo "$GITHUB_REPOSITORY" \
+            -n nuget-packages -D WasmSmokeTest/local-packages
+
+      - name: Work out which version is under test
+        shell: bash
+        run: |
+          set -euo pipefail
+          ls -la WasmSmokeTest/local-packages/
+
+          pkg=$(ls WasmSmokeTest/local-packages/*.nupkg | head -1)
+          version=$(basename "$pkg" .nupkg | sed 's/^Evergine\.Bindings\.JoltPhysics\.//')
+
+          if [ -z "$version" ] || [ "$version" = "$(basename "$pkg" .nupkg)" ]; then
+            echo "::error::could not read a version out of '$(basename "$pkg")'"
+            exit 1
+          fi
+
+          echo "JOLT_VERSION=$version" >> "$GITHUB_ENV"
+          echo "testing $version on browser-wasm"
+
+      # Publish then node, not `dotnet run`: there is no host that runs a browser-wasm application,
+      # and the link that this whole leg exists to check only happens on publish.
+      - name: Run the package on browser-wasm
+        shell: bash
+        working-directory: WasmSmokeTest
+        run: |
+          set -euo pipefail
+          dotnet publish -c Release -p:JoltPhysicsVersion="$JOLT_VERSION"
+          node bin/Release/net10.0/browser-wasm/AppBundle/main.mjs
