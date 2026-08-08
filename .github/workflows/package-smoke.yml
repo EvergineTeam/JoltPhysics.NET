@@ -142,6 +142,15 @@ jobs:
 
           pkg=$(ls DesktopSmokeTest/local-packages/*.nupkg | head -1)
           version=$(basename "$pkg" .nupkg | sed 's/^Evergine\.Bindings\.JoltPhysics\.//')
+
+          # Said out loud, because the failure it prevents does not look like this step's fault.
+          # An empty version reaches the project as an empty PackageReference and NuGet reports
+          # NU1015 from the restore, five legs at once, pointing at the csproj.
+          if [ -z "$version" ] || [ "$version" = "$(basename "$pkg" .nupkg)" ]; then
+            echo "::error::could not read a version out of '$(basename "$pkg")'"
+            exit 1
+          fi
+
           echo "JOLT_VERSION=$version" >> "$GITHUB_ENV"
           echo "testing $version on ${{ matrix.rid }}"
 
