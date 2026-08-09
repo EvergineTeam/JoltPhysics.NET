@@ -4,9 +4,11 @@
 # produced, drops a sphere onto a floor through the native library, and fails the job if the
 # sphere does not fall, does not settle, or falls through.
 #
-# Six of the ten identifiers, and the gap is honest rather than an oversight: android-arm,
-# android-arm64, ios-arm64 and iossimulator-arm64 ship in the package and no GitHub runner can
-# execute a console application on them. They are built and never run.
+# Eight of the ten identifiers. ios-arm64 and iossimulator-arm64 cannot be *run* on a runner,
+# but the simulator is linked and its executable inspected; android cannot be run either, but an
+# APK is built against the package and opened, and both libJoltC.so have to be inside it. What
+# remains unexecuted anywhere is ios-arm64 (a device build needs a signing identity) and the
+# android libraries themselves, which is stated in the README rather than glossed.
 #
 # browser-wasm is the sixth and it needs its own job rather than a row in the matrix, because
 # nothing about it resembles the others: the archive is linked into the application when it
@@ -346,3 +348,110 @@ jobs:
           fi
           echo "  ok    JoltC_Init is defined (T) in the executable"
           echo "PASS"
+
+  # Builds an APK against the package and then opens it. `dotnet build` succeeding proves the
+  # managed side compiled and says nothing about whether the native libraries travelled with it,
+  # which is the only question this leg exists to answer.
+  #
+  # One APK, both ABIs. Unlike Cesium.NET's equivalent, this package ships android-arm and
+  # android-arm64, so the project multi-targets both runtime identifiers and a single build
+  # verifies both libraries reached the APK.
+  android:
+    name: android
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Install the android workload
+        run: dotnet workload install android
+
+      - name: Fetch the package from this run
+        if: inputs.cd-run-id == ''
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-packages
+          path: AndroidSmokeTest/local-packages
+
+      - name: Fetch the package from an earlier run
+        if: inputs.cd-run-id != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p AndroidSmokeTest/local-packages
+          gh run download "${{ inputs.cd-run-id }}" --repo "$GITHUB_REPOSITORY"             -n nuget-packages -D AndroidSmokeTest/local-packages
+
+      - name: Work out which version is under test
+        shell: bash
+        run: |
+          set -euo pipefail
+          ls -la AndroidSmokeTest/local-packages/
+
+          pkg=$(ls AndroidSmokeTest/local-packages/*.nupkg | head -1)
+          version=$(basename "$pkg" .nupkg | sed 's/^Evergine\.Bindings\.JoltPhysics\.//')
+          if [ -z "$version" ] || [ "$version" = "$(basename "$pkg" .nupkg)" ]; then
+            echo "::error::could not read a version out of '$(basename "$pkg")'"
+            exit 1
+          fi
+          echo "JOLT_VERSION=$version" >> "$GITHUB_ENV"
+          echo "testing $version on android"
+
+      - name: Build an APK against the package
+        shell: bash
+        working-directory: AndroidSmokeTest
+        run: |
+          set -euo pipefail
+          dotnet build -c Release -p:JoltPhysicsVersion="$JOLT_VERSION"
+
+      # The assertion. A package can carry runtimes/android-*/native and still lose them on the
+      # way into the APK, and the build would be green either way.
+      - name: Check both native libraries are inside the APK
+        shell: bash
+        working-directory: AndroidSmokeTest
+        run: |
+          set -euo pipefail
+          apk=$(find bin -name '*-Signed.apk' | head -1)
+          [ -n "$apk" ] || { echo "::error::no APK was produced"; exit 1; }
+
+          echo "APK: $apk"
+          python3 - "$apk" <<'CHECK'
+          import sys, zipfile, os
+
+          apk = sys.argv[1]
+          z = zipfile.ZipFile(apk)
+          wanted = ["lib/armeabi-v7a/libJoltC.so", "lib/arm64-v8a/libJoltC.so"]
+
+          libs = sorted(n for n in z.namelist() if n.startswith("lib/"))
+          print("  APK is %.1f MB and carries %d native libraries" % (os.path.getsize(apk) / 1e6, len(libs)))
+
+          bad = 0
+          for w in wanted:
+              if w not in libs:
+                  print("::error::%s is not in the APK. The package carried it and the build dropped it." % w)
+                  bad += 1
+                  continue
+              size = z.getinfo(w).file_size
+              # A library that is present and empty would satisfy presence and nothing else.
+              if size < 1_000_000:
+                  print("::error::%s is only %d bytes; that is not JoltC." % (w, size))
+                  bad += 1
+                  continue
+              print("  ok    %s (%.1f MB uncompressed)" % (w, size / 1e6))
+
+          # Every ABI here is one the package had to supply. Anything else means the project
+          # asked for a runtime identifier JoltPhysicsC does not build.
+          abis = {n.split("/")[1] for n in libs}
+          if abis != {"armeabi-v7a", "arm64-v8a"}:
+              print("::error::unexpected ABIs in the APK: %s" % ", ".join(sorted(abis)))
+              bad += 1
+
+          if bad:
+              sys.exit(1)
+          print("PASS")
+          CHECK
