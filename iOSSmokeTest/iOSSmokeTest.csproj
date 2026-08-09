@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-ios</TargetFramework>
+    <SupportedOSPlatformVersion>12.0</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ApplicationId>com.evergine.joltsmoketest</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+
+    <!--
+      12.0 because JoltPhysicsC builds for 12.0, and it can because its sources never reach the
+      C++20 atomic waits that force CesiumC to 14.0. The floor belongs to the code, not to a
+      convention copied between repositories.
+    -->
+
+    <!--
+      The simulator, and not for symmetry. A device build needs a signing identity and a
+      provisioning profile, neither of which a runner has; a simulator build needs neither and
+      links the same archive through the same targets file. What this proves about ios-arm64 is
+      therefore indirect, and the README says so.
+    -->
+    <RuntimeIdentifier>iossimulator-arm64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <!--
+    A PackageReference on purpose, not a ProjectReference. What is under test is the package: its
+    targets file, whether Native.Dll compiled to "__Internal" in the iOS assembly, and whether the
+    two together make the linker take the archive and keep its members. A project reference
+    bypasses all three.
+  -->
+  <ItemGroup>
+    <PackageReference Include="Evergine.Bindings.JoltPhysics" Version="$(JoltPhysicsVersion)" />
+  </ItemGroup>
+
+</Project>

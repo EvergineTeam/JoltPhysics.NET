@@ -494,7 +494,13 @@ namespace JoltPhysicsGen
 				var paramStr = string.Join(", ", parameters);
 
 				Helpers.WriteComment(writer, func.Comment, "\t\t");
-				writer.WriteLine($"\t\t[DllImport(\"{DllName}\", CallingConvention = CallingConvention.Cdecl, EntryPoint = \"{funcName}\")]");
+				// Native.Dll and Native.Conv rather than literals, because iOS needs a different
+				// name and there is nowhere else to put the difference. A static archive linked
+				// into a .NET iOS application is reached through "__Internal", not through its
+				// own name, so Native.cs switches on __IOS__ and every declaration reads the
+				// constant. VuforiaGen emits the same shape, and Evergine.Bindings.Vuforia is
+				// the one package in this fleet confirmed to work on iOS in a real project.
+				writer.WriteLine($"\t\t[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = \"{funcName}\")]");
 				if (returnMarshalAttr != null)
 					writer.WriteLine($"\t\t{returnMarshalAttr}");
 				writer.WriteLine($"\t\tpublic static extern {returnType} {csFuncName}({paramStr});");
