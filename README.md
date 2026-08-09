@@ -31,7 +31,7 @@ This repository contains low-level bindings for [JoltPhysics](https://github.com
 - [x] iOS Simulator ARM64
 - [x] Browser WASM
 
-Ten runtime identifiers ship. Seven of them are checked against the real `.nupkg` before a
+Ten runtime identifiers ship. Nine of them are checked against the real `.nupkg` before a
 release is published, and a failure stops the publish. What that check is worth differs, and the
 difference is worth knowing rather than glossing:
 
@@ -41,7 +41,7 @@ difference is worth knowing rather than glossing:
 | `browser-wasm` | the same, under node, against the archive linked into the application at publish time |
 | `iossimulator-arm64` | an application is linked against the package and its executable has to **define** the entry points, not merely reference them |
 | `ios-arm64` | **not verified directly.** A device build needs a signing identity CI does not have. It links the same archive through the same targets file as the simulator, so the evidence is indirect |
-| `android-arm`, `android-arm64` | **not verified.** They are ordinary shared libraries loaded the way the desktop ones are, but nothing installs the package on Android today |
+| `android-arm`, `android-arm64` | an APK is built against the package and opened, and both `libJoltC.so` have to be inside it, over a megabyte each, with no other ABI alongside. The libraries themselves are not executed |
 
 iOS works differently from every other identifier and you do not have to do anything about it:
 Apple only lets an application load dynamic libraries that ship inside its own bundle, so the
