@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0-ios</TargetFramework>
-    <SupportedOSPlatformVersion>12.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>12.2</SupportedOSPlatformVersion>
     <OutputType>Exe</OutputType>
     <Nullable>disable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -11,9 +11,14 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 
     <!--
-      12.0 because JoltPhysicsC builds for 12.0, and it can because its sources never reach the
-      C++20 atomic waits that force CesiumC to 14.0. The floor belongs to the code, not to a
-      convention copied between repositories.
+      12.2 because the SDK refuses anything lower: "The SupportedOSPlatformVersion value '12.0'
+      in the project file is lower than the minimum value '12.2'."
+
+      Two different floors, and copying one for the other is what produced that error. 12.0 is
+      JoltPhysicsC's deployment target, which is what the archive is *built* for, and it can be
+      that low because its sources never reach the C++20 atomic waits that force CesiumC to 14.0.
+      12.2 is the minimum .NET for iOS allows an *application* to declare. An archive built for
+      12.0 links into an application targeting 12.2 without complaint.
     -->
 
     <!--
