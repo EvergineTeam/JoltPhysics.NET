@@ -241,3 +241,108 @@ jobs:
           set -euo pipefail
           dotnet publish -c Release -p:JoltPhysicsVersion="$JOLT_VERSION"
           node bin/Release/net10.0/browser-wasm/AppBundle/main.mjs
+
+  # The only thing in this repository that can say whether the package works on iOS.
+  #
+  # Nothing is loaded there: Apple only allows dynamic libraries that ship inside the app bundle
+  # as frameworks, so JoltPhysicsC builds a static archive and the package's targets file links it
+  # into the executable. Two things have to hold, and neither is visible on any other leg: the
+  # targets file has to put the archive on the link line with ForceLoad and SmartLink, and
+  # Native.Dll has to have compiled to "__Internal". Get either wrong and every build still
+  # succeeds; the failure arrives at the first P/Invoke in somebody's app.
+  #
+  # Ported from Cesium.NET with its instrument already fixed, and every line of that check paid
+  # for a lesson: nm goes to a file because `nm | grep -q` under pipefail reports the opposite of
+  # the truth at this volume; the assertion reads symbol TYPES because a name matches whether the
+  # symbol is a definition or an unresolved reference; and the runner floats because .NET for iOS
+  # refuses any Xcode older than the one its SDK was built for.
+  ios:
+    name: iossimulator-arm64
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Show what Xcode this runner has
+        run: xcodebuild -version
+
+      - name: Install the ios workload
+        run: dotnet workload install ios
+
+      - name: Fetch the package from this run
+        if: inputs.cd-run-id == ''
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-packages
+          path: iOSSmokeTest/local-packages
+
+      - name: Fetch the package from an earlier run
+        if: inputs.cd-run-id != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p iOSSmokeTest/local-packages
+          gh run download "${{ inputs.cd-run-id }}" --repo "$GITHUB_REPOSITORY"             -n nuget-packages -D iOSSmokeTest/local-packages
+
+      - name: Work out which version is under test
+        shell: bash
+        run: |
+          set -euo pipefail
+          ls -la iOSSmokeTest/local-packages/
+
+          pkg=$(ls iOSSmokeTest/local-packages/*.nupkg | head -1)
+          version=$(basename "$pkg" .nupkg | sed 's/^Evergine\.Bindings\.JoltPhysics\.//')
+          if [ -z "$version" ] || [ "$version" = "$(basename "$pkg" .nupkg)" ]; then
+            echo "::error::could not read a version out of '$(basename "$pkg")'"
+            exit 1
+          fi
+          echo "JOLT_VERSION=$version" >> "$GITHUB_ENV"
+          echo "testing $version on iossimulator-arm64"
+
+      - name: Link an iOS application against the package
+        shell: bash
+        working-directory: iOSSmokeTest
+        run: |
+          set -euo pipefail
+          dotnet build -c Release -p:JoltPhysicsVersion="$JOLT_VERSION"
+
+      # Said out loud, because a build that quietly linked nothing looks identical from outside.
+      - name: Check the archive actually reached the executable
+        shell: bash
+        working-directory: iOSSmokeTest
+        run: |
+          set -euo pipefail
+          app=$(find bin -name '*.app' -type d | head -1)
+          [ -n "$app" ] || { echo "::error::no .app bundle was produced"; exit 1; }
+
+          exe="$app/$(basename "$app" .app)"
+          [ -f "$exe" ] || { echo "::error::no executable at $exe"; ls -la "$app"; exit 1; }
+
+          size=$(stat -f%z "$exe")
+          echo "  executable: $((size / 1000000)) MB"
+
+          # Dumped to a file, not piped into grep. With `set -o pipefail`, `nm | grep -q`
+          # reports the opposite of the truth on an input this size: grep exits at the first
+          # match, nm dies of SIGPIPE with status 141, and the negation reads a found symbol as
+          # a missing one. It cost a Cesium run to see, and it only appears at volume.
+          nm "$exe" 2>/dev/null > symbols.txt
+
+          echo "  JoltC_ symbols by type:"
+          awk '/JoltC_/ {print $(NF-1)}' symbols.txt | sort | uniq -c | sed 's/^/    /'
+
+          # T is a defined global. U would mean the linker never resolved it, which is what a
+          # missing SmartLink produces and what a P/Invoke would then fail on at run time. The
+          # name alone matches both, which is a distinction that cost three diagnostic rounds.
+          if ! grep -qE "T _?JoltC_Init$" symbols.txt; then
+            echo "::error::JoltC_Init is not a defined symbol in the executable"
+            grep JoltC_Init symbols.txt | sed 's/^/    /' || true
+            exit 1
+          fi
+          echo "  ok    JoltC_Init is defined (T) in the executable"
+          echo "PASS"

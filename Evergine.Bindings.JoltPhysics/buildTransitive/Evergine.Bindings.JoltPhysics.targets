@@ -20,4 +20,48 @@
                          ScanForPInvokes="true" />
   </ItemGroup>
 
+  <!--
+    iOS is linked rather than loaded too, and every setting below was measured in
+    Evergine.Bindings.CesiumNative before being written here, several of them the hard way.
+
+    The same injected _FrameworkNativeReference that Evergine.Bindings.CesiumNative ships,
+    verbatim, because that is the shape that went green against a real link. A public
+    NativeReference item may well work too; it was never validated on its own, and this file is
+    not the place to find out.
+
+    ForceLoad, because the linker takes only the members something references and every entry
+    point here is reached from managed code. Without it the application builds and defines none
+    of the JoltC symbols. Safe here because the archive has no overlapping members: JoltPhysicsC
+    merges exactly libJoltC.a and libJolt.a, with no vcpkg dependencies alongside.
+
+    SmartLink, because iOS links with -dead_strip: ForceLoad pulls every member in and the strip
+    takes back out whatever nothing references. SmartLink has the SDK read the assembly's
+    P/Invokes and pass -u for each, naming them as roots the strip must keep. In Cesium this was
+    the difference between an executable defining zero entry points and all of them.
+
+    The file keeps its libJoltC.a name. With __Internal the symbols are reached inside the
+    executable, so the file name is irrelevant: the opposite of browser-wasm above, where the
+    module name comes from the file name and the archive is shipped renamed.
+
+    Which runtime identifier to pick is decided by $(RuntimeIdentifier), because an iOS build may
+    be for a device or for the simulator and they are different architectures.
+  -->
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+    <_JoltIosRid Condition="'$(_JoltIosRid)' == ''">$(RuntimeIdentifier)</_JoltIosRid>
+    <_JoltIosRid Condition="'$(_JoltIosRid)' == ''">ios-arm64</_JoltIosRid>
+    <_JoltIosArchive>$(MSBuildThisFileDirectory)../runtimes/$(_JoltIosRid)/native/libJoltC.a</_JoltIosArchive>
+  </PropertyGroup>
+
+  <Target Name="EvergineJoltPhysicsAddIosNativeReference"
+          BeforeTargets="_ComputeLinkNativeExecutableInputs"
+          Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' And Exists('$(_JoltIosArchive)')">
+    <ItemGroup>
+      <_FrameworkNativeReference Include="$(_JoltIosArchive)">
+        <Kind>Static</Kind>
+        <ForceLoad>true</ForceLoad>
+        <SmartLink>true</SmartLink>
+      </_FrameworkNativeReference>
+    </ItemGroup>
+  </Target>
+
 </Project>
