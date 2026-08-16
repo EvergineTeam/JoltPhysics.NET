@@ -1,21 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-  </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Evergine.Bindings.JoltPhysics\Evergine.Bindings.JoltPhysics.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\Evergine.Bindings.JoltPhysics\runtimes\win-x64\native\JoltC.dll">
-      <Link>JoltC.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Evergine.Bindings.JoltPhysics" Version="2026.8.9.19" />
+		<PackageReference Include="Evergine.Common" Version="2026.5.26.921" />
+		<PackageReference Include="Evergine.Mathematics" Version="2026.5.26.921" />
+		<PackageReference Include="Evergine.DirectX12" Version="2026.5.26.921" />
+		<PackageReference Include="Evergine.Forms" Version="2026.5.26.921" />
+	</ItemGroup>
+
 </Project>

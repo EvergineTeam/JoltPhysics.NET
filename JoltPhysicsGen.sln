@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.4.11626.88 stable
+VisualStudioVersion = 18.4.11626.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoltPhysicsGen", "JoltPhysicsGen\JoltPhysicsGen.csproj", "{A1B2C3D4-E5F6-7890-1234-567890ABCDE1}"
 EndProject
@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evergine.Bindings.JoltPhysi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoltPhysics.APITests", "Tests\JoltPhysics.APITests\JoltPhysics.APITests.csproj", "{5C0C3A8E-6FA6-4EE3-BB96-8ABAE2EF1FCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoltPhysics.HelloWorld", "Samples\JoltPhysics.HelloWorld\JoltPhysics.HelloWorld.csproj", "{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoltPhysics.HelloWorld", "Samples\JoltPhysics.HelloWorld\JoltPhysics.HelloWorld.csproj", "{5580F6A1-2E30-2CEA-E58C-921256B0C1FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{5C0C3A8E-6FA6-4EE3-BB96-8ABAE2EF1FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C0C3A8E-6FA6-4EE3-BB96-8ABAE2EF1FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C0C3A8E-6FA6-4EE3-BB96-8ABAE2EF1FCA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{85295AB7-E6CD-285E-EC18-0B2BEAD27ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5580F6A1-2E30-2CEA-E58C-921256B0C1FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5580F6A1-2E30-2CEA-E58C-921256B0C1FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5580F6A1-2E30-2CEA-E58C-921256B0C1FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5580F6A1-2E30-2CEA-E58C-921256B0C1FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
