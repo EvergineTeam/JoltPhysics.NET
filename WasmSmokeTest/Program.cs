@@ -21,6 +21,7 @@
 //   reason that has nothing to do with the package being correct.
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Evergine.Bindings.JoltPhysics;
 
@@ -35,6 +36,50 @@ internal static unsafe class Program
     private const int MaxSteps = 600;   // ten seconds of simulation
 
     private static int _failures;
+
+    private static int _castHits;
+    private static float _castMinFraction = float.MaxValue;
+
+    // Re-declared here rather than taken from the package, for two reasons the interpreter
+    // enforces and the generated extern gets wrong on browser-wasm:
+    //
+    //   The generated extern takes the callback as a delegate, and a delegate cannot cross the
+    //   native-to-managed boundary there; only an [UnmanagedCallersOnly] method can.
+    //
+    //   The callback parameter must be typed IntPtr, not delegate* unmanaged. The interpreter
+    //   builds its transition trampoline from a per-type signature cookie, and MONO_TYPE_FNPTR
+    //   has no entry in that mapping (type_to_c in mono's aot-runtime-wasm.c), so a function
+    //   pointer PARAMETER aborts the process exactly the way an unpassable struct does. IntPtr
+    //   maps fine and is the same bits.
+    //
+    // The Mat44 parameter is the point of the call: a struct whose elements were a fixed buffer
+    // collapsed to a single float in the generated P/Invoke table, so no trampoline matched and
+    // every by-value call aborted. Everything else in this file passes Vec3-sized structs, which
+    // never failed -- which is exactly how the bug shipped.
+    [DllImport("JoltC", CallingConvention = CallingConvention.Cdecl, EntryPoint = "JoltC_NarrowPhaseQuery_CastShape")]
+    private static extern void NarrowPhaseQuery_CastShape(
+        IntPtr query,
+        IntPtr shape,
+        Vec3 scale,
+        Mat44 centerOfMassTransform,
+        Vec3 direction,
+        RVec3 baseOffset,
+        IntPtr callback,
+        void* userData,
+        IntPtr broadPhaseLayerFilter,
+        IntPtr objectLayerFilter,
+        IntPtr bodyFilter,
+        IntPtr shapeFilter);
+
+    [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+    private static void OnShapeCastHit(void* userData, ShapeCastResult* result)
+    {
+        _castHits++;
+        if (result->Fraction < _castMinFraction)
+        {
+            _castMinFraction = result->Fraction;
+        }
+    }
 
     private static void Check(bool condition, string what)
     {
@@ -129,6 +174,34 @@ internal static unsafe class Program
         // not happen -- which a build with the wrong flags can produce while still running.
         Check(endY > 0.2 && endY < 0.8,
               $"it settled on the floor rather than falling through it (y={endY:F3})");
+
+        // A shape cast over the settled scene. This is the regression for the Mat44 interop bug:
+        // every entry point above passes structs small enough for the wasm P/Invoke table to
+        // flatten correctly, so a package whose Mat44 could not be passed by value still passed
+        // this test -- and shipped. A sphere swept straight down from above the resting sphere
+        // must first hit that sphere: its top sits near y = 0.99, so with the cast starting at
+        // y = 3 and sweeping 10 down, the first fraction lands near 0.176.
+        IntPtr narrowPhaseQuery = JoltPhysics.PhysicsSystem_GetNarrowPhaseQuery(physicsSystem);
+        IntPtr castShape = JoltPhysics.SphereShape_Create(0.25f);
+        Mat44 castTransform = JoltPhysics.Mat4_Translation(new Vec3 { X = 0.0f, Y = 3.0f, Z = 0.0f });
+        NarrowPhaseQuery_CastShape(
+            narrowPhaseQuery,
+            castShape,
+            new Vec3 { X = 1.0f, Y = 1.0f, Z = 1.0f },
+            castTransform,
+            new Vec3 { X = 0.0f, Y = -10.0f, Z = 0.0f },
+            new RVec3 { X = 0.0f, Y = 0.0f, Z = 0.0f },
+            (IntPtr)(delegate* unmanaged[Cdecl]<void*, ShapeCastResult*, void>)&OnShapeCastHit,
+            null,
+            IntPtr.Zero,
+            IntPtr.Zero,
+            IntPtr.Zero,
+            IntPtr.Zero);
+        Console.WriteLine($"  shape cast reported {_castHits} hit(s), first at fraction {_castMinFraction:F3}");
+        Check(_castHits > 0, "the shape cast hit something, so a Mat44 crossed the P/Invoke boundary by value");
+        Check(_castHits > 0 && _castMinFraction > 0.1f && _castMinFraction < 0.3f,
+              $"the first hit is the resting sphere (fraction={_castMinFraction:F3}), so the transform arrived intact");
+        JoltPhysics.Shape_Destroy(castShape);
 
         JoltPhysics.BodyInterface_RemoveBody(bodyInterface, sphereBodyId);
         JoltPhysics.BodyInterface_DestroyBody(bodyInterface, sphereBodyId);

@@ -215,9 +215,9 @@ public unsafe class ShapeApiTests
 			JoltPhysics.Shape_GetMassProperties(box, &mass, &inertia);
 			mass.Should().BeGreaterThan(0f);
 			// Inertia diagonal should be positive
-			inertia.M[0].Should().BeGreaterThan(0f);
-			inertia.M[5].Should().BeGreaterThan(0f);
-			inertia.M[10].Should().BeGreaterThan(0f);
+			inertia[0].Should().BeGreaterThan(0f);
+			inertia[5].Should().BeGreaterThan(0f);
+			inertia[10].Should().BeGreaterThan(0f);
 		}
 		finally
 		{

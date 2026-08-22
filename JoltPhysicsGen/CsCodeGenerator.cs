@@ -395,21 +395,14 @@ namespace JoltPhysicsGen
 
 					if (fixedSize > 0)
 					{
-						// Fixed-size array
-						if (fieldType == "float" || fieldType == "int" || fieldType == "uint" ||
-							fieldType == "byte" || fieldType == "short" || fieldType == "ushort" ||
-							fieldType == "long" || fieldType == "ulong" || fieldType == "double" ||
-							fieldType == "sbyte")
+						// Fixed-size arrays are emitted as individual fields, never as C# fixed buffers.
+						// The layout is identical, but the wasm P/Invoke table generator collapses a struct
+						// whose only member is a primitive fixed buffer to a single scalar (Mat44 became a
+						// bare float), so no interp-to-native trampoline matches the real ABI and the
+						// runtime aborts on the first by-value call. Explicit fields lower correctly.
+						for (int i = 0; i < fixedSize; i++)
 						{
-							writer.WriteLine($"\t\tpublic fixed {fieldType} {fieldName}[{fixedSize}];");
-						}
-						else
-						{
-							// Non-primitive fixed arrays: emit individual fields
-							for (int i = 0; i < fixedSize; i++)
-							{
-								writer.WriteLine($"\t\tpublic {fieldType} {fieldName}_{i};");
-							}
+							writer.WriteLine($"\t\tpublic {fieldType} {fieldName}_{i};");
 						}
 					}
 					else

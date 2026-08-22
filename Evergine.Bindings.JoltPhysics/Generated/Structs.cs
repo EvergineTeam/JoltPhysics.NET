@@ -75,7 +75,22 @@ namespace Evergine.Bindings.JoltPhysics
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct Mat44
 	{
-		public fixed float M[16];
+		public float M_0;
+		public float M_1;
+		public float M_2;
+		public float M_3;
+		public float M_4;
+		public float M_5;
+		public float M_6;
+		public float M_7;
+		public float M_8;
+		public float M_9;
+		public float M_10;
+		public float M_11;
+		public float M_12;
+		public float M_13;
+		public float M_14;
+		public float M_15;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
@@ -636,10 +651,25 @@ namespace Evergine.Bindings.JoltPhysics
 		public RVec3 Position2;
 		public Vec3 AxisX2;
 		public Vec3 AxisY2;
-		public fixed float MaxFriction[6];
+		public float MaxFriction_0;
+		public float MaxFriction_1;
+		public float MaxFriction_2;
+		public float MaxFriction_3;
+		public float MaxFriction_4;
+		public float MaxFriction_5;
 		public SwingType SwingType;
-		public fixed float LimitMin[6];
-		public fixed float LimitMax[6];
+		public float LimitMin_0;
+		public float LimitMin_1;
+		public float LimitMin_2;
+		public float LimitMin_3;
+		public float LimitMin_4;
+		public float LimitMin_5;
+		public float LimitMax_0;
+		public float LimitMax_1;
+		public float LimitMax_2;
+		public float LimitMax_3;
+		public float LimitMax_4;
+		public float LimitMax_5;
 		public SpringSettings LimitsSpringSettings_0;
 		public SpringSettings LimitsSpringSettings_1;
 		public SpringSettings LimitsSpringSettings_2;

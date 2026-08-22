@@ -156,12 +156,12 @@ public unsafe class MathApiTests
 	{
 		Mat44 identity;
 		JoltPhysics.Mat44_Identity(&identity);
-		identity.M[0].Should().Be(1f);
-		identity.M[5].Should().Be(1f);
-		identity.M[10].Should().Be(1f);
-		identity.M[15].Should().Be(1f);
-		identity.M[1].Should().Be(0f);
-		identity.M[4].Should().Be(0f);
+		identity[0].Should().Be(1f);
+		identity[5].Should().Be(1f);
+		identity[10].Should().Be(1f);
+		identity[15].Should().Be(1f);
+		identity[1].Should().Be(0f);
+		identity[4].Should().Be(0f);
 	}
 
 	[Fact]
@@ -172,11 +172,11 @@ public unsafe class MathApiTests
 		JoltPhysics.Mat44_Identity(&b);
 		JoltPhysics.Mat44_Multiply(&a, &b, &result);
 
-		result.M[0].Should().BeApproximately(1f, 1e-5f);
-		result.M[5].Should().BeApproximately(1f, 1e-5f);
-		result.M[10].Should().BeApproximately(1f, 1e-5f);
-		result.M[15].Should().BeApproximately(1f, 1e-5f);
-		result.M[1].Should().BeApproximately(0f, 1e-5f);
+		result[0].Should().BeApproximately(1f, 1e-5f);
+		result[5].Should().BeApproximately(1f, 1e-5f);
+		result[10].Should().BeApproximately(1f, 1e-5f);
+		result[15].Should().BeApproximately(1f, 1e-5f);
+		result[1].Should().BeApproximately(0f, 1e-5f);
 	}
 
 	[Fact]
