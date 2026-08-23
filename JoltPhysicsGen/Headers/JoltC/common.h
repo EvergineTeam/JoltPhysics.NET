@@ -88,6 +88,7 @@ typedef struct JoltC_PhysicsStepListener     JoltC_PhysicsStepListener;
 typedef struct JoltC_PhysicsMaterial         JoltC_PhysicsMaterial;
 typedef struct JoltC_GetTrianglesContext     JoltC_GetTrianglesContext;
 typedef struct JoltC_StateRecorder           JoltC_StateRecorder;
+typedef struct JoltC_PathConstraintPath      JoltC_PathConstraintPath;
 typedef struct JoltC_GroupFilter             JoltC_GroupFilter;
 typedef struct JoltC_BroadPhaseQuery         JoltC_BroadPhaseQuery;
 typedef struct JoltC_ContactManifold         JoltC_ContactManifold;
@@ -412,6 +413,16 @@ typedef enum JoltC_SoftBodyValidateResult {
     JOLTC_SOFT_BODY_VALIDATE_RESULT_ACCEPT_CONTACT = 0,
     JOLTC_SOFT_BODY_VALIDATE_RESULT_REJECT_CONTACT = 1
 } JoltC_SoftBodyValidateResult;
+
+/* How a path constraint ties the rotation of the guided body to the curve. */
+typedef enum JoltC_PathRotationConstraintType {
+    JOLTC_PATH_ROTATION_CONSTRAINT_TYPE_FREE                     = 0,
+    JOLTC_PATH_ROTATION_CONSTRAINT_TYPE_CONSTRAIN_AROUND_TANGENT = 1,
+    JOLTC_PATH_ROTATION_CONSTRAINT_TYPE_CONSTRAIN_AROUND_NORMAL  = 2,
+    JOLTC_PATH_ROTATION_CONSTRAINT_TYPE_CONSTRAIN_AROUND_BINORMAL = 3,
+    JOLTC_PATH_ROTATION_CONSTRAINT_TYPE_CONSTRAIN_TO_PATH        = 4,
+    JOLTC_PATH_ROTATION_CONSTRAINT_TYPE_FULLY_CONSTRAINED        = 5
+} JoltC_PathRotationConstraintType;
 
 /* What a whole-system snapshot includes; combine as flags. */
 typedef enum JoltC_StateRecorderState {
@@ -790,6 +801,10 @@ typedef void (*JoltC_OnContactRemovedEnhancedFn)(void* userData,
 /*  Step listener callback                                                    */
 /* -------------------------------------------------------------------------- */
 typedef void (*JoltC_OnPhysicsStepFn)(void* userData, float deltaTime, JoltC_Bool isFirstStep, JoltC_Bool isLastStep);
+
+/* Vehicle step callbacks: before the wheel collision checks, after them, and after the whole
+ * vehicle step. Runs inside the physics step, so the same restrictions as any step listener. */
+typedef void (*JoltC_OnVehicleStepFn)(void* userData, JoltC_VehicleConstraint* vehicle, float deltaTime, JoltC_Bool isFirstStep, JoltC_Bool isLastStep);
 
 /* -------------------------------------------------------------------------- */
 /*  Procs structs — function-pointer tables for SetProcs updates              */

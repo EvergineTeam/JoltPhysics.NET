@@ -119,7 +119,19 @@ JOLTC_API JoltC_Bool  JoltC_Wheel_HasHitHardPoint(const JoltC_Wheel* w);
 JOLTC_API const JoltC_WheelSettingsWV* JoltC_WheelWV_GetSettings(const JoltC_WheelWV* w);
 JOLTC_API void  JoltC_WheelWV_ApplyTorque(JoltC_WheelWV* w, float torque, float deltaTime);
 
+/* What the tire is actually doing against the ground this step -- the numbers tire audio, skid
+ * marks and smoke are made of. Slip is the ground/wheel velocity difference (longitudinal, a
+ * ratio) and angle difference (lateral, radians); the combined frictions fold the surface in. */
+JOLTC_API float JoltC_WheelWV_GetLongitudinalSlip(const JoltC_WheelWV* w);
+JOLTC_API float JoltC_WheelWV_GetLateralSlip(const JoltC_WheelWV* w);
+JOLTC_API float JoltC_WheelWV_GetCombinedLongitudinalFriction(const JoltC_WheelWV* w);
+JOLTC_API float JoltC_WheelWV_GetCombinedLateralFriction(const JoltC_WheelWV* w);
+JOLTC_API float JoltC_WheelWV_GetBrakeImpulse(const JoltC_WheelWV* w);
+
 JOLTC_API const JoltC_WheelSettingsTV* JoltC_WheelTV_GetSettings(const JoltC_WheelTV* w);
+JOLTC_API float JoltC_WheelTV_GetCombinedLongitudinalFriction(const JoltC_WheelTV* w);
+JOLTC_API float JoltC_WheelTV_GetCombinedLateralFriction(const JoltC_WheelTV* w);
+JOLTC_API float JoltC_WheelTV_GetBrakeImpulse(const JoltC_WheelTV* w);
 
 /* ========================================================================== */
 /*  VehicleConstraintSettings                                                 */
@@ -148,7 +160,24 @@ JOLTC_API void       JoltC_PhysicsSystem_RemoveVehicleStepListener(JoltC_Physics
  * system and destroy any JoltC_Constraint views first. */
 JOLTC_API void       JoltC_VehicleConstraint_Destroy(JoltC_VehicleConstraint* vc);
 JOLTC_API void       JoltC_VehicleConstraint_SetMaxPitchRollAngle(JoltC_VehicleConstraint* vc, float angle);
+JOLTC_API float      JoltC_VehicleConstraint_GetMaxPitchRollAngle(const JoltC_VehicleConstraint* vc);
 JOLTC_API void       JoltC_VehicleConstraint_SetVehicleCollisionTester(JoltC_VehicleConstraint* vc, const JoltC_VehicleCollisionTester* tester);
+/* Borrowed from the constraint, valid while it lives; never destroy it. */
+JOLTC_API const JoltC_VehicleCollisionTester* JoltC_VehicleConstraint_GetVehicleCollisionTester(const JoltC_VehicleConstraint* vc);
+
+/* The three moments of the vehicle step, for gameplay that reads or writes the vehicle mid-step:
+ * before the wheel collision checks, right after them, and after the whole step. Pass a null
+ * callback to clear. The callback must stay alive while registered (static method + userData). */
+JOLTC_API void JoltC_VehicleConstraint_SetPreStepCallback(JoltC_VehicleConstraint* vc, JoltC_OnVehicleStepFn callback, void* userData);
+JOLTC_API void JoltC_VehicleConstraint_SetPostCollideCallback(JoltC_VehicleConstraint* vc, JoltC_OnVehicleStepFn callback, void* userData);
+JOLTC_API void JoltC_VehicleConstraint_SetPostStepCallback(JoltC_VehicleConstraint* vc, JoltC_OnVehicleStepFn callback, void* userData);
+
+/* Collision testing cadence, for vehicles in the distance: test the wheels every N steps while
+ * active (1 is every step) and every N while inactive (0 never wakes the vehicle up). */
+JOLTC_API void     JoltC_VehicleConstraint_SetNumStepsBetweenCollisionTestActive(JoltC_VehicleConstraint* vc, uint32_t steps);
+JOLTC_API uint32_t JoltC_VehicleConstraint_GetNumStepsBetweenCollisionTestActive(const JoltC_VehicleConstraint* vc);
+JOLTC_API void     JoltC_VehicleConstraint_SetNumStepsBetweenCollisionTestInactive(JoltC_VehicleConstraint* vc, uint32_t steps);
+JOLTC_API uint32_t JoltC_VehicleConstraint_GetNumStepsBetweenCollisionTestInactive(const JoltC_VehicleConstraint* vc);
 JOLTC_API void       JoltC_VehicleConstraint_OverrideGravity(JoltC_VehicleConstraint* vc, JoltC_Vec3 gravity);
 JOLTC_API JoltC_Bool JoltC_VehicleConstraint_IsGravityOverridden(const JoltC_VehicleConstraint* vc);
 JOLTC_API JoltC_Vec3 JoltC_VehicleConstraint_GetGravityOverride(const JoltC_VehicleConstraint* vc);
@@ -237,6 +266,13 @@ JOLTC_API float JoltC_WheeledVehicleController_GetWheelSpeedAtClutch(const JoltC
 JOLTC_API void  JoltC_WheeledVehicleController_SetTireMaxImpulseCallback(JoltC_WheeledVehicleController* c, JoltC_TireMaxImpulseCallback cb, void* userData);
 JOLTC_API const JoltC_VehicleEngine* JoltC_WheeledVehicleController_GetEngine(const JoltC_WheeledVehicleController* c);
 JOLTC_API const JoltC_VehicleTransmission* JoltC_WheeledVehicleController_GetTransmission(const JoltC_WheeledVehicleController* c);
+
+/* The live differentials, editable while driving: torque split, ratios, limited slip. */
+JOLTC_API uint32_t JoltC_WheeledVehicleController_GetDifferentialsCount(const JoltC_WheeledVehicleController* c);
+JOLTC_API void  JoltC_WheeledVehicleController_GetDifferential(const JoltC_WheeledVehicleController* c, uint32_t index, JoltC_VehicleDifferentialSettings* result);
+JOLTC_API void  JoltC_WheeledVehicleController_SetDifferential(JoltC_WheeledVehicleController* c, uint32_t index, const JoltC_VehicleDifferentialSettings* value);
+JOLTC_API float JoltC_WheeledVehicleController_GetDifferentialLimitedSlipRatio(const JoltC_WheeledVehicleController* c);
+JOLTC_API void  JoltC_WheeledVehicleController_SetDifferentialLimitedSlipRatio(JoltC_WheeledVehicleController* c, float value);
 
 /* ========================================================================== */
 /*  MotorcycleController (runtime)                                            */

@@ -407,6 +407,16 @@ JOLTC_API JoltC_Constraint* JoltC_PulleyConstraint_Create(
     JoltC_BodyID                             body2,
     const JoltC_PulleyConstraintSettings*    settings);
 
+JOLTC_API void JoltC_PulleyConstraintSettings_Init(JoltC_PulleyConstraintSettings* settings);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_PulleyConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_PulleyConstraintSettings_CreateSettings(const JoltC_PulleyConstraintSettings* settings);
+
+/* Runtime rope control: shortening the maximum length hoists whatever hangs from the other side. */
+JOLTC_API void  JoltC_PulleyConstraint_SetLength(JoltC_Constraint* c, float minLength, float maxLength);
+JOLTC_API float JoltC_PulleyConstraint_GetMinLength(const JoltC_Constraint* c);
+JOLTC_API float JoltC_PulleyConstraint_GetMaxLength(const JoltC_Constraint* c);
+JOLTC_API float JoltC_PulleyConstraint_GetCurrentLength(const JoltC_Constraint* c);
+
 /* -------------------------------------------------------------------------- */
 /*  GearConstraint                                                            */
 /* -------------------------------------------------------------------------- */
@@ -428,6 +438,8 @@ JOLTC_API float JoltC_GearConstraint_GetTotalLambda(const JoltC_Constraint* c);
 JOLTC_API void  JoltC_GearConstraintSettings_Init(JoltC_GearConstraintSettings* settings);
 JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_GearConstraint_GetSettings(const JoltC_Constraint* c);
 JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_GearConstraintSettings_CreateSettings(const JoltC_GearConstraintSettings* settings);
+/* The ratio from tooth counts, which is how a gear is actually specified. */
+JOLTC_API void  JoltC_GearConstraintSettings_SetRatio(JoltC_GearConstraintSettings* settings, int numTeethGear1, int numTeethGear2);
 
 /* -------------------------------------------------------------------------- */
 /*  RackAndPinionConstraint                                                   */
@@ -447,6 +459,75 @@ JOLTC_API JoltC_Constraint* JoltC_RackAndPinionConstraint_Create(
 
 JOLTC_API void JoltC_RackAndPinionConstraint_SetConstraints(JoltC_Constraint* c, const JoltC_Constraint* pinion, const JoltC_Constraint* rack);
 JOLTC_API float JoltC_RackAndPinionConstraint_GetTotalLambda(const JoltC_Constraint* c);
+JOLTC_API void JoltC_RackAndPinionConstraintSettings_Init(JoltC_RackAndPinionConstraintSettings* settings);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_RackAndPinionConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_RackAndPinionConstraintSettings_CreateSettings(const JoltC_RackAndPinionConstraintSettings* settings);
+/* The ratio from what the mechanism is made of: rack teeth over its length, pinion teeth. */
+JOLTC_API void JoltC_RackAndPinionConstraintSettings_SetRatio(JoltC_RackAndPinionConstraintSettings* settings, int numTeethRack, float rackLength, int numTeethPinion);
+
+/* -------------------------------------------------------------------------- */
+/*  Hinge / SwingTwist body-space motor targets                               */
+/* -------------------------------------------------------------------------- */
+/* Drive towards an orientation given in the space of body 1, which is how an animation pose is
+ * naturally expressed; the constraint-space form would make every caller redo this math. */
+JOLTC_API void JoltC_HingeConstraint_SetTargetOrientationBS(JoltC_Constraint* c, JoltC_Quat orientation);
+JOLTC_API void JoltC_SwingTwistConstraint_SetTargetOrientationBS(JoltC_Constraint* c, JoltC_Quat orientation);
+
+/* -------------------------------------------------------------------------- */
+/*  PathConstraintPath — the curve a path constraint follows                  */
+/* -------------------------------------------------------------------------- */
+/* Ref-counted raw handle, like shapes: Release when done, the constraint keeps its own. */
+JOLTC_API JoltC_PathConstraintPath* JoltC_PathConstraintPathHermite_Create(void);
+/* Points must form a smooth curve: tangent along the path, normal perpendicular to it, and
+ * tangent cross binormal = normal. A sharp corner is a solver ambush, not a feature. */
+JOLTC_API void JoltC_PathConstraintPathHermite_AddPoint(JoltC_PathConstraintPath* path, JoltC_Vec3 position, JoltC_Vec3 tangent, JoltC_Vec3 normal);
+JOLTC_API void       JoltC_PathConstraintPath_SetIsLooping(JoltC_PathConstraintPath* path, JoltC_Bool looping);
+JOLTC_API JoltC_Bool JoltC_PathConstraintPath_IsLooping(const JoltC_PathConstraintPath* path);
+JOLTC_API float      JoltC_PathConstraintPath_GetPathMaxFraction(const JoltC_PathConstraintPath* path);
+JOLTC_API float      JoltC_PathConstraintPath_GetClosestPoint(const JoltC_PathConstraintPath* path, JoltC_Vec3 position, float fractionHint);
+JOLTC_API void       JoltC_PathConstraintPath_GetPointOnPath(const JoltC_PathConstraintPath* path, float fraction, JoltC_Vec3* outPosition, JoltC_Vec3* outTangent, JoltC_Vec3* outNormal, JoltC_Vec3* outBinormal);
+JOLTC_API void       JoltC_PathConstraintPath_AddRef(const JoltC_PathConstraintPath* path);
+JOLTC_API void       JoltC_PathConstraintPath_Release(const JoltC_PathConstraintPath* path);
+
+/* -------------------------------------------------------------------------- */
+/*  PathConstraint — a body constrained to slide along a curve                */
+/* -------------------------------------------------------------------------- */
+typedef struct JoltC_PathConstraintSettings {
+    const JoltC_PathConstraintPath*  path;             /* the curve; the settings take no reference, Create does */
+    JoltC_Vec3                       pathPosition;     /* path start relative to body 1 */
+    JoltC_Quat                       pathRotation;
+    float                            pathFraction;     /* where along the path body 2 starts */
+    float                            maxFrictionForce;
+    JoltC_MotorSettings              positionMotorSettings;
+    JoltC_PathRotationConstraintType rotationConstraintType;
+} JoltC_PathConstraintSettings;
+
+JOLTC_API void JoltC_PathConstraintSettings_Init(JoltC_PathConstraintSettings* settings);
+
+JOLTC_API JoltC_Constraint* JoltC_PathConstraint_Create(
+    JoltC_PhysicsSystem*                system,
+    JoltC_BodyID                        body1,
+    JoltC_BodyID                        body2,
+    const JoltC_PathConstraintSettings* settings);
+
+/* Returns null: Jolt 5.6 has not implemented PathConstraint::GetConstraintSettings upstream.
+ * Declared anyway so the day Jolt fills it in, this starts working without an API change. */
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_PathConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_PathConstraintSettings_CreateSettings(const JoltC_PathConstraintSettings* settings);
+
+JOLTC_API void  JoltC_PathConstraint_SetPath(JoltC_Constraint* c, const JoltC_PathConstraintPath* path, float pathFraction);
+JOLTC_API float JoltC_PathConstraint_GetPathFraction(const JoltC_Constraint* c);
+JOLTC_API void  JoltC_PathConstraint_SetMaxFrictionForce(JoltC_Constraint* c, float force);
+JOLTC_API float JoltC_PathConstraint_GetMaxFrictionForce(const JoltC_Constraint* c);
+/* The motor drives body 2 along the path: metres per second along the curve for the velocity
+ * motor, a target fraction for the position motor. */
+JOLTC_API void  JoltC_PathConstraint_SetPositionMotorState(JoltC_Constraint* c, JoltC_MotorState state);
+JOLTC_API JoltC_MotorState JoltC_PathConstraint_GetPositionMotorState(const JoltC_Constraint* c);
+JOLTC_API void  JoltC_PathConstraint_SetTargetVelocity(JoltC_Constraint* c, float velocity);
+JOLTC_API float JoltC_PathConstraint_GetTargetVelocity(const JoltC_Constraint* c);
+JOLTC_API void  JoltC_PathConstraint_SetTargetPathFraction(JoltC_Constraint* c, float fraction);
+JOLTC_API float JoltC_PathConstraint_GetTargetPathFraction(const JoltC_Constraint* c);
+JOLTC_API void  JoltC_PathConstraint_SetPositionMotorSettings(JoltC_Constraint* c, const JoltC_MotorSettings* settings);
 
 #ifdef __cplusplus
 }

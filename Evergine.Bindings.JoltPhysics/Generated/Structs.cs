@@ -765,6 +765,23 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
+	/// PathConstraint — a body constrained to slide along a curve
+	/// --------------------------------------------------------------------------
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct PathConstraintSettings
+	{
+		public IntPtr Path;
+		public Vec3 PathPosition;
+		public Quat PathRotation;
+		public float PathFraction;
+		public float MaxFrictionForce;
+		public MotorSettings PositionMotorSettings;
+		public PathRotationConstraintType RotationConstraintType;
+	}
+
+	/// <summary>
+	/// --------------------------------------------------------------------------
 	/// CharacterVirtual settings
 	/// --------------------------------------------------------------------------
 	/// </summary>

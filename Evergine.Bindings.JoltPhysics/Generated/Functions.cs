@@ -3188,6 +3188,30 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraint_Create")]
 		public static extern IntPtr PulleyConstraint_Create(IntPtr system, uint body1, uint body2, PulleyConstraintSettings* settings);
 
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraintSettings_Init")]
+		public static extern void PulleyConstraintSettings_Init(PulleyConstraintSettings* settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraint_GetSettings")]
+		public static extern IntPtr PulleyConstraint_GetSettings(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraintSettings_CreateSettings")]
+		public static extern IntPtr PulleyConstraintSettings_CreateSettings(PulleyConstraintSettings* settings);
+
+		/// <summary>
+		/// Runtime rope control: shortening the maximum length hoists whatever hangs from the other side.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraint_SetLength")]
+		public static extern void PulleyConstraint_SetLength(IntPtr c, float minLength, float maxLength);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraint_GetMinLength")]
+		public static extern float PulleyConstraint_GetMinLength(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraint_GetMaxLength")]
+		public static extern float PulleyConstraint_GetMaxLength(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraint_GetCurrentLength")]
+		public static extern float PulleyConstraint_GetCurrentLength(IntPtr c);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_GearConstraint_Create")]
 		public static extern IntPtr GearConstraint_Create(IntPtr system, uint body1, uint body2, GearConstraintSettings* settings);
 
@@ -3206,6 +3230,12 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_GearConstraintSettings_CreateSettings")]
 		public static extern IntPtr GearConstraintSettings_CreateSettings(GearConstraintSettings* settings);
 
+		/// <summary>
+		/// The ratio from tooth counts, which is how a gear is actually specified.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_GearConstraintSettings_SetRatio")]
+		public static extern void GearConstraintSettings_SetRatio(GearConstraintSettings* settings, int numTeethGear1, int numTeethGear2);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_RackAndPinionConstraint_Create")]
 		public static extern IntPtr RackAndPinionConstraint_Create(IntPtr system, uint body1, uint body2, RackAndPinionConstraintSettings* settings);
 
@@ -3214,6 +3244,125 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_RackAndPinionConstraint_GetTotalLambda")]
 		public static extern float RackAndPinionConstraint_GetTotalLambda(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_RackAndPinionConstraintSettings_Init")]
+		public static extern void RackAndPinionConstraintSettings_Init(RackAndPinionConstraintSettings* settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_RackAndPinionConstraint_GetSettings")]
+		public static extern IntPtr RackAndPinionConstraint_GetSettings(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_RackAndPinionConstraintSettings_CreateSettings")]
+		public static extern IntPtr RackAndPinionConstraintSettings_CreateSettings(RackAndPinionConstraintSettings* settings);
+
+		/// <summary>
+		/// The ratio from what the mechanism is made of: rack teeth over its length, pinion teeth.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_RackAndPinionConstraintSettings_SetRatio")]
+		public static extern void RackAndPinionConstraintSettings_SetRatio(RackAndPinionConstraintSettings* settings, int numTeethRack, float rackLength, int numTeethPinion);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// Hinge / SwingTwist body-space motor targets
+		/// --------------------------------------------------------------------------
+		/// Drive towards an orientation given in the space of body 1, which is how an animation pose is
+		/// naturally expressed; the constraint-space form would make every caller redo this math.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HingeConstraint_SetTargetOrientationBS")]
+		public static extern void HingeConstraint_SetTargetOrientationBS(IntPtr c, Quat orientation);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SwingTwistConstraint_SetTargetOrientationBS")]
+		public static extern void SwingTwistConstraint_SetTargetOrientationBS(IntPtr c, Quat orientation);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// PathConstraintPath — the curve a path constraint follows
+		/// --------------------------------------------------------------------------
+		/// Ref-counted raw handle, like shapes: Release when done, the constraint keeps its own.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPathHermite_Create")]
+		public static extern IntPtr PathConstraintPathHermite_Create();
+
+		/// <summary>
+		/// Points must form a smooth curve: tangent along the path, normal perpendicular to it, and
+		/// tangent cross binormal = normal. A sharp corner is a solver ambush, not a feature.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPathHermite_AddPoint")]
+		public static extern void PathConstraintPathHermite_AddPoint(IntPtr path, Vec3 position, Vec3 tangent, Vec3 normal);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPath_SetIsLooping")]
+		public static extern void PathConstraintPath_SetIsLooping(IntPtr path, [MarshalAs(UnmanagedType.Bool)] bool looping);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPath_IsLooping")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool PathConstraintPath_IsLooping(IntPtr path);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPath_GetPathMaxFraction")]
+		public static extern float PathConstraintPath_GetPathMaxFraction(IntPtr path);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPath_GetClosestPoint")]
+		public static extern float PathConstraintPath_GetClosestPoint(IntPtr path, Vec3 position, float fractionHint);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPath_GetPointOnPath")]
+		public static extern void PathConstraintPath_GetPointOnPath(IntPtr path, float fraction, Vec3* outPosition, Vec3* outTangent, Vec3* outNormal, Vec3* outBinormal);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPath_AddRef")]
+		public static extern void PathConstraintPath_AddRef(IntPtr path);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPath_Release")]
+		public static extern void PathConstraintPath_Release(IntPtr path);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintSettings_Init")]
+		public static extern void PathConstraintSettings_Init(PathConstraintSettings* settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_Create")]
+		public static extern IntPtr PathConstraint_Create(IntPtr system, uint body1, uint body2, PathConstraintSettings* settings);
+
+		/// <summary>
+		/// Returns null: Jolt 5.6 has not implemented PathConstraint::GetConstraintSettings upstream.
+		/// Declared anyway so the day Jolt fills it in, this starts working without an API change.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_GetSettings")]
+		public static extern IntPtr PathConstraint_GetSettings(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintSettings_CreateSettings")]
+		public static extern IntPtr PathConstraintSettings_CreateSettings(PathConstraintSettings* settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_SetPath")]
+		public static extern void PathConstraint_SetPath(IntPtr c, IntPtr path, float pathFraction);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_GetPathFraction")]
+		public static extern float PathConstraint_GetPathFraction(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_SetMaxFrictionForce")]
+		public static extern void PathConstraint_SetMaxFrictionForce(IntPtr c, float force);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_GetMaxFrictionForce")]
+		public static extern float PathConstraint_GetMaxFrictionForce(IntPtr c);
+
+		/// <summary>
+		/// The motor drives body 2 along the path: metres per second along the curve for the velocity
+		/// motor, a target fraction for the position motor.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_SetPositionMotorState")]
+		public static extern void PathConstraint_SetPositionMotorState(IntPtr c, MotorState state);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_GetPositionMotorState")]
+		public static extern MotorState PathConstraint_GetPositionMotorState(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_SetTargetVelocity")]
+		public static extern void PathConstraint_SetTargetVelocity(IntPtr c, float velocity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_GetTargetVelocity")]
+		public static extern float PathConstraint_GetTargetVelocity(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_SetTargetPathFraction")]
+		public static extern void PathConstraint_SetTargetPathFraction(IntPtr c, float fraction);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_GetTargetPathFraction")]
+		public static extern float PathConstraint_GetTargetPathFraction(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraint_SetPositionMotorSettings")]
+		public static extern void PathConstraint_SetPositionMotorSettings(IntPtr c, MotorSettings* settings);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -4207,8 +4356,37 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelWV_ApplyTorque")]
 		public static extern void WheelWV_ApplyTorque(IntPtr w, float torque, float deltaTime);
 
+		/// <summary>
+		/// What the tire is actually doing against the ground this step -- the numbers tire audio, skid
+		/// marks and smoke are made of. Slip is the ground/wheel velocity difference (longitudinal, a
+		/// ratio) and angle difference (lateral, radians); the combined frictions fold the surface in.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelWV_GetLongitudinalSlip")]
+		public static extern float WheelWV_GetLongitudinalSlip(IntPtr w);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelWV_GetLateralSlip")]
+		public static extern float WheelWV_GetLateralSlip(IntPtr w);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelWV_GetCombinedLongitudinalFriction")]
+		public static extern float WheelWV_GetCombinedLongitudinalFriction(IntPtr w);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelWV_GetCombinedLateralFriction")]
+		public static extern float WheelWV_GetCombinedLateralFriction(IntPtr w);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelWV_GetBrakeImpulse")]
+		public static extern float WheelWV_GetBrakeImpulse(IntPtr w);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelTV_GetSettings")]
 		public static extern IntPtr WheelTV_GetSettings(IntPtr w);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelTV_GetCombinedLongitudinalFriction")]
+		public static extern float WheelTV_GetCombinedLongitudinalFriction(IntPtr w);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelTV_GetCombinedLateralFriction")]
+		public static extern float WheelTV_GetCombinedLateralFriction(IntPtr w);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheelTV_GetBrakeImpulse")]
+		public static extern float WheelTV_GetBrakeImpulse(IntPtr w);
 
 		/// <summary>
 		/// ==========================================================================
@@ -4259,8 +4437,47 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_SetMaxPitchRollAngle")]
 		public static extern void VehicleConstraint_SetMaxPitchRollAngle(IntPtr vc, float angle);
 
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_GetMaxPitchRollAngle")]
+		public static extern float VehicleConstraint_GetMaxPitchRollAngle(IntPtr vc);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_SetVehicleCollisionTester")]
 		public static extern void VehicleConstraint_SetVehicleCollisionTester(IntPtr vc, IntPtr tester);
+
+		/// <summary>
+		/// Borrowed from the constraint, valid while it lives; never destroy it.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_GetVehicleCollisionTester")]
+		public static extern IntPtr VehicleConstraint_GetVehicleCollisionTester(IntPtr vc);
+
+		/// <summary>
+		/// The three moments of the vehicle step, for gameplay that reads or writes the vehicle mid-step:
+		/// before the wheel collision checks, right after them, and after the whole step. Pass a null
+		/// callback to clear. The callback must stay alive while registered (static method + userData).
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_SetPreStepCallback")]
+		public static extern void VehicleConstraint_SetPreStepCallback(IntPtr vc, IntPtr callback, void* userData);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_SetPostCollideCallback")]
+		public static extern void VehicleConstraint_SetPostCollideCallback(IntPtr vc, IntPtr callback, void* userData);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_SetPostStepCallback")]
+		public static extern void VehicleConstraint_SetPostStepCallback(IntPtr vc, IntPtr callback, void* userData);
+
+		/// <summary>
+		/// Collision testing cadence, for vehicles in the distance: test the wheels every N steps while
+		/// active (1 is every step) and every N while inactive (0 never wakes the vehicle up).
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_SetNumStepsBetweenCollisionTestActive")]
+		public static extern void VehicleConstraint_SetNumStepsBetweenCollisionTestActive(IntPtr vc, uint steps);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_GetNumStepsBetweenCollisionTestActive")]
+		public static extern uint VehicleConstraint_GetNumStepsBetweenCollisionTestActive(IntPtr vc);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_SetNumStepsBetweenCollisionTestInactive")]
+		public static extern void VehicleConstraint_SetNumStepsBetweenCollisionTestInactive(IntPtr vc, uint steps);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_GetNumStepsBetweenCollisionTestInactive")]
+		public static extern uint VehicleConstraint_GetNumStepsBetweenCollisionTestInactive(IntPtr vc);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_OverrideGravity")]
 		public static extern void VehicleConstraint_OverrideGravity(IntPtr vc, Vec3 gravity);
@@ -4484,6 +4701,24 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheeledVehicleController_GetTransmission")]
 		public static extern IntPtr WheeledVehicleController_GetTransmission(IntPtr c);
+
+		/// <summary>
+		/// The live differentials, editable while driving: torque split, ratios, limited slip.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheeledVehicleController_GetDifferentialsCount")]
+		public static extern uint WheeledVehicleController_GetDifferentialsCount(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheeledVehicleController_GetDifferential")]
+		public static extern void WheeledVehicleController_GetDifferential(IntPtr c, uint index, VehicleDifferentialSettings* result);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheeledVehicleController_SetDifferential")]
+		public static extern void WheeledVehicleController_SetDifferential(IntPtr c, uint index, VehicleDifferentialSettings* value);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheeledVehicleController_GetDifferentialLimitedSlipRatio")]
+		public static extern float WheeledVehicleController_GetDifferentialLimitedSlipRatio(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheeledVehicleController_SetDifferentialLimitedSlipRatio")]
+		public static extern void WheeledVehicleController_SetDifferentialLimitedSlipRatio(IntPtr c, float value);
 
 		/// <summary>
 		/// ==========================================================================

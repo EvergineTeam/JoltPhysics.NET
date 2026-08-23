@@ -217,6 +217,19 @@ namespace Evergine.Bindings.JoltPhysics
 	}
 
 	/// <summary>
+	/// How a path constraint ties the rotation of the guided body to the curve.
+	/// </summary>
+	public enum PathRotationConstraintType
+	{
+		Free = 0,
+		ConstrainAroundTangent = 1,
+		ConstrainAroundNormal = 2,
+		ConstrainAroundBinormal = 3,
+		ConstrainToPath = 4,
+		FullyConstrained = 5,
+	}
+
+	/// <summary>
 	/// What a whole-system snapshot includes; combine as flags.
 	/// </summary>
 	public enum StateRecorderState
