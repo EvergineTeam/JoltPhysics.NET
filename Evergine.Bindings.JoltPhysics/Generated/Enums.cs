@@ -217,6 +217,18 @@ namespace Evergine.Bindings.JoltPhysics
 	}
 
 	/// <summary>
+	/// What JoltC_PhysicsSystem_Update returns: zero is a clean step, any bit set names the buffer
+	/// that overflowed. Mirrors JPH::EPhysicsUpdateError.
+	/// </summary>
+	public enum PhysicsUpdateError
+	{
+		None = 0,
+		ManifoldCacheFull = 1,
+		BodyPairCacheFull = 2,
+		ContactConstraintsFull = 4,
+	}
+
+	/// <summary>
 	/// How a path constraint ties the rotation of the guided body to the curve.
 	/// </summary>
 	public enum PathRotationConstraintType

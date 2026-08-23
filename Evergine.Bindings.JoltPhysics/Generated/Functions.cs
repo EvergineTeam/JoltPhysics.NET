@@ -1320,7 +1320,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void CollideShapeResult_FreeMembers(CollideShapeResult* result);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CollisionEstimationResult_FreeMembers")]
-		public static extern void CollisionEstimationResult_FreeMembers(IntPtr result);
+		public static extern void CollisionEstimationResult_FreeMembers(CollisionEstimationResult* result);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -1546,6 +1546,58 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_GroupFilterTable_IsCollisionEnabled")]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool GroupFilterTable_IsCollisionEnabled(IntPtr filter, uint subGroup1, uint subGroup2);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// System introspection (phase 5)
+		/// --------------------------------------------------------------------------
+		/// The bounding box of everything in the broad phase.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetBounds")]
+		public static extern void PhysicsSystem_GetBounds(IntPtr system, AABox* outBounds);
+
+		/// <summary>
+		/// The ids of the active bodies of one type. Writes at most capacity ids and returns how many
+		/// are active in total. bodyType: 0 rigid, 1 soft (JoltC_BodyType).
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetActiveBodies")]
+		public static extern uint PhysicsSystem_GetActiveBodies(IntPtr system, int bodyType, uint* outBodies, uint capacity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetBodyStats")]
+		public static extern void PhysicsSystem_GetBodyStats(IntPtr system, BodyStats* outStats);
+
+		/// <summary>
+		/// Replace how friction / restitution combine between two bodies. Jolt stores a bare function
+		/// pointer, so these are process wide: the last one set wins for every system in the process.
+		/// Null restores Jolt&apos;s default (geometric mean for friction, max for restitution).
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_SetCombineFriction")]
+		public static extern void PhysicsSystem_SetCombineFriction(IntPtr system, IntPtr combine);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_SetCombineRestitution")]
+		public static extern void PhysicsSystem_SetCombineRestitution(IntPtr system, IntPtr combine);
+
+		/// <summary>
+		/// An allocator that mallocs on demand instead of carving a fixed block: for tools and tests
+		/// where the 10 MB up-front block is wrong, not for shipping game loops.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_TempAllocatorMalloc_Create")]
+		public static extern IntPtr TempAllocatorMalloc_Create();
+
+		/// <summary>
+		/// A job system that runs everything on the calling thread: deterministic, debuggable, slow.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_JobSystemSingleThreaded_Create")]
+		public static extern IntPtr JobSystemSingleThreaded_Create(uint maxJobs);
+
+		/// <summary>
+		/// Predicts the velocity change of one contact without running the solver: what a sound or
+		/// particle system wants to know about an impact the moment the contact callback reports it.
+		/// Writes at most impulseCapacity contact impulses and returns the manifold&apos;s count through
+		/// outImpulseCount.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_EstimateCollisionResponse")]
+		public static extern void EstimateCollisionResponse(IntPtr body1, IntPtr body2, IntPtr manifold, float combinedFriction, float combinedRestitution, float minVelocityForRestitution, uint numIterations, CollisionEstimationResult* outResult, float* outContactImpulses, uint impulseCapacity, uint* outImpulseCount);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -2597,6 +2649,98 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void MotionProperties_ScaleToMass(IntPtr properties, float mass);
 
 		/// <summary>
+		/// The rest of the class (phase 5): everything below reads or writes the live motion state the
+		/// solver uses, so the usual rule applies -- touch it between updates, not during one.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetMotionQuality")]
+		public static extern MotionQuality MotionProperties_GetMotionQuality(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetAllowSleeping")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool MotionProperties_GetAllowSleeping(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetInverseMass")]
+		public static extern float MotionProperties_GetInverseMass(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetLinearVelocity")]
+		public static extern Vec3 MotionProperties_GetLinearVelocity(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetLinearVelocity")]
+		public static extern void MotionProperties_SetLinearVelocity(IntPtr properties, Vec3 velocity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetLinearVelocityClamped")]
+		public static extern void MotionProperties_SetLinearVelocityClamped(IntPtr properties, Vec3 velocity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetAngularVelocity")]
+		public static extern Vec3 MotionProperties_GetAngularVelocity(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetAngularVelocity")]
+		public static extern void MotionProperties_SetAngularVelocity(IntPtr properties, Vec3 velocity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetAngularVelocityClamped")]
+		public static extern void MotionProperties_SetAngularVelocityClamped(IntPtr properties, Vec3 velocity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetMaxLinearVelocity")]
+		public static extern float MotionProperties_GetMaxLinearVelocity(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetMaxLinearVelocity")]
+		public static extern void MotionProperties_SetMaxLinearVelocity(IntPtr properties, float velocity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetMaxAngularVelocity")]
+		public static extern float MotionProperties_GetMaxAngularVelocity(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetMaxAngularVelocity")]
+		public static extern void MotionProperties_SetMaxAngularVelocity(IntPtr properties, float velocity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_ClampLinearVelocity")]
+		public static extern void MotionProperties_ClampLinearVelocity(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_ClampAngularVelocity")]
+		public static extern void MotionProperties_ClampAngularVelocity(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetGravityFactor")]
+		public static extern float MotionProperties_GetGravityFactor(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetGravityFactor")]
+		public static extern void MotionProperties_SetGravityFactor(IntPtr properties, float factor);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetNumVelocityStepsOverride")]
+		public static extern uint MotionProperties_GetNumVelocityStepsOverride(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetNumVelocityStepsOverride")]
+		public static extern void MotionProperties_SetNumVelocityStepsOverride(IntPtr properties, uint steps);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetNumPositionStepsOverride")]
+		public static extern uint MotionProperties_GetNumPositionStepsOverride(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_SetNumPositionStepsOverride")]
+		public static extern void MotionProperties_SetNumPositionStepsOverride(IntPtr properties, uint steps);
+
+		/// <summary>
+		/// The forces and torques accumulated for the coming step; reset happens after each step.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetAccumulatedForce")]
+		public static extern Vec3 MotionProperties_GetAccumulatedForce(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetAccumulatedTorque")]
+		public static extern Vec3 MotionProperties_GetAccumulatedTorque(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_ResetForce")]
+		public static extern void MotionProperties_ResetForce(IntPtr properties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_ResetTorque")]
+		public static extern void MotionProperties_ResetTorque(IntPtr properties);
+
+		/// <summary>
+		/// Velocity of a point relative to the centre of mass, in world space.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetPointVelocityCOM")]
+		public static extern Vec3 MotionProperties_GetPointVelocityCOM(IntPtr properties, Vec3 pointRelativeToCOM);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetLocalSpaceInverseInertia")]
+		public static extern void MotionProperties_GetLocalSpaceInverseInertia(IntPtr properties, Mat44* result);
+
+		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// Constraint base ? ref-counted
 		/// --------------------------------------------------------------------------
@@ -3447,6 +3591,28 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
+		/// CollideShapeWithInternalEdgeRemoval — no ghost hits on mesh seams
+		/// --------------------------------------------------------------------------
+		/// Same contract as CollideShape2, but contacts against the internal edges of triangle meshes and
+		/// height fields are removed, which is what a character or vehicle sliding along flat ground wants.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CollideShapeWithInternalEdgeRemoval")]
+		public static extern void NarrowPhaseQuery_CollideShapeWithInternalEdgeRemoval(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, CollideShapeSettings* settings, RVec3 baseOffset, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// CastShapeClosest — first hit only, with the early-out the collector earns
+		/// --------------------------------------------------------------------------
+		/// The all-hits cast visits everything the sweep touches; this one uses Jolt&apos;s closest-hit
+		/// collector, whose early-out shrinks the sweep as hits land — the efficient way to ask &quot;what do
+		/// I hit first&quot;. Returns JOLTC_FALSE when the sweep hits nothing.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastShapeClosest")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool NarrowPhaseQuery_CastShapeClosest(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, Vec3 direction, ShapeCastSettings* settings, RVec3 baseOffset, ShapeCastResult* outResult, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
 		/// Default layer filters — the ones a query against one layer wants
 		/// --------------------------------------------------------------------------
 		/// Wrap the system&apos;s own layer logic as filters, so a caller querying &quot;what layer X can hit&quot; does
@@ -3500,6 +3666,18 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void BroadPhaseQuery_CollidePoint(IntPtr query, Vec3 point, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
+		/// Every body whose bounds an axis aligned box sweep touches: coarse, fast, no narrow phase.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CastAABox")]
+		public static extern void BroadPhaseQuery_CastAABox(IntPtr query, AABox box, Vec3 direction, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+
+		/// <summary>
+		/// Every body whose bounds overlap an oriented box.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CollideOrientedBox")]
+		public static extern void BroadPhaseQuery_CollideOrientedBox(IntPtr query, OrientedBox* box, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+
+		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// ContactManifold reader functions
 		/// --------------------------------------------------------------------------
@@ -3527,6 +3705,14 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtualSettings_SetDefault")]
 		public static extern void CharacterVirtualSettings_SetDefault(CharacterVirtualSettings* settings);
+
+		/// <summary>
+		/// The complete listener: all eleven callbacks with the full payload, including the four
+		/// character-versus-character events and the two solve hooks. The v1 Create below remains for
+		/// callers that only need the three classic events with their slim payload.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterContactListener_Create2")]
+		public static extern IntPtr CharacterContactListener_Create2(CharacterContactListener_ProcsV2* procs, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterContactListener_Create")]
 		public static extern IntPtr CharacterContactListener_Create(IntPtr onValidate, IntPtr onAdded, IntPtr onPersisted, void* userData);
@@ -3639,6 +3825,15 @@ namespace Evergine.Bindings.JoltPhysics
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_GetGroundMaterial")]
 		public static extern IntPtr CharacterVirtual_GetGroundMaterial(IntPtr c);
+
+		/// <summary>
+		/// The supporting volume at runtime, same convention as the settings field.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_SetSupportingVolume")]
+		public static extern void CharacterVirtual_SetSupportingVolume(IntPtr c, Vec3 normal, float constant);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_GetSupportingVolume")]
+		public static extern void CharacterVirtual_GetSupportingVolume(IntPtr c, Vec3* outNormal, float* outConstant);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_GetUp")]
 		public static extern Vec3 CharacterVirtual_GetUp(IntPtr c);

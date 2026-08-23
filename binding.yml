@@ -25,7 +25,7 @@ upstream:
     # commit and published together. Following main would take headers from whatever was
     # pushed last, against binaries from whenever somebody last copied them.
     track: stable
-    current: v5.6.6
+    current: v5.6.7
 
   sources:
     # No `ref` any more, so this follows the tracked release. It read `main`, which

@@ -158,6 +158,48 @@ JOLTC_API void JoltC_GroupFilterTable_EnableCollision(JoltC_GroupFilter* filter,
 JOLTC_API JoltC_Bool JoltC_GroupFilterTable_IsCollisionEnabled(const JoltC_GroupFilter* filter, JoltC_CollisionSubGroupID subGroup1, JoltC_CollisionSubGroupID subGroup2);
 
 /* -------------------------------------------------------------------------- */
+/*  System introspection (phase 5)                                            */
+/* -------------------------------------------------------------------------- */
+/* The bounding box of everything in the broad phase. */
+JOLTC_API void JoltC_PhysicsSystem_GetBounds(const JoltC_PhysicsSystem* system, JoltC_AABox* outBounds);
+
+/* The ids of the active bodies of one type. Writes at most capacity ids and returns how many
+ * are active in total. bodyType: 0 rigid, 1 soft (JoltC_BodyType). */
+JOLTC_API uint32_t JoltC_PhysicsSystem_GetActiveBodies(const JoltC_PhysicsSystem* system, int bodyType, JoltC_BodyID* outBodies, uint32_t capacity);
+
+JOLTC_API void JoltC_PhysicsSystem_GetBodyStats(const JoltC_PhysicsSystem* system, JoltC_BodyStats* outStats);
+
+/* Replace how friction / restitution combine between two bodies. Jolt stores a bare function
+ * pointer, so these are process wide: the last one set wins for every system in the process.
+ * Null restores Jolt's default (geometric mean for friction, max for restitution). */
+JOLTC_API void JoltC_PhysicsSystem_SetCombineFriction(JoltC_PhysicsSystem* system, JoltC_CombineFunctionFn combine);
+JOLTC_API void JoltC_PhysicsSystem_SetCombineRestitution(JoltC_PhysicsSystem* system, JoltC_CombineFunctionFn combine);
+
+/* An allocator that mallocs on demand instead of carving a fixed block: for tools and tests
+ * where the 10 MB up-front block is wrong, not for shipping game loops. */
+JOLTC_API JoltC_TempAllocator* JoltC_TempAllocatorMalloc_Create(void);
+
+/* A job system that runs everything on the calling thread: deterministic, debuggable, slow. */
+JOLTC_API JoltC_JobSystem* JoltC_JobSystemSingleThreaded_Create(uint32_t maxJobs);
+
+/* Predicts the velocity change of one contact without running the solver: what a sound or
+ * particle system wants to know about an impact the moment the contact callback reports it.
+ * Writes at most impulseCapacity contact impulses and returns the manifold's count through
+ * outImpulseCount. */
+JOLTC_API void JoltC_EstimateCollisionResponse(
+    const JoltC_Body*                body1,
+    const JoltC_Body*                body2,
+    const JoltC_ContactManifold*     manifold,
+    float                            combinedFriction,
+    float                            combinedRestitution,
+    float                            minVelocityForRestitution,
+    uint32_t                         numIterations,
+    JoltC_CollisionEstimationResult* outResult,
+    float*                           outContactImpulses,
+    uint32_t                         impulseCapacity,
+    uint32_t*                        outImpulseCount);
+
+/* -------------------------------------------------------------------------- */
 /*  PhysicsMaterial                                                           */
 /*                                                                            */
 /*  The handle is ref-counted. Create returns it holding one reference and    */

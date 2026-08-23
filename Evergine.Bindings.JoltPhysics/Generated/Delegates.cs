@@ -5,6 +5,9 @@ using System.Runtime.InteropServices;
 namespace Evergine.Bindings.JoltPhysics
 {
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate float CombineFunctionFn(IntPtr body1, uint subShapeID1, IntPtr body2, uint subShapeID2);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SoftBodyValidateResult OnSoftBodyContactValidateFn(void* userData, IntPtr softBody, IntPtr otherBody, SoftBodyContactSettings* ioSettings);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -117,5 +120,23 @@ namespace Evergine.Bindings.JoltPhysics
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void OnCharacterContactPersistedFn(void* userData, uint bodyID2, RVec3 contactPosition, Vec3 contactNormal, int* outCanPushCharacter, int* outCanReceiveImpulses);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void OnCharacterAdjustBodyVelocityFn(void* userData, IntPtr body2, Vec3* ioLinearVelocity, Vec3* ioAngularVelocity);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void OnCharacterContactValidate2Fn(void* userData, CharacterContact* contact, int* ioAccept);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void OnCharacterContactEvent2Fn(void* userData, CharacterContact* contact, int* ioCanPushCharacter, int* ioCanReceiveImpulses);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void OnCharacterContactRemoved2Fn(void* userData, uint bodyID2, uint subShapeID2);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void OnCharacterVsCharacterContactRemovedFn(void* userData, uint otherCharacterID, uint subShapeID2);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void OnCharacterContactSolveFn(void* userData, uint bodyID2, uint otherCharacterID, uint subShapeID2, RVec3 contactPosition, Vec3 contactNormal, Vec3 contactVelocity, IntPtr contactMaterial, Vec3 characterVelocity, Vec3* ioNewCharacterVelocity);
 
 }

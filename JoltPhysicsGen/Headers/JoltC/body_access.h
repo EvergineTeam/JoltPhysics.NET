@@ -174,6 +174,38 @@ JOLTC_API void               JoltC_MotionProperties_SetInverseInertia(JoltC_Moti
 JOLTC_API void               JoltC_MotionProperties_SetMassProperties(JoltC_MotionProperties* properties, JoltC_AllowedDOFs allowedDOFs, const JoltC_MassProperties* massProperties);
 JOLTC_API void               JoltC_MotionProperties_ScaleToMass(JoltC_MotionProperties* properties, float mass);
 
+/* The rest of the class (phase 5): everything below reads or writes the live motion state the
+ * solver uses, so the usual rule applies -- touch it between updates, not during one. */
+JOLTC_API JoltC_MotionQuality JoltC_MotionProperties_GetMotionQuality(const JoltC_MotionProperties* properties);
+JOLTC_API JoltC_Bool         JoltC_MotionProperties_GetAllowSleeping(const JoltC_MotionProperties* properties);
+JOLTC_API float              JoltC_MotionProperties_GetInverseMass(const JoltC_MotionProperties* properties);
+JOLTC_API JoltC_Vec3         JoltC_MotionProperties_GetLinearVelocity(const JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_SetLinearVelocity(JoltC_MotionProperties* properties, JoltC_Vec3 velocity);
+JOLTC_API void               JoltC_MotionProperties_SetLinearVelocityClamped(JoltC_MotionProperties* properties, JoltC_Vec3 velocity);
+JOLTC_API JoltC_Vec3         JoltC_MotionProperties_GetAngularVelocity(const JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_SetAngularVelocity(JoltC_MotionProperties* properties, JoltC_Vec3 velocity);
+JOLTC_API void               JoltC_MotionProperties_SetAngularVelocityClamped(JoltC_MotionProperties* properties, JoltC_Vec3 velocity);
+JOLTC_API float              JoltC_MotionProperties_GetMaxLinearVelocity(const JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_SetMaxLinearVelocity(JoltC_MotionProperties* properties, float velocity);
+JOLTC_API float              JoltC_MotionProperties_GetMaxAngularVelocity(const JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_SetMaxAngularVelocity(JoltC_MotionProperties* properties, float velocity);
+JOLTC_API void               JoltC_MotionProperties_ClampLinearVelocity(JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_ClampAngularVelocity(JoltC_MotionProperties* properties);
+JOLTC_API float              JoltC_MotionProperties_GetGravityFactor(const JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_SetGravityFactor(JoltC_MotionProperties* properties, float factor);
+JOLTC_API uint32_t           JoltC_MotionProperties_GetNumVelocityStepsOverride(const JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_SetNumVelocityStepsOverride(JoltC_MotionProperties* properties, uint32_t steps);
+JOLTC_API uint32_t           JoltC_MotionProperties_GetNumPositionStepsOverride(const JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_SetNumPositionStepsOverride(JoltC_MotionProperties* properties, uint32_t steps);
+/* The forces and torques accumulated for the coming step; reset happens after each step. */
+JOLTC_API JoltC_Vec3         JoltC_MotionProperties_GetAccumulatedForce(const JoltC_MotionProperties* properties);
+JOLTC_API JoltC_Vec3         JoltC_MotionProperties_GetAccumulatedTorque(const JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_ResetForce(JoltC_MotionProperties* properties);
+JOLTC_API void               JoltC_MotionProperties_ResetTorque(JoltC_MotionProperties* properties);
+/* Velocity of a point relative to the centre of mass, in world space. */
+JOLTC_API JoltC_Vec3         JoltC_MotionProperties_GetPointVelocityCOM(const JoltC_MotionProperties* properties, JoltC_Vec3 pointRelativeToCOM);
+JOLTC_API void               JoltC_MotionProperties_GetLocalSpaceInverseInertia(const JoltC_MotionProperties* properties, JoltC_Mat44* result);
+
 #ifdef __cplusplus
 }
 #endif

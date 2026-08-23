@@ -162,6 +162,45 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CastShape2(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
+/*  CollideShapeWithInternalEdgeRemoval — no ghost hits on mesh seams         */
+/* -------------------------------------------------------------------------- */
+/* Same contract as CollideShape2, but contacts against the internal edges of triangle meshes and
+ * height fields are removed, which is what a character or vehicle sliding along flat ground wants. */
+JOLTC_API void JoltC_NarrowPhaseQuery_CollideShapeWithInternalEdgeRemoval(
+    const JoltC_NarrowPhaseQuery*        query,
+    const JoltC_Shape*                   shape,
+    JoltC_Vec3                           scale,
+    JoltC_Mat44                          centerOfMassTransform,
+    const JoltC_CollideShapeSettings*    settings,      /* nullable */
+    JoltC_RVec3                          baseOffset,
+    JoltC_CollideShapeResultFn           callback,
+    void*                                userData,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
+
+/* -------------------------------------------------------------------------- */
+/*  CastShapeClosest — first hit only, with the early-out the collector earns */
+/* -------------------------------------------------------------------------- */
+/* The all-hits cast visits everything the sweep touches; this one uses Jolt's closest-hit
+ * collector, whose early-out shrinks the sweep as hits land — the efficient way to ask "what do
+ * I hit first". Returns JOLTC_FALSE when the sweep hits nothing. */
+JOLTC_API JoltC_Bool JoltC_NarrowPhaseQuery_CastShapeClosest(
+    const JoltC_NarrowPhaseQuery*        query,
+    const JoltC_Shape*                   shape,
+    JoltC_Vec3                           scale,
+    JoltC_Mat44                          centerOfMassTransform,
+    JoltC_Vec3                           direction,
+    const JoltC_ShapeCastSettings*       settings,      /* nullable */
+    JoltC_RVec3                          baseOffset,
+    JoltC_ShapeCastResult*               outResult,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
+
+/* -------------------------------------------------------------------------- */
 /*  Default layer filters — the ones a query against one layer wants          */
 /* -------------------------------------------------------------------------- */
 /* Wrap the system's own layer logic as filters, so a caller querying "what layer X can hit" does
@@ -216,6 +255,25 @@ JOLTC_API void JoltC_BroadPhaseQuery_CollideSphere(
 JOLTC_API void JoltC_BroadPhaseQuery_CollidePoint(
     const JoltC_BroadPhaseQuery*         query,
     JoltC_Vec3                           point,
+    JoltC_CollideShapeBodyResultFn       callback,
+    void*                                userData,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter);     /* nullable */
+
+/* Every body whose bounds an axis aligned box sweep touches: coarse, fast, no narrow phase. */
+JOLTC_API void JoltC_BroadPhaseQuery_CastAABox(
+    const JoltC_BroadPhaseQuery*         query,
+    JoltC_AABox                          box,
+    JoltC_Vec3                           direction,
+    JoltC_BroadPhaseCastResultFn         callback,
+    void*                                userData,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter);     /* nullable */
+
+/* Every body whose bounds overlap an oriented box. */
+JOLTC_API void JoltC_BroadPhaseQuery_CollideOrientedBox(
+    const JoltC_BroadPhaseQuery*         query,
+    const JoltC_OrientedBox*             box,
     JoltC_CollideShapeBodyResultFn       callback,
     void*                                userData,
     const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */

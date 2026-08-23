@@ -4,6 +4,28 @@ using System.Runtime.InteropServices;
 
 namespace Evergine.Bindings.JoltPhysics
 {
+	/// <summary>
+	/// The post-collision velocities of both bodies as computed by JoltC_EstimateCollisionResponse.
+	/// The per-contact-point impulses come back through that call&apos;s buffer arguments, since their
+	/// count depends on the manifold.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct CollisionEstimationResult
+	{
+		public Vec3 LinearVelocity1;
+		public Vec3 AngularVelocity1;
+		public Vec3 LinearVelocity2;
+		public Vec3 AngularVelocity2;
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct Vec3
+	{
+		public float X;
+		public float Y;
+		public float Z;
+	}
+
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct CollisionGroup
 	{
@@ -36,14 +58,6 @@ namespace Evergine.Bindings.JoltPhysics
 	{
 		public float X;
 		public float Y;
-	}
-
-	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct Vec3
-	{
-		public float X;
-		public float Y;
-		public float Z;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
@@ -117,6 +131,34 @@ namespace Evergine.Bindings.JoltPhysics
 		public uint I3;
 		public uint MaterialIndex;
 		public uint UserData;
+	}
+
+	/// <summary>
+	/// A census of the body manager, straight from JPH::BodyManager::BodyStats.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct BodyStats
+	{
+		public uint NumBodies;
+		public uint MaxBodies;
+		public uint NumBodiesStatic;
+		public uint NumBodiesDynamic;
+		public uint NumActiveBodiesDynamic;
+		public uint NumBodiesKinematic;
+		public uint NumActiveBodiesKinematic;
+		public uint NumSoftBodies;
+		public uint NumActiveSoftBodies;
+	}
+
+	/// <summary>
+	/// An oriented box for broad phase queries: orientation carries rotation AND translation (the
+	/// centre of the box lives in the matrix translation), halfExtents the size.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct OrientedBox
+	{
+		public Mat44 Orientation;
+		public Vec3 HalfExtents;
 	}
 
 	/// <summary>
@@ -792,6 +834,8 @@ namespace Evergine.Bindings.JoltPhysics
 		public float MaxSlopeAngle;
 		public int EnhancedInternalEdgeRemoval;
 		public IntPtr Shape;
+		public Vec3 SupportingVolumeNormal;
+		public float SupportingVolumeConstant;
 		public float Mass;
 		public float MaxStrength;
 		public Vec3 ShapeOffset;
@@ -807,6 +851,53 @@ namespace Evergine.Bindings.JoltPhysics
 		public float PenetrationRecoverySpeed;
 		public IntPtr InnerBodyShape;
 		public ushort InnerBodyLayer;
+	}
+
+	/// <summary>
+	/// --------------------------------------------------------------------------
+	/// The full contact payload and the complete listener (v2)
+	/// --------------------------------------------------------------------------
+	/// Everything Jolt&apos;s CharacterContact carries. Exactly one of bodyB / characterIDB identifies the
+	/// other side: bodyB is JOLTC_BODY_ID_INVALID when it is a character, characterIDB is 0xffffffff
+	/// when it is a body. surfaceNormal is NOT contactNormal: it is flipped for back facing contacts.
+	/// materialB is borrowed and only valid for the duration of the callback.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct CharacterContact
+	{
+		public uint BodyB;
+		public uint CharacterIDB;
+		public uint SubShapeIDB;
+		public RVec3 Position;
+		public Vec3 LinearVelocity;
+		public Vec3 ContactNormal;
+		public Vec3 SurfaceNormal;
+		public float Distance;
+		public float Fraction;
+		public MotionType MotionTypeB;
+		public int IsSensorB;
+		public ulong UserDataB;
+		public IntPtr MaterialB;
+		public int IsBackFacingContact;
+	}
+
+	/// <summary>
+	/// Any pointer may be null to skip that event.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct CharacterContactListener_ProcsV2
+	{
+		public IntPtr OnAdjustBodyVelocity;
+		public IntPtr OnContactValidate;
+		public IntPtr OnContactAdded;
+		public IntPtr OnContactPersisted;
+		public IntPtr OnContactRemoved;
+		public IntPtr OnCharacterContactValidate;
+		public IntPtr OnCharacterContactAdded;
+		public IntPtr OnCharacterContactPersisted;
+		public IntPtr OnCharacterContactRemoved;
+		public IntPtr OnContactSolve;
+		public IntPtr OnCharacterContactSolve;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]

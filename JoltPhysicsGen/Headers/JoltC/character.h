@@ -22,6 +22,12 @@ typedef struct JoltC_CharacterVirtualSettings {
     float               maxSlopeAngle;
     JoltC_Bool          enhancedInternalEdgeRemoval;
     const JoltC_Shape*  shape;
+    /* The supporting volume plane, in character local space: contacts behind it can hold the
+     * character up, contacts in front of it only collide. Lifting the plane above the capsule's
+     * bottom sphere stops the character standing on walls it brushes. Plane equation
+     * dot(normal, point) + constant = 0; Jolt's default accepts every contact. */
+    JoltC_Vec3          supportingVolumeNormal;
+    float               supportingVolumeConstant;
     /* CharacterVirtualSettings members */
     float               mass;
     float               maxStrength;
@@ -48,6 +54,71 @@ JOLTC_API void JoltC_CharacterVirtualSettings_SetDefault(JoltC_CharacterVirtualS
 typedef void (*JoltC_OnCharacterContactValidateFn)(void* userData, JoltC_BodyID bodyID2, JoltC_Bool* outAccept);
 typedef void (*JoltC_OnCharacterContactAddedFn)(void* userData, JoltC_BodyID bodyID2, JoltC_RVec3 contactPosition, JoltC_Vec3 contactNormal, JoltC_Bool* outCanPushCharacter, JoltC_Bool* outCanReceiveImpulses);
 typedef void (*JoltC_OnCharacterContactPersistedFn)(void* userData, JoltC_BodyID bodyID2, JoltC_RVec3 contactPosition, JoltC_Vec3 contactNormal, JoltC_Bool* outCanPushCharacter, JoltC_Bool* outCanReceiveImpulses);
+
+/* -------------------------------------------------------------------------- */
+/*  The full contact payload and the complete listener (v2)                   */
+/* -------------------------------------------------------------------------- */
+/* Everything Jolt's CharacterContact carries. Exactly one of bodyB / characterIDB identifies the
+ * other side: bodyB is JOLTC_BODY_ID_INVALID when it is a character, characterIDB is 0xffffffff
+ * when it is a body. surfaceNormal is NOT contactNormal: it is flipped for back facing contacts.
+ * materialB is borrowed and only valid for the duration of the callback. */
+typedef struct JoltC_CharacterContact {
+    JoltC_BodyID                 bodyB;
+    uint32_t                     characterIDB;
+    JoltC_SubShapeID             subShapeIDB;
+    JoltC_RVec3                  position;
+    JoltC_Vec3                   linearVelocity;
+    JoltC_Vec3                   contactNormal;
+    JoltC_Vec3                   surfaceNormal;
+    float                        distance;    /* <= 0 is a real contact, > 0 predictive */
+    float                        fraction;
+    JoltC_MotionType             motionTypeB;
+    JoltC_Bool                   isSensorB;
+    uint64_t                     userDataB;
+    const JoltC_PhysicsMaterial* materialB;
+    JoltC_Bool                   isBackFacingContact;
+} JoltC_CharacterContact;
+
+typedef void (*JoltC_OnCharacterAdjustBodyVelocityFn)(void* userData, const JoltC_Body* body2, JoltC_Vec3* ioLinearVelocity, JoltC_Vec3* ioAngularVelocity);
+typedef void (*JoltC_OnCharacterContactValidate2Fn)(void* userData, const JoltC_CharacterContact* contact, JoltC_Bool* ioAccept);
+typedef void (*JoltC_OnCharacterContactEvent2Fn)(void* userData, const JoltC_CharacterContact* contact, JoltC_Bool* ioCanPushCharacter, JoltC_Bool* ioCanReceiveImpulses);
+typedef void (*JoltC_OnCharacterContactRemoved2Fn)(void* userData, JoltC_BodyID bodyID2, JoltC_SubShapeID subShapeID2);
+typedef void (*JoltC_OnCharacterVsCharacterContactRemovedFn)(void* userData, uint32_t otherCharacterID, JoltC_SubShapeID subShapeID2);
+/* The solve callbacks let gameplay rewrite the character's velocity against one contact -- ice,
+ * conveyor belts, bounce pads. Exactly one of bodyID2 / otherCharacterID is valid, as above. */
+typedef void (*JoltC_OnCharacterContactSolveFn)(
+    void*                        userData,
+    JoltC_BodyID                 bodyID2,
+    uint32_t                     otherCharacterID,
+    JoltC_SubShapeID             subShapeID2,
+    JoltC_RVec3                  contactPosition,
+    JoltC_Vec3                   contactNormal,
+    JoltC_Vec3                   contactVelocity,
+    const JoltC_PhysicsMaterial* contactMaterial,
+    JoltC_Vec3                   characterVelocity,
+    JoltC_Vec3*                  ioNewCharacterVelocity);
+
+/* Any pointer may be null to skip that event. */
+typedef struct JoltC_CharacterContactListener_ProcsV2 {
+    JoltC_OnCharacterAdjustBodyVelocityFn        onAdjustBodyVelocity;
+    JoltC_OnCharacterContactValidate2Fn          onContactValidate;
+    JoltC_OnCharacterContactEvent2Fn             onContactAdded;
+    JoltC_OnCharacterContactEvent2Fn             onContactPersisted;
+    JoltC_OnCharacterContactRemoved2Fn           onContactRemoved;
+    JoltC_OnCharacterContactValidate2Fn          onCharacterContactValidate;
+    JoltC_OnCharacterContactEvent2Fn             onCharacterContactAdded;
+    JoltC_OnCharacterContactEvent2Fn             onCharacterContactPersisted;
+    JoltC_OnCharacterVsCharacterContactRemovedFn onCharacterContactRemoved;
+    JoltC_OnCharacterContactSolveFn              onContactSolve;
+    JoltC_OnCharacterContactSolveFn              onCharacterContactSolve;
+} JoltC_CharacterContactListener_ProcsV2;
+
+/* The complete listener: all eleven callbacks with the full payload, including the four
+ * character-versus-character events and the two solve hooks. The v1 Create below remains for
+ * callers that only need the three classic events with their slim payload. */
+JOLTC_API JoltC_CharacterContactListener* JoltC_CharacterContactListener_Create2(
+    const JoltC_CharacterContactListener_ProcsV2* procs,
+    void*                                         userData);
 
 JOLTC_API JoltC_CharacterContactListener* JoltC_CharacterContactListener_Create(
     JoltC_OnCharacterContactValidateFn   onValidate,
@@ -105,6 +176,10 @@ JOLTC_API JoltC_BodyID      JoltC_CharacterVirtual_GetGroundBodyID(const JoltC_C
 
 /* The material of the ground the character stands on, borrowed — footsteps by material. */
 JOLTC_API const JoltC_PhysicsMaterial* JoltC_CharacterVirtual_GetGroundMaterial(const JoltC_CharacterVirtual* c);
+
+/* The supporting volume at runtime, same convention as the settings field. */
+JOLTC_API void JoltC_CharacterVirtual_SetSupportingVolume(JoltC_CharacterVirtual* c, JoltC_Vec3 normal, float constant);
+JOLTC_API void JoltC_CharacterVirtual_GetSupportingVolume(const JoltC_CharacterVirtual* c, JoltC_Vec3* outNormal, float* outConstant);
 
 JOLTC_API JoltC_Vec3 JoltC_CharacterVirtual_GetUp(const JoltC_CharacterVirtual* c);
 JOLTC_API void       JoltC_CharacterVirtual_SetUp(JoltC_CharacterVirtual* c, JoltC_Vec3 up);

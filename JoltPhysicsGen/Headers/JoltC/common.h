@@ -141,7 +141,7 @@ typedef struct JoltC_SoftBodyContactListener              JoltC_SoftBodyContactL
 /* A borrowed view over one soft body's contacts, valid only inside the contact added callback. */
 typedef struct JoltC_SoftBodyManifold                     JoltC_SoftBodyManifold;
 
-/* Collision estimation result (opaque, contains internal arrays) */
+/* Collision estimation result: defined below, once the math types exist. */
 typedef struct JoltC_CollisionEstimationResult            JoltC_CollisionEstimationResult;
 
 /* -------------------------------------------------------------------------- */
@@ -222,6 +222,16 @@ typedef struct JoltC_AABox {
     JoltC_Vec3 min;
     JoltC_Vec3 max;
 } JoltC_AABox;
+
+/* The post-collision velocities of both bodies as computed by JoltC_EstimateCollisionResponse.
+ * The per-contact-point impulses come back through that call's buffer arguments, since their
+ * count depends on the manifold. */
+struct JoltC_CollisionEstimationResult {
+    JoltC_Vec3 linearVelocity1;
+    JoltC_Vec3 angularVelocity1;
+    JoltC_Vec3 linearVelocity2;
+    JoltC_Vec3 angularVelocity2;
+};
 
 typedef struct JoltC_Triangle {
     JoltC_Vec3 v1, v2, v3;
@@ -413,6 +423,39 @@ typedef enum JoltC_SoftBodyValidateResult {
     JOLTC_SOFT_BODY_VALIDATE_RESULT_ACCEPT_CONTACT = 0,
     JOLTC_SOFT_BODY_VALIDATE_RESULT_REJECT_CONTACT = 1
 } JoltC_SoftBodyValidateResult;
+
+/* What JoltC_PhysicsSystem_Update returns: zero is a clean step, any bit set names the buffer
+ * that overflowed. Mirrors JPH::EPhysicsUpdateError. */
+typedef enum JoltC_PhysicsUpdateError {
+    JOLTC_PHYSICS_UPDATE_ERROR_NONE                   = 0,
+    JOLTC_PHYSICS_UPDATE_ERROR_MANIFOLD_CACHE_FULL    = 1,
+    JOLTC_PHYSICS_UPDATE_ERROR_BODY_PAIR_CACHE_FULL   = 2,
+    JOLTC_PHYSICS_UPDATE_ERROR_CONTACT_CONSTRAINTS_FULL = 4
+} JoltC_PhysicsUpdateError;
+
+/* A census of the body manager, straight from JPH::BodyManager::BodyStats. */
+typedef struct JoltC_BodyStats {
+    uint32_t numBodies;
+    uint32_t maxBodies;
+    uint32_t numBodiesStatic;
+    uint32_t numBodiesDynamic;
+    uint32_t numActiveBodiesDynamic;
+    uint32_t numBodiesKinematic;
+    uint32_t numActiveBodiesKinematic;
+    uint32_t numSoftBodies;
+    uint32_t numActiveSoftBodies;
+} JoltC_BodyStats;
+
+/* An oriented box for broad phase queries: orientation carries rotation AND translation (the
+ * centre of the box lives in the matrix translation), halfExtents the size. */
+typedef struct JoltC_OrientedBox {
+    JoltC_Mat44 orientation;
+    JoltC_Vec3  halfExtents;
+} JoltC_OrientedBox;
+
+/* Friction / restitution combine functions. Jolt stores a bare function pointer with no user
+ * data, so these are process-wide when set through C -- one pair of trampolines exists. */
+typedef float (*JoltC_CombineFunctionFn)(const JoltC_Body* body1, uint32_t subShapeID1, const JoltC_Body* body2, uint32_t subShapeID2);
 
 /* How a path constraint ties the rotation of the guided body to the curve. */
 typedef enum JoltC_PathRotationConstraintType {
