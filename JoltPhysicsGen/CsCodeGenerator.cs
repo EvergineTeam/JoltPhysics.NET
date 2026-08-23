@@ -455,26 +455,23 @@ namespace JoltPhysicsGen
 						? $"arg{func.Parameters.IndexOf(param)}"
 						: Helpers.EscapeReservedKeyword(param.Name);
 
-					// If the parameter type is a delegate name, use the delegate type directly
+					// Function pointer parameters are typed IntPtr, not as the delegate. A delegate
+					// parameter is exactly what does not survive the browser: mono's wasm interpreter
+					// has no interp-to-native trampoline for a marshalled delegate and aborts on the
+					// first call, which is why the engine ended up re-declaring every callback-taking
+					// entry point by hand with IntPtr. Callers marshal an [UnmanagedCallersOnly]
+					// function pointer (or Marshal.GetFunctionPointerForDelegate) and pass that. The
+					// delegate types themselves are still emitted in Delegates.cs, as documentation of
+					// each callback's shape.
 					if (param.Type is CppPointerType ptr &&
 						ptr.ElementType is CppFunctionType)
 					{
-						// Inline function pointer - try to find matching typedef
-						var matchingTypedef = FindMatchingDelegate(ptr, compilation);
-						if (matchingTypedef != null)
-						{
-							paramType = Helpers.StripPrefix(matchingTypedef);
-						}
-						else
-						{
-							// Generate an inline delegate name from the function + parameter name
-							paramType = GenerateInlineDelegate(ptr, csFuncName, paramName, compilation);
-						}
-						marshalAttr = null; // delegates don't need MarshalAs
+						paramType = "IntPtr";
+						marshalAttr = null;
 					}
 					else if (param.Type is CppTypedef td && Helpers.DelegateNames.Contains(td.Name))
 					{
-						paramType = Helpers.StripPrefix(td.Name);
+						paramType = "IntPtr";
 						marshalAttr = null;
 					}
 

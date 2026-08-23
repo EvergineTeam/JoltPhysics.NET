@@ -29,10 +29,10 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void Shutdown();
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SetTraceHandler")]
-		public static extern void SetTraceHandler(SetTraceHandler_HandlerFn handler);
+		public static extern void SetTraceHandler(IntPtr handler);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SetAssertFailureHandler")]
-		public static extern void SetAssertFailureHandler(SetAssertFailureHandler_HandlerFn handler);
+		public static extern void SetAssertFailureHandler(IntPtr handler);
 
 		/// <summary>
 		/// Helper to fill defaults matching JoltPhysics defaults
@@ -1256,7 +1256,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseLayerInterface_Create")]
-		public static extern IntPtr BroadPhaseLayerInterface_Create(GetNumBroadPhaseLayersFn getNumLayers, GetBroadPhaseLayerFn getBroadPhaseLayer, void* userData);
+		public static extern IntPtr BroadPhaseLayerInterface_Create(IntPtr getNumLayers, IntPtr getBroadPhaseLayer, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseLayerInterface_Destroy")]
 		public static extern void BroadPhaseLayerInterface_Destroy(IntPtr iface);
@@ -1267,7 +1267,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ObjectVsBroadPhaseLayerFilter_Create")]
-		public static extern IntPtr ObjectVsBroadPhaseLayerFilter_Create(ObjectVsBroadPhaseLayerFilterFn filterFn, void* userData);
+		public static extern IntPtr ObjectVsBroadPhaseLayerFilter_Create(IntPtr filterFn, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ObjectVsBroadPhaseLayerFilter_Destroy")]
 		public static extern void ObjectVsBroadPhaseLayerFilter_Destroy(IntPtr filter);
@@ -1278,7 +1278,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ObjectLayerPairFilter_Create")]
-		public static extern IntPtr ObjectLayerPairFilter_Create(ObjectLayerPairFilterFn filterFn, void* userData);
+		public static extern IntPtr ObjectLayerPairFilter_Create(IntPtr filterFn, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ObjectLayerPairFilter_Destroy")]
 		public static extern void ObjectLayerPairFilter_Destroy(IntPtr filter);
@@ -1289,7 +1289,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ContactListener_Create")]
-		public static extern IntPtr ContactListener_Create(OnContactValidateFn onValidate, OnContactAddedFn onAdded, OnContactPersistedFn onPersisted, OnContactRemovedFn onRemoved, void* userData);
+		public static extern IntPtr ContactListener_Create(IntPtr onValidate, IntPtr onAdded, IntPtr onPersisted, IntPtr onRemoved, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ContactListener_Destroy")]
 		public static extern void ContactListener_Destroy(IntPtr listener);
@@ -1300,7 +1300,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyActivationListener_Create")]
-		public static extern IntPtr BodyActivationListener_Create(OnBodyActivatedFn onActivated, OnBodyDeactivatedFn onDeactivated, void* userData);
+		public static extern IntPtr BodyActivationListener_Create(IntPtr onActivated, IntPtr onDeactivated, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyActivationListener_Destroy")]
 		public static extern void BodyActivationListener_Destroy(IntPtr listener);
@@ -1476,7 +1476,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsStepListener_Create")]
-		public static extern IntPtr PhysicsStepListener_Create(OnPhysicsStepFn fn, void* userData);
+		public static extern IntPtr PhysicsStepListener_Create(IntPtr fn, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsStepListener_Destroy")]
 		public static extern void PhysicsStepListener_Destroy(IntPtr listener);
@@ -1501,7 +1501,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ContactListener_CreateEnhanced")]
-		public static extern IntPtr ContactListener_CreateEnhanced(OnContactValidateEnhancedFn onValidate, OnContactAddedEnhancedFn onAdded, OnContactPersistedEnhancedFn onPersisted, OnContactRemovedEnhancedFn onRemoved, void* userData);
+		public static extern IntPtr ContactListener_CreateEnhanced(IntPtr onValidate, IntPtr onAdded, IntPtr onPersisted, IntPtr onRemoved, void* userData);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3099,10 +3099,10 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern bool NarrowPhaseQuery_CastRay(IntPtr query, RVec3 origin, Vec3 direction, RayCastResult* outResult);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastRayAll")]
-		public static extern void NarrowPhaseQuery_CastRayAll(IntPtr query, RVec3 origin, Vec3 direction, RayCastSettings* rayCastSettings, CastRayCollectorFn callback, void* userData);
+		public static extern void NarrowPhaseQuery_CastRayAll(IntPtr query, RVec3 origin, Vec3 direction, RayCastSettings* rayCastSettings, IntPtr callback, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CollidePoint")]
-		public static extern void NarrowPhaseQuery_CollidePoint(IntPtr query, RVec3 point, CollidePointCollectorFn callback, void* userData);
+		public static extern void NarrowPhaseQuery_CollidePoint(IntPtr query, RVec3 point, IntPtr callback, void* userData);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3119,7 +3119,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay3")]
-		public static extern void NarrowPhaseQuery_CastRay3(IntPtr query, RVec3 origin, Vec3 direction, RayCastSettings* rayCastSettings, CastRayCollectorFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+		public static extern void NarrowPhaseQuery_CastRay3(IntPtr query, RVec3 origin, Vec3 direction, RayCastSettings* rayCastSettings, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3127,7 +3127,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CollidePoint2")]
-		public static extern void NarrowPhaseQuery_CollidePoint2(IntPtr query, RVec3 point, CollidePointCollectorFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+		public static extern void NarrowPhaseQuery_CollidePoint2(IntPtr query, RVec3 point, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3135,7 +3135,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CollideShape")]
-		public static extern void NarrowPhaseQuery_CollideShape(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, RVec3 baseOffset, CollideShapeResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+		public static extern void NarrowPhaseQuery_CollideShape(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, RVec3 baseOffset, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3143,7 +3143,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastShape")]
-		public static extern void NarrowPhaseQuery_CastShape(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, Vec3 direction, RVec3 baseOffset, CastShapeResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+		public static extern void NarrowPhaseQuery_CastShape(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, Vec3 direction, RVec3 baseOffset, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3159,7 +3159,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CastRay")]
-		public static extern void BroadPhaseQuery_CastRay(IntPtr query, Vec3 origin, Vec3 direction, BroadPhaseCastResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+		public static extern void BroadPhaseQuery_CastRay(IntPtr query, Vec3 origin, Vec3 direction, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3167,7 +3167,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CollideAABox")]
-		public static extern void BroadPhaseQuery_CollideAABox(IntPtr query, AABox box, CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+		public static extern void BroadPhaseQuery_CollideAABox(IntPtr query, AABox box, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3175,7 +3175,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CollideSphere")]
-		public static extern void BroadPhaseQuery_CollideSphere(IntPtr query, Vec3 center, float radius, CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+		public static extern void BroadPhaseQuery_CollideSphere(IntPtr query, Vec3 center, float radius, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3183,7 +3183,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CollidePoint")]
-		public static extern void BroadPhaseQuery_CollidePoint(IntPtr query, Vec3 point, CollideShapeBodyResultFn callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
+		public static extern void BroadPhaseQuery_CollidePoint(IntPtr query, Vec3 point, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3215,7 +3215,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void CharacterVirtualSettings_SetDefault(CharacterVirtualSettings* settings);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterContactListener_Create")]
-		public static extern IntPtr CharacterContactListener_Create(OnCharacterContactValidateFn onValidate, OnCharacterContactAddedFn onAdded, OnCharacterContactPersistedFn onPersisted, void* userData);
+		public static extern IntPtr CharacterContactListener_Create(IntPtr onValidate, IntPtr onAdded, IntPtr onPersisted, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterContactListener_Destroy")]
 		public static extern void CharacterContactListener_Destroy(IntPtr listener);
@@ -3652,7 +3652,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseLayerFilter_Create")]
-		public static extern IntPtr BroadPhaseLayerFilter_Create(BroadPhaseLayerFilterFn fn, void* userData);
+		public static extern IntPtr BroadPhaseLayerFilter_Create(IntPtr fn, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseLayerFilter_Destroy")]
 		public static extern void BroadPhaseLayerFilter_Destroy(IntPtr filter);
@@ -3663,7 +3663,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ObjectLayerFilter_Create")]
-		public static extern IntPtr ObjectLayerFilter_Create(ObjectLayerFilterFn fn, void* userData);
+		public static extern IntPtr ObjectLayerFilter_Create(IntPtr fn, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ObjectLayerFilter_Destroy")]
 		public static extern void ObjectLayerFilter_Destroy(IntPtr filter);
@@ -3674,7 +3674,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyFilter_Create")]
-		public static extern IntPtr BodyFilter_Create(BodyFilterFn fn, BodyFilterLockedFn fnLocked, void* userData);
+		public static extern IntPtr BodyFilter_Create(IntPtr fn, IntPtr fnLocked, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyFilter_Destroy")]
 		public static extern void BodyFilter_Destroy(IntPtr filter);
@@ -3685,7 +3685,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ShapeFilter_Create")]
-		public static extern IntPtr ShapeFilter_Create(ShapeFilterFn fn, ShapeFilter2Fn fn2, void* userData);
+		public static extern IntPtr ShapeFilter_Create(IntPtr fn, IntPtr fn2, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ShapeFilter_Destroy")]
 		public static extern void ShapeFilter_Destroy(IntPtr filter);
@@ -3702,7 +3702,7 @@ namespace Evergine.Bindings.JoltPhysics
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SimShapeFilter_Create")]
-		public static extern IntPtr SimShapeFilter_Create(SimShapeFilterFn fn, void* userData);
+		public static extern IntPtr SimShapeFilter_Create(IntPtr fn, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SimShapeFilter_Destroy")]
 		public static extern void SimShapeFilter_Destroy(IntPtr filter);
@@ -4276,7 +4276,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern float WheeledVehicleController_GetWheelSpeedAtClutch(IntPtr c);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheeledVehicleController_SetTireMaxImpulseCallback")]
-		public static extern void WheeledVehicleController_SetTireMaxImpulseCallback(IntPtr c, TireMaxImpulseCallback cb, void* userData);
+		public static extern void WheeledVehicleController_SetTireMaxImpulseCallback(IntPtr c, IntPtr cb, void* userData);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_WheeledVehicleController_GetEngine")]
 		public static extern IntPtr WheeledVehicleController_GetEngine(IntPtr c);

@@ -109,11 +109,4 @@ namespace Evergine.Bindings.JoltPhysics
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void OnCharacterContactPersistedFn(void* userData, uint bodyID2, RVec3 contactPosition, Vec3 contactNormal, int* outCanPushCharacter, int* outCanReceiveImpulses);
 
-	// Inline function pointer delegates (no matching typedef in headers)
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void SetTraceHandler_HandlerFn(byte* message);
-
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SetAssertFailureHandler_HandlerFn(byte* expression, byte* message, byte* file, uint line);
-
 }

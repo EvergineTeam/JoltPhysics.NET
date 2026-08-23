@@ -438,55 +438,55 @@ namespace Evergine.Bindings.JoltPhysics
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct BodyActivationListener_Procs
 	{
-		public OnBodyActivatedFn OnBodyActivated;
-		public OnBodyDeactivatedFn OnBodyDeactivated;
+		public IntPtr OnBodyActivated;
+		public IntPtr OnBodyDeactivated;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct BodyFilter_Procs
 	{
-		public BodyFilterFn ShouldCollide;
-		public BodyFilterLockedFn ShouldCollideLocked;
+		public IntPtr ShouldCollide;
+		public IntPtr ShouldCollideLocked;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct BroadPhaseLayerFilter_Procs
 	{
-		public BroadPhaseLayerFilterFn ShouldCollide;
+		public IntPtr ShouldCollide;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct ContactListener_Procs
 	{
-		public OnContactValidateFn OnContactValidate;
-		public OnContactAddedFn OnContactAdded;
-		public OnContactPersistedFn OnContactPersisted;
-		public OnContactRemovedFn OnContactRemoved;
+		public IntPtr OnContactValidate;
+		public IntPtr OnContactAdded;
+		public IntPtr OnContactPersisted;
+		public IntPtr OnContactRemoved;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct ObjectLayerFilter_Procs
 	{
-		public ObjectLayerFilterFn ShouldCollide;
+		public IntPtr ShouldCollide;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct PhysicsStepListener_Procs
 	{
-		public OnPhysicsStepFn OnStep;
+		public IntPtr OnStep;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct ShapeFilter_Procs
 	{
-		public ShapeFilterFn ShouldCollide;
-		public ShapeFilter2Fn ShouldCollide2;
+		public IntPtr ShouldCollide;
+		public IntPtr ShouldCollide2;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct SimShapeFilter_Procs
 	{
-		public SimShapeFilterFn ShouldCollide;
+		public IntPtr ShouldCollide;
 	}
 
 	/// <summary>
@@ -788,9 +788,9 @@ namespace Evergine.Bindings.JoltPhysics
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct CharacterContactListener_Procs
 	{
-		public OnCharacterContactValidateFn OnValidate;
-		public OnCharacterContactAddedFn OnAdded;
-		public OnCharacterContactPersistedFn OnPersisted;
+		public IntPtr OnValidate;
+		public IntPtr OnAdded;
+		public IntPtr OnPersisted;
 	}
 
 }

@@ -308,6 +308,13 @@ namespace JoltPhysicsGen
 		{
 			fixedArraySize = 0;
 
+			// A field whose typedef names a function pointer becomes IntPtr, the same as the raw
+			// function pointer branch below: a delegate-typed field makes the whole struct
+			// non-blittable, and marshalling it is what the wasm interpreter aborts on. Callers
+			// store an [UnmanagedCallersOnly] function pointer instead.
+			if (type is CppTypedef delegateTypedef && DelegateNames.Contains(delegateTypedef.Name))
+				return "IntPtr";
+
 			if (type is CppArrayType arrayType)
 			{
 				fixedArraySize = arrayType.Size;
