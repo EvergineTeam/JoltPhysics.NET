@@ -216,4 +216,11 @@ namespace Evergine.Bindings.JoltPhysics
 		RejectContact = 1,
 	}
 
+	public enum SoftBodyLRAType
+	{
+		None = 0,
+		EuclideanDistance = 1,
+		GeodesicDistance = 2,
+	}
+
 }

@@ -412,6 +412,23 @@ typedef enum JoltC_SoftBodyValidateResult {
     JOLTC_SOFT_BODY_VALIDATE_RESULT_REJECT_CONTACT = 1
 } JoltC_SoftBodyValidateResult;
 
+typedef enum JoltC_SoftBodyLRAType {
+    JOLTC_SOFT_BODY_LRA_TYPE_NONE               = 0,
+    JOLTC_SOFT_BODY_LRA_TYPE_EUCLIDEAN_DISTANCE = 1,
+    JOLTC_SOFT_BODY_LRA_TYPE_GEODESIC_DISTANCE  = 2
+} JoltC_SoftBodyLRAType;
+
+/* Per vertex attributes for JoltC_SoftBodySharedSettings_CreateConstraints2. Compliances are
+ * averaged between the vertices a constraint touches; FLT_MAX disables that constraint kind for
+ * any constraint involving the vertex. */
+typedef struct JoltC_SoftBodyVertexAttributes {
+    float                 compliance;
+    float                 shearCompliance;
+    float                 bendCompliance;
+    JoltC_SoftBodyLRAType lraType;
+    float                 lraMaxDistanceMultiplier;
+} JoltC_SoftBodyVertexAttributes;
+
 /* Mirror of JPH::SoftBodyContactSettings. There is no inverse inertia scale for side 1: a soft
  * body has no inertia tensor, its mass lives per vertex. */
 typedef struct JoltC_SoftBodyContactSettings {

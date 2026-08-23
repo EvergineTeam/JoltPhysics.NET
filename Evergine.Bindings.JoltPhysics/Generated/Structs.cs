@@ -120,6 +120,21 @@ namespace Evergine.Bindings.JoltPhysics
 	}
 
 	/// <summary>
+	/// Per vertex attributes for JoltC_SoftBodySharedSettings_CreateConstraints2. Compliances are
+	/// averaged between the vertices a constraint touches; FLT_MAX disables that constraint kind for
+	/// any constraint involving the vertex.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct SoftBodyVertexAttributes
+	{
+		public float Compliance;
+		public float ShearCompliance;
+		public float BendCompliance;
+		public SoftBodyLRAType LraType;
+		public float LraMaxDistanceMultiplier;
+	}
+
+	/// <summary>
 	/// Mirror of JPH::SoftBodyContactSettings. There is no inverse inertia scale for side 1: a soft
 	/// body has no inertia tensor, its mass lives per vertex.
 	/// </summary>
