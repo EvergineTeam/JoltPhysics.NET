@@ -131,6 +131,22 @@ JOLTC_API void JoltC_VehicleConstraintSettings_Init(JoltC_VehicleConstraintSetti
 /* ========================================================================== */
 JOLTC_API JoltC_VehicleConstraint* JoltC_VehicleConstraint_Create(JoltC_Body* body, const JoltC_VehicleConstraintSettings* settings);
 JOLTC_API JoltC_PhysicsStepListener* JoltC_VehicleConstraint_AsPhysicsStepListener(JoltC_VehicleConstraint* vc);
+
+/* A vehicle constraint IS a constraint, but the two handle conventions differ: JoltC_Constraint is a
+ * counted wrapper while JoltC_VehicleConstraint is the object itself. This returns a constraint view
+ * holding its own reference, so the vehicle can be registered with JoltC_PhysicsSystem_AddConstraint
+ * and later released with JoltC_Constraint_Destroy like any other constraint. */
+JOLTC_API JoltC_Constraint*  JoltC_VehicleConstraint_AsConstraint(JoltC_VehicleConstraint* vc);
+
+/* The powertrain runs inside the physics step: these register the vehicle's own step listener with
+ * the system directly. AsPhysicsStepListener cannot be used for that -- its return value is not the
+ * wrapper AddStepListener expects -- and these two make the round trip safe and obvious. */
+JOLTC_API void       JoltC_PhysicsSystem_AddVehicleStepListener(JoltC_PhysicsSystem* system, JoltC_VehicleConstraint* vc);
+JOLTC_API void       JoltC_PhysicsSystem_RemoveVehicleStepListener(JoltC_PhysicsSystem* system, JoltC_VehicleConstraint* vc);
+
+/* Releases the reference JoltC_VehicleConstraint_Create took. Remove the constraint from the physics
+ * system and destroy any JoltC_Constraint views first. */
+JOLTC_API void       JoltC_VehicleConstraint_Destroy(JoltC_VehicleConstraint* vc);
 JOLTC_API void       JoltC_VehicleConstraint_SetMaxPitchRollAngle(JoltC_VehicleConstraint* vc, float angle);
 JOLTC_API void       JoltC_VehicleConstraint_SetVehicleCollisionTester(JoltC_VehicleConstraint* vc, const JoltC_VehicleCollisionTester* tester);
 JOLTC_API void       JoltC_VehicleConstraint_OverrideGravity(JoltC_VehicleConstraint* vc, JoltC_Vec3 gravity);

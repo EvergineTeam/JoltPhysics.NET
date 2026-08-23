@@ -19,5 +19,6 @@
 #include <JoltC/filters.h>
 #include <JoltC/vehicle.h>
 #include <JoltC/skeleton.h>
+#include <JoltC/soft_body.h>
 
 #endif /* JOLTC_H */

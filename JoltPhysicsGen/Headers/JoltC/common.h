@@ -132,6 +132,8 @@ typedef struct JoltC_TwoBodyConstraintSettings            JoltC_TwoBodyConstrain
 
 /* Soft body opaque handles */
 typedef struct JoltC_SoftBodyCreationSettings             JoltC_SoftBodyCreationSettings;
+typedef struct JoltC_SoftBodySharedSettings               JoltC_SoftBodySharedSettings;
+typedef struct JoltC_SoftBodyMotionProperties             JoltC_SoftBodyMotionProperties;
 
 /* Collision estimation result (opaque, contains internal arrays) */
 typedef struct JoltC_CollisionEstimationResult            JoltC_CollisionEstimationResult;
@@ -376,6 +378,12 @@ typedef enum JoltC_TrackSide {
     JOLTC_TRACK_SIDE_LEFT  = 0,
     JOLTC_TRACK_SIDE_RIGHT = 1
 } JoltC_TrackSide;
+
+typedef enum JoltC_SoftBodyBendType {
+    JOLTC_SOFT_BODY_BEND_TYPE_NONE     = 0,
+    JOLTC_SOFT_BODY_BEND_TYPE_DISTANCE = 1,
+    JOLTC_SOFT_BODY_BEND_TYPE_DIHEDRAL = 2
+} JoltC_SoftBodyBendType;
 
 /* -------------------------------------------------------------------------- */
 /*  Vehicle blittable types                                                   */

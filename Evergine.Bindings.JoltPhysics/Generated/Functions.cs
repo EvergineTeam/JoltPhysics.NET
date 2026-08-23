@@ -4028,6 +4028,33 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_AsPhysicsStepListener")]
 		public static extern IntPtr VehicleConstraint_AsPhysicsStepListener(IntPtr vc);
 
+		/// <summary>
+		/// A vehicle constraint IS a constraint, but the two handle conventions differ: JoltC_Constraint is a
+		/// counted wrapper while JoltC_VehicleConstraint is the object itself. This returns a constraint view
+		/// holding its own reference, so the vehicle can be registered with JoltC_PhysicsSystem_AddConstraint
+		/// and later released with JoltC_Constraint_Destroy like any other constraint.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_AsConstraint")]
+		public static extern IntPtr VehicleConstraint_AsConstraint(IntPtr vc);
+
+		/// <summary>
+		/// The powertrain runs inside the physics step: these register the vehicle&apos;s own step listener with
+		/// the system directly. AsPhysicsStepListener cannot be used for that -- its return value is not the
+		/// wrapper AddStepListener expects -- and these two make the round trip safe and obvious.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_AddVehicleStepListener")]
+		public static extern void PhysicsSystem_AddVehicleStepListener(IntPtr system, IntPtr vc);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_RemoveVehicleStepListener")]
+		public static extern void PhysicsSystem_RemoveVehicleStepListener(IntPtr system, IntPtr vc);
+
+		/// <summary>
+		/// Releases the reference JoltC_VehicleConstraint_Create took. Remove the constraint from the physics
+		/// system and destroy any JoltC_Constraint views first.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_Destroy")]
+		public static extern void VehicleConstraint_Destroy(IntPtr vc);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleConstraint_SetMaxPitchRollAngle")]
 		public static extern void VehicleConstraint_SetMaxPitchRollAngle(IntPtr vc, float angle);
 
@@ -4825,6 +4852,147 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Ragdoll_GetRagdollSettings")]
 		public static extern IntPtr Ragdoll_GetRagdollSettings(IntPtr ragdoll);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// SoftBodySharedSettings — ref-counted vertex/constraint description
+		/// --------------------------------------------------------------------------
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_Create")]
+		public static extern IntPtr SoftBodySharedSettings_Create();
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_AddRef")]
+		public static extern void SoftBodySharedSettings_AddRef(IntPtr settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_Release")]
+		public static extern void SoftBodySharedSettings_Release(IntPtr settings);
+
+		/// <summary>
+		/// Returns the index of the added vertex. Inverse mass 0 pins the vertex.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_AddVertex")]
+		public static extern uint SoftBodySharedSettings_AddVertex(IntPtr settings, float x, float y, float z, float invMass);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_AddFace")]
+		public static extern void SoftBodySharedSettings_AddFace(IntPtr settings, uint vertex0, uint vertex1, uint vertex2, uint materialIndex);
+
+		/// <summary>
+		/// Builds edge/shear/bend constraints from the faces added so far. Compliance FLT_MAX disables a constraint kind.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_CreateConstraints")]
+		public static extern void SoftBodySharedSettings_CreateConstraints(IntPtr settings, float compliance, float shearCompliance, float bendCompliance, SoftBodyBendType bendType);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_CalculateEdgeLengths")]
+		public static extern void SoftBodySharedSettings_CalculateEdgeLengths(IntPtr settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_CalculateVolumeConstraintVolumes")]
+		public static extern void SoftBodySharedSettings_CalculateVolumeConstraintVolumes(IntPtr settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_Optimize")]
+		public static extern void SoftBodySharedSettings_Optimize(IntPtr settings);
+
+		/// <summary>
+		/// Factory: solid cube of gridSize^3 vertices with edge and volume constraints plus surface faces.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_CreateCube")]
+		public static extern IntPtr SoftBodySharedSettings_CreateCube(uint gridSize, float gridSpacing);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_GetVertexCount")]
+		public static extern uint SoftBodySharedSettings_GetVertexCount(IntPtr settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_GetFaceCount")]
+		public static extern uint SoftBodySharedSettings_GetFaceCount(IntPtr settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_GetFace")]
+		public static extern void SoftBodySharedSettings_GetFace(IntPtr settings, uint index, uint* outVertex0, uint* outVertex1, uint* outVertex2);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// SoftBodyCreationSettings — configuration
+		/// --------------------------------------------------------------------------
+		/// Takes a reference on sharedSettings; the caller keeps its own.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetSettings")]
+		public static extern void SoftBodyCreationSettings_SetSettings(IntPtr settings, IntPtr sharedSettings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetPosition")]
+		public static extern void SoftBodyCreationSettings_SetPosition(IntPtr settings, RVec3 position);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetRotation")]
+		public static extern void SoftBodyCreationSettings_SetRotation(IntPtr settings, Quat rotation);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetObjectLayer")]
+		public static extern void SoftBodyCreationSettings_SetObjectLayer(IntPtr settings, ushort objectLayer);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetNumIterations")]
+		public static extern void SoftBodyCreationSettings_SetNumIterations(IntPtr settings, uint numIterations);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetLinearDamping")]
+		public static extern void SoftBodyCreationSettings_SetLinearDamping(IntPtr settings, float linearDamping);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetMaxLinearVelocity")]
+		public static extern void SoftBodyCreationSettings_SetMaxLinearVelocity(IntPtr settings, float maxLinearVelocity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetRestitution")]
+		public static extern void SoftBodyCreationSettings_SetRestitution(IntPtr settings, float restitution);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetFriction")]
+		public static extern void SoftBodyCreationSettings_SetFriction(IntPtr settings, float friction);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetPressure")]
+		public static extern void SoftBodyCreationSettings_SetPressure(IntPtr settings, float pressure);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetGravityFactor")]
+		public static extern void SoftBodyCreationSettings_SetGravityFactor(IntPtr settings, float gravityFactor);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetVertexRadius")]
+		public static extern void SoftBodyCreationSettings_SetVertexRadius(IntPtr settings, float vertexRadius);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetUpdatePosition")]
+		public static extern void SoftBodyCreationSettings_SetUpdatePosition(IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool updatePosition);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetMakeRotationIdentity")]
+		public static extern void SoftBodyCreationSettings_SetMakeRotationIdentity(IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool makeRotationIdentity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetAllowSleeping")]
+		public static extern void SoftBodyCreationSettings_SetAllowSleeping(IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool allowSleeping);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyCreationSettings_SetUserData")]
+		public static extern void SoftBodyCreationSettings_SetUserData(IntPtr settings, ulong userData);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// SoftBodyMotionProperties — runtime vertex access
+		/// --------------------------------------------------------------------------
+		/// Returns null when the body is not a soft body. Valid while the body is alive.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Body_GetSoftBodyMotionProperties")]
+		public static extern IntPtr Body_GetSoftBodyMotionProperties(IntPtr body);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_GetVertexCount")]
+		public static extern uint SoftBodyMotionProperties_GetVertexCount(IntPtr motionProperties);
+
+		/// <summary>
+		/// Bulk copy of vertex positions (local space, relative to the body&apos;s center of mass).
+		/// Writes at most capacity entries and returns the number written.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_GetVertexPositions")]
+		public static extern uint SoftBodyMotionProperties_GetVertexPositions(IntPtr motionProperties, Vec3* outPositions, uint capacity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_GetVertexPosition")]
+		public static extern void SoftBodyMotionProperties_GetVertexPosition(IntPtr motionProperties, uint index, Vec3* outPosition);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_GetVolume")]
+		public static extern float SoftBodyMotionProperties_GetVolume(IntPtr motionProperties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_GetLocalBounds")]
+		public static extern void SoftBodyMotionProperties_GetLocalBounds(IntPtr motionProperties, Vec3* outMin, Vec3* outMax);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_GetPressure")]
+		public static extern float SoftBodyMotionProperties_GetPressure(IntPtr motionProperties);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_SetPressure")]
+		public static extern void SoftBodyMotionProperties_SetPressure(IntPtr motionProperties, float pressure);
 
 	}
 }

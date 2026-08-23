@@ -177,4 +177,11 @@ namespace Evergine.Bindings.JoltPhysics
 		Right = 1,
 	}
 
+	public enum SoftBodyBendType
+	{
+		None = 0,
+		Distance = 1,
+		Dihedral = 2,
+	}
+
 }
