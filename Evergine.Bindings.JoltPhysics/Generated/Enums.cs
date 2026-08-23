@@ -261,4 +261,22 @@ namespace Evergine.Bindings.JoltPhysics
 		GeodesicDistance = 2,
 	}
 
+	/// <summary>
+	/// --------------------------------------------------------------------------
+	/// What to draw of the bodies
+	/// --------------------------------------------------------------------------
+	/// </summary>
+	public enum ShapeColor
+	{
+		/// <summary>
+		/// random color per instance
+		/// </summary>
+		Instance = 0,
+		ShapeType = 1,
+		MotionType = 2,
+		Sleep = 3,
+		Island = 4,
+		Material = 5,
+	}
+
 }

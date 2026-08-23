@@ -21,5 +21,6 @@
 #include <JoltC/skeleton.h>
 #include <JoltC/soft_body.h>
 #include <JoltC/state_recorder.h>
+#include <JoltC/debug_renderer.h>
 
 #endif /* JOLTC_H */

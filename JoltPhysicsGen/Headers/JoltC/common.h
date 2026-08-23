@@ -89,6 +89,7 @@ typedef struct JoltC_PhysicsMaterial         JoltC_PhysicsMaterial;
 typedef struct JoltC_GetTrianglesContext     JoltC_GetTrianglesContext;
 typedef struct JoltC_StateRecorder           JoltC_StateRecorder;
 typedef struct JoltC_PathConstraintPath      JoltC_PathConstraintPath;
+typedef struct JoltC_DebugRenderer           JoltC_DebugRenderer;
 typedef struct JoltC_GroupFilter             JoltC_GroupFilter;
 typedef struct JoltC_BroadPhaseQuery         JoltC_BroadPhaseQuery;
 typedef struct JoltC_ContactManifold         JoltC_ContactManifold;
@@ -848,6 +849,15 @@ typedef void (*JoltC_OnPhysicsStepFn)(void* userData, float deltaTime, JoltC_Boo
 /* Vehicle step callbacks: before the wheel collision checks, after them, and after the whole
  * vehicle step. Runs inside the physics step, so the same restrictions as any step listener. */
 typedef void (*JoltC_OnVehicleStepFn)(void* userData, JoltC_VehicleConstraint* vehicle, float deltaTime, JoltC_Bool isFirstStep, JoltC_Bool isLastStep);
+
+/* -------------------------------------------------------------------------- */
+/*  Debug renderer callbacks                                                  */
+/* -------------------------------------------------------------------------- */
+/* Jolt reduces everything it draws to these three primitives; the renderer on the other side of
+ * the callbacks decides how they reach a screen. Colors are packed RGBA (as Color::GetUInt32). */
+typedef void (*JoltC_DebugDrawLineFn)(void* userData, JoltC_RVec3 from, JoltC_RVec3 to, uint32_t color);
+typedef void (*JoltC_DebugDrawTriangleFn)(void* userData, JoltC_RVec3 v1, JoltC_RVec3 v2, JoltC_RVec3 v3, uint32_t color, JoltC_Bool castShadow);
+typedef void (*JoltC_DebugDrawText3DFn)(void* userData, JoltC_RVec3 position, const char* text, uint32_t color, float height);
 
 /* -------------------------------------------------------------------------- */
 /*  Procs structs — function-pointer tables for SetProcs updates              */

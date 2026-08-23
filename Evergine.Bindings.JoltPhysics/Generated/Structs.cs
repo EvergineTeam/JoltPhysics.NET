@@ -937,4 +937,35 @@ namespace Evergine.Bindings.JoltPhysics
 		public IntPtr OnPersisted;
 	}
 
+	/// <summary>
+	/// Mirror of JPH::BodyManager::DrawSettings. Init writes Jolt&apos;s defaults (shapes only).
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct BodyDrawSettings
+	{
+		public int DrawGetSupportFunction;
+		public int DrawSupportDirection;
+		public int DrawGetSupportingFace;
+		public int DrawShape;
+		public int DrawShapeWireframe;
+		public ShapeColor DrawShapeColor;
+		public int DrawBoundingBox;
+		public int DrawCenterOfMassTransform;
+		public int DrawWorldTransform;
+		public int DrawVelocity;
+		public int DrawMassAndInertia;
+		public int DrawSleepStats;
+		public int DrawSoftBodyVertices;
+		public int DrawSoftBodyVertexVelocities;
+		public int DrawSoftBodyEdgeConstraints;
+		public int DrawSoftBodyBendConstraints;
+		public int DrawSoftBodyVolumeConstraints;
+		public int DrawSoftBodySkinConstraints;
+		public int DrawSoftBodyLRAConstraints;
+		public int DrawSoftBodyRods;
+		public int DrawSoftBodyRodStates;
+		public int DrawSoftBodyRodBendTwistConstraints;
+		public int DrawSoftBodyPredictedBounds;
+	}
+
 }

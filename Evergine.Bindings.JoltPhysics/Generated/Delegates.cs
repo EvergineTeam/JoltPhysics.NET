@@ -107,6 +107,15 @@ namespace Evergine.Bindings.JoltPhysics
 	public unsafe delegate void OnVehicleStepFn(void* userData, IntPtr vehicle, float deltaTime, [MarshalAs(UnmanagedType.Bool)] bool isFirstStep, [MarshalAs(UnmanagedType.Bool)] bool isLastStep);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void DebugDrawLineFn(void* userData, RVec3 from, RVec3 to, uint color);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void DebugDrawTriangleFn(void* userData, RVec3 v1, RVec3 v2, RVec3 v3, uint color, [MarshalAs(UnmanagedType.Bool)] bool castShadow);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void DebugDrawText3DFn(void* userData, RVec3 position, byte* text, uint color, float height);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void CastRayCollectorFn(void* userData, RayCastResult* result);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]

@@ -6036,5 +6036,37 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_RestoreState")]
 		public static extern void SoftBodyMotionProperties_RestoreState(IntPtr motionProperties, IntPtr recorder);
 
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// Creation
+		/// --------------------------------------------------------------------------
+		/// drawLine is mandatory. A null drawTriangle falls back to drawing the triangle&apos;s three edges as
+		/// lines; a null drawText3D skips text. Jolt keeps a single global renderer instance, so create
+		/// exactly one and destroy it after everything that draws.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DebugRenderer_Create")]
+		public static extern IntPtr DebugRenderer_Create(IntPtr drawLine, IntPtr drawTriangle, IntPtr drawText3D, void* userData);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DebugRenderer_Destroy")]
+		public static extern void DebugRenderer_Destroy(IntPtr renderer);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyDrawSettings_Init")]
+		public static extern void BodyDrawSettings_Init(BodyDrawSettings* settings);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// Drawing
+		/// --------------------------------------------------------------------------
+		/// Null settings draw the defaults. Call between updates, never during one.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_DrawBodies")]
+		public static extern void PhysicsSystem_DrawBodies(IntPtr system, BodyDrawSettings* settings, IntPtr renderer);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_DrawConstraints")]
+		public static extern void PhysicsSystem_DrawConstraints(IntPtr system, IntPtr renderer);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_DrawConstraintLimits")]
+		public static extern void PhysicsSystem_DrawConstraintLimits(IntPtr system, IntPtr renderer);
+
 	}
 }
