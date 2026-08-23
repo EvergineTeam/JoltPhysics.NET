@@ -216,6 +216,19 @@ namespace Evergine.Bindings.JoltPhysics
 		RejectContact = 1,
 	}
 
+	/// <summary>
+	/// What a whole-system snapshot includes; combine as flags.
+	/// </summary>
+	public enum StateRecorderState
+	{
+		None = 0,
+		Global = 1,
+		Bodies = 2,
+		Contacts = 4,
+		Constraints = 8,
+		All = 15,
+	}
+
 	public enum SoftBodyLRAType
 	{
 		None = 0,

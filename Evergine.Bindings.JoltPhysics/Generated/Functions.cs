@@ -5499,5 +5499,112 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyManifold_GetSensorContactBodyID")]
 		public static extern uint SoftBodyManifold_GetSensorContactBodyID(IntPtr manifold, uint index);
 
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// StateRecorderImpl — an in-memory stream
+		/// --------------------------------------------------------------------------
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorderImpl_Create")]
+		public static extern IntPtr StateRecorderImpl_Create();
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorderImpl_Destroy")]
+		public static extern void StateRecorderImpl_Destroy(IntPtr recorder);
+
+		/// <summary>
+		/// Back to the start for reading: the save/restore loop is Save, Rewind, Restore.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorderImpl_Rewind")]
+		public static extern void StateRecorderImpl_Rewind(IntPtr recorder);
+
+		/// <summary>
+		/// Empties the stream so the recorder can hold a fresh snapshot.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorderImpl_Clear")]
+		public static extern void StateRecorderImpl_Clear(IntPtr recorder);
+
+		/// <summary>
+		/// The snapshot as bytes, for shipping across a network or storing. CopyData writes at most
+		/// capacity bytes and returns how many the snapshot holds in total; SetData replaces the stream
+		/// contents with the given bytes, ready to Rewind and restore.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorderImpl_GetDataSize")]
+		public static extern ulong StateRecorderImpl_GetDataSize(IntPtr recorder);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorderImpl_CopyData")]
+		public static extern ulong StateRecorderImpl_CopyData(IntPtr recorder, byte* buffer, ulong capacity);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorderImpl_SetData")]
+		public static extern void StateRecorderImpl_SetData(IntPtr recorder, byte* data, ulong size);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorder_IsEOF")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool StateRecorder_IsEOF(IntPtr recorder);
+
+		/// <summary>
+		/// In validating mode a restore checks the incoming data against the current state, which is how
+		/// Jolt&apos;s own determinism tests catch the exact place two simulations diverge.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorder_SetValidating")]
+		public static extern void StateRecorder_SetValidating(IntPtr recorder, [MarshalAs(UnmanagedType.Bool)] bool validating);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorder_IsValidating")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool StateRecorder_IsValidating(IntPtr recorder);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// Whole-system state
+		/// --------------------------------------------------------------------------
+		/// stateFlags is a JoltC_StateRecorderState combination; ALL is the replay/rollback snapshot.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_SaveState")]
+		public static extern void PhysicsSystem_SaveState(IntPtr system, IntPtr recorder, uint stateFlags);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_RestoreState")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool PhysicsSystem_RestoreState(IntPtr system, IntPtr recorder);
+
+		/// <summary>
+		/// One body&apos;s worth of state, for syncing a handful of bodies instead of the world.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_SaveBodyState")]
+		public static extern void PhysicsSystem_SaveBodyState(IntPtr system, IntPtr body, IntPtr recorder);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_RestoreBodyState")]
+		public static extern void PhysicsSystem_RestoreBodyState(IntPtr system, IntPtr body, IntPtr recorder);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// Per-object state, for things the system snapshot does not include
+		/// --------------------------------------------------------------------------
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Constraint_SaveState")]
+		public static extern void Constraint_SaveState(IntPtr constraint, IntPtr recorder);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Constraint_RestoreState")]
+		public static extern void Constraint_RestoreState(IntPtr constraint, IntPtr recorder);
+
+		/// <summary>
+		/// A CharacterVirtual is not a body, so the system snapshot never sees it: saving it is always the
+		/// caller&apos;s job, and these are the calls to do it with.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_SaveState")]
+		public static extern void CharacterVirtual_SaveState(IntPtr character, IntPtr recorder);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_RestoreState")]
+		public static extern void CharacterVirtual_RestoreState(IntPtr character, IntPtr recorder);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Character_SaveState")]
+		public static extern void Character_SaveState(IntPtr character, IntPtr recorder);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Character_RestoreState")]
+		public static extern void Character_RestoreState(IntPtr character, IntPtr recorder);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_SaveState")]
+		public static extern void SoftBodyMotionProperties_SaveState(IntPtr motionProperties, IntPtr recorder);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_RestoreState")]
+		public static extern void SoftBodyMotionProperties_RestoreState(IntPtr motionProperties, IntPtr recorder);
+
 	}
 }

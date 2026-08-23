@@ -87,6 +87,7 @@ typedef struct JoltC_SimShapeFilter          JoltC_SimShapeFilter;
 typedef struct JoltC_PhysicsStepListener     JoltC_PhysicsStepListener;
 typedef struct JoltC_PhysicsMaterial         JoltC_PhysicsMaterial;
 typedef struct JoltC_GetTrianglesContext     JoltC_GetTrianglesContext;
+typedef struct JoltC_StateRecorder           JoltC_StateRecorder;
 typedef struct JoltC_GroupFilter             JoltC_GroupFilter;
 typedef struct JoltC_BroadPhaseQuery         JoltC_BroadPhaseQuery;
 typedef struct JoltC_ContactManifold         JoltC_ContactManifold;
@@ -411,6 +412,16 @@ typedef enum JoltC_SoftBodyValidateResult {
     JOLTC_SOFT_BODY_VALIDATE_RESULT_ACCEPT_CONTACT = 0,
     JOLTC_SOFT_BODY_VALIDATE_RESULT_REJECT_CONTACT = 1
 } JoltC_SoftBodyValidateResult;
+
+/* What a whole-system snapshot includes; combine as flags. */
+typedef enum JoltC_StateRecorderState {
+    JOLTC_STATE_RECORDER_STATE_NONE        = 0,
+    JOLTC_STATE_RECORDER_STATE_GLOBAL      = 1,
+    JOLTC_STATE_RECORDER_STATE_BODIES      = 2,
+    JOLTC_STATE_RECORDER_STATE_CONTACTS    = 4,
+    JOLTC_STATE_RECORDER_STATE_CONSTRAINTS = 8,
+    JOLTC_STATE_RECORDER_STATE_ALL         = 15
+} JoltC_StateRecorderState;
 
 typedef enum JoltC_SoftBodyLRAType {
     JOLTC_SOFT_BODY_LRA_TYPE_NONE               = 0,
