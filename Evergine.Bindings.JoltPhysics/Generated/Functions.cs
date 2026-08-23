@@ -514,12 +514,28 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern IntPtr MeshShape_Create(Vec3* vertices, int numVertices, IndexedTriangle* triangles, int numTriangles);
 
 		/// <summary>
+		/// A mesh with a physics material per triangle. Each triangle&apos;s materialIndex indexes into
+		/// the materials list; the material a query hit lands on comes back from JoltC_Shape_GetMaterial.
+		/// The shape keeps its own references, so the caller may destroy its material handles afterwards.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MeshShape_Create2")]
+		public static extern IntPtr MeshShape_Create2(Vec3* vertices, int numVertices, IndexedTriangle* triangles, int numTriangles, IntPtr* materials, int numMaterials);
+
+		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// HeightField shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShape_Create")]
 		public static extern IntPtr HeightFieldShape_Create(float* samples, Vec3 offset, Vec3 scale, uint sampleCount);
+
+		/// <summary>
+		/// A height field with a material per cell. materialIndices holds one index per cell, which is
+		/// (sampleCount - 1) * (sampleCount - 1) entries, each indexing into the materials list. Either
+		/// may be null to keep the default material everywhere.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShape_Create2")]
+		public static extern IntPtr HeightFieldShape_Create2(float* samples, Vec3 offset, Vec3 scale, uint sampleCount, byte* materialIndices, IntPtr* materials, int numMaterials);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StaticCompoundShape_Create")]
 		public static extern IntPtr StaticCompoundShape_Create(CompoundShapeSubShape* subShapes, int numSubShapes);
@@ -587,6 +603,53 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetUserData")]
 		public static extern ulong Shape_GetUserData(IntPtr shape);
+
+		/// <summary>
+		/// The material at a sub shape, for a compound/mesh/height field hit: pass the subShapeId a query
+		/// returned. The handle is borrowed from the shape — valid while the shape lives, never destroy it.
+		/// Every shape returns something; shapes built without materials return Jolt&apos;s default material.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetMaterial")]
+		public static extern IntPtr Shape_GetMaterial(IntPtr shape, uint subShapeId);
+
+		/// <summary>
+		/// The user data of the leaf shape a sub shape id lands on, so a hit on a compound reports the
+		/// user data of the child that was hit rather than the compound&apos;s own.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetSubShapeUserData")]
+		public static extern ulong Shape_GetSubShapeUserData(IntPtr shape, uint subShapeId);
+
+		/// <summary>
+		/// The leaf shape a sub shape id lands on, borrowed from the shape. outRemainder receives the part
+		/// of the id that is left for the leaf to interpret. Returns null when the id does not resolve.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetLeafShape")]
+		public static extern IntPtr Shape_GetLeafShape(IntPtr shape, uint subShapeId, uint* outRemainder);
+
+		/// <summary>
+		/// Total and submerged volume against a water surface given as a plane (normal + constant, with
+		/// plane equation dot(normal, point) + constant = 0), plus the centre of buoyancy. The transform
+		/// is the centre of mass transform of the shape in world space.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetSubmergedVolume")]
+		public static extern void Shape_GetSubmergedVolume(IntPtr shape, Mat44* centerOfMassTransform, Vec3 scale, Vec3 surfaceNormal, float surfaceConstant, float* outTotalVolume, float* outSubmergedVolume, Vec3* outCenterOfBuoyancy);
+
+		/// <summary>
+		/// Reading the triangles out of any shape, in batches. Start returns a context for the region of
+		/// interest (an axis aligned box in world space, with the shape posed by positionCOM/rotation/scale);
+		/// Next fills outVertices with 9 floats per triangle (three vertices, world space) and returns how
+		/// many triangles it wrote, 0 when there are no more. maxTriangles must be at least 32, which is
+		/// Jolt&apos;s own minimum for this walk. outMaterials may be null; when given it receives one borrowed
+		/// material handle per triangle. The context must be destroyed after the last Next call.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetTrianglesStart")]
+		public static extern IntPtr Shape_GetTrianglesStart(IntPtr shape, Vec3 boxMin, Vec3 boxMax, Vec3 positionCOM, Quat rotation, Vec3 scale);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetTrianglesNext")]
+		public static extern int Shape_GetTrianglesNext(IntPtr shape, IntPtr context, int maxTriangles, float* outVertices, IntPtr* outMaterials);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_GetTrianglesContext_Destroy")]
+		public static extern void GetTrianglesContext_Destroy(IntPtr context);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -847,6 +910,37 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShape_ProjectOntoSurface")]
 		public static extern int HeightFieldShape_ProjectOntoSurface(IntPtr shape, Vec3 localPosition, Vec3* outSurfacePosition, uint* outSubShapeId);
+
+		/// <summary>
+		/// The material of one cell, borrowed from the shape.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShape_GetMaterial")]
+		public static extern IntPtr HeightFieldShape_GetMaterial(IntPtr shape, uint x, uint y);
+
+		/// <summary>
+		/// Runtime terrain deformation. Heights are read and written over a rectangle of samples starting
+		/// at (x, y); the stride is in floats per row of the caller&apos;s buffer, and both x/y and the sizes
+		/// must be multiples of the shape&apos;s block size for SetHeights. A sample set to JoltC_HeightFieldShape_GetMaxHeightValue
+		/// or beyond cannot be represented; use FLT_MAX in SetHeights to punch a no-collision hole.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShape_GetHeights")]
+		public static extern void HeightFieldShape_GetHeights(IntPtr shape, uint x, uint y, uint sizeX, uint sizeY, float* outHeights, long heightsStride);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShape_SetHeights")]
+		public static extern void HeightFieldShape_SetHeights(IntPtr shape, uint x, uint y, uint sizeX, uint sizeY, float* heights, long heightsStride, IntPtr allocator, float activeEdgeCosThresholdAngle);
+
+		/// <summary>
+		/// Runtime material painting over a rectangle of cells; strides are in bytes per row of the
+		/// caller&apos;s buffer. SetMaterials may grow the shape&apos;s material list: pass the full list the
+		/// indices refer to (or null to keep the current list). Returns false when a new material would
+		/// not fit the bits per sample the shape was built with.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShape_GetMaterials")]
+		public static extern void HeightFieldShape_GetMaterials(IntPtr shape, uint x, uint y, uint sizeX, uint sizeY, byte* outMaterials, long materialsStride);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShape_SetMaterials")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool HeightFieldShape_SetMaterials(IntPtr shape, uint x, uint y, uint sizeX, uint sizeY, byte* materials, long materialsStride, IntPtr* materialList, int numMaterials, IntPtr allocator);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -1456,6 +1550,11 @@ namespace Evergine.Bindings.JoltPhysics
 		/// <summary>
 		/// --------------------------------------------------------------------------
 		/// PhysicsMaterial
+		/// The handle is ref-counted. Create returns it holding one reference and
+		/// Destroy releases that reference; a shape built with the material keeps
+		/// its own, so destroying the handle after building the shape is safe. The
+		/// materials handed back by JoltC_Shape_GetMaterial and friends are the
+		/// same pointers, so identity comparison against the created handles works.
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsMaterial_Create")]
@@ -3386,6 +3485,12 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_GetGroundBodyID")]
 		public static extern uint CharacterVirtual_GetGroundBodyID(IntPtr c);
 
+		/// <summary>
+		/// The material of the ground the character stands on, borrowed — footsteps by material.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_GetGroundMaterial")]
+		public static extern IntPtr CharacterVirtual_GetGroundMaterial(IntPtr c);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_GetUp")]
 		public static extern Vec3 CharacterVirtual_GetUp(IntPtr c);
 
@@ -3590,6 +3695,9 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Character_GetGroundBodyID")]
 		public static extern uint Character_GetGroundBodyID(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Character_GetGroundMaterial")]
+		public static extern IntPtr Character_GetGroundMaterial(IntPtr c);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Character_GetUp")]
 		public static extern Vec3 Character_GetUp(IntPtr c);

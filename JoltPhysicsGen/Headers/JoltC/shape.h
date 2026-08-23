@@ -68,6 +68,17 @@ JOLTC_API const JoltC_Shape* JoltC_MeshShape_Create(
     const JoltC_IndexedTriangle* triangles,
     int                          numTriangles);
 
+/* A mesh with a physics material per triangle. Each triangle's materialIndex indexes into
+ * the materials list; the material a query hit lands on comes back from JoltC_Shape_GetMaterial.
+ * The shape keeps its own references, so the caller may destroy its material handles afterwards. */
+JOLTC_API const JoltC_Shape* JoltC_MeshShape_Create2(
+    const JoltC_Vec3*            vertices,
+    int                          numVertices,
+    const JoltC_IndexedTriangle* triangles,
+    int                          numTriangles,
+    JoltC_PhysicsMaterial**      materials,
+    int                          numMaterials);
+
 /* -------------------------------------------------------------------------- */
 /*  HeightField shape                                                         */
 /* -------------------------------------------------------------------------- */
@@ -76,6 +87,18 @@ JOLTC_API const JoltC_Shape* JoltC_HeightFieldShape_Create(
     JoltC_Vec3   offset,
     JoltC_Vec3   scale,
     uint32_t     sampleCount);
+
+/* A height field with a material per cell. materialIndices holds one index per cell, which is
+ * (sampleCount - 1) * (sampleCount - 1) entries, each indexing into the materials list. Either
+ * may be null to keep the default material everywhere. */
+JOLTC_API const JoltC_Shape* JoltC_HeightFieldShape_Create2(
+    const float*            samples,
+    JoltC_Vec3              offset,
+    JoltC_Vec3              scale,
+    uint32_t                sampleCount,
+    const uint8_t*          materialIndices,
+    JoltC_PhysicsMaterial** materials,
+    int                     numMaterials);
 
 /* -------------------------------------------------------------------------- */
 /*  StaticCompoundShape                                                       */
@@ -125,6 +148,57 @@ JOLTC_API const JoltC_Shape* JoltC_DecoratedShape_GetInnerShape(const JoltC_Shap
 /* -------------------------------------------------------------------------- */
 JOLTC_API void     JoltC_Shape_SetUserData(const JoltC_Shape* shape, uint64_t userData);
 JOLTC_API uint64_t JoltC_Shape_GetUserData(const JoltC_Shape* shape);
+
+/* -------------------------------------------------------------------------- */
+/*  Shape introspection                                                       */
+/* -------------------------------------------------------------------------- */
+
+/* The material at a sub shape, for a compound/mesh/height field hit: pass the subShapeId a query
+ * returned. The handle is borrowed from the shape — valid while the shape lives, never destroy it.
+ * Every shape returns something; shapes built without materials return Jolt's default material. */
+JOLTC_API const JoltC_PhysicsMaterial* JoltC_Shape_GetMaterial(const JoltC_Shape* shape, uint32_t subShapeId);
+
+/* The user data of the leaf shape a sub shape id lands on, so a hit on a compound reports the
+ * user data of the child that was hit rather than the compound's own. */
+JOLTC_API uint64_t JoltC_Shape_GetSubShapeUserData(const JoltC_Shape* shape, uint32_t subShapeId);
+
+/* The leaf shape a sub shape id lands on, borrowed from the shape. outRemainder receives the part
+ * of the id that is left for the leaf to interpret. Returns null when the id does not resolve. */
+JOLTC_API const JoltC_Shape* JoltC_Shape_GetLeafShape(const JoltC_Shape* shape, uint32_t subShapeId, uint32_t* outRemainder);
+
+/* Total and submerged volume against a water surface given as a plane (normal + constant, with
+ * plane equation dot(normal, point) + constant = 0), plus the centre of buoyancy. The transform
+ * is the centre of mass transform of the shape in world space. */
+JOLTC_API void JoltC_Shape_GetSubmergedVolume(
+    const JoltC_Shape* shape,
+    const JoltC_Mat44* centerOfMassTransform,
+    JoltC_Vec3         scale,
+    JoltC_Vec3         surfaceNormal,
+    float              surfaceConstant,
+    float*             outTotalVolume,
+    float*             outSubmergedVolume,
+    JoltC_Vec3*        outCenterOfBuoyancy);
+
+/* Reading the triangles out of any shape, in batches. Start returns a context for the region of
+ * interest (an axis aligned box in world space, with the shape posed by positionCOM/rotation/scale);
+ * Next fills outVertices with 9 floats per triangle (three vertices, world space) and returns how
+ * many triangles it wrote, 0 when there are no more. maxTriangles must be at least 32, which is
+ * Jolt's own minimum for this walk. outMaterials may be null; when given it receives one borrowed
+ * material handle per triangle. The context must be destroyed after the last Next call. */
+JOLTC_API JoltC_GetTrianglesContext* JoltC_Shape_GetTrianglesStart(
+    const JoltC_Shape* shape,
+    JoltC_Vec3         boxMin,
+    JoltC_Vec3         boxMax,
+    JoltC_Vec3         positionCOM,
+    JoltC_Quat         rotation,
+    JoltC_Vec3         scale);
+JOLTC_API int JoltC_Shape_GetTrianglesNext(
+    const JoltC_Shape*             shape,
+    JoltC_GetTrianglesContext*     context,
+    int                            maxTriangles,
+    float*                         outVertices,
+    const JoltC_PhysicsMaterial**  outMaterials);
+JOLTC_API void JoltC_GetTrianglesContext_Destroy(JoltC_GetTrianglesContext* context);
 
 /* -------------------------------------------------------------------------- */
 /*  Extended Shape queries                                                    */
@@ -252,6 +326,43 @@ JOLTC_API JoltC_Bool JoltC_HeightFieldShape_IsNoCollision(const JoltC_Shape* sha
 JOLTC_API float      JoltC_HeightFieldShape_GetMinHeightValue(const JoltC_Shape* shape);
 JOLTC_API float      JoltC_HeightFieldShape_GetMaxHeightValue(const JoltC_Shape* shape);
 JOLTC_API int        JoltC_HeightFieldShape_ProjectOntoSurface(const JoltC_Shape* shape, JoltC_Vec3 localPosition, JoltC_Vec3* outSurfacePosition, uint32_t* outSubShapeId);
+
+/* The material of one cell, borrowed from the shape. */
+JOLTC_API const JoltC_PhysicsMaterial* JoltC_HeightFieldShape_GetMaterial(const JoltC_Shape* shape, uint32_t x, uint32_t y);
+
+/* Runtime terrain deformation. Heights are read and written over a rectangle of samples starting
+ * at (x, y); the stride is in floats per row of the caller's buffer, and both x/y and the sizes
+ * must be multiples of the shape's block size for SetHeights. A sample set to JoltC_HeightFieldShape_GetMaxHeightValue
+ * or beyond cannot be represented; use FLT_MAX in SetHeights to punch a no-collision hole. */
+JOLTC_API void JoltC_HeightFieldShape_GetHeights(
+    const JoltC_Shape* shape,
+    uint32_t x, uint32_t y,
+    uint32_t sizeX, uint32_t sizeY,
+    float* outHeights, int64_t heightsStride);
+JOLTC_API void JoltC_HeightFieldShape_SetHeights(
+    const JoltC_Shape* shape,
+    uint32_t x, uint32_t y,
+    uint32_t sizeX, uint32_t sizeY,
+    const float* heights, int64_t heightsStride,
+    JoltC_TempAllocator* allocator,
+    float activeEdgeCosThresholdAngle);
+
+/* Runtime material painting over a rectangle of cells; strides are in bytes per row of the
+ * caller's buffer. SetMaterials may grow the shape's material list: pass the full list the
+ * indices refer to (or null to keep the current list). Returns false when a new material would
+ * not fit the bits per sample the shape was built with. */
+JOLTC_API void JoltC_HeightFieldShape_GetMaterials(
+    const JoltC_Shape* shape,
+    uint32_t x, uint32_t y,
+    uint32_t sizeX, uint32_t sizeY,
+    uint8_t* outMaterials, int64_t materialsStride);
+JOLTC_API JoltC_Bool JoltC_HeightFieldShape_SetMaterials(
+    const JoltC_Shape* shape,
+    uint32_t x, uint32_t y,
+    uint32_t sizeX, uint32_t sizeY,
+    const uint8_t* materials, int64_t materialsStride,
+    JoltC_PhysicsMaterial** materialList, int numMaterials,
+    JoltC_TempAllocator* allocator);
 
 /* -------------------------------------------------------------------------- */
 /*  HeightFieldShapeSettings — generic (via JoltC_ShapeSettings*)             */

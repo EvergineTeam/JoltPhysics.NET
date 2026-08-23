@@ -103,6 +103,9 @@ JOLTC_API JoltC_Vec3        JoltC_CharacterVirtual_GetGroundNormal(const JoltC_C
 JOLTC_API JoltC_Vec3        JoltC_CharacterVirtual_GetGroundVelocity(const JoltC_CharacterVirtual* c);
 JOLTC_API JoltC_BodyID      JoltC_CharacterVirtual_GetGroundBodyID(const JoltC_CharacterVirtual* c);
 
+/* The material of the ground the character stands on, borrowed — footsteps by material. */
+JOLTC_API const JoltC_PhysicsMaterial* JoltC_CharacterVirtual_GetGroundMaterial(const JoltC_CharacterVirtual* c);
+
 JOLTC_API JoltC_Vec3 JoltC_CharacterVirtual_GetUp(const JoltC_CharacterVirtual* c);
 JOLTC_API void       JoltC_CharacterVirtual_SetUp(JoltC_CharacterVirtual* c, JoltC_Vec3 up);
 JOLTC_API void       JoltC_CharacterVirtual_SetMaxSlopeAngle(JoltC_CharacterVirtual* c, float maxSlopeAngle);
@@ -286,6 +289,7 @@ JOLTC_API JoltC_RVec3       JoltC_Character_GetGroundPosition(const JoltC_Charac
 JOLTC_API JoltC_Vec3        JoltC_Character_GetGroundNormal(const JoltC_Character* c);
 JOLTC_API JoltC_Vec3        JoltC_Character_GetGroundVelocity(const JoltC_Character* c);
 JOLTC_API JoltC_BodyID      JoltC_Character_GetGroundBodyID(const JoltC_Character* c);
+JOLTC_API const JoltC_PhysicsMaterial* JoltC_Character_GetGroundMaterial(const JoltC_Character* c);
 JOLTC_API JoltC_Vec3        JoltC_Character_GetUp(const JoltC_Character* c);
 JOLTC_API void              JoltC_Character_SetUp(JoltC_Character* c, JoltC_Vec3 up);
 JOLTC_API void              JoltC_Character_SetMaxSlopeAngle(JoltC_Character* c, float maxSlopeAngle);

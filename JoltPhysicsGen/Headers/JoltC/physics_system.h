@@ -159,6 +159,12 @@ JOLTC_API JoltC_Bool JoltC_GroupFilterTable_IsCollisionEnabled(const JoltC_Group
 
 /* -------------------------------------------------------------------------- */
 /*  PhysicsMaterial                                                           */
+/*                                                                            */
+/*  The handle is ref-counted. Create returns it holding one reference and    */
+/*  Destroy releases that reference; a shape built with the material keeps    */
+/*  its own, so destroying the handle after building the shape is safe. The   */
+/*  materials handed back by JoltC_Shape_GetMaterial and friends are the      */
+/*  same pointers, so identity comparison against the created handles works.  */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_PhysicsMaterial* JoltC_PhysicsMaterial_Create(const char* name, uint32_t color);
 JOLTC_API void JoltC_PhysicsMaterial_Destroy(JoltC_PhysicsMaterial* material);

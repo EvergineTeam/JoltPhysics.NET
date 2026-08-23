@@ -86,6 +86,7 @@ typedef struct JoltC_ShapeFilter             JoltC_ShapeFilter;
 typedef struct JoltC_SimShapeFilter          JoltC_SimShapeFilter;
 typedef struct JoltC_PhysicsStepListener     JoltC_PhysicsStepListener;
 typedef struct JoltC_PhysicsMaterial         JoltC_PhysicsMaterial;
+typedef struct JoltC_GetTrianglesContext     JoltC_GetTrianglesContext;
 typedef struct JoltC_GroupFilter             JoltC_GroupFilter;
 typedef struct JoltC_BroadPhaseQuery         JoltC_BroadPhaseQuery;
 typedef struct JoltC_ContactManifold         JoltC_ContactManifold;
