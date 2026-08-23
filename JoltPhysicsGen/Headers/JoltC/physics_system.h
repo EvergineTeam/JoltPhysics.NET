@@ -106,7 +106,7 @@ JOLTC_API uint32_t JoltC_PhysicsSystem_GetNumActiveBodies(const JoltC_PhysicsSys
 JOLTC_API uint32_t JoltC_PhysicsSystem_GetMaxBodies(const JoltC_PhysicsSystem* system);
 
 /* -------------------------------------------------------------------------- */
-/*  BodyInterface — obtained from PhysicsSystem, not owned by caller          */
+/*  BodyInterface - obtained from PhysicsSystem, not owned by caller          */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_BodyInterface* JoltC_PhysicsSystem_GetBodyInterface(JoltC_PhysicsSystem* system);
 JOLTC_API JoltC_BodyInterface* JoltC_PhysicsSystem_GetBodyInterfaceNoLock(JoltC_PhysicsSystem* system);
@@ -158,7 +158,7 @@ JOLTC_API void JoltC_GroupFilterTable_EnableCollision(JoltC_GroupFilter* filter,
 JOLTC_API JoltC_Bool JoltC_GroupFilterTable_IsCollisionEnabled(const JoltC_GroupFilter* filter, JoltC_CollisionSubGroupID subGroup1, JoltC_CollisionSubGroupID subGroup2);
 
 /* -------------------------------------------------------------------------- */
-/*  System introspection (phase 5)                                            */
+/*  System introspection                                                      */
 /* -------------------------------------------------------------------------- */
 /* The bounding box of everything in the broad phase. */
 JOLTC_API void JoltC_PhysicsSystem_GetBounds(const JoltC_PhysicsSystem* system, JoltC_AABox* outBounds);
@@ -237,25 +237,25 @@ JOLTC_API JoltC_ContactListener* JoltC_ContactListener_CreateEnhanced(
     void*                              userData);
 
 /* -------------------------------------------------------------------------- */
-/*  PhysicsSystem — constraints                                               */
+/*  PhysicsSystem - constraints                                               */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_PhysicsSystem_AddConstraints(JoltC_PhysicsSystem* system, JoltC_Constraint** constraints, int count);
 JOLTC_API void JoltC_PhysicsSystem_RemoveConstraints(JoltC_PhysicsSystem* system, JoltC_Constraint** constraints, int count);
 JOLTC_API int  JoltC_PhysicsSystem_GetConstraints(const JoltC_PhysicsSystem* system, JoltC_Constraint** outConstraints, int maxCount);
 
 /* -------------------------------------------------------------------------- */
-/*  PhysicsSystem — settings                                                  */
+/*  PhysicsSystem - settings                                                  */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_PhysicsSystem_GetPhysicsSettings(const JoltC_PhysicsSystem* system, JoltC_PhysicsSettings* outSettings);
 JOLTC_API void JoltC_PhysicsSystem_SetPhysicsSettings(JoltC_PhysicsSystem* system, const JoltC_PhysicsSettings* settings);
 
 /* -------------------------------------------------------------------------- */
-/*  PhysicsSystem — activate bodies in AABB                                   */
+/*  PhysicsSystem - activate bodies in AABB                                   */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_PhysicsSystem_ActivateBodiesInAABox(JoltC_PhysicsSystem* system, JoltC_Vec3 min, JoltC_Vec3 max);
 
 /* -------------------------------------------------------------------------- */
-/*  Callback SetProcs — update function pointers on existing objects          */
+/*  Callback SetProcs - update function pointers on existing objects          */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_BodyActivationListener_SetProcs(JoltC_BodyActivationListener* listener, JoltC_BodyActivationListener_Procs procs, void* userData);
 JOLTC_API void JoltC_ContactListener_SetProcs(JoltC_ContactListener* listener, JoltC_ContactListener_Procs procs, void* userData);

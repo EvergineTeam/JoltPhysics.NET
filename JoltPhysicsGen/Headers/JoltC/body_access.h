@@ -49,7 +49,7 @@ JOLTC_API JoltC_Body*          JoltC_BodyLockWrite_GetBody(const JoltC_BodyLockW
 JOLTC_API void                 JoltC_BodyLockWrite_Destroy(JoltC_BodyLockWrite* lock);
 
 /* -------------------------------------------------------------------------- */
-/*  BodyLockInterface — Lock / Unlock (alternative naming)                    */
+/*  BodyLockInterface - Lock / Unlock (alternative naming)                    */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_BodyLockRead*  JoltC_BodyLockInterface_LockRead(const JoltC_BodyLockInterface* lockInterface, uint32_t bodyId);
 JOLTC_API void                 JoltC_BodyLockInterface_UnlockRead(const JoltC_BodyLockInterface* lockInterface, JoltC_BodyLockRead* lock);
@@ -66,7 +66,7 @@ JOLTC_API void                      JoltC_BodyLockMultiWrite_Destroy(JoltC_BodyL
 JOLTC_API JoltC_Body*               JoltC_BodyLockMultiWrite_GetBody(JoltC_BodyLockMultiWrite* lock, int index);
 
 /* -------------------------------------------------------------------------- */
-/*  Body — read functions                                                     */
+/*  Body - read functions                                                     */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_BodyID       JoltC_Body_GetID(const JoltC_Body* body);
 JOLTC_API JoltC_BodyType     JoltC_Body_GetBodyType(const JoltC_Body* body);
@@ -174,7 +174,7 @@ JOLTC_API void               JoltC_MotionProperties_SetInverseInertia(JoltC_Moti
 JOLTC_API void               JoltC_MotionProperties_SetMassProperties(JoltC_MotionProperties* properties, JoltC_AllowedDOFs allowedDOFs, const JoltC_MassProperties* massProperties);
 JOLTC_API void               JoltC_MotionProperties_ScaleToMass(JoltC_MotionProperties* properties, float mass);
 
-/* The rest of the class (phase 5): everything below reads or writes the live motion state the
+/* The rest of the class: everything below reads or writes the live motion state the
  * solver uses, so the usual rule applies -- touch it between updates, not during one. */
 JOLTC_API JoltC_MotionQuality JoltC_MotionProperties_GetMotionQuality(const JoltC_MotionProperties* properties);
 JOLTC_API JoltC_Bool         JoltC_MotionProperties_GetAllowSleeping(const JoltC_MotionProperties* properties);

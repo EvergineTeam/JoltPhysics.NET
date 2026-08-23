@@ -16,7 +16,7 @@ extern "C" {
 #endif
 
 /* -------------------------------------------------------------------------- */
-/*  StateRecorderImpl — an in-memory stream                                   */
+/*  StateRecorderImpl - an in-memory stream                                   */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_StateRecorder* JoltC_StateRecorderImpl_Create(void);
 JOLTC_API void JoltC_StateRecorderImpl_Destroy(JoltC_StateRecorder* recorder);

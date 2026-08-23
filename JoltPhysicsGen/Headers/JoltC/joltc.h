@@ -1,7 +1,7 @@
 /* JoltC - C bindings for JoltPhysics
  * SPDX-License-Identifier: MIT
  *
- * Umbrella header — includes all public JoltC headers.
+ * Umbrella header -- includes all public JoltC headers.
  */
 
 #ifndef JOLTC_H

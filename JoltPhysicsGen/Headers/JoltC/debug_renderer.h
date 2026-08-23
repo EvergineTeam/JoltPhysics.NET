@@ -30,6 +30,37 @@ JOLTC_API JoltC_DebugRenderer* JoltC_DebugRenderer_Create(
 JOLTC_API void JoltC_DebugRenderer_Destroy(JoltC_DebugRenderer* renderer);
 
 /* -------------------------------------------------------------------------- */
+/*  Collecting instead of calling back                                        */
+/* -------------------------------------------------------------------------- */
+/* One vertex of a collected line, in the shape a vertex buffer wants: a position and a packed
+ * colour, red in the lowest byte. */
+typedef struct JoltC_DebugVertex {
+    float    x;
+    float    y;
+    float    z;
+    uint32_t color;
+} JoltC_DebugVertex;
+
+/* A renderer that appends what it is asked to draw instead of calling back per line. A caller
+ * drawing wireframe gizmos crosses the language boundary once per frame rather than once per line,
+ * which for a scene of a few hundred bodies is the difference between thousands of calls and a
+ * memory block: the callback renderer above spends most of a frame in the boundary alone.
+ *
+ * Lines are appended as two vertices, triangles as their three edges, and text is dropped: this
+ * collects lines, and a caller drawing lines has nothing to do with a glyph. */
+JOLTC_API JoltC_DebugRenderer* JoltC_DebugRenderer_CreateCollector(void);
+
+/* Hands over everything collected and empties the buffer for the next frame. Writes the block to
+ * outVertices and returns how many vertices it holds, always an even number. The block stays valid
+ * until the next drawing into this renderer, which is what refills it. */
+JOLTC_API uint32_t JoltC_DebugRenderer_TakeVertices(JoltC_DebugRenderer* renderer, const JoltC_DebugVertex** outVertices);
+
+/* Where the camera is, which is what decides the level of detail Jolt draws a shape at: its
+ * geometries carry LODs for five, ten and forty metres, and a renderer that never hears about a
+ * camera draws every one of them at the finest level, however far away it is. */
+JOLTC_API void JoltC_DebugRenderer_SetCameraPos(JoltC_DebugRenderer* renderer, JoltC_RVec3 position);
+
+/* -------------------------------------------------------------------------- */
 /*  What to draw of the bodies                                                */
 /* -------------------------------------------------------------------------- */
 typedef enum JoltC_ShapeColor {

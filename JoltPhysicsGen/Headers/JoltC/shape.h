@@ -154,7 +154,7 @@ JOLTC_API uint64_t JoltC_Shape_GetUserData(const JoltC_Shape* shape);
 /* -------------------------------------------------------------------------- */
 
 /* The material at a sub shape, for a compound/mesh/height field hit: pass the subShapeId a query
- * returned. The handle is borrowed from the shape — valid while the shape lives, never destroy it.
+ * returned. The handle is borrowed from the shape -- valid while the shape lives, never destroy it.
  * Every shape returns something; shapes built without materials return Jolt's default material. */
 JOLTC_API const JoltC_PhysicsMaterial* JoltC_Shape_GetMaterial(const JoltC_Shape* shape, uint32_t subShapeId);
 
@@ -365,7 +365,7 @@ JOLTC_API JoltC_Bool JoltC_HeightFieldShape_SetMaterials(
     JoltC_TempAllocator* allocator);
 
 /* -------------------------------------------------------------------------- */
-/*  HeightFieldShapeSettings — generic (via JoltC_ShapeSettings*)             */
+/*  HeightFieldShapeSettings - generic (via JoltC_ShapeSettings*)             */
 /* -------------------------------------------------------------------------- */
 JOLTC_API float    JoltC_HeightFieldShapeSettings_GetActiveEdgeCosThresholdAngle(const JoltC_ShapeSettings* settings);
 JOLTC_API void     JoltC_HeightFieldShapeSettings_SetActiveEdgeCosThresholdAngle(JoltC_ShapeSettings* settings, float angle);
@@ -387,7 +387,7 @@ JOLTC_API void     JoltC_MeshShapeSettings_Sanitize(JoltC_MeshShapeSettings* set
 JOLTC_API const JoltC_Shape* JoltC_MeshShapeSettings_CreateShape(const JoltC_MeshShapeSettings* settings);
 
 /* -------------------------------------------------------------------------- */
-/*  MeshShapeSettings — generic (via JoltC_ShapeSettings*)                    */
+/*  MeshShapeSettings - generic (via JoltC_ShapeSettings*)                    */
 /* -------------------------------------------------------------------------- */
 JOLTC_API float    JoltC_MeshShapeSettings_GetActiveEdgeCosThresholdAngle(const JoltC_ShapeSettings* settings);
 JOLTC_API void     JoltC_MeshShapeSettings_SetActiveEdgeCosThresholdAngle(JoltC_ShapeSettings* settings, float angle);
@@ -397,7 +397,7 @@ JOLTC_API int      JoltC_MeshShapeSettings_GetBuildQuality(const JoltC_ShapeSett
 JOLTC_API void     JoltC_MeshShapeSettings_SetBuildQuality(JoltC_ShapeSettings* settings, int quality);
 
 /* -------------------------------------------------------------------------- */
-/*  MeshShape — instance queries                                              */
+/*  MeshShape - instance queries                                              */
 /* -------------------------------------------------------------------------- */
 JOLTC_API uint32_t JoltC_MeshShape_GetTriangleUserData(const JoltC_Shape* shape, uint32_t subShapeId);
 
@@ -539,7 +539,7 @@ JOLTC_API float      JoltC_PlaneShape_GetHalfExtent(const JoltC_Shape* shape);
 JOLTC_API JoltC_Vec3 JoltC_PlaneShape_GetPlane(const JoltC_Shape* shape, float* outDistance);
 
 /* -------------------------------------------------------------------------- */
-/*  Shape base — additional functions                                         */
+/*  Shape base - additional functions                                         */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_Vec3         JoltC_Shape_GetSurfaceNormal(const JoltC_Shape* shape, uint32_t subShapeId, JoltC_Vec3 localSurfacePosition);
 JOLTC_API void               JoltC_Shape_GetWorldSpaceBounds(const JoltC_Shape* shape, JoltC_Mat44 centerOfMassTransform, JoltC_Vec3 scale, JoltC_Vec3* outMin, JoltC_Vec3* outMax);

@@ -322,7 +322,7 @@ JOLTC_API void  JoltC_VehicleEngine_ApplyDamping(JoltC_VehicleEngine* e, float d
 JOLTC_API JoltC_Bool JoltC_VehicleEngine_AllowSleep(const JoltC_VehicleEngine* e);
 
 /* ========================================================================== */
-/*  VehicleTransmissionSettings (opaque — has internal arrays)                */
+/*  VehicleTransmissionSettings (opaque - has internal arrays)                */
 /* ========================================================================== */
 JOLTC_API JoltC_VehicleTransmissionSettings* JoltC_VehicleTransmissionSettings_Create(void);
 JOLTC_API void  JoltC_VehicleTransmissionSettings_Destroy(JoltC_VehicleTransmissionSettings* s);
@@ -380,7 +380,7 @@ JOLTC_API void JoltC_VehicleAntiRollBar_Init(JoltC_VehicleAntiRollBar* bar);
 JOLTC_API void JoltC_VehicleTrackSettings_Init(JoltC_VehicleTrackSettings* settings);
 
 /* ========================================================================== */
-/*  Wheel / WheelWV / WheelTV — Create / Destroy                             */
+/*  Wheel / WheelWV / WheelTV - Create / Destroy                             */
 /* ========================================================================== */
 JOLTC_API JoltC_Wheel* JoltC_Wheel_Create(const JoltC_WheelSettings* settings);
 JOLTC_API void         JoltC_Wheel_Destroy(JoltC_Wheel* wheel);

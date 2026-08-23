@@ -14,7 +14,7 @@ extern "C" {
 #endif
 
 /* -------------------------------------------------------------------------- */
-/*  SoftBodySharedSettings — ref-counted vertex/constraint description        */
+/*  SoftBodySharedSettings - ref-counted vertex/constraint description        */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_SoftBodySharedSettings* JoltC_SoftBodySharedSettings_Create(void);
 JOLTC_API void JoltC_SoftBodySharedSettings_AddRef(const JoltC_SoftBodySharedSettings* settings);
@@ -30,11 +30,11 @@ JOLTC_API uint32_t JoltC_SoftBodySharedSettings_AddVertex2(JoltC_SoftBodySharedS
 /* Builds edge/shear/bend constraints from the faces added so far. Compliance FLT_MAX disables a constraint kind. */
 JOLTC_API void JoltC_SoftBodySharedSettings_CreateConstraints(JoltC_SoftBodySharedSettings* settings, float compliance, float shearCompliance, float bendCompliance, JoltC_SoftBodyBendType bendType);
 
-/* The full form: one attribute struct per vertex (when fewer are given the last one repeats, which
- * is Jolt's own convention), so cloth can be stiff at the hem and loose in the middle, and long
- * range attachments can finally be created -- an lraType other than NONE needs at least one pinned
- * vertex to anchor to. angleTolerance (radians) controls when two triangles count as a quad for
- * shear edges; Jolt's default is 8 degrees. */
+/* The full form: one attribute struct per vertex, so compliance and the long range attachment type
+ * can vary across the body. When fewer attributes than vertices are given the last one repeats,
+ * which is Jolt's own convention. An lraType other than NONE needs at least one pinned vertex to
+ * anchor to. angleTolerance (radians) controls when two triangles count as a quad for shear edges;
+ * Jolt's default is 8 degrees. */
 JOLTC_API void JoltC_SoftBodySharedSettings_CreateConstraints2(
     JoltC_SoftBodySharedSettings*         settings,
     const JoltC_SoftBodyVertexAttributes* vertexAttributes,
@@ -103,7 +103,7 @@ JOLTC_API uint32_t JoltC_SoftBodySharedSettings_GetFaceCount(const JoltC_SoftBod
 JOLTC_API void JoltC_SoftBodySharedSettings_GetFace(const JoltC_SoftBodySharedSettings* settings, uint32_t index, uint32_t* outVertex0, uint32_t* outVertex1, uint32_t* outVertex2);
 
 /* -------------------------------------------------------------------------- */
-/*  SoftBodyCreationSettings — configuration                                  */
+/*  SoftBodyCreationSettings - configuration                                  */
 /* -------------------------------------------------------------------------- */
 /* Takes a reference on sharedSettings; the caller keeps its own. */
 JOLTC_API void JoltC_SoftBodyCreationSettings_SetSettings(JoltC_SoftBodyCreationSettings* settings, const JoltC_SoftBodySharedSettings* sharedSettings);
@@ -147,7 +147,7 @@ JOLTC_API uint64_t    JoltC_SoftBodyCreationSettings_GetUserData(const JoltC_Sof
 JOLTC_API JoltC_Bool  JoltC_SoftBodyCreationSettings_GetFacesDoubleSided(const JoltC_SoftBodyCreationSettings* settings);
 
 /* -------------------------------------------------------------------------- */
-/*  SoftBodyMotionProperties — runtime vertex access                          */
+/*  SoftBodyMotionProperties - runtime vertex access                          */
 /* -------------------------------------------------------------------------- */
 /* Returns null when the body is not a soft body. Valid while the body is alive. */
 JOLTC_API JoltC_SoftBodyMotionProperties* JoltC_Body_GetSoftBodyMotionProperties(JoltC_Body* body);
@@ -216,7 +216,7 @@ JOLTC_API void JoltC_SoftBodyMotionProperties_CustomUpdate(
     JoltC_PhysicsSystem*            system);
 
 /* -------------------------------------------------------------------------- */
-/*  SoftBodyContactListener — collision callbacks for soft bodies             */
+/*  SoftBodyContactListener - collision callbacks for soft bodies             */
 /* -------------------------------------------------------------------------- */
 /* The exact twin of the vehicle step listener repair: the callbacks existed in Jolt all along, and
  * without the Set call on the system they were unreachable. The listener must outlive its
@@ -229,7 +229,7 @@ JOLTC_API void JoltC_SoftBodyContactListener_Destroy(JoltC_SoftBodyContactListen
 JOLTC_API void JoltC_PhysicsSystem_SetSoftBodyContactListener(JoltC_PhysicsSystem* system, JoltC_SoftBodyContactListener* listener);
 
 /* -------------------------------------------------------------------------- */
-/*  SoftBodyManifold — reading contacts inside the contact added callback     */
+/*  SoftBodyManifold - reading contacts inside the contact added callback     */
 /* -------------------------------------------------------------------------- */
 /* The manifold borrows the soft body's internal arrays: every one of these is only valid for the
  * duration of the callback that handed the manifold over. */

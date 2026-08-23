@@ -266,7 +266,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
-	/// Spring / Motor settings — blittable structs
+	/// Spring / Motor settings - blittable structs
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
@@ -289,7 +289,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
-	/// RayCast result — blittable struct
+	/// RayCast result - blittable struct
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
@@ -403,7 +403,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
-	/// ContactSettings — enriched contact listener data (blittable)
+	/// ContactSettings - enriched contact listener data (blittable)
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
@@ -422,7 +422,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
-	/// MassProperties — blittable
+	/// MassProperties - blittable
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
@@ -434,7 +434,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
-	/// Body creation settings — blittable struct
+	/// Body creation settings - blittable struct
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
@@ -474,7 +474,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
-	/// PhysicsSettings — blittable struct matching JPH::PhysicsSettings
+	/// PhysicsSettings - blittable struct matching JPH::PhysicsSettings
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
@@ -510,7 +510,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
-	/// Procs structs — function-pointer tables for SetProcs updates
+	/// Procs structs - function-pointer tables for SetProcs updates
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
@@ -807,7 +807,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 	/// <summary>
 	/// --------------------------------------------------------------------------
-	/// PathConstraint — a body constrained to slide along a curve
+	/// PathConstraint - a body constrained to slide along a curve
 	/// --------------------------------------------------------------------------
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
@@ -935,6 +935,22 @@ namespace Evergine.Bindings.JoltPhysics
 		public IntPtr OnValidate;
 		public IntPtr OnAdded;
 		public IntPtr OnPersisted;
+	}
+
+	/// <summary>
+	/// --------------------------------------------------------------------------
+	/// Collecting instead of calling back
+	/// --------------------------------------------------------------------------
+	/// One vertex of a collected line, in the shape a vertex buffer wants: a position and a packed
+	/// colour, red in the lowest byte.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct DebugVertex
+	{
+		public float X;
+		public float Y;
+		public float Z;
+		public uint Color;
 	}
 
 	/// <summary>

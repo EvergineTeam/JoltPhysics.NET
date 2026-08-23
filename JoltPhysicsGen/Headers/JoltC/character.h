@@ -174,7 +174,7 @@ JOLTC_API JoltC_Vec3        JoltC_CharacterVirtual_GetGroundNormal(const JoltC_C
 JOLTC_API JoltC_Vec3        JoltC_CharacterVirtual_GetGroundVelocity(const JoltC_CharacterVirtual* c);
 JOLTC_API JoltC_BodyID      JoltC_CharacterVirtual_GetGroundBodyID(const JoltC_CharacterVirtual* c);
 
-/* The material of the ground the character stands on, borrowed — footsteps by material. */
+/* The material of the ground the character stands on, borrowed -- footsteps by material. */
 JOLTC_API const JoltC_PhysicsMaterial* JoltC_CharacterVirtual_GetGroundMaterial(const JoltC_CharacterVirtual* c);
 
 /* The supporting volume at runtime, same convention as the settings field. */
@@ -378,7 +378,7 @@ JOLTC_API void       JoltC_Character_SetLinearAndAngularVelocity(JoltC_Character
 JOLTC_API void       JoltC_Character_SetPositionAndRotation(JoltC_Character* character, JoltC_RVec3 position, JoltC_Quat rotation, int activation);
 
 /* -------------------------------------------------------------------------- */
-/*  CharacterBase (polymorphic base — obtain via AsBase converters)           */
+/*  CharacterBase (polymorphic base - obtain via AsBase converters)           */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_CharacterBase* JoltC_Character_AsBase(JoltC_Character* character);
 JOLTC_API JoltC_CharacterBase* JoltC_CharacterVirtual_AsBase(JoltC_CharacterVirtual* character);

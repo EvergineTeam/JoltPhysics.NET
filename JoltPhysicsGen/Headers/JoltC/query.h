@@ -15,13 +15,13 @@ extern "C" {
 #endif
 
 /* -------------------------------------------------------------------------- */
-/*  NarrowPhaseQuery — obtained from PhysicsSystem, not owned by caller       */
+/*  NarrowPhaseQuery - obtained from PhysicsSystem, not owned by caller       */
 /* -------------------------------------------------------------------------- */
 JOLTC_API const JoltC_NarrowPhaseQuery* JoltC_PhysicsSystem_GetNarrowPhaseQuery(const JoltC_PhysicsSystem* system);
 JOLTC_API const JoltC_NarrowPhaseQuery* JoltC_PhysicsSystem_GetNarrowPhaseQueryNoLock(const JoltC_PhysicsSystem* system);
 
 /* -------------------------------------------------------------------------- */
-/*  CastRay — single closest hit (no filters)                                 */
+/*  CastRay - single closest hit (no filters)                                 */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_Bool JoltC_NarrowPhaseQuery_CastRay(
     const JoltC_NarrowPhaseQuery* query,
@@ -30,7 +30,7 @@ JOLTC_API JoltC_Bool JoltC_NarrowPhaseQuery_CastRay(
     JoltC_RayCastResult*          outResult);
 
 /* -------------------------------------------------------------------------- */
-/*  CastRay — multiple hits via callback (no filters)                         */
+/*  CastRay - multiple hits via callback (no filters)                         */
 /* -------------------------------------------------------------------------- */
 typedef void (*JoltC_CastRayCollectorFn)(void* userData, const JoltC_RayCastResult* result);
 
@@ -43,7 +43,7 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CastRayAll(
     void*                          userData);
 
 /* -------------------------------------------------------------------------- */
-/*  CollidePoint — check if point is inside any shape (no filters)            */
+/*  CollidePoint - check if point is inside any shape (no filters)            */
 /* -------------------------------------------------------------------------- */
 typedef void (*JoltC_CollidePointCollectorFn)(void* userData, JoltC_BodyID bodyID, uint32_t subShapeID);
 
@@ -54,7 +54,7 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CollidePoint(
     void*                            userData);
 
 /* -------------------------------------------------------------------------- */
-/*  CastRay2 — single closest hit with filter support                         */
+/*  CastRay2 - single closest hit with filter support                         */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_Bool JoltC_NarrowPhaseQuery_CastRay2(
     const JoltC_NarrowPhaseQuery*        query,
@@ -66,7 +66,7 @@ JOLTC_API JoltC_Bool JoltC_NarrowPhaseQuery_CastRay2(
     const JoltC_BodyFilter*              bodyFilter);   /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  CastRay3 — multiple hits via callback with all filters                    */
+/*  CastRay3 - multiple hits via callback with all filters                    */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_NarrowPhaseQuery_CastRay3(
     const JoltC_NarrowPhaseQuery*        query,
@@ -81,7 +81,7 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CastRay3(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  CollidePoint2 — with filter support                                       */
+/*  CollidePoint2 - with filter support                                       */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_NarrowPhaseQuery_CollidePoint2(
     const JoltC_NarrowPhaseQuery*        query,
@@ -94,7 +94,7 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CollidePoint2(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  CollideShape — find all body shapes overlapping with a query shape        */
+/*  CollideShape - find all body shapes overlapping with a query shape        */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_NarrowPhaseQuery_CollideShape(
     const JoltC_NarrowPhaseQuery*        query,
@@ -110,7 +110,7 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CollideShape(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  CastShape — sweep a shape along a direction                               */
+/*  CastShape - sweep a shape along a direction                               */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_NarrowPhaseQuery_CastShape(
     const JoltC_NarrowPhaseQuery*        query,
@@ -127,7 +127,7 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CastShape(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  CollideShape2 / CastShape2 — with collision settings                      */
+/*  CollideShape2 / CastShape2 - with collision settings                      */
 /* -------------------------------------------------------------------------- */
 /* The variants that consume JoltC_CollideShapeSettings and JoltC_ShapeCastSettings, which existed
  * with their Init helpers and no function that accepted them: max separation distance, back face
@@ -162,7 +162,7 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CastShape2(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  CollideShapeWithInternalEdgeRemoval — no ghost hits on mesh seams         */
+/*  CollideShapeWithInternalEdgeRemoval - no ghost hits on mesh seams         */
 /* -------------------------------------------------------------------------- */
 /* Same contract as CollideShape2, but contacts against the internal edges of triangle meshes and
  * height fields are removed, which is what a character or vehicle sliding along flat ground wants. */
@@ -181,10 +181,10 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CollideShapeWithInternalEdgeRemoval(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  CastShapeClosest — first hit only, with the early-out the collector earns */
+/*  CastShapeClosest -- first hit only, with the early-out the collector earns */
 /* -------------------------------------------------------------------------- */
 /* The all-hits cast visits everything the sweep touches; this one uses Jolt's closest-hit
- * collector, whose early-out shrinks the sweep as hits land — the efficient way to ask "what do
+ * collector, whose early-out shrinks the sweep as hits land -- the efficient way to ask "what do
  * I hit first". Returns JOLTC_FALSE when the sweep hits nothing. */
 JOLTC_API JoltC_Bool JoltC_NarrowPhaseQuery_CastShapeClosest(
     const JoltC_NarrowPhaseQuery*        query,
@@ -201,7 +201,7 @@ JOLTC_API JoltC_Bool JoltC_NarrowPhaseQuery_CastShapeClosest(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  Default layer filters — the ones a query against one layer wants          */
+/*  Default layer filters - the ones a query against one layer wants          */
 /* -------------------------------------------------------------------------- */
 /* Wrap the system's own layer logic as filters, so a caller querying "what layer X can hit" does
  * not have to reimplement the layer matrix on its side. The caller owns the returned filter and
@@ -210,12 +210,12 @@ JOLTC_API JoltC_BroadPhaseLayerFilter* JoltC_PhysicsSystem_GetDefaultBroadPhaseL
 JOLTC_API JoltC_ObjectLayerFilter*     JoltC_PhysicsSystem_GetDefaultLayerFilter(const JoltC_PhysicsSystem* system, JoltC_ObjectLayer layer);
 
 /* -------------------------------------------------------------------------- */
-/*  BroadPhaseQuery — obtained from PhysicsSystem, not owned by caller        */
+/*  BroadPhaseQuery - obtained from PhysicsSystem, not owned by caller        */
 /* -------------------------------------------------------------------------- */
 JOLTC_API const JoltC_BroadPhaseQuery* JoltC_PhysicsSystem_GetBroadPhaseQuery(const JoltC_PhysicsSystem* system);
 
 /* -------------------------------------------------------------------------- */
-/*  BroadPhaseQuery — CastRay                                                 */
+/*  BroadPhaseQuery - CastRay                                                 */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_BroadPhaseQuery_CastRay(
     const JoltC_BroadPhaseQuery*         query,
@@ -227,7 +227,7 @@ JOLTC_API void JoltC_BroadPhaseQuery_CastRay(
     const JoltC_ObjectLayerFilter*       olFilter);     /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  BroadPhaseQuery — CollideAABox                                            */
+/*  BroadPhaseQuery - CollideAABox                                            */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_BroadPhaseQuery_CollideAABox(
     const JoltC_BroadPhaseQuery*         query,
@@ -238,7 +238,7 @@ JOLTC_API void JoltC_BroadPhaseQuery_CollideAABox(
     const JoltC_ObjectLayerFilter*       olFilter);     /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  BroadPhaseQuery — CollideSphere                                           */
+/*  BroadPhaseQuery - CollideSphere                                           */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_BroadPhaseQuery_CollideSphere(
     const JoltC_BroadPhaseQuery*         query,
@@ -250,7 +250,7 @@ JOLTC_API void JoltC_BroadPhaseQuery_CollideSphere(
     const JoltC_ObjectLayerFilter*       olFilter);     /* nullable */
 
 /* -------------------------------------------------------------------------- */
-/*  BroadPhaseQuery — CollidePoint                                            */
+/*  BroadPhaseQuery - CollidePoint                                            */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_BroadPhaseQuery_CollidePoint(
     const JoltC_BroadPhaseQuery*         query,

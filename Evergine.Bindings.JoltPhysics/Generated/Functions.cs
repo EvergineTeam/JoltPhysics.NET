@@ -606,7 +606,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// The material at a sub shape, for a compound/mesh/height field hit: pass the subShapeId a query
-		/// returned. The handle is borrowed from the shape — valid while the shape lives, never destroy it.
+		/// returned. The handle is borrowed from the shape -- valid while the shape lives, never destroy it.
 		/// Every shape returns something; shapes built without materials return Jolt&apos;s default material.
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetMaterial")]
@@ -944,7 +944,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// HeightFieldShapeSettings — generic (via JoltC_ShapeSettings*)
+		/// HeightFieldShapeSettings - generic (via JoltC_ShapeSettings*)
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HeightFieldShapeSettings_GetActiveEdgeCosThresholdAngle")]
@@ -990,7 +990,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// MeshShapeSettings — generic (via JoltC_ShapeSettings*)
+		/// MeshShapeSettings - generic (via JoltC_ShapeSettings*)
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MeshShapeSettings_GetActiveEdgeCosThresholdAngle")]
@@ -1013,7 +1013,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// MeshShape — instance queries
+		/// MeshShape - instance queries
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MeshShape_GetTriangleUserData")]
@@ -1282,7 +1282,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// Shape base — additional functions
+		/// Shape base - additional functions
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_GetSurfaceNormal")]
@@ -1442,7 +1442,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BodyInterface — obtained from PhysicsSystem, not owned by caller
+		/// BodyInterface - obtained from PhysicsSystem, not owned by caller
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetBodyInterface")]
@@ -1549,7 +1549,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// System introspection (phase 5)
+		/// System introspection
 		/// --------------------------------------------------------------------------
 		/// The bounding box of everything in the broad phase.
 		/// </summary>
@@ -1656,7 +1656,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// PhysicsSystem — constraints
+		/// PhysicsSystem - constraints
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_AddConstraints")]
@@ -1670,7 +1670,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// PhysicsSystem — settings
+		/// PhysicsSystem - settings
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetPhysicsSettings")]
@@ -1681,7 +1681,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// PhysicsSystem — activate bodies in AABB
+		/// PhysicsSystem - activate bodies in AABB
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_ActivateBodiesInAABox")]
@@ -1689,7 +1689,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// Callback SetProcs — update function pointers on existing objects
+		/// Callback SetProcs - update function pointers on existing objects
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyActivationListener_SetProcs")]
@@ -1730,7 +1730,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// ==========================================================================
-		/// BodyCreationSettings — opaque-handle API
+		/// BodyCreationSettings - opaque-handle API
 		/// ==========================================================================
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyCreationSettings_Create")]
@@ -2267,7 +2267,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BodyInterface — collision group
+		/// BodyInterface - collision group
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyInterface_GetCollisionGroup")]
@@ -2278,7 +2278,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BodyInterface — additional methods (batch 2)
+		/// BodyInterface - additional methods (batch 2)
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyInterface_ActivateBodiesInAABox")]
@@ -2295,7 +2295,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// Body — direct access (requires body lock or known-safe context)
+		/// Body - direct access (requires body lock or known-safe context)
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Body_GetCollisionGroup")]
@@ -2309,7 +2309,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BodyInterface — SoftBody creation
+		/// BodyInterface - SoftBody creation
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyInterface_CreateSoftBody")]
@@ -2360,7 +2360,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BodyLockInterface — Lock / Unlock (alternative naming)
+		/// BodyLockInterface - Lock / Unlock (alternative naming)
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyLockInterface_LockRead")]
@@ -2397,7 +2397,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// Body — read functions
+		/// Body - read functions
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Body_GetID")]
@@ -2649,7 +2649,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void MotionProperties_ScaleToMass(IntPtr properties, float mass);
 
 		/// <summary>
-		/// The rest of the class (phase 5): everything below reads or writes the live motion state the
+		/// The rest of the class: everything below reads or writes the live motion state the
 		/// solver uses, so the usual rule applies -- touch it between updates, not during one.
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_MotionProperties_GetMotionQuality")]
@@ -3419,7 +3419,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// PathConstraintPath — the curve a path constraint follows
+		/// PathConstraintPath - the curve a path constraint follows
 		/// --------------------------------------------------------------------------
 		/// Ref-counted raw handle, like shapes: Release when done, the constraint keeps its own.
 		/// </summary>
@@ -3428,7 +3428,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// Points must form a smooth curve: tangent along the path, normal perpendicular to it, and
-		/// tangent cross binormal = normal. A sharp corner is a solver ambush, not a feature.
+		/// tangent cross binormal = normal, and the path must be free of sharp corners.
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PathConstraintPathHermite_AddPoint")]
 		public static extern void PathConstraintPathHermite_AddPoint(IntPtr path, Vec3 position, Vec3 tangent, Vec3 normal);
@@ -3510,7 +3510,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// NarrowPhaseQuery — obtained from PhysicsSystem, not owned by caller
+		/// NarrowPhaseQuery - obtained from PhysicsSystem, not owned by caller
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetNarrowPhaseQuery")]
@@ -3521,7 +3521,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CastRay — single closest hit (no filters)
+		/// CastRay - single closest hit (no filters)
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay")]
@@ -3536,7 +3536,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CastRay2 — single closest hit with filter support
+		/// CastRay2 - single closest hit with filter support
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay2")]
@@ -3545,7 +3545,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CastRay3 — multiple hits via callback with all filters
+		/// CastRay3 - multiple hits via callback with all filters
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastRay3")]
@@ -3553,7 +3553,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CollidePoint2 — with filter support
+		/// CollidePoint2 - with filter support
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CollidePoint2")]
@@ -3561,7 +3561,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CollideShape — find all body shapes overlapping with a query shape
+		/// CollideShape - find all body shapes overlapping with a query shape
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CollideShape")]
@@ -3569,7 +3569,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CastShape — sweep a shape along a direction
+		/// CastShape - sweep a shape along a direction
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastShape")]
@@ -3577,7 +3577,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CollideShape2 / CastShape2 — with collision settings
+		/// CollideShape2 / CastShape2 - with collision settings
 		/// --------------------------------------------------------------------------
 		/// The variants that consume JoltC_CollideShapeSettings and JoltC_ShapeCastSettings, which existed
 		/// with their Init helpers and no function that accepted them: max separation distance, back face
@@ -3591,7 +3591,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CollideShapeWithInternalEdgeRemoval — no ghost hits on mesh seams
+		/// CollideShapeWithInternalEdgeRemoval - no ghost hits on mesh seams
 		/// --------------------------------------------------------------------------
 		/// Same contract as CollideShape2, but contacts against the internal edges of triangle meshes and
 		/// height fields are removed, which is what a character or vehicle sliding along flat ground wants.
@@ -3601,10 +3601,10 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CastShapeClosest — first hit only, with the early-out the collector earns
+		/// CastShapeClosest -- first hit only, with the early-out the collector earns
 		/// --------------------------------------------------------------------------
 		/// The all-hits cast visits everything the sweep touches; this one uses Jolt&apos;s closest-hit
-		/// collector, whose early-out shrinks the sweep as hits land — the efficient way to ask &quot;what do
+		/// collector, whose early-out shrinks the sweep as hits land -- the efficient way to ask &quot;what do
 		/// I hit first&quot;. Returns JOLTC_FALSE when the sweep hits nothing.
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastShapeClosest")]
@@ -3613,7 +3613,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// Default layer filters — the ones a query against one layer wants
+		/// Default layer filters - the ones a query against one layer wants
 		/// --------------------------------------------------------------------------
 		/// Wrap the system&apos;s own layer logic as filters, so a caller querying &quot;what layer X can hit&quot; does
 		/// not have to reimplement the layer matrix on its side. The caller owns the returned filter and
@@ -3627,7 +3627,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BroadPhaseQuery — obtained from PhysicsSystem, not owned by caller
+		/// BroadPhaseQuery - obtained from PhysicsSystem, not owned by caller
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetBroadPhaseQuery")]
@@ -3635,7 +3635,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BroadPhaseQuery — CastRay
+		/// BroadPhaseQuery - CastRay
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CastRay")]
@@ -3643,7 +3643,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BroadPhaseQuery — CollideAABox
+		/// BroadPhaseQuery - CollideAABox
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CollideAABox")]
@@ -3651,7 +3651,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BroadPhaseQuery — CollideSphere
+		/// BroadPhaseQuery - CollideSphere
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CollideSphere")]
@@ -3659,7 +3659,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// BroadPhaseQuery — CollidePoint
+		/// BroadPhaseQuery - CollidePoint
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseQuery_CollidePoint")]
@@ -3821,7 +3821,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern uint CharacterVirtual_GetGroundBodyID(IntPtr c);
 
 		/// <summary>
-		/// The material of the ground the character stands on, borrowed — footsteps by material.
+		/// The material of the ground the character stands on, borrowed -- footsteps by material.
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_GetGroundMaterial")]
 		public static extern IntPtr CharacterVirtual_GetGroundMaterial(IntPtr c);
@@ -4071,7 +4071,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// CharacterBase (polymorphic base — obtain via AsBase converters)
+		/// CharacterBase (polymorphic base - obtain via AsBase converters)
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Character_AsBase")]
@@ -4254,7 +4254,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// SetProcs — update function pointers on existing filter objects
+		/// SetProcs - update function pointers on existing filter objects
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BroadPhaseLayerFilter_SetProcs")]
@@ -5040,7 +5040,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// ==========================================================================
-		/// VehicleTransmissionSettings (opaque — has internal arrays)
+		/// VehicleTransmissionSettings (opaque - has internal arrays)
 		/// ==========================================================================
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_VehicleTransmissionSettings_Create")]
@@ -5188,7 +5188,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// ==========================================================================
-		/// Wheel / WheelWV / WheelTV — Create / Destroy
+		/// Wheel / WheelWV / WheelTV - Create / Destroy
 		/// ==========================================================================
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Wheel_Create")]
@@ -5486,7 +5486,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// SoftBodySharedSettings — ref-counted vertex/constraint description
+		/// SoftBodySharedSettings - ref-counted vertex/constraint description
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_Create")]
@@ -5520,11 +5520,11 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void SoftBodySharedSettings_CreateConstraints(IntPtr settings, float compliance, float shearCompliance, float bendCompliance, SoftBodyBendType bendType);
 
 		/// <summary>
-		/// The full form: one attribute struct per vertex (when fewer are given the last one repeats, which
-		/// is Jolt&apos;s own convention), so cloth can be stiff at the hem and loose in the middle, and long
-		/// range attachments can finally be created -- an lraType other than NONE needs at least one pinned
-		/// vertex to anchor to. angleTolerance (radians) controls when two triangles count as a quad for
-		/// shear edges; Jolt&apos;s default is 8 degrees.
+		/// The full form: one attribute struct per vertex, so compliance and the long range attachment type
+		/// can vary across the body. When fewer attributes than vertices are given the last one repeats,
+		/// which is Jolt&apos;s own convention. An lraType other than NONE needs at least one pinned vertex to
+		/// anchor to. angleTolerance (radians) controls when two triangles count as a quad for shear edges;
+		/// Jolt&apos;s default is 8 degrees.
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodySharedSettings_CreateConstraints2")]
 		public static extern void SoftBodySharedSettings_CreateConstraints2(IntPtr settings, SoftBodyVertexAttributes* vertexAttributes, uint vertexAttributesCount, SoftBodyBendType bendType, float angleTolerance);
@@ -5645,7 +5645,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// SoftBodyCreationSettings — configuration
+		/// SoftBodyCreationSettings - configuration
 		/// --------------------------------------------------------------------------
 		/// Takes a reference on sharedSettings; the caller keeps its own.
 		/// </summary>
@@ -5767,7 +5767,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// SoftBodyMotionProperties — runtime vertex access
+		/// SoftBodyMotionProperties - runtime vertex access
 		/// --------------------------------------------------------------------------
 		/// Returns null when the body is not a soft body. Valid while the body is alive.
 		/// </summary>
@@ -5882,7 +5882,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// SoftBodyContactListener — collision callbacks for soft bodies
+		/// SoftBodyContactListener - collision callbacks for soft bodies
 		/// --------------------------------------------------------------------------
 		/// The exact twin of the vehicle step listener repair: the callbacks existed in Jolt all along, and
 		/// without the Set call on the system they were unreachable. The listener must outlive its
@@ -5899,7 +5899,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// SoftBodyManifold — reading contacts inside the contact added callback
+		/// SoftBodyManifold - reading contacts inside the contact added callback
 		/// --------------------------------------------------------------------------
 		/// The manifold borrows the soft body&apos;s internal arrays: every one of these is only valid for the
 		/// duration of the callback that handed the manifold over.
@@ -5931,7 +5931,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// StateRecorderImpl — an in-memory stream
+		/// StateRecorderImpl - an in-memory stream
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_StateRecorderImpl_Create")]
@@ -6049,6 +6049,33 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DebugRenderer_Destroy")]
 		public static extern void DebugRenderer_Destroy(IntPtr renderer);
+
+		/// <summary>
+		/// A renderer that appends what it is asked to draw instead of calling back per line. A caller
+		/// drawing wireframe gizmos crosses the language boundary once per frame rather than once per line,
+		/// which for a scene of a few hundred bodies is the difference between thousands of calls and a
+		/// memory block: the callback renderer above spends most of a frame in the boundary alone.
+		/// Lines are appended as two vertices, triangles as their three edges, and text is dropped: this
+		/// collects lines, and a caller drawing lines has nothing to do with a glyph.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DebugRenderer_CreateCollector")]
+		public static extern IntPtr DebugRenderer_CreateCollector();
+
+		/// <summary>
+		/// Hands over everything collected and empties the buffer for the next frame. Writes the block to
+		/// outVertices and returns how many vertices it holds, always an even number. The block stays valid
+		/// until the next drawing into this renderer, which is what refills it.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DebugRenderer_TakeVertices")]
+		public static extern uint DebugRenderer_TakeVertices(IntPtr renderer, DebugVertex** outVertices);
+
+		/// <summary>
+		/// Where the camera is, which is what decides the level of detail Jolt draws a shape at: its
+		/// geometries carry LODs for five, ten and forty metres, and a renderer that never hears about a
+		/// camera draws every one of them at the finest level, however far away it is.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DebugRenderer_SetCameraPos")]
+		public static extern void DebugRenderer_SetCameraPos(IntPtr renderer, RVec3 position);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_BodyDrawSettings_Init")]
 		public static extern void BodyDrawSettings_Init(BodyDrawSettings* settings);

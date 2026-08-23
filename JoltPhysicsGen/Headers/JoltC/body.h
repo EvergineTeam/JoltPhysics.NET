@@ -14,7 +14,7 @@ extern "C" {
 #endif
 
 /* ========================================================================== */
-/*  BodyCreationSettings — opaque-handle API                                  */
+/*  BodyCreationSettings - opaque-handle API                                  */
 /* ========================================================================== */
 JOLTC_API JoltC_BodyCreationSettings* JoltC_BodyCreationSettings_Create(void);
 JOLTC_API JoltC_BodyCreationSettings* JoltC_BodyCreationSettings_Create2(const JoltC_ShapeSettings* shapeSettings, JoltC_RVec3 position, JoltC_Quat rotation, JoltC_MotionType motionType, JoltC_ObjectLayer objectLayer);
@@ -258,13 +258,13 @@ JOLTC_API void JoltC_BodyInterface_InvalidateContactCache(JoltC_BodyInterface* i
 JOLTC_API int  JoltC_BodyInterface_ApplyBuoyancyImpulse(JoltC_BodyInterface* iface, JoltC_BodyID bodyID, JoltC_RVec3 surfacePosition, JoltC_Vec3 surfaceNormal, float buoyancy, float linearDrag, float angularDrag, JoltC_Vec3 fluidVelocity, JoltC_Vec3 gravity, float deltaTime);
 
 /* -------------------------------------------------------------------------- */
-/*  BodyInterface — collision group                                           */
+/*  BodyInterface - collision group                                           */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_BodyInterface_GetCollisionGroup(const JoltC_BodyInterface* iface, JoltC_BodyID bodyID, JoltC_CollisionGroup* outGroup);
 JOLTC_API void JoltC_BodyInterface_SetCollisionGroup(JoltC_BodyInterface* iface, JoltC_BodyID bodyID, const JoltC_CollisionGroup* group);
 
 /* -------------------------------------------------------------------------- */
-/*  BodyInterface — additional methods (batch 2)                              */
+/*  BodyInterface - additional methods (batch 2)                              */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void JoltC_BodyInterface_ActivateBodiesInAABox(JoltC_BodyInterface* iface, JoltC_Vec3 min, JoltC_Vec3 max);
 JOLTC_API void JoltC_BodyInterface_AddForce2(JoltC_BodyInterface* iface, JoltC_BodyID bodyID, JoltC_Vec3 force, JoltC_RVec3 point);
@@ -272,14 +272,14 @@ JOLTC_API void JoltC_BodyInterface_AddImpulse2(JoltC_BodyInterface* iface, JoltC
 JOLTC_API int  JoltC_BodyInterface_AssignBodyID2(JoltC_BodyInterface* iface, JoltC_Body* body, JoltC_BodyID desiredID);
 
 /* -------------------------------------------------------------------------- */
-/*  Body — direct access (requires body lock or known-safe context)           */
+/*  Body - direct access (requires body lock or known-safe context)           */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void             JoltC_Body_GetCollisionGroup(const JoltC_Body* body, JoltC_CollisionGroup* outGroup);
 JOLTC_API void             JoltC_Body_SetCollisionGroup(JoltC_Body* body, const JoltC_CollisionGroup* group);
 JOLTC_API const JoltC_Body* JoltC_Body_GetFixedToWorldBody(void);
 
 /* -------------------------------------------------------------------------- */
-/*  BodyInterface — SoftBody creation                                         */
+/*  BodyInterface - SoftBody creation                                         */
 /* -------------------------------------------------------------------------- */
 JOLTC_API JoltC_Body*   JoltC_BodyInterface_CreateSoftBody(JoltC_BodyInterface* bi, const JoltC_SoftBodyCreationSettings* settings);
 JOLTC_API JoltC_Body*   JoltC_BodyInterface_CreateSoftBodyWithID(JoltC_BodyInterface* bi, const JoltC_SoftBodyCreationSettings* settings, uint32_t bodyId);

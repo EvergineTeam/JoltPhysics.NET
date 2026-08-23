@@ -146,13 +146,13 @@ typedef struct JoltC_SoftBodyManifold                     JoltC_SoftBodyManifold
 typedef struct JoltC_CollisionEstimationResult            JoltC_CollisionEstimationResult;
 
 /* -------------------------------------------------------------------------- */
-/*  BodyID — pass-by-value (uint32)                                           */
+/*  BodyID - pass-by-value (uint32)                                           */
 /* -------------------------------------------------------------------------- */
 typedef uint32_t JoltC_BodyID;
 #define JOLTC_BODY_ID_INVALID 0xFFFFFFFFU
 
 /* -------------------------------------------------------------------------- */
-/*  Object / Broadphase layer — pass by value                                 */
+/*  Object / Broadphase layer - pass by value                                 */
 /* -------------------------------------------------------------------------- */
 typedef uint16_t JoltC_ObjectLayer;
 #define JOLTC_OBJECT_LAYER_INVALID 0xFFFFU
@@ -160,7 +160,7 @@ typedef uint16_t JoltC_ObjectLayer;
 typedef uint8_t  JoltC_BroadPhaseLayer;
 
 /* -------------------------------------------------------------------------- */
-/*  SubShapeID — pass by value (uint32)                                       */
+/*  SubShapeID - pass by value (uint32)                                       */
 /* -------------------------------------------------------------------------- */
 typedef uint32_t JoltC_SubShapeID;
 
@@ -270,8 +270,7 @@ typedef enum JoltC_BodyType {
 } JoltC_BodyType;
 
 /* Values mirror JPH::EShapeType exactly, User1..4 included: JoltC_Shape_GetType is a static_cast,
- * so a missing value here does not fall away, it relabels its neighbours. This enum used to skip
- * the user slots and declared PLANE = 9 -- and a PlaneShape reported itself as EMPTY. */
+ * so a missing value here does not fall away, it relabels its neighbours. */
 typedef enum JoltC_ShapeType {
     JOLTC_SHAPE_TYPE_CONVEX      = 0,
     JOLTC_SHAPE_TYPE_COMPOUND    = 1,
@@ -583,7 +582,7 @@ typedef void (*JoltC_TireMaxImpulseCallback)(
     float    deltaTime);
 
 /* -------------------------------------------------------------------------- */
-/*  Spring / Motor settings — blittable structs                               */
+/*  Spring / Motor settings - blittable structs                               */
 /* -------------------------------------------------------------------------- */
 typedef struct JoltC_SpringSettings {
     JoltC_SpringMode mode;
@@ -600,7 +599,7 @@ typedef struct JoltC_MotorSettings {
 } JoltC_MotorSettings;
 
 /* -------------------------------------------------------------------------- */
-/*  RayCast result — blittable struct                                         */
+/*  RayCast result - blittable struct                                         */
 /* -------------------------------------------------------------------------- */
 typedef struct JoltC_RayCastResult {
     JoltC_BodyID bodyID;
@@ -686,7 +685,7 @@ typedef struct JoltC_ShapeCastSettings {
 } JoltC_ShapeCastSettings;
 
 /* -------------------------------------------------------------------------- */
-/*  ContactSettings — enriched contact listener data (blittable)              */
+/*  ContactSettings - enriched contact listener data (blittable)              */
 /* -------------------------------------------------------------------------- */
 typedef struct JoltC_ContactSettings {
     float       combinedFriction;
@@ -701,7 +700,7 @@ typedef struct JoltC_ContactSettings {
 } JoltC_ContactSettings;
 
 /* -------------------------------------------------------------------------- */
-/*  MassProperties — blittable                                                */
+/*  MassProperties - blittable                                                */
 /* -------------------------------------------------------------------------- */
 typedef struct JoltC_MassProperties {
     float        mass;
@@ -709,7 +708,7 @@ typedef struct JoltC_MassProperties {
 } JoltC_MassProperties;
 
 /* -------------------------------------------------------------------------- */
-/*  Body creation settings — blittable struct                                 */
+/*  Body creation settings - blittable struct                                 */
 /* -------------------------------------------------------------------------- */
 typedef struct JoltC_BodyCreationSettings {
     JoltC_RVec3                 position;
@@ -741,7 +740,7 @@ typedef struct JoltC_BodyCreationSettings {
     JoltC_OverrideMassProperties overrideMassProperties;
     float                       inertiaMultiplier;
     JoltC_MassProperties        massPropertiesOverride;
-    /* Shape handle — must be set before passing to CreateBody */
+    /* Shape handle -- must be set before passing to CreateBody */
     const JoltC_Shape*          shape;
 } JoltC_BodyCreationSettings;
 
@@ -749,7 +748,7 @@ typedef struct JoltC_BodyCreationSettings {
 JOLTC_API void JoltC_BodyCreationSettings_SetDefault(JoltC_BodyCreationSettings* settings);
 
 /* -------------------------------------------------------------------------- */
-/*  PhysicsSettings — blittable struct matching JPH::PhysicsSettings           */
+/*  PhysicsSettings - blittable struct matching JPH::PhysicsSettings           */
 /* -------------------------------------------------------------------------- */
 typedef struct JoltC_PhysicsSettings {
     int         maxInFlightBodyPairs;
@@ -860,7 +859,7 @@ typedef void (*JoltC_DebugDrawTriangleFn)(void* userData, JoltC_RVec3 v1, JoltC_
 typedef void (*JoltC_DebugDrawText3DFn)(void* userData, JoltC_RVec3 position, const char* text, uint32_t color, float height);
 
 /* -------------------------------------------------------------------------- */
-/*  Procs structs — function-pointer tables for SetProcs updates              */
+/*  Procs structs - function-pointer tables for SetProcs updates              */
 /* -------------------------------------------------------------------------- */
 typedef struct JoltC_BodyActivationListener_Procs {
     JoltC_OnBodyActivatedFn   onBodyActivated;
