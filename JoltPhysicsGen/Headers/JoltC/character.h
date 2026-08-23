@@ -143,6 +143,73 @@ JOLTC_API void JoltC_CharacterVirtual_RefreshContacts(
     JoltC_TempAllocator*    allocator);
 
 /* -------------------------------------------------------------------------- */
+/*  CharacterVirtual simulation with collision filters                        */
+/* -------------------------------------------------------------------------- */
+/* The entry points above simulate with permissive defaults: the character collides with every
+ * layer, sensors included, and nothing the caller does can narrow that. These take the same four
+ * filters the C++ signatures have always taken. Any filter may be null for its default. */
+JOLTC_API void JoltC_CharacterVirtual_Update_WithFilters(
+    JoltC_CharacterVirtual*              c,
+    float                                deltaTime,
+    JoltC_Vec3                           gravity,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter,   /* nullable */
+    JoltC_TempAllocator*                 allocator);
+
+JOLTC_API void JoltC_CharacterVirtual_ExtendedUpdate_WithFilters(
+    JoltC_CharacterVirtual*              c,
+    float                                deltaTime,
+    JoltC_Vec3                           gravity,
+    const JoltC_ExtendedUpdateSettings*  settings,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter,   /* nullable */
+    JoltC_TempAllocator*                 allocator);
+
+JOLTC_API void JoltC_CharacterVirtual_RefreshContacts_WithFilters(
+    JoltC_CharacterVirtual*              c,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter,   /* nullable */
+    JoltC_TempAllocator*                 allocator);
+
+JOLTC_API JoltC_Bool JoltC_CharacterVirtual_SetShape_WithFilters(
+    JoltC_CharacterVirtual*              c,
+    const JoltC_Shape*                   shape,
+    float                                maxPenetrationDepth,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter,   /* nullable */
+    JoltC_TempAllocator*                 allocator);
+
+JOLTC_API int JoltC_CharacterVirtual_StickToFloor_WithFilters(
+    JoltC_CharacterVirtual*              c,
+    JoltC_Vec3                           stepDown,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter,   /* nullable */
+    JoltC_TempAllocator*                 allocator);
+
+JOLTC_API int JoltC_CharacterVirtual_WalkStairs_WithFilters(
+    JoltC_CharacterVirtual*              c,
+    float                                deltaTime,
+    JoltC_Vec3                           stepUp,
+    JoltC_Vec3                           stepForward,
+    JoltC_Vec3                           stepForwardTest,
+    JoltC_Vec3                           stepDownExtra,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter,   /* nullable */
+    JoltC_TempAllocator*                 allocator);
+
+/* -------------------------------------------------------------------------- */
 /*  Additional CharacterBase/CharacterVirtual accessors                       */
 /* -------------------------------------------------------------------------- */
 JOLTC_API float     JoltC_CharacterVirtual_GetCosMaxSlopeAngle(const JoltC_CharacterVirtual* c);

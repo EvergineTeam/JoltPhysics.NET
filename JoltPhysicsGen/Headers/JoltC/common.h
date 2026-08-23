@@ -134,6 +134,9 @@ typedef struct JoltC_TwoBodyConstraintSettings            JoltC_TwoBodyConstrain
 typedef struct JoltC_SoftBodyCreationSettings             JoltC_SoftBodyCreationSettings;
 typedef struct JoltC_SoftBodySharedSettings               JoltC_SoftBodySharedSettings;
 typedef struct JoltC_SoftBodyMotionProperties             JoltC_SoftBodyMotionProperties;
+typedef struct JoltC_SoftBodyContactListener              JoltC_SoftBodyContactListener;
+/* A borrowed view over one soft body's contacts, valid only inside the contact added callback. */
+typedef struct JoltC_SoftBodyManifold                     JoltC_SoftBodyManifold;
 
 /* Collision estimation result (opaque, contains internal arrays) */
 typedef struct JoltC_CollisionEstimationResult            JoltC_CollisionEstimationResult;
@@ -252,6 +255,9 @@ typedef enum JoltC_BodyType {
     JOLTC_BODY_TYPE_SOFT  = 1
 } JoltC_BodyType;
 
+/* Values mirror JPH::EShapeType exactly, User1..4 included: JoltC_Shape_GetType is a static_cast,
+ * so a missing value here does not fall away, it relabels its neighbours. This enum used to skip
+ * the user slots and declared PLANE = 9 -- and a PlaneShape reported itself as EMPTY. */
 typedef enum JoltC_ShapeType {
     JOLTC_SHAPE_TYPE_CONVEX      = 0,
     JOLTC_SHAPE_TYPE_COMPOUND    = 1,
@@ -259,10 +265,18 @@ typedef enum JoltC_ShapeType {
     JOLTC_SHAPE_TYPE_MESH        = 3,
     JOLTC_SHAPE_TYPE_HEIGHT_FIELD = 4,
     JOLTC_SHAPE_TYPE_SOFT_BODY   = 5,
-    JOLTC_SHAPE_TYPE_PLANE       = 9,
-    JOLTC_SHAPE_TYPE_EMPTY       = 10
+    JOLTC_SHAPE_TYPE_USER1       = 6,
+    JOLTC_SHAPE_TYPE_USER2       = 7,
+    JOLTC_SHAPE_TYPE_USER3       = 8,
+    JOLTC_SHAPE_TYPE_USER4       = 9,
+    JOLTC_SHAPE_TYPE_PLANE       = 10,
+    JOLTC_SHAPE_TYPE_EMPTY       = 11
 } JoltC_ShapeType;
 
+/* Same contract as JoltC_ShapeType: these are JPH::EShapeSubType's values, not a renumbering.
+ * The user, extra-user and convex slots in between are skipped deliberately -- nothing this
+ * wrapper creates can produce them -- but the three shapes it does create beyond 14 have to
+ * carry their real values or GetSubType hands back a number outside the enum. */
 typedef enum JoltC_ShapeSubType {
     JOLTC_SHAPE_SUB_TYPE_SPHERE               = 0,
     JOLTC_SHAPE_SUB_TYPE_BOX                  = 1,
@@ -278,7 +292,10 @@ typedef enum JoltC_ShapeSubType {
     JOLTC_SHAPE_SUB_TYPE_OFFSET_CENTER_OF_MASS = 11,
     JOLTC_SHAPE_SUB_TYPE_MESH                 = 12,
     JOLTC_SHAPE_SUB_TYPE_HEIGHT_FIELD         = 13,
-    JOLTC_SHAPE_SUB_TYPE_SOFT_BODY            = 14
+    JOLTC_SHAPE_SUB_TYPE_SOFT_BODY            = 14,
+    JOLTC_SHAPE_SUB_TYPE_PLANE                = 31,
+    JOLTC_SHAPE_SUB_TYPE_TAPERED_CYLINDER     = 32,
+    JOLTC_SHAPE_SUB_TYPE_EMPTY                = 33
 } JoltC_ShapeSubType;
 
 typedef enum JoltC_ValidateResult {
@@ -320,12 +337,16 @@ typedef enum JoltC_ConstraintSpace {
 typedef enum JoltC_MotorState {
     JOLTC_MOTOR_STATE_OFF      = 0,
     JOLTC_MOTOR_STATE_VELOCITY = 1,
-    JOLTC_MOTOR_STATE_POSITION = 2
+    JOLTC_MOTOR_STATE_POSITION = 2,
+    /* Position with a velocity bias, added by Jolt 5.6 for the glTF interaction motors. */
+    JOLTC_MOTOR_STATE_POSITION_AND_VELOCITY = 3
 } JoltC_MotorState;
 
 typedef enum JoltC_SpringMode {
     JOLTC_SPRING_MODE_FREQUENCY_AND_DAMPING = 0,
-    JOLTC_SPRING_MODE_STIFFNESS_AND_DAMPING = 1
+    JOLTC_SPRING_MODE_STIFFNESS_AND_DAMPING = 1,
+    /* Stiffness and damping already divided by the mass, added by Jolt 5.6. */
+    JOLTC_SPRING_MODE_MASS_NORMALIZED_STIFFNESS_AND_DAMPING = 2
 } JoltC_SpringMode;
 
 typedef enum JoltC_ConstraintType {
@@ -384,6 +405,27 @@ typedef enum JoltC_SoftBodyBendType {
     JOLTC_SOFT_BODY_BEND_TYPE_DISTANCE = 1,
     JOLTC_SOFT_BODY_BEND_TYPE_DIHEDRAL = 2
 } JoltC_SoftBodyBendType;
+
+typedef enum JoltC_SoftBodyValidateResult {
+    JOLTC_SOFT_BODY_VALIDATE_RESULT_ACCEPT_CONTACT = 0,
+    JOLTC_SOFT_BODY_VALIDATE_RESULT_REJECT_CONTACT = 1
+} JoltC_SoftBodyValidateResult;
+
+/* Mirror of JPH::SoftBodyContactSettings. There is no inverse inertia scale for side 1: a soft
+ * body has no inertia tensor, its mass lives per vertex. */
+typedef struct JoltC_SoftBodyContactSettings {
+    float      invMassScale1;
+    float      invMassScale2;
+    float      invInertiaScale2;
+    JoltC_Bool isSensor;
+} JoltC_SoftBodyContactSettings;
+
+/* Called while all bodies are locked: no body interface calls from inside. */
+typedef JoltC_SoftBodyValidateResult (*JoltC_OnSoftBodyContactValidateFn)(
+    void* userData, const JoltC_Body* softBody, const JoltC_Body* otherBody,
+    JoltC_SoftBodyContactSettings* ioSettings);
+typedef void (*JoltC_OnSoftBodyContactAddedFn)(
+    void* userData, const JoltC_Body* softBody, const JoltC_SoftBodyManifold* manifold);
 
 /* -------------------------------------------------------------------------- */
 /*  Vehicle blittable types                                                   */
@@ -535,13 +577,19 @@ typedef struct JoltC_BroadPhaseCastResult {
 /* -------------------------------------------------------------------------- */
 /*  CollideShape / ShapeCast settings (blittable)                             */
 /* -------------------------------------------------------------------------- */
+/* Consumed by JoltC_NarrowPhaseQuery_CollideShape2. Reshaped when it gained that consumer: the
+ * old layout carried two back face modes copied from the shape cast, while JPH's CollideShape has
+ * exactly one. Nothing could have depended on the old shape -- no function ever accepted it. */
 typedef struct JoltC_CollideShapeSettings {
-    JoltC_BackFaceMode backFaceModeTriangles;
-    JoltC_BackFaceMode backFaceModeConvex;
+    JoltC_BackFaceMode backFaceMode;
     float              maxSeparationDistance;
     float              collisionTolerance;
+    float              penetrationTolerance;
+    /* Vertices closer than the square root of this weld for internal edge removal (Jolt 5.6). */
+    float              internalEdgeRemovalVertexToleranceSq;
 } JoltC_CollideShapeSettings;
 
+/* Consumed by JoltC_NarrowPhaseQuery_CastShape2. */
 typedef struct JoltC_ShapeCastSettings {
     JoltC_BackFaceMode backFaceModeTriangles;
     JoltC_BackFaceMode backFaceModeConvex;
@@ -549,6 +597,8 @@ typedef struct JoltC_ShapeCastSettings {
     JoltC_Bool         returnDeepestPoint;
     float              collisionTolerance;
     float              penetrationTolerance;
+    /* Radius added around the cast shape, which rounds its corners off (Jolt 5.6). */
+    float              extraConvexRadius;
 } JoltC_ShapeCastSettings;
 
 /* -------------------------------------------------------------------------- */

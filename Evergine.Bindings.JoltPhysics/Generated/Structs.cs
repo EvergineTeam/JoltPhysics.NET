@@ -120,6 +120,19 @@ namespace Evergine.Bindings.JoltPhysics
 	}
 
 	/// <summary>
+	/// Mirror of JPH::SoftBodyContactSettings. There is no inverse inertia scale for side 1: a soft
+	/// body has no inertia tensor, its mass lives per vertex.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
+	public unsafe partial struct SoftBodyContactSettings
+	{
+		public float InvMassScale1;
+		public float InvMassScale2;
+		public float InvInertiaScale2;
+		public int IsSensor;
+	}
+
+	/// <summary>
 	/// --------------------------------------------------------------------------
 	/// Vehicle blittable types
 	/// --------------------------------------------------------------------------
@@ -302,16 +315,23 @@ namespace Evergine.Bindings.JoltPhysics
 	/// --------------------------------------------------------------------------
 	/// CollideShape / ShapeCast settings (blittable)
 	/// --------------------------------------------------------------------------
+	/// Consumed by JoltC_NarrowPhaseQuery_CollideShape2. Reshaped when it gained that consumer: the
+	/// old layout carried two back face modes copied from the shape cast, while JPH&apos;s CollideShape has
+	/// exactly one. Nothing could have depended on the old shape -- no function ever accepted it.
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct CollideShapeSettings
 	{
-		public BackFaceMode BackFaceModeTriangles;
-		public BackFaceMode BackFaceModeConvex;
+		public BackFaceMode BackFaceMode;
 		public float MaxSeparationDistance;
 		public float CollisionTolerance;
+		public float PenetrationTolerance;
+		public float InternalEdgeRemovalVertexToleranceSq;
 	}
 
+	/// <summary>
+	/// Consumed by JoltC_NarrowPhaseQuery_CastShape2.
+	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public unsafe partial struct ShapeCastSettings
 	{
@@ -321,6 +341,7 @@ namespace Evergine.Bindings.JoltPhysics
 		public int ReturnDeepestPoint;
 		public float CollisionTolerance;
 		public float PenetrationTolerance;
+		public float ExtraConvexRadius;
 	}
 
 	/// <summary>

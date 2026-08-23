@@ -2499,7 +2499,7 @@ namespace Evergine.Bindings.JoltPhysics
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
-		/// Constraint base — ref-counted
+		/// Constraint base ? ref-counted
 		/// --------------------------------------------------------------------------
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Constraint_AddRef")]
@@ -2573,6 +2573,17 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern bool Constraint_SolvePositionConstraint(IntPtr constraint, float deltaTime, float baumgarte);
 
 		/// <summary>
+		/// TwoBodyConstraintSettings ? a counted settings object detached from any body pair. Produced by
+		/// the per type CreateSettings functions or by a live constraint&apos;s GetSettings; consumed above all
+		/// by JoltC_RagdollSettings_SetPartToParent. The caller owns one reference.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_TwoBodyConstraintSettings_AddRef")]
+		public static extern void TwoBodyConstraintSettings_AddRef(IntPtr settings);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_TwoBodyConstraintSettings_Release")]
+		public static extern void TwoBodyConstraintSettings_Release(IntPtr settings);
+
+		/// <summary>
 		/// TwoBodyConstraint
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_TwoBodyConstraint_GetBody1")]
@@ -2622,6 +2633,9 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PointConstraint_GetSettings")]
 		public static extern IntPtr PointConstraint_GetSettings(IntPtr c);
 
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PointConstraintSettings_CreateSettings")]
+		public static extern IntPtr PointConstraintSettings_CreateSettings(PointConstraintSettings* settings);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_FixedConstraint_Create")]
 		public static extern IntPtr FixedConstraint_Create(IntPtr system, uint body1, uint body2, FixedConstraintSettings* settings);
 
@@ -2636,6 +2650,9 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_FixedConstraint_GetSettings")]
 		public static extern IntPtr FixedConstraint_GetSettings(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_FixedConstraintSettings_CreateSettings")]
+		public static extern IntPtr FixedConstraintSettings_CreateSettings(FixedConstraintSettings* settings);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DistanceConstraint_Create")]
 		public static extern IntPtr DistanceConstraint_Create(IntPtr system, uint body1, uint body2, DistanceConstraintSettings* settings);
@@ -2663,6 +2680,9 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DistanceConstraint_GetSettings")]
 		public static extern IntPtr DistanceConstraint_GetSettings(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_DistanceConstraintSettings_CreateSettings")]
+		public static extern IntPtr DistanceConstraintSettings_CreateSettings(DistanceConstraintSettings* settings);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HingeConstraint_Create")]
 		public static extern IntPtr HingeConstraint_Create(IntPtr system, uint body1, uint body2, HingeConstraintSettings* settings);
@@ -2755,6 +2775,9 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HingeConstraint_GetSettings")]
 		public static extern IntPtr HingeConstraint_GetSettings(IntPtr c);
 
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_HingeConstraintSettings_CreateSettings")]
+		public static extern IntPtr HingeConstraintSettings_CreateSettings(HingeConstraintSettings* settings);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SliderConstraint_Create")]
 		public static extern IntPtr SliderConstraint_Create(IntPtr system, uint body1, uint body2, SliderConstraintSettings* settings);
 
@@ -2831,6 +2854,9 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SliderConstraint_GetSettings")]
 		public static extern IntPtr SliderConstraint_GetSettings(IntPtr c);
 
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SliderConstraintSettings_CreateSettings")]
+		public static extern IntPtr SliderConstraintSettings_CreateSettings(SliderConstraintSettings* settings);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ConeConstraint_Create")]
 		public static extern IntPtr ConeConstraint_Create(IntPtr system, uint body1, uint body2, ConeConstraintSettings* settings);
 
@@ -2851,6 +2877,9 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ConeConstraint_GetSettings")]
 		public static extern IntPtr ConeConstraint_GetSettings(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_ConeConstraintSettings_CreateSettings")]
+		public static extern IntPtr ConeConstraintSettings_CreateSettings(ConeConstraintSettings* settings);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SwingTwistConstraint_Create")]
 		public static extern IntPtr SwingTwistConstraint_Create(IntPtr system, uint body1, uint body2, SwingTwistConstraintSettings* settings);
@@ -2929,6 +2958,9 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SwingTwistConstraint_GetSettings")]
 		public static extern IntPtr SwingTwistConstraint_GetSettings(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SwingTwistConstraintSettings_CreateSettings")]
+		public static extern IntPtr SwingTwistConstraintSettings_CreateSettings(SwingTwistConstraintSettings* settings);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SixDOFConstraint_Create")]
 		public static extern IntPtr SixDOFConstraint_Create(IntPtr system, uint body1, uint body2, SixDOFConstraintSettings* settings);
@@ -3051,6 +3083,9 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SixDOFConstraint_GetSettings")]
 		public static extern IntPtr SixDOFConstraint_GetSettings(IntPtr c);
 
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SixDOFConstraintSettings_CreateSettings")]
+		public static extern IntPtr SixDOFConstraintSettings_CreateSettings(SixDOFConstraintSettings* settings);
+
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PulleyConstraint_Create")]
 		public static extern IntPtr PulleyConstraint_Create(IntPtr system, uint body1, uint body2, PulleyConstraintSettings* settings);
 
@@ -3068,6 +3103,9 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_GearConstraint_GetSettings")]
 		public static extern IntPtr GearConstraint_GetSettings(IntPtr c);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_GearConstraintSettings_CreateSettings")]
+		public static extern IntPtr GearConstraintSettings_CreateSettings(GearConstraintSettings* settings);
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_RackAndPinionConstraint_Create")]
 		public static extern IntPtr RackAndPinionConstraint_Create(IntPtr system, uint body1, uint body2, RackAndPinionConstraintSettings* settings);
@@ -3144,6 +3182,34 @@ namespace Evergine.Bindings.JoltPhysics
 		/// </summary>
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastShape")]
 		public static extern void NarrowPhaseQuery_CastShape(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, Vec3 direction, RVec3 baseOffset, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// CollideShape2 / CastShape2 — with collision settings
+		/// --------------------------------------------------------------------------
+		/// The variants that consume JoltC_CollideShapeSettings and JoltC_ShapeCastSettings, which existed
+		/// with their Init helpers and no function that accepted them: max separation distance, back face
+		/// modes and the rest were unreachable. Null settings keep the defaults.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CollideShape2")]
+		public static extern void NarrowPhaseQuery_CollideShape2(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, CollideShapeSettings* settings, RVec3 baseOffset, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_NarrowPhaseQuery_CastShape2")]
+		public static extern void NarrowPhaseQuery_CastShape2(IntPtr query, IntPtr shape, Vec3 scale, Mat44 centerOfMassTransform, Vec3 direction, ShapeCastSettings* settings, RVec3 baseOffset, IntPtr callback, void* userData, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// Default layer filters — the ones a query against one layer wants
+		/// --------------------------------------------------------------------------
+		/// Wrap the system&apos;s own layer logic as filters, so a caller querying &quot;what layer X can hit&quot; does
+		/// not have to reimplement the layer matrix on its side. The caller owns the returned filter and
+		/// frees it with the matching Destroy from filters.h.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetDefaultBroadPhaseLayerFilter")]
+		public static extern IntPtr PhysicsSystem_GetDefaultBroadPhaseLayerFilter(IntPtr system, ushort layer);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_GetDefaultLayerFilter")]
+		public static extern IntPtr PhysicsSystem_GetDefaultLayerFilter(IntPtr system, ushort layer);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -3352,6 +3418,33 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_RefreshContacts")]
 		public static extern void CharacterVirtual_RefreshContacts(IntPtr c, IntPtr allocator);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// CharacterVirtual simulation with collision filters
+		/// --------------------------------------------------------------------------
+		/// The entry points above simulate with permissive defaults: the character collides with every
+		/// layer, sensors included, and nothing the caller does can narrow that. These take the same four
+		/// filters the C++ signatures have always taken. Any filter may be null for its default.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_Update_WithFilters")]
+		public static extern void CharacterVirtual_Update_WithFilters(IntPtr c, float deltaTime, Vec3 gravity, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter, IntPtr allocator);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_ExtendedUpdate_WithFilters")]
+		public static extern void CharacterVirtual_ExtendedUpdate_WithFilters(IntPtr c, float deltaTime, Vec3 gravity, ExtendedUpdateSettings* settings, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter, IntPtr allocator);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_RefreshContacts_WithFilters")]
+		public static extern void CharacterVirtual_RefreshContacts_WithFilters(IntPtr c, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter, IntPtr allocator);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_SetShape_WithFilters")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool CharacterVirtual_SetShape_WithFilters(IntPtr c, IntPtr shape, float maxPenetrationDepth, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter, IntPtr allocator);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_StickToFloor_WithFilters")]
+		public static extern int CharacterVirtual_StickToFloor_WithFilters(IntPtr c, Vec3 stepDown, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter, IntPtr allocator);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_CharacterVirtual_WalkStairs_WithFilters")]
+		public static extern int CharacterVirtual_WalkStairs_WithFilters(IntPtr c, float deltaTime, Vec3 stepUp, Vec3 stepForward, Vec3 stepForwardTest, Vec3 stepDownExtra, IntPtr bpFilter, IntPtr olFilter, IntPtr bodyFilter, IntPtr shapeFilter, IntPtr allocator);
 
 		/// <summary>
 		/// --------------------------------------------------------------------------
@@ -4993,6 +5086,55 @@ namespace Evergine.Bindings.JoltPhysics
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyMotionProperties_SetPressure")]
 		public static extern void SoftBodyMotionProperties_SetPressure(IntPtr motionProperties, float pressure);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// SoftBodyContactListener — collision callbacks for soft bodies
+		/// --------------------------------------------------------------------------
+		/// The exact twin of the vehicle step listener repair: the callbacks existed in Jolt all along, and
+		/// without the Set call on the system they were unreachable. The listener must outlive its
+		/// registration; unregister with a null listener before destroying it.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyContactListener_Create")]
+		public static extern IntPtr SoftBodyContactListener_Create(IntPtr onValidate, IntPtr onAdded, void* userData);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyContactListener_Destroy")]
+		public static extern void SoftBodyContactListener_Destroy(IntPtr listener);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_SetSoftBodyContactListener")]
+		public static extern void PhysicsSystem_SetSoftBodyContactListener(IntPtr system, IntPtr listener);
+
+		/// <summary>
+		/// --------------------------------------------------------------------------
+		/// SoftBodyManifold — reading contacts inside the contact added callback
+		/// --------------------------------------------------------------------------
+		/// The manifold borrows the soft body&apos;s internal arrays: every one of these is only valid for the
+		/// duration of the callback that handed the manifold over.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyManifold_GetVertexCount")]
+		public static extern uint SoftBodyManifold_GetVertexCount(IntPtr manifold);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyManifold_HasContact")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool SoftBodyManifold_HasContact(IntPtr manifold, uint vertexIndex);
+
+		/// <summary>
+		/// Local to the soft body&apos;s center of mass, like the vertex positions.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyManifold_GetLocalContactPoint")]
+		public static extern void SoftBodyManifold_GetLocalContactPoint(IntPtr manifold, uint vertexIndex, Vec3* outPoint);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyManifold_GetContactNormal")]
+		public static extern void SoftBodyManifold_GetContactNormal(IntPtr manifold, uint vertexIndex, Vec3* outNormal);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyManifold_GetContactBodyID")]
+		public static extern uint SoftBodyManifold_GetContactBodyID(IntPtr manifold, uint vertexIndex);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyManifold_GetNumSensorContacts")]
+		public static extern uint SoftBodyManifold_GetNumSensorContacts(IntPtr manifold);
+
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_SoftBodyManifold_GetSensorContactBodyID")]
+		public static extern uint SoftBodyManifold_GetSensorContactBodyID(IntPtr manifold, uint index);
 
 	}
 }

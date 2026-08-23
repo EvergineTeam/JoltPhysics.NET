@@ -5,6 +5,12 @@ using System.Runtime.InteropServices;
 namespace Evergine.Bindings.JoltPhysics
 {
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SoftBodyValidateResult OnSoftBodyContactValidateFn(void* userData, IntPtr softBody, IntPtr otherBody, SoftBodyContactSettings* ioSettings);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void OnSoftBodyContactAddedFn(void* userData, IntPtr softBody, IntPtr manifold);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void TireMaxImpulseCallback(void* userData, uint wheelIndex, float* outLongitudinalImpulse, float* outLateralImpulse, float suspensionImpulse, float longitudinalFriction, float lateralFriction, float longitudinalSlip, float lateralSlip, float deltaTime);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]

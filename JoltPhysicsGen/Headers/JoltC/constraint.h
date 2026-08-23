@@ -14,7 +14,7 @@ extern "C" {
 #endif
 
 /* -------------------------------------------------------------------------- */
-/*  Constraint base — ref-counted                                             */
+/*  Constraint base ? ref-counted                                             */
 /* -------------------------------------------------------------------------- */
 JOLTC_API void                    JoltC_Constraint_AddRef(JoltC_Constraint* constraint);
 JOLTC_API void                    JoltC_Constraint_Release(JoltC_Constraint* constraint);
@@ -38,6 +38,12 @@ JOLTC_API void                    JoltC_Constraint_SetupVelocityConstraint(JoltC
 JOLTC_API void                    JoltC_Constraint_WarmStartVelocityConstraint(JoltC_Constraint* constraint, float warmStartImpulseRatio);
 JOLTC_API JoltC_Bool              JoltC_Constraint_SolveVelocityConstraint(JoltC_Constraint* constraint, float deltaTime);
 JOLTC_API JoltC_Bool              JoltC_Constraint_SolvePositionConstraint(JoltC_Constraint* constraint, float deltaTime, float baumgarte);
+
+/* TwoBodyConstraintSettings ? a counted settings object detached from any body pair. Produced by
+ * the per type CreateSettings functions or by a live constraint's GetSettings; consumed above all
+ * by JoltC_RagdollSettings_SetPartToParent. The caller owns one reference. */
+JOLTC_API void JoltC_TwoBodyConstraintSettings_AddRef(JoltC_TwoBodyConstraintSettings* settings);
+JOLTC_API void JoltC_TwoBodyConstraintSettings_Release(JoltC_TwoBodyConstraintSettings* settings);
 
 /* TwoBodyConstraint */
 JOLTC_API JoltC_Body*             JoltC_TwoBodyConstraint_GetBody1(JoltC_Constraint* constraint);
@@ -72,7 +78,8 @@ JOLTC_API JoltC_Vec3 JoltC_PointConstraint_GetLocalSpacePoint1(const JoltC_Const
 JOLTC_API JoltC_Vec3 JoltC_PointConstraint_GetLocalSpacePoint2(const JoltC_Constraint* c);
 JOLTC_API JoltC_Vec3 JoltC_PointConstraint_GetTotalLambdaPosition(const JoltC_Constraint* c);
 JOLTC_API void       JoltC_PointConstraintSettings_Init(JoltC_PointConstraintSettings* settings);
-JOLTC_API JoltC_Constraint* JoltC_PointConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_PointConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_PointConstraintSettings_CreateSettings(const JoltC_PointConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  FixedConstraint                                                           */
@@ -97,7 +104,8 @@ JOLTC_API JoltC_Constraint* JoltC_FixedConstraint_Create(
 JOLTC_API void JoltC_FixedConstraintSettings_Init(JoltC_FixedConstraintSettings* settings);
 JOLTC_API JoltC_Vec3 JoltC_FixedConstraint_GetTotalLambdaPosition(const JoltC_Constraint* c);
 JOLTC_API JoltC_Vec3 JoltC_FixedConstraint_GetTotalLambdaRotation(const JoltC_Constraint* c);
-JOLTC_API JoltC_Constraint* JoltC_FixedConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_FixedConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_FixedConstraintSettings_CreateSettings(const JoltC_FixedConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  DistanceConstraint                                                        */
@@ -124,7 +132,8 @@ JOLTC_API JoltC_SpringSettings JoltC_DistanceConstraint_GetLimitsSpringSettings(
 JOLTC_API void  JoltC_DistanceConstraint_SetLimitsSpringSettings(JoltC_Constraint* c, JoltC_SpringSettings settings);
 JOLTC_API JoltC_Vec3 JoltC_DistanceConstraint_GetTotalLambdaPosition(const JoltC_Constraint* c);
 JOLTC_API void  JoltC_DistanceConstraintSettings_Init(JoltC_DistanceConstraintSettings* settings);
-JOLTC_API JoltC_Constraint* JoltC_DistanceConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_DistanceConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_DistanceConstraintSettings_CreateSettings(const JoltC_DistanceConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  HingeConstraint                                                           */
@@ -178,7 +187,8 @@ JOLTC_API JoltC_Vec2  JoltC_HingeConstraint_GetTotalLambdaRotation(const JoltC_C
 JOLTC_API float       JoltC_HingeConstraint_GetTotalLambdaRotationLimits(const JoltC_Constraint* c);
 JOLTC_API float       JoltC_HingeConstraint_GetTotalLambdaMotor(const JoltC_Constraint* c);
 JOLTC_API void        JoltC_HingeConstraintSettings_Init(JoltC_HingeConstraintSettings* settings);
-JOLTC_API JoltC_Constraint* JoltC_HingeConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_HingeConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_HingeConstraintSettings_CreateSettings(const JoltC_HingeConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  SliderConstraint                                                          */
@@ -228,7 +238,8 @@ JOLTC_API JoltC_Vec3  JoltC_SliderConstraint_GetTotalLambdaRotation(const JoltC_
 JOLTC_API float       JoltC_SliderConstraint_GetTotalLambdaMotor(const JoltC_Constraint* c);
 JOLTC_API void        JoltC_SliderConstraintSettings_Init(JoltC_SliderConstraintSettings* settings);
 JOLTC_API void        JoltC_SliderConstraintSettings_SetSliderAxis(JoltC_SliderConstraintSettings* settings, JoltC_Vec3 axis);
-JOLTC_API JoltC_Constraint* JoltC_SliderConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_SliderConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_SliderConstraintSettings_CreateSettings(const JoltC_SliderConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  ConeConstraint                                                            */
@@ -253,7 +264,8 @@ JOLTC_API float JoltC_ConeConstraint_GetCosHalfConeAngle(const JoltC_Constraint*
 JOLTC_API JoltC_Vec3 JoltC_ConeConstraint_GetTotalLambdaPosition(const JoltC_Constraint* c);
 JOLTC_API float      JoltC_ConeConstraint_GetTotalLambdaRotation(const JoltC_Constraint* c);
 JOLTC_API void       JoltC_ConeConstraintSettings_Init(JoltC_ConeConstraintSettings* settings);
-JOLTC_API JoltC_Constraint* JoltC_ConeConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_ConeConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_ConeConstraintSettings_CreateSettings(const JoltC_ConeConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  SwingTwistConstraint                                                      */
@@ -307,7 +319,8 @@ JOLTC_API float       JoltC_SwingTwistConstraint_GetTotalLambdaSwingY(const Jolt
 JOLTC_API float       JoltC_SwingTwistConstraint_GetTotalLambdaSwingZ(const JoltC_Constraint* c);
 JOLTC_API float       JoltC_SwingTwistConstraint_GetTotalLambdaMotor(const JoltC_Constraint* c);
 JOLTC_API void        JoltC_SwingTwistConstraintSettings_Init(JoltC_SwingTwistConstraintSettings* settings);
-JOLTC_API JoltC_Constraint* JoltC_SwingTwistConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_SwingTwistConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_SwingTwistConstraintSettings_CreateSettings(const JoltC_SwingTwistConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  SixDOFConstraint                                                          */
@@ -371,7 +384,8 @@ JOLTC_API JoltC_Bool JoltC_SixDOFConstraintSettings_IsFixedAxis(const JoltC_SixD
 JOLTC_API void       JoltC_SixDOFConstraintSettings_MakeFreeAxis(JoltC_SixDOFConstraintSettings* s, JoltC_SixDOFConstraintAxis axis);
 JOLTC_API void       JoltC_SixDOFConstraintSettings_MakeFixedAxis(JoltC_SixDOFConstraintSettings* s, JoltC_SixDOFConstraintAxis axis);
 JOLTC_API void       JoltC_SixDOFConstraintSettings_SetLimitedAxis(JoltC_SixDOFConstraintSettings* s, JoltC_SixDOFConstraintAxis axis, float min, float max);
-JOLTC_API JoltC_Constraint* JoltC_SixDOFConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_SixDOFConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_SixDOFConstraintSettings_CreateSettings(const JoltC_SixDOFConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  PulleyConstraint                                                          */
@@ -412,7 +426,8 @@ JOLTC_API JoltC_Constraint* JoltC_GearConstraint_Create(
 JOLTC_API void  JoltC_GearConstraint_SetConstraints(JoltC_Constraint* c, const JoltC_Constraint* gear1, const JoltC_Constraint* gear2);
 JOLTC_API float JoltC_GearConstraint_GetTotalLambda(const JoltC_Constraint* c);
 JOLTC_API void  JoltC_GearConstraintSettings_Init(JoltC_GearConstraintSettings* settings);
-JOLTC_API JoltC_Constraint* JoltC_GearConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_GearConstraint_GetSettings(const JoltC_Constraint* c);
+JOLTC_API JoltC_TwoBodyConstraintSettings* JoltC_GearConstraintSettings_CreateSettings(const JoltC_GearConstraintSettings* settings);
 
 /* -------------------------------------------------------------------------- */
 /*  RackAndPinionConstraint                                                   */

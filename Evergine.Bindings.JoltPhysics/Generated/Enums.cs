@@ -33,6 +33,11 @@ namespace Evergine.Bindings.JoltPhysics
 		Soft = 1,
 	}
 
+	/// <summary>
+	/// Values mirror JPH::EShapeType exactly, User1..4 included: JoltC_Shape_GetType is a static_cast,
+	/// so a missing value here does not fall away, it relabels its neighbours. This enum used to skip
+	/// the user slots and declared PLANE = 9 -- and a PlaneShape reported itself as EMPTY.
+	/// </summary>
 	public enum ShapeType
 	{
 		Convex = 0,
@@ -41,10 +46,20 @@ namespace Evergine.Bindings.JoltPhysics
 		Mesh = 3,
 		HeightField = 4,
 		SoftBody = 5,
-		Plane = 9,
-		Empty = 10,
+		User1 = 6,
+		User2 = 7,
+		User3 = 8,
+		User4 = 9,
+		Plane = 10,
+		Empty = 11,
 	}
 
+	/// <summary>
+	/// Same contract as JoltC_ShapeType: these are JPH::EShapeSubType&apos;s values, not a renumbering.
+	/// The user, extra-user and convex slots in between are skipped deliberately -- nothing this
+	/// wrapper creates can produce them -- but the three shapes it does create beyond 14 have to
+	/// carry their real values or GetSubType hands back a number outside the enum.
+	/// </summary>
 	public enum ShapeSubType
 	{
 		Sphere = 0,
@@ -62,6 +77,9 @@ namespace Evergine.Bindings.JoltPhysics
 		Mesh = 12,
 		HeightField = 13,
 		SoftBody = 14,
+		Plane = 31,
+		TaperedCylinder = 32,
+		Empty = 33,
 	}
 
 	public enum ValidateResult
@@ -111,12 +129,20 @@ namespace Evergine.Bindings.JoltPhysics
 		Off = 0,
 		Velocity = 1,
 		Position = 2,
+		/// <summary>
+		/// Position with a velocity bias, added by Jolt 5.6 for the glTF interaction motors.
+		/// </summary>
+		PositionAndVelocity = 3,
 	}
 
 	public enum SpringMode
 	{
 		FrequencyAndDamping = 0,
 		StiffnessAndDamping = 1,
+		/// <summary>
+		/// Stiffness and damping already divided by the mass, added by Jolt 5.6.
+		/// </summary>
+		MassNormalizedStiffnessAndDamping = 2,
 	}
 
 	public enum ConstraintType
@@ -182,6 +208,12 @@ namespace Evergine.Bindings.JoltPhysics
 		None = 0,
 		Distance = 1,
 		Dihedral = 2,
+	}
+
+	public enum SoftBodyValidateResult
+	{
+		AcceptContact = 0,
+		RejectContact = 1,
 	}
 
 }

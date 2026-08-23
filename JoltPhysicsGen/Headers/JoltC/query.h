@@ -127,6 +127,50 @@ JOLTC_API void JoltC_NarrowPhaseQuery_CastShape(
     const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
 
 /* -------------------------------------------------------------------------- */
+/*  CollideShape2 / CastShape2 — with collision settings                      */
+/* -------------------------------------------------------------------------- */
+/* The variants that consume JoltC_CollideShapeSettings and JoltC_ShapeCastSettings, which existed
+ * with their Init helpers and no function that accepted them: max separation distance, back face
+ * modes and the rest were unreachable. Null settings keep the defaults. */
+JOLTC_API void JoltC_NarrowPhaseQuery_CollideShape2(
+    const JoltC_NarrowPhaseQuery*        query,
+    const JoltC_Shape*                   shape,
+    JoltC_Vec3                           scale,
+    JoltC_Mat44                          centerOfMassTransform,
+    const JoltC_CollideShapeSettings*    settings,      /* nullable */
+    JoltC_RVec3                          baseOffset,
+    JoltC_CollideShapeResultFn           callback,
+    void*                                userData,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
+
+JOLTC_API void JoltC_NarrowPhaseQuery_CastShape2(
+    const JoltC_NarrowPhaseQuery*        query,
+    const JoltC_Shape*                   shape,
+    JoltC_Vec3                           scale,
+    JoltC_Mat44                          centerOfMassTransform,
+    JoltC_Vec3                           direction,
+    const JoltC_ShapeCastSettings*       settings,      /* nullable */
+    JoltC_RVec3                          baseOffset,
+    JoltC_CastShapeResultFn              callback,
+    void*                                userData,
+    const JoltC_BroadPhaseLayerFilter*   bpFilter,      /* nullable */
+    const JoltC_ObjectLayerFilter*       olFilter,      /* nullable */
+    const JoltC_BodyFilter*              bodyFilter,    /* nullable */
+    const JoltC_ShapeFilter*             shapeFilter);  /* nullable */
+
+/* -------------------------------------------------------------------------- */
+/*  Default layer filters — the ones a query against one layer wants          */
+/* -------------------------------------------------------------------------- */
+/* Wrap the system's own layer logic as filters, so a caller querying "what layer X can hit" does
+ * not have to reimplement the layer matrix on its side. The caller owns the returned filter and
+ * frees it with the matching Destroy from filters.h. */
+JOLTC_API JoltC_BroadPhaseLayerFilter* JoltC_PhysicsSystem_GetDefaultBroadPhaseLayerFilter(const JoltC_PhysicsSystem* system, JoltC_ObjectLayer layer);
+JOLTC_API JoltC_ObjectLayerFilter*     JoltC_PhysicsSystem_GetDefaultLayerFilter(const JoltC_PhysicsSystem* system, JoltC_ObjectLayer layer);
+
+/* -------------------------------------------------------------------------- */
 /*  BroadPhaseQuery — obtained from PhysicsSystem, not owned by caller        */
 /* -------------------------------------------------------------------------- */
 JOLTC_API const JoltC_BroadPhaseQuery* JoltC_PhysicsSystem_GetBroadPhaseQuery(const JoltC_PhysicsSystem* system);

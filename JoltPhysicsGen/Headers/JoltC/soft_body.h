@@ -76,6 +76,33 @@ JOLTC_API void JoltC_SoftBodyMotionProperties_GetLocalBounds(const JoltC_SoftBod
 JOLTC_API float JoltC_SoftBodyMotionProperties_GetPressure(const JoltC_SoftBodyMotionProperties* motionProperties);
 JOLTC_API void JoltC_SoftBodyMotionProperties_SetPressure(JoltC_SoftBodyMotionProperties* motionProperties, float pressure);
 
+/* -------------------------------------------------------------------------- */
+/*  SoftBodyContactListener — collision callbacks for soft bodies             */
+/* -------------------------------------------------------------------------- */
+/* The exact twin of the vehicle step listener repair: the callbacks existed in Jolt all along, and
+ * without the Set call on the system they were unreachable. The listener must outlive its
+ * registration; unregister with a null listener before destroying it. */
+JOLTC_API JoltC_SoftBodyContactListener* JoltC_SoftBodyContactListener_Create(
+    JoltC_OnSoftBodyContactValidateFn onValidate,
+    JoltC_OnSoftBodyContactAddedFn    onAdded,
+    void*                             userData);
+JOLTC_API void JoltC_SoftBodyContactListener_Destroy(JoltC_SoftBodyContactListener* listener);
+JOLTC_API void JoltC_PhysicsSystem_SetSoftBodyContactListener(JoltC_PhysicsSystem* system, JoltC_SoftBodyContactListener* listener);
+
+/* -------------------------------------------------------------------------- */
+/*  SoftBodyManifold — reading contacts inside the contact added callback     */
+/* -------------------------------------------------------------------------- */
+/* The manifold borrows the soft body's internal arrays: every one of these is only valid for the
+ * duration of the callback that handed the manifold over. */
+JOLTC_API uint32_t   JoltC_SoftBodyManifold_GetVertexCount(const JoltC_SoftBodyManifold* manifold);
+JOLTC_API JoltC_Bool JoltC_SoftBodyManifold_HasContact(const JoltC_SoftBodyManifold* manifold, uint32_t vertexIndex);
+/* Local to the soft body's center of mass, like the vertex positions. */
+JOLTC_API void       JoltC_SoftBodyManifold_GetLocalContactPoint(const JoltC_SoftBodyManifold* manifold, uint32_t vertexIndex, JoltC_Vec3* outPoint);
+JOLTC_API void       JoltC_SoftBodyManifold_GetContactNormal(const JoltC_SoftBodyManifold* manifold, uint32_t vertexIndex, JoltC_Vec3* outNormal);
+JOLTC_API JoltC_BodyID JoltC_SoftBodyManifold_GetContactBodyID(const JoltC_SoftBodyManifold* manifold, uint32_t vertexIndex);
+JOLTC_API uint32_t   JoltC_SoftBodyManifold_GetNumSensorContacts(const JoltC_SoftBodyManifold* manifold);
+JOLTC_API JoltC_BodyID JoltC_SoftBodyManifold_GetSensorContactBodyID(const JoltC_SoftBodyManifold* manifold, uint32_t index);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
