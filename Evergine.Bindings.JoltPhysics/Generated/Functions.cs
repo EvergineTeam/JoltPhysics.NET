@@ -6095,5 +6095,24 @@ namespace Evergine.Bindings.JoltPhysics
 		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_PhysicsSystem_DrawConstraintLimits")]
 		public static extern void PhysicsSystem_DrawConstraintLimits(IntPtr system, IntPtr renderer);
 
+		/// <summary>
+		/// Shape::Draw. DrawBodies above draws every body where the solver has it, which is the last simulated
+		/// instant; a caller that renders interpolated poses draws its meshes a fraction of a step behind that,
+		/// and an outline that does not sit on the mesh it outlines is worse than no outline. This draws one
+		/// shape wherever the caller says, so the two can be made to agree. It lives with the renderer because
+		/// Shape::Draw only exists when Jolt is built with its debug renderer.
+		/// The transform is the centre of mass one, which is the body transform composed with the shape&apos;s
+		/// centre of mass, and it travels by pointer like every other Mat44 here.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Shape_Draw")]
+		public static extern void Shape_Draw(IntPtr shape, IntPtr renderer, Mat44* centerOfMassTransform, Vec3 scale, uint color, [MarshalAs(UnmanagedType.Bool)] bool useMaterialColors, [MarshalAs(UnmanagedType.Bool)] bool drawWireframe);
+
+		/// <summary>
+		/// The palette DrawBodies colours dynamic bodies with, so a caller drawing the shapes itself can keep
+		/// the colours it had.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_Color_GetDistinctColor")]
+		public static extern uint Color_GetDistinctColor(uint index);
+
 	}
 }

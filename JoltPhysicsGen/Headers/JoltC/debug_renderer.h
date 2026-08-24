@@ -109,6 +109,27 @@ JOLTC_API void JoltC_PhysicsSystem_DrawBodies(JoltC_PhysicsSystem* system, const
 JOLTC_API void JoltC_PhysicsSystem_DrawConstraints(JoltC_PhysicsSystem* system, JoltC_DebugRenderer* renderer);
 JOLTC_API void JoltC_PhysicsSystem_DrawConstraintLimits(JoltC_PhysicsSystem* system, JoltC_DebugRenderer* renderer);
 
+/* Shape::Draw. DrawBodies above draws every body where the solver has it, which is the last simulated
+ * instant; a caller that renders interpolated poses draws its meshes a fraction of a step behind that,
+ * and an outline that does not sit on the mesh it outlines is worse than no outline. This draws one
+ * shape wherever the caller says, so the two can be made to agree. It lives with the renderer because
+ * Shape::Draw only exists when Jolt is built with its debug renderer.
+ *
+ * The transform is the centre of mass one, which is the body transform composed with the shape's
+ * centre of mass, and it travels by pointer like every other Mat44 here. */
+JOLTC_API void JoltC_Shape_Draw(
+    const JoltC_Shape*   shape,
+    JoltC_DebugRenderer* renderer,
+    const JoltC_Mat44*   centerOfMassTransform,
+    JoltC_Vec3           scale,
+    uint32_t             color,
+    JoltC_Bool           useMaterialColors,
+    JoltC_Bool           drawWireframe);
+
+/* The palette DrawBodies colours dynamic bodies with, so a caller drawing the shapes itself can keep
+ * the colours it had. */
+JOLTC_API uint32_t JoltC_Color_GetDistinctColor(uint32_t index);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
