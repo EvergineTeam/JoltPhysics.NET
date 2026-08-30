@@ -250,6 +250,22 @@ JOLTC_API void  JoltC_TrackedVehicleControllerSettings_SetEngine(JoltC_TrackedVe
 JOLTC_API const JoltC_VehicleTransmissionSettings* JoltC_TrackedVehicleControllerSettings_GetTransmission(const JoltC_TrackedVehicleControllerSettings* s);
 JOLTC_API void  JoltC_TrackedVehicleControllerSettings_SetTransmission(JoltC_TrackedVehicleControllerSettings* s, const JoltC_VehicleTransmissionSettings* value);
 
+/* Which wheels each of the two tracks drives, and how that track behaves.
+ *
+ * A tracked vehicle will not simulate without these: a track whose wheel list is empty leaves every
+ * wheel with no track index, and the controller then indexes its track array with it. */
+JOLTC_API void JoltC_TrackedVehicleControllerSettings_SetTrack(
+    JoltC_TrackedVehicleControllerSettings* s,
+    JoltC_TrackSide side,
+    const JoltC_VehicleTrackSettings* value);
+
+/* Reads one track back. The `wheels` pointer of the result is borrowed: it points into the settings
+ * object and stays valid until that track is set again or the settings are destroyed. */
+JOLTC_API void JoltC_TrackedVehicleControllerSettings_GetTrack(
+    const JoltC_TrackedVehicleControllerSettings* s,
+    JoltC_TrackSide side,
+    JoltC_VehicleTrackSettings* result);
+
 /* ========================================================================== */
 /*  WheeledVehicleController (runtime)                                        */
 /* ========================================================================== */

@@ -4854,6 +4854,21 @@ namespace Evergine.Bindings.JoltPhysics
 		public static extern void TrackedVehicleControllerSettings_SetTransmission(IntPtr s, IntPtr value);
 
 		/// <summary>
+		/// Which wheels each of the two tracks drives, and how that track behaves.
+		/// A tracked vehicle will not simulate without these: a track whose wheel list is empty leaves every
+		/// wheel with no track index, and the controller then indexes its track array with it.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_TrackedVehicleControllerSettings_SetTrack")]
+		public static extern void TrackedVehicleControllerSettings_SetTrack(IntPtr s, TrackSide side, VehicleTrackSettings* value);
+
+		/// <summary>
+		/// Reads one track back. The `wheels` pointer of the result is borrowed: it points into the settings
+		/// object and stays valid until that track is set again or the settings are destroyed.
+		/// </summary>
+		[DllImport(Native.Dll, CallingConvention = Native.Conv, EntryPoint = "JoltC_TrackedVehicleControllerSettings_GetTrack")]
+		public static extern void TrackedVehicleControllerSettings_GetTrack(IntPtr s, TrackSide side, VehicleTrackSettings* result);
+
+		/// <summary>
 		/// ==========================================================================
 		/// WheeledVehicleController (runtime)
 		/// ==========================================================================
