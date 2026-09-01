@@ -45,7 +45,7 @@ jobs:
     with:
       org:  ${{ github.event.inputs.org  || 'EvergineTeam' }}
       repo: ${{ github.event.inputs.repo || 'evergine-standards' }}
-      ref:  ${{ github.event.inputs.ref  || 'main' }}
+      ref:  ${{ github.event.inputs.ref  || 'v2' }}
       target_branch: ${{ github.event.inputs.target_branch || 'main' }}
       commit_message: "${{ github.event.inputs.commit_message || vars.STANDARDS_COMMIT_MESSAGE || 'auto: sync standard files [skip ci]' }}"
       mode: ${{ github.event.inputs.mode || 'auto' }}
