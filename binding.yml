@@ -21,7 +21,7 @@ upstream:
   release:
     repo: EvergineTeam/JoltPhysicsC
     # Stable releases, not main. The tag is the only thing that ties the headers and the
-    # ten native libraries to one revision of the C wrapper: they are built from the same
+    # eleven native libraries to one revision of the C wrapper: they are built from the same
     # commit and published together. Following main would take headers from whatever was
     # pushed last, against binaries from whenever somebody last copied them.
     track: stable
@@ -36,7 +36,7 @@ upstream:
       path: JoltPhysicsGen/Headers/JoltC
       format: c-header
 
-  # The ten libraries, from the same release as the headers above. Each archive already
+  # The eleven libraries, from the same release as the headers above. Each archive already
   # carries runtimes/<rid>/native/, so unpacking is the whole mapping.
   #
   # They stay committed as well. The fetch keeps them current and is idempotent when the

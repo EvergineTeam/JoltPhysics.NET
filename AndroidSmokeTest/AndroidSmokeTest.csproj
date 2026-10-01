@@ -11,14 +11,14 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 
     <!--
-      Both ABIs the package ships, and this is where this differs from Cesium's equivalent,
-      which limits to one. JoltPhysicsC builds android-arm and android-arm64, so one APK carries
-      lib/armeabi-v7a and lib/arm64-v8a and the CI leg verifies both .so travelled in a single
-      build. Left to itself the Android SDK would also target x86 flavours the package has no
-      library for, and the packaging step would fail for a reason that has nothing to do with
-      what is under test.
+      All three ABIs the package ships, and this is where this differs from Cesium's equivalent,
+      which limits to one. JoltPhysicsC builds android-arm, android-arm64 and android-x64, so one
+      APK carries lib/armeabi-v7a, lib/arm64-v8a and lib/x86_64 and the CI leg verifies all three
+      .so travelled in a single build. Left to itself the Android SDK would also target 32-bit
+      x86, which the package has no library for, and the packaging step would fail for a reason
+      that has nothing to do with what is under test.
     -->
-    <RuntimeIdentifiers>android-arm;android-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>android-arm;android-arm64;android-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <!--

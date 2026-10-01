@@ -60,7 +60,7 @@ jobs:
       runtime-identifier: "win-x64"
       build-configuration: "Release"
       revision: ${{ github.run_number }}
-      # No natives-artifact-pattern: the ten libraries are not built here. They come from
+      # No natives-artifact-pattern: the eleven libraries are not built here. They come from
       # the release assets the manifest declares, unpacked by the fetch step, which is
       # also what satisfies the CD's refusal to commit a bump without them.
       force-publish: ${{ inputs.force-publish || false }}
