@@ -2,7 +2,7 @@
 //
 // It is not run. No GitHub runner can execute an APK without an emulator, and standing one up
 // per release was decided against. What the CI leg asserts instead is that libJoltC.so ends up
-// inside the APK under lib/armeabi-v7a/ and lib/arm64-v8a/ -- which is the class of mistake
+// inside the APK under lib/armeabi-v7a/, lib/arm64-v8a/ and lib/x86_64/ -- which is the class of mistake
 // this package actually shipped for months on wasm and iOS: a native library present in the
 // package and absent from where the platform looks for it. A build that merely compiles would
 // not notice either.

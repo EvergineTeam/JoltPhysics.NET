@@ -34,7 +34,7 @@ jobs:
       nuget-artifacts: ${{ inputs.publish-artifacts || false }}
       revision: ${{ github.run_number }}
 
-  # 1,280 P/Invoke declarations against ten native libraries nobody was comparing them to.
+  # 1,280 P/Invoke declarations against eleven native libraries nobody was comparing them to.
   # P/Invoke binds late: a declaration naming a symbol the library does not export
   # compiles, passes CI, packs, publishes, and throws the first time a consumer calls it.
   # Until today the libraries arrived here by hand, downloaded from another repository's

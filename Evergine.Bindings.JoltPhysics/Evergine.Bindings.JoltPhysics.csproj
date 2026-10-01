@@ -39,7 +39,7 @@
     probes, under a name nothing would have matched.
 
     Deliberately not conditioned on the file existing, unlike the same block in
-    Evergine.Bindings.CesiumNative. There the ten libraries are fetched at CD time and absent from
+    Evergine.Bindings.CesiumNative. There the eleven libraries are fetched at CD time and absent from
     a fresh clone, so a condition is the only way to pack at all. Here they are committed to the
     repository, so a missing archive means the fetch that overwrites them went wrong, and packing
     should fail and say so rather than quietly ship a package with no wasm in it.

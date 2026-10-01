@@ -4,9 +4,9 @@
 # produced, drops a sphere onto a floor through the native library, and fails the job if the
 # sphere does not fall, does not settle, or falls through.
 #
-# Eight of the ten identifiers. ios-arm64 and iossimulator-arm64 cannot be *run* on a runner,
+# Nine of the eleven identifiers. ios-arm64 and iossimulator-arm64 cannot be *run* on a runner,
 # but the simulator is linked and its executable inspected; android cannot be run either, but an
-# APK is built against the package and opened, and both libJoltC.so have to be inside it. What
+# APK is built against the package and opened, and all three libJoltC.so have to be inside it. What
 # remains unexecuted anywhere is ios-arm64 (a device build needs a signing identity) and the
 # android libraries themselves, which is stated in the README rather than glossed.
 #
@@ -353,9 +353,9 @@ jobs:
   # managed side compiled and says nothing about whether the native libraries travelled with it,
   # which is the only question this leg exists to answer.
   #
-  # One APK, both ABIs. Unlike Cesium.NET's equivalent, this package ships android-arm and
-  # android-arm64, so the project multi-targets both runtime identifiers and a single build
-  # verifies both libraries reached the APK.
+  # One APK, all three ABIs. Unlike Cesium.NET's equivalent, this package ships android-arm,
+  # android-arm64 and android-x64, so the project multi-targets the three runtime identifiers
+  # and a single build verifies that all three libraries reached the APK.
   android:
     name: android
     runs-on: ubuntu-latest
@@ -411,7 +411,7 @@ jobs:
 
       # The assertion. A package can carry runtimes/android-*/native and still lose them on the
       # way into the APK, and the build would be green either way.
-      - name: Check both native libraries are inside the APK
+      - name: Check all three native libraries are inside the APK
         shell: bash
         working-directory: AndroidSmokeTest
         run: |
@@ -425,7 +425,7 @@ jobs:
 
           apk = sys.argv[1]
           z = zipfile.ZipFile(apk)
-          wanted = ["lib/armeabi-v7a/libJoltC.so", "lib/arm64-v8a/libJoltC.so"]
+          wanted = ["lib/armeabi-v7a/libJoltC.so", "lib/arm64-v8a/libJoltC.so", "lib/x86_64/libJoltC.so"]
 
           libs = sorted(n for n in z.namelist() if n.startswith("lib/"))
           print("  APK is %.1f MB and carries %d native libraries" % (os.path.getsize(apk) / 1e6, len(libs)))
@@ -447,7 +447,7 @@ jobs:
           # Every ABI here is one the package had to supply. Anything else means the project
           # asked for a runtime identifier JoltPhysicsC does not build.
           abis = {n.split("/")[1] for n in libs}
-          if abis != {"armeabi-v7a", "arm64-v8a"}:
+          if abis != {"armeabi-v7a", "arm64-v8a", "x86_64"}:
               print("::error::unexpected ABIs in the APK: %s" % ", ".join(sorted(abis)))
               bad += 1
 
