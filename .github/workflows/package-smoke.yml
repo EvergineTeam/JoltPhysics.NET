@@ -272,8 +272,14 @@ jobs:
       - name: Show what Xcode this runner has
         run: xcodebuild -version
 
+      # Pinned to a workload set, because the floating install is what broke the publish of
+      # v5.6.13: `dotnet workload install ios` took the newest set, 10.0.401.1, whose iOS SDK
+      # (27.0) refuses to build with anything older than Xcode 27, and macos-latest ships 26.6.
+      # The set below carries iOS SDK 26.5, which Xcode 26 builds. Move it when the runner image
+      # gains the Xcode the newer SDK asks for; `dotnet workload search version <set>` says which
+      # iOS manifest a set installs.
       - name: Install the ios workload
-        run: dotnet workload install ios
+        run: dotnet workload install ios --version 10.0.401
 
       - name: Fetch the package from this run
         if: inputs.cd-run-id == ''
